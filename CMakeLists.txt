@@ -57,11 +57,20 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif ()
 
 
-add_library(${TargetUIWrap} SHARED
+file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
+file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
+
+set(TargetUIWrap_SOURCES
     src/filesys/impl_/FileSys_.cpp
     src/filesys/filesys.cpp
     src/linklib/linklib.cpp
     src/programsettings/programsettings.cpp
+)
+
+add_library(${TargetUIWrap} SHARED
+	${TargetUIWrap_SOURCES}
+	${TargetUIWrap_INCS}
+	${TargetUIWrap_SRC_INCS}
 )
 
 if (WIN32)
@@ -82,16 +91,13 @@ set(Boost_USE_STATIC_RUNTIME    OFF)
 find_package(Boost 1.56.0)
 
 if (NOT Toolib_INCLUDE_DIRS)
-set(Toolib_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/../Toolib)
+set(Toolib_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/include)
 endif ()
 if (NOT Toolib_LIBRARY_DIRS)
 set(Toolib_LIBRARY_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/lib)
 endif ()
 
 find_library(Toolib Toolib HINTS ${Toolib_LIBRARY_DIRS})
-#add_library(Toolib SHARED IMPORTED)
-#set_property(TARGET Toolib PROPERTY IMPORTED_LOCATION ${Toolib_LIBRARY_DIRS}/Toolib.lib)
-#find_package(Toolib)
 
 target_include_directories(${TargetUIWrap} PUBLIC .)
 target_include_directories(${TargetUIWrap} PUBLIC include)
@@ -105,8 +111,15 @@ target_link_libraries(${TargetUIWrap} PUBLIC ${Toolib})
 
 set(TargetUIWrapTest "UIWrapTest")
 
-add_executable(${TargetUIWrapTest}
+file(GLOB_RECURSE TargetUIWrapTest_SRC_INCS "test/*.h")
+
+set(TargetUIWrapTest_SOURCES
     test/src/filesys/filesys.test.cpp
+)
+
+add_executable(${TargetUIWrapTest}
+	${TargetUIWrapTest_SOURCES}
+	${TargetUIWrapTest_SRC_INCS}
 )
 
 if (WIN32)
@@ -121,7 +134,6 @@ find_package(GTest 1.7.0)
 
 target_include_directories(${TargetUIWrapTest} PRIVATE ${GTEST_INCLUDE_DIRS})
 
-MESSAGE("gtest both: ${GTEST_BOTH_LIBRARIES}")
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${GTEST_BOTH_LIBRARIES})
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})
 
