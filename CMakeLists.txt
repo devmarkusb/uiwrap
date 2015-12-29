@@ -91,6 +91,7 @@ set(Boost_USE_STATIC_RUNTIME    OFF)
 find_package(Boost 1.56.0)
 
 if (NOT Toolib_INCLUDE_DIRS)
+MESSAGE("Did not find Toolib vars!")
 set(Toolib_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/include)
 endif ()
 if (NOT Toolib_LIBRARY_DIRS)
@@ -99,7 +100,6 @@ endif ()
 
 find_library(Toolib Toolib HINTS ${Toolib_LIBRARY_DIRS})
 
-target_include_directories(${TargetUIWrap} PUBLIC .)
 target_include_directories(${TargetUIWrap} PUBLIC include)
 target_include_directories(${TargetUIWrap} PUBLIC ${Boost_INCLUDE_DIRS})
 target_include_directories(${TargetUIWrap} PUBLIC ${Toolib_INCLUDE_DIRS})

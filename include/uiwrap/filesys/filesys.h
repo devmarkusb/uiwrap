@@ -12,7 +12,7 @@
 #include <string>
 #include "Toolib/types.h"
 #include "Toolib/class/non_copyable.h"
-#include "uiwrap/uiwrapDEF.h"
+#include "uiwrapDEF.h"
 
 
 #if TOO_OS_WINDOWS == 1

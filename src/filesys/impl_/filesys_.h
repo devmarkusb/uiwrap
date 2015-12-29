@@ -10,7 +10,7 @@
 #define FILESYS__H_dklzuix3xh8734xr387x2xt35g269x5tgf
 
 #include "uiwrap/filesys/filesys.h"
-#include "uiwrap/uiwrapDEF.h"
+#include "uiwrapDEF.h"
 
 
 #if TOO_OS_WINDOWS == 1
