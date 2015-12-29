@@ -15,7 +15,7 @@
 #include "uiwrapDEF.h"
 
 
-#if TOO_OS_WINDOWS == 1
+#if TOO_COMP_MS_VISUAL_STUDIO_CPP == 1
 #pragma push_macro("CopyFile")
 #undef CopyFile
 #pragma push_macro("DeleteFile")
@@ -75,14 +75,14 @@ namespace uiw
             virtual bool SaveToFile(const too::string& FilePathNameExt) = 0;
             virtual bool LoadFromFile(const too::string& FilePathNameExt) = 0;
         };
-    } // file
+    }
 
     using IFileSys = file::IFileSys;
     using IFileData = file::IFileData;
-} // too
+}
 
 
-#if TOO_OS_WINDOWS == 1
+#if TOO_COMP_MS_VISUAL_STUDIO_CPP == 1
 #pragma pop_macro("DeleteFile")
 #pragma pop_macro("CopyFile")
 #endif
