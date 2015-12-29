@@ -11,15 +11,17 @@
 
 #include "uiwrap/programsettings/programsettings.h"
 #include <memory>
-#pragma warning(push)
-#pragma warning(disable:4512)
-#pragma warning(disable:4127)
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4512_BEGIN"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4127_BEGIN"
+#include "Toolib/PPDefs/GCC/SUPPRESS_WARNING_unused-local-typedefs_BEGIN"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/info_parser.hpp>
-#pragma warning(pop)
+#include "Toolib/PPDefs/GCC/SUPPRESS_WARNING_END"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
 
 namespace uiw
 {

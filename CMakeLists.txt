@@ -114,7 +114,7 @@ set(TargetUIWrapTest "UIWrapTest")
 file(GLOB_RECURSE TargetUIWrapTest_SRC_INCS "test/*.h")
 
 set(TargetUIWrapTest_SOURCES
-    test/src/filesys/filesys.test.cpp
+    test/filesys/filesys.test.cpp
 )
 
 add_executable(${TargetUIWrapTest}
