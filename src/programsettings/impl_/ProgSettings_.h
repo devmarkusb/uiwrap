@@ -11,8 +11,7 @@
 
 #include "uiwrap/programsettings/programsettings.h"
 #include <memory>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4512_BEGIN"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4127_BEGIN"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include "Toolib/PPDefs/GCC/SUPPRESS_WARNING_unused-local-typedefs_BEGIN"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
@@ -20,8 +19,8 @@
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/info_parser.hpp>
 #include "Toolib/PPDefs/GCC/SUPPRESS_WARNING_END"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+
 
 namespace uiw
 {

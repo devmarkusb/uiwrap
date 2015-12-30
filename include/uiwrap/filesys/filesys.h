@@ -82,10 +82,4 @@ namespace uiw
 }
 
 
-#if TOO_COMP_MS_VISUAL_STUDIO_CPP == 1
-#pragma pop_macro("DeleteFile")
-#pragma pop_macro("CopyFile")
-#endif
-
-
 #endif

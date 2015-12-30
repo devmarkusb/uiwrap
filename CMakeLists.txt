@@ -46,11 +46,13 @@ set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_L
 
 set_target_properties(${TargetUIWrap} PROPERTIES DEBUG_POSTFIX "d")
 
+if (NOT Boost_INCLUDE_DIRS)
 set(BOOST_ROOT "c:/projects/externlibs/boost_1_56_0")
 set(Boost_USE_MULTITHREADED     ON)
 set(Boost_USE_STATIC_LIBS       OFF)
 set(Boost_USE_STATIC_RUNTIME    OFF)
 find_package(Boost 1.56.0)
+endif ()
 
 if (NOT Toolib_INCLUDE_DIRS)
 set(Toolib_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/include)
