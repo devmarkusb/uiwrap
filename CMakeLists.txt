@@ -35,11 +35,19 @@ add_library(${TargetUIWrap} SHARED
 	${TargetUIWrap_SRC_INCS}
 )
 
+set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx,... or own (the default)")
+
 if (WIN32)
 set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
 endif ()
 
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIW_LINKLIB_IMPL_CHOICE_QT)
+elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIW_LINKLIB_IMPL_CHOICE_WX)
+else ()
 set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIW_LINKLIB_IMPL_CHOICE_OWN)
+endif ()
 
 # dll export define
 set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_LIBRARY)
