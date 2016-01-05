@@ -71,9 +71,11 @@ endif ()
 
 find_library(ToolibPreBuilt Toolib HINTS ${Toolib_LIBRARY_DIRS})
 
-target_include_directories(${TargetUIWrap} PUBLIC include)
+target_include_directories(${TargetUIWrap} PRIVATE include)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
-target_include_directories(${TargetUIWrap} PUBLIC ${Toolib_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} PRIVATE ${Toolib_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
+target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBuildEnv/include)
 
 if (ToolibPreBuilt)
 target_link_libraries(${TargetUIWrap} PUBLIC ${ToolibPreBuilt})
@@ -108,6 +110,10 @@ set(GTEST_MSVC_SEARCH   MD)
 find_package(GTest 1.7.0)
 
 target_include_directories(${TargetUIWrapTest} PRIVATE ${GTEST_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrapTest} PRIVATE include)
+target_include_directories(${TargetUIWrapTest} PRIVATE ${Toolib_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
+target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBuildEnv/include)
 
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${GTEST_BOTH_LIBRARIES})
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})

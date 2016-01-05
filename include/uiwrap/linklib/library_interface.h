@@ -10,7 +10,7 @@
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
 #include <memory>
-#include "Toolib/types.h"
+#include "Toolib/tooString.h"
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 

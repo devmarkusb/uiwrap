@@ -13,7 +13,7 @@
 #include <assert.h>
 #include "Toolib/PPDEFS.h"
 #include "Toolib/std/std_extensions.h"
-#include "Toolib/types.h"
+#include "Toolib/tooString.h"
 #include "uiwrap/linklib/library_interface.h"
 #if TOO_OS_WINDOWS == 1
 #include <windows.h>

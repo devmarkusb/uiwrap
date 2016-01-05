@@ -10,7 +10,7 @@
 #define FILESYS_H_INCL_xcsabgzduzbvfget32
 
 #include <string>
-#include "Toolib/types.h"
+#include "Toolib/tooString.h"
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
