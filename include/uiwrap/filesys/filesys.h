@@ -15,12 +15,10 @@
 #include "uiwrapDEF.h"
 
 
-#if TOO_COMP_MS_VISUAL_STUDIO_CPP == 1
 #pragma push_macro("CopyFile")
 #undef CopyFile
 #pragma push_macro("DeleteFile")
 #undef DeleteFile
-#endif
 
 
 namespace uiw
