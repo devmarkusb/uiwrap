@@ -10,30 +10,30 @@
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/MessageBox_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-//todo
+// todo
 #else
-//todo
+// todo
 #endif
 
 
 namespace uiw
 {
-	static std::unique_ptr<IMessageBox> IMessageBox::make()
-	{
+static std::unique_ptr<IMessageBox> IMessageBox::make()
+{
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-		return std::make_unique<implQt::CMessageBox_Qt>();
+    return std::make_unique<implQt::CMessageBox_Qt>();
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-		//todo
-		return nullptr;
+    // todo
+    return nullptr;
 
 #else
 
-		//todo
-		return nullptr;
+    // todo
+    return nullptr;
 
 #endif
-	}
+}
 }

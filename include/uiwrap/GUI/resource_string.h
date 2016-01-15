@@ -14,16 +14,16 @@
 
 namespace uiw
 {
-    namespace gui
-    {
-        class IResourceString
-        {
-        public:
-            virtual ~IResourceString() {}
+namespace gui
+{
+class IResourceString
+{
+public:
+    virtual ~IResourceString() {}
 
-            virtual too::string GetString(TResID id) const = 0;
-        };
-    }
+    virtual too::string GetString(TResID id) const = 0;
+};
+}
 }
 
 #endif

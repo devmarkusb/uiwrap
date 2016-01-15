@@ -37,13 +37,12 @@ public:
     virtual EButton GetRunResult();
 
 private:
-    QMessageBox                 m_MsgBox;
+    QMessageBox m_MsgBox;
     QMessageBox::StandardButton m_RetVal{QMessageBox::NoButton};
 
     QMessageBox::StandardButton EButton2StandardButton(EButton b);
     EButton StandardButton2EButton(QMessageBox::StandardButton qb);
 };
-
 }
 }
 

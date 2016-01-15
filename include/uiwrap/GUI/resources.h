@@ -11,10 +11,10 @@
 
 namespace uiw
 {
-    namespace gui
-    {
-        typedef long    TResID;
-    }
+namespace gui
+{
+typedef long TResID;
+}
 }
 
 #endif

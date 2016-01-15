@@ -11,7 +11,7 @@
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-//todo
+// todo
 #else
 #include "impl_/ProgSettings_.h"
 #endif
@@ -19,26 +19,27 @@
 
 namespace uiw
 {
-	IProgSettings* IProgSettings::GetInstance(const too::string& FileNamePath, const too::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
-	{
+IProgSettings* IProgSettings::GetInstance(
+    const too::string& FileNamePath, const too::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
+{
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-		too::ignore_arg(FileNamePath);
-		too::ignore_arg(FileExt);
-		too::ignore_arg(PreferredStorageFileFormat);
-		static implQt::CProgSettings instance;
-		return &instance;
+    too::ignore_arg(FileNamePath);
+    too::ignore_arg(FileExt);
+    too::ignore_arg(PreferredStorageFileFormat);
+    static implQt::CProgSettings instance;
+    return &instance;
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-		//todo
-		return nullptr;
+    // todo
+    return nullptr;
 
 #else
 
-		static impl::CProgSettings instance(FileNamePath, FileExt, PreferredStorageFileFormat);
-		return &instance;
+    static impl::CProgSettings instance(FileNamePath, FileExt, PreferredStorageFileFormat);
+    return &instance;
 
 #endif
-	}
+}
 }

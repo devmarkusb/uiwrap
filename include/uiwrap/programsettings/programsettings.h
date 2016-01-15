@@ -23,19 +23,19 @@ static const too::string& HIERARCHY_SEPARATOR = _TOOSTR(".");
 class UIWRAPSHARED_EXPORT IProgSettings : private too::non_copyable
 {
 public:
-	enum class StorageFileFormat
-	{
-		INI,
-		XML,
-		JSON,
-		BOOST_INFO,
-	};
+    enum class StorageFileFormat
+    {
+        INI,
+        XML,
+        JSON,
+        BOOST_INFO,
+    };
 
-	virtual ~IProgSettings() = default;
+    virtual ~IProgSettings() = default;
 
-	static IProgSettings* GetInstance(const too::string& FileNamePath = too::string(),
-		const too::string& FileExt = too::string(),
-		StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
+    static IProgSettings* GetInstance(const too::string& FileNamePath = too::string(),
+        const too::string& FileExt                   = too::string(),
+        StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
     virtual void Init(const too::string& OrganizationName, const too::string& ApplicationName) = 0;
 
     using TInteger = int;
@@ -43,8 +43,12 @@ public:
 
     virtual void SetValue(const too::string& SectionName, const too::string& KeyName, const TVariant& Value) = 0;
     void SetValue(const too::string& KeyName, const TVariant& Value) { SetValue(too::string(), KeyName, Value); }
-    virtual TVariant Value(const too::string& SectionName, const too::string& KeyName, const TVariant& Default = TVariant()) const = 0;
-    TVariant Value(const too::string& KeyName, const TVariant& Default = TVariant()) const { return Value(too::string(), KeyName, Default); }
+    virtual TVariant Value(
+        const too::string& SectionName, const too::string& KeyName, const TVariant& Default = TVariant()) const = 0;
+    TVariant Value(const too::string& KeyName, const TVariant& Default = TVariant()) const
+    {
+        return Value(too::string(), KeyName, Default);
+    }
 
     using TSectionKeyPair = std::pair<too::string, too::string>;
     virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;

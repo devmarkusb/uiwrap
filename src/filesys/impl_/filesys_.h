@@ -42,7 +42,6 @@ public:
 
     virtual bool GetSystemPath(ESysPathType Type, too::string& Path, bool WithTrailingSeperator) override;
 };
-
 }
 }
 

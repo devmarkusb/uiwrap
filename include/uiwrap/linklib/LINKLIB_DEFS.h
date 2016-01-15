@@ -22,21 +22,21 @@
     from the outside, too. Of course, if you have only one header to share, you can put the code of YourlibDEF.h
     right into there and spare that additional header.
     (4) Exporting things then goes like this:
-	\code
+    \code
     #include "YourlibDEF.h"
     class YOURLIBSHARED_EXPORT CExample {...};
     YOURLIBSHARED_EXPORT inline void f(...) {...}
     YOURLIBSHARED_EXPORT void g(...);
     YOURLIBSHARED_EXPORT int i;
-	\endcode
+    \endcode
     (5) Remark: Do not use a DllMain function. This is Windows-only.
     (6) Important additional configuration of this LINKLIB_DEFS.h:
-	compile define the following:
-	UIW_LINKLIB_IMPL_CHOICE_<which?>
-	where <which?> is one of
+    compile define the following:
+    UIW_LINKLIB_IMPL_CHOICE_<which?>
+    where <which?> is one of
     OWN or DEFAULT or no define of that sort at all,
     QT,
-	...
+    ...
     Note that the OWN choice is Windows-only so far.
     (7) Add UIW_EXTERN_C_DECLS (next to YOURLIBSHARED_EXPORT) if you intend to allow your library users the
     choice of late binding.
@@ -46,12 +46,12 @@
         Nothing to do. Just include your library headers with the exported symbols that you like to use.
     - Late binding (loading a library on your own at an arbitrary point during run-time)
         1. Include the wanted library headers like above also. Make sure that your application is built with the same
-		implementation choice UIW_LINKLIB_IMPL_CHOICE_<which?> like your library.
+        implementation choice UIW_LINKLIB_IMPL_CHOICE_<which?> like your library.
         2. Make sure the library header exports its symbols with UIW_EXTERN_C_DECLS.
         To some extend it seems to be even possible to export namespace content and STL stuff.
         If there is no UIW_EXTERN_C_DECLS, the symbol cannot be binded late.
         3. From your application use ILibrary from library_interface.h by starting with a make() function call,
-		which already tries to load the library if a file name is provided.
+        which already tries to load the library if a file name is provided.
         4. Note: use function pointers for symbol resolving. A redirection via std::function doesn't help much, since
         there is no equivalence std::function* <-> function pointer.
     - Note: Never use late binding, if not absolutely necessary. There are just more pitfalls.
@@ -75,7 +75,7 @@ UIW_LINKLIB_IMPL_CHOICE_WX,
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/LINKLIB_DEFS_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-//todo
+// todo
 #else
 #include "impl_/LINKLIB_DEFS_.h"
 #endif
@@ -86,9 +86,9 @@ UIW_LINKLIB_IMPL_CHOICE_WX,
 //! Put UIW_EXTERN_C_DECLS in front of your YOURLIBSHARED_EXPORT-define
 //! (being switch-wise UIW_DECL_EXPORT/UIW_DECL_IMPORT) if appropriate.
 #if TOO_LANG_STANDARD_CPP == 1
-#define UIW_EXTERN_C_DECLS        extern "C"
-#define UIW_EXTERN_C_DECLS_BEGIN  extern "C" {
-#define UIW_EXTERN_C_DECLS_END    }
+#define UIW_EXTERN_C_DECLS extern "C"
+#define UIW_EXTERN_C_DECLS_BEGIN extern "C" {
+#define UIW_EXTERN_C_DECLS_END }
 #else
 #define UIW_EXTERN_C_DECLS
 #define UIW_EXTERN_C_DECLS_BEGIN

@@ -34,10 +34,8 @@ inline const std::unique_ptr<QSettings>& CProgSettings::m_settings() const
 
 void CProgSettings::Init(const too::string& OrganizationName, const too::string& ApplicationName)
 {
-    m_settings_impl_doNotUseItDirectlyExceptOnInit
-            = std::make_unique<QSettings>(
-                QSettings::IniFormat, QSettings::UserScope,
-                toos2qs(OrganizationName), toos2qs(ApplicationName));
+    m_settings_impl_doNotUseItDirectlyExceptOnInit = std::make_unique<QSettings>(
+        QSettings::IniFormat, QSettings::UserScope, toos2qs(OrganizationName), toos2qs(ApplicationName));
     m_FirstOccurredError = EError::E_NO_ERROR;
     GetError();
 }
@@ -141,14 +139,14 @@ class Convert_var2qvar_visitor : public boost::static_visitor<QVariant>
 {
 public:
     // template version leads to a bunch of compile errors; didn't think about it much, since the variant below worked
-//    template<typename T>
-//    QVariant operator()(const T& v) const
-//    {
-//        if (std::is_same<T,too::string>::value)
-//            return QVariant(toos2qs(v));
-//        else
-//            return QVariant(v);
-//    }
+    //    template<typename T>
+    //    QVariant operator()(const T& v) const
+    //    {
+    //        if (std::is_same<T,too::string>::value)
+    //            return QVariant(toos2qs(v));
+    //        else
+    //            return QVariant(v);
+    //    }
     QVariant operator()(const CProgSettings::TInteger& v) const { return QVariant(v); }
     QVariant operator()(const double& v) const { return QVariant(v); }
     QVariant operator()(const too::string& v) const { return QVariant(toos2qs(v)); }
@@ -164,7 +162,7 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
 {
     bool isOK = true;
     TVariant ret;
-    switch(v.type())
+    switch (v.type())
     {
     case QMetaType::Int:
         ret = v.toInt(&isOK);
@@ -187,7 +185,8 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
     return ret;
 }
 
-CProgSettings::TVariant CProgSettings::Value(const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Default) const
+CProgSettings::TVariant CProgSettings::Value(
+    const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Default) const
 {
     if (!m_settings())
         return TVariant();
@@ -198,13 +197,13 @@ CProgSettings::TVariant CProgSettings::Value(const too::string& SectionName, con
     return qvar2var(val);
 }
 
-void CProgSettings::SetValue(const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Value)
+void CProgSettings::SetValue(
+    const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Value)
 {
     if (!m_settings())
         return;
     m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), var2qvar(Value));
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
-
 }
 }

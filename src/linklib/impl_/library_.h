@@ -33,7 +33,8 @@ class CLibrary_win : public CLibrary
 public:
     explicit CLibrary_win(too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
-    {}
+    {
+    }
 
     virtual void* ResolveSymbol(std::string Symbol)
     {
@@ -57,7 +58,7 @@ public:
     virtual bool Load()
     {
         too::string dll(GetFileName());
-        dll+= _TOOSTR(".dll");
+        dll += _TOOSTR(".dll");
         // LPCTSTR is const wchar_t* and UTF16 assuming Windows-Unicode
         m_DllHandle = LoadLibrary(too::str::Utf8_string_To_Utf16_wstring(dll).c_str());
         if (!m_DllHandle)
@@ -72,7 +73,7 @@ public:
 
     virtual bool Unload()
     {
-		bool ret = FreeLibrary(m_DllHandle) ? true : false;
+        bool ret = FreeLibrary(m_DllHandle) ? true : false;
         if (!ret)
         {
             too::stringstream ssErr;
@@ -84,15 +85,17 @@ public:
     }
 
 private:
-    HMODULE     m_DllHandle{nullptr};
+    HMODULE m_DllHandle{nullptr};
 };
 #elif TOO_OS_LINUX == 1
 class CLibrary_linux : public CLibrary
 {
 public:
-    explicit CLibrary_linux(too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
+    explicit CLibrary_linux(
+        too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
-    {}
+    {
+    }
 
     virtual void* ResolveSymbol(std::string Symbol)
     {
@@ -107,19 +110,16 @@ public:
     virtual bool Load()
     {
         too::string dll(GetFileName());
-        dll+= _TOOSTR(".so");
+        dll += _TOOSTR(".so");
         m_DllHandle = dlopen(dll.c_str(), OPEN_MODE);
         return m_DllHandle;
     }
 
-    virtual bool Unload()
-    {
-        return dlclose(m_DllHandle);
-    }
+    virtual bool Unload() { return dlclose(m_DllHandle); }
 
 private:
-    void*               m_DllHandle{nullptr};
-    static const int    OPEN_MODE  =   2;
+    void* m_DllHandle{nullptr};
+    static const int OPEN_MODE = 2;
 };
 #endif
 }

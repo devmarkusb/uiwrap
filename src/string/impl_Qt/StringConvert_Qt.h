@@ -31,7 +31,6 @@ inline QString toos2qs(too::string s)
     too::static_assert_string_BitsPerChar_and_Encoding<too::string, 8>();
     return QString::fromUtf8(s.c_str());
 }
-
 }
 }
 

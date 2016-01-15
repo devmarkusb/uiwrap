@@ -121,9 +121,8 @@ bool CFileSys_Qt::GetSystemPath(too::file::IFileSys::ESysPathType Type, too::str
         Path = qs2toos(QDir::current().absolutePath());
     }
     if (WithTrailingSeperator)
-        Path+= FOLDER_SEPARATOR_TO_USE_HERE;
+        Path += FOLDER_SEPARATOR_TO_USE_HERE;
     return true;
 }
-
 }
 }

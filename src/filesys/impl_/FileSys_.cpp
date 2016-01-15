@@ -37,7 +37,7 @@ bool CFileSys_::LoadFromTextFile(const too::string& FilePathNameExt, too::string
     const auto size = file.tellg();
     if (!file || size == static_cast<decltype(size)>(-1))
         return false;
-    Content.resize(static_cast<size_t>(size));   // need the precise size for the string, I guess
+    Content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
     if (!file)
         return false;
@@ -58,7 +58,7 @@ bool CFileSys_::CopyFile(const too::string& FilePathNameExt_From, const too::str
 }
 
 bool CFileSys_::DeleteFile(const too::string& FilePathNameExt)
-{    
+{
     return !std::remove(FilePathNameExt.c_str());
 }
 
@@ -125,9 +125,8 @@ bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, too::string& Path, bo
         break;
     }
     if (WithTrailingSeperator)
-        Path+= FOLDER_SEPARATOR_TO_USE_HERE;
+        Path += FOLDER_SEPARATOR_TO_USE_HERE;
     return false;
 }
-
 }
 }
