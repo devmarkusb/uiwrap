@@ -17,7 +17,7 @@ namespace uiw
 namespace impl
 {
 
-bool CFileSys_::SaveToTextFile(const too::string& FilePathNameExt, const too::string& Content)
+bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
 {
     std::ofstream file(FilePathNameExt);
     if (!file)
@@ -26,7 +26,7 @@ bool CFileSys_::SaveToTextFile(const too::string& FilePathNameExt, const too::st
     return true;
 }
 
-bool CFileSys_::LoadFromTextFile(const too::string& FilePathNameExt, too::string& Content)
+bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content)
 {
     std::ifstream file(FilePathNameExt);
     if (!file)
@@ -45,7 +45,7 @@ bool CFileSys_::LoadFromTextFile(const too::string& FilePathNameExt, too::string
     return true;
 }
 
-bool CFileSys_::CopyFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To)
+bool CFileSys_::CopyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
 {
     std::ifstream src(FilePathNameExt_From, std::ios::binary);
     if (!src)
@@ -57,56 +57,56 @@ bool CFileSys_::CopyFile(const too::string& FilePathNameExt_From, const too::str
     return true;
 }
 
-bool CFileSys_::DeleteFile(const too::string& FilePathNameExt)
+bool CFileSys_::DeleteFile(const std::string& FilePathNameExt)
 {
     return !std::remove(FilePathNameExt.c_str());
 }
 
-bool CFileSys_::RenameFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To)
+bool CFileSys_::RenameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
 {
     too::ignore_arg(FilePathNameExt_From);
     too::ignore_arg(FilePathNameExt_To);
     return false;
 }
 
-bool CFileSys_::CreateFolder(const too::string& FolderPath)
+bool CFileSys_::CreateFolder(const std::string& FolderPath)
 {
     too::ignore_arg(FolderPath);
     return false;
 }
 
-bool CFileSys_::DeleteFolder(const too::string& FolderPath)
+bool CFileSys_::DeleteFolder(const std::string& FolderPath)
 {
     too::ignore_arg(FolderPath);
     return false;
 }
 
-bool CFileSys_::RenameFolder(const too::string& FolderPath_From, const too::string& FolderPath_To)
+bool CFileSys_::RenameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To)
 {
     too::ignore_arg(FolderPath_From);
     too::ignore_arg(FolderPath_To);
     return false;
 }
 
-bool CFileSys_::FolderExists(const too::string& FolderPath)
+bool CFileSys_::FolderExists(const std::string& FolderPath)
 {
     too::ignore_arg(FolderPath);
     return false;
 }
 
-bool CFileSys_::FileExists(const too::string& FilePathNameExt)
+bool CFileSys_::FileExists(const std::string& FilePathNameExt)
 {
     std::ifstream file(FilePathNameExt, std::ios_base::binary);
     return file ? true : false;
 }
 
-too::string CFileSys_::toNativeSeparators(const too::string& Path)
+std::string CFileSys_::toNativeSeparators(const std::string& Path)
 {
     too::ignore_arg(Path);
-    return too::string();
+    return std::string();
 }
 
-bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, too::string& Path, bool WithTrailingSeperator)
+bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator)
 {
     switch (Type)
     {

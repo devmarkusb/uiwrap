@@ -61,9 +61,9 @@ public:
     virtual void AddButton(EButton b) = 0;
     virtual void SetDefaultButton(EButton b) = 0;
     virtual void SetEscapeButton(EButton b) = 0;
-    virtual void SetCaption(const too::string& s) = 0;
-    virtual void SetText(const too::string& s) = 0;
-    virtual void SetDetailedText(const too::string& s) = 0;
+    virtual void SetCaption(const std::string& s) = 0;
+    virtual void SetText(const std::string& s) = 0;
+    virtual void SetDetailedText(const std::string& s) = 0;
     virtual void SetIcon(EIcon i) = 0;
 
     virtual bool RunModal() = 0;

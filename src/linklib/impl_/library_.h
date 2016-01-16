@@ -13,7 +13,6 @@
 #include <assert.h>
 #include "Toolib/PPDEFS.h"
 #include "Toolib/std/std_extensions.h"
-#include "Toolib/string/tooString.h"
 #include "uiwrap/linklib/library_interface.h"
 #if TOO_OS_WINDOWS == 1
 #include <windows.h>
@@ -31,7 +30,7 @@ namespace uiw
 class CLibrary_win : public CLibrary
 {
 public:
-    explicit CLibrary_win(too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
+    explicit CLibrary_win(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
     {
     }
@@ -57,15 +56,15 @@ public:
 
     virtual bool Load()
     {
-        too::string dll(GetFileName());
-        dll += _TOOSTR(".dll");
+        std::string dll(GetFileName());
+        dll += ".dll";
         // LPCTSTR is const wchar_t* and UTF16 assuming Windows-Unicode
         m_DllHandle = LoadLibrary(too::str::Utf8_string_To_Utf16_wstring(dll).c_str());
         if (!m_DllHandle)
         {
-            too::stringstream ssErr;
+            std::stringstream ssErr;
             ssErr << "LoadLibrary " << dll << " failed: ";
-            ssErr << too::lex_cast<too::string>(GetLastError());
+            ssErr << too::lex_cast<std::string>(GetLastError());
             SetError(ssErr.str());
         }
         return m_DllHandle ? true : false;
@@ -76,9 +75,9 @@ public:
         bool ret = FreeLibrary(m_DllHandle) ? true : false;
         if (!ret)
         {
-            too::stringstream ssErr;
+            std::stringstream ssErr;
             ssErr << "FreeLibrary " << GetFileName() << " failed: ";
-            ssErr << too::lex_cast<too::string, DWORD>(GetLastError());
+            ssErr << too::lex_cast<std::string, DWORD>(GetLastError());
             SetError(ssErr.str());
         }
         return ret;
@@ -92,7 +91,7 @@ class CLibrary_linux : public CLibrary
 {
 public:
     explicit CLibrary_linux(
-        too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
+        std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
     {
     }
@@ -109,8 +108,8 @@ public:
 
     virtual bool Load()
     {
-        too::string dll(GetFileName());
-        dll += _TOOSTR(".so");
+        std::string dll(GetFileName());
+        dll += ".so";
         m_DllHandle = dlopen(dll.c_str(), OPEN_MODE);
         return m_DllHandle;
     }

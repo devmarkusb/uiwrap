@@ -10,7 +10,6 @@
 #define FILESYS_H_INCL_xcsabgzduzbvfget32
 
 #include <string>
-#include "Toolib/string/tooString.h"
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
@@ -34,22 +33,21 @@ public:
 
     static IFileSys* GetInstance();
 
-    static const too::charType FOLDER_SEPARATOR_TO_USE_HERE =
-        '/'; // _TOOSTR() i.e. u8 doesn't work for char-literal ' ' with mingw yet?!
+    static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
-    virtual bool SaveToTextFile(const too::string& FilePathNameExt, const too::string& Content) = 0;
-    virtual bool LoadFromTextFile(const too::string& FilePathNameExt, too::string& Content) = 0;
+    virtual bool SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content) = 0;
+    virtual bool LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content) = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
-    virtual bool CopyFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To) = 0;
-    virtual bool DeleteFile(const too::string& FilePathNameExt) = 0;
-    virtual bool RenameFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To) = 0;
-    virtual bool CreateFolder(const too::string& FolderPath) = 0;
-    virtual bool DeleteFolder(const too::string& FolderPath) = 0;
-    virtual bool RenameFolder(const too::string& FolderPath_From, const too::string& FolderPath_To) = 0;
-    virtual bool FolderExists(const too::string& FolderPath) = 0;
-    virtual bool FileExists(const too::string& FilePathNameExt) = 0;
+    virtual bool CopyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) = 0;
+    virtual bool DeleteFile(const std::string& FilePathNameExt) = 0;
+    virtual bool RenameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) = 0;
+    virtual bool CreateFolder(const std::string& FolderPath) = 0;
+    virtual bool DeleteFolder(const std::string& FolderPath) = 0;
+    virtual bool RenameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To) = 0;
+    virtual bool FolderExists(const std::string& FolderPath) = 0;
+    virtual bool FileExists(const std::string& FilePathNameExt) = 0;
 
-    virtual too::string toNativeSeparators(const too::string& Path) = 0;
+    virtual std::string toNativeSeparators(const std::string& Path) = 0;
 
     enum class ESysPathType
     {
@@ -60,7 +58,7 @@ public:
         CURRENT,
         ROOT,
     };
-    virtual bool GetSystemPath(ESysPathType Type, too::string& Path, bool WithTrailingSeperator) = 0;
+    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator) = 0;
 };
 
 
@@ -71,8 +69,8 @@ class IFileData
 public:
     virtual ~IFileData() = default;
 
-    virtual bool SaveToFile(const too::string& FilePathNameExt) = 0;
-    virtual bool LoadFromFile(const too::string& FilePathNameExt) = 0;
+    virtual bool SaveToFile(const std::string& FilePathNameExt) = 0;
+    virtual bool LoadFromFile(const std::string& FilePathNameExt) = 0;
 };
 }
 

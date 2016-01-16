@@ -28,16 +28,16 @@ class CProgSettings : public QObject, public uiw::IProgSettings, private too::no
 public:
     virtual ~CProgSettings() = default;
 
-    virtual void Init(const too::string& OrganizationName, const too::string& ApplicationName);
+    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName);
 
-    virtual void SetValue(const too::string& SectionName, const too::string& KeyName, const TVariant& Value);
+    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value);
     virtual TVariant Value(
-        const too::string& SectionName, const too::string& KeyName, const TVariant& Default = TVariant()) const;
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const;
 
     virtual std::vector<TSectionKeyPair> GetAllKeys() const;
     virtual void Clear();
-    virtual bool Contains(const too::string& SectionName, const too::string& KeyName) const;
-    virtual void Remove(const too::string& SectionName, const too::string& KeyName);
+    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const;
+    virtual void Remove(const std::string& SectionName, const std::string& KeyName);
     virtual void Sync();
 
     virtual EError GetError() const;
@@ -58,7 +58,7 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
-    QString CreateQtKeyName(const too::string& SectionName, const too::string& KeyName) const;
+    QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) const;
     QVariant var2qvar(const TVariant& v) const;
     TVariant qvar2var(const QVariant& v) const;
 

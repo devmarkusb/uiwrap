@@ -19,7 +19,7 @@
 
 namespace uiw
 {
-std::unique_ptr<ILibrary> ILibrary::make(const too::string& FilePathNameWithoutExtension, const too::string& Version)
+std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutExtension, const std::string& Version)
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 

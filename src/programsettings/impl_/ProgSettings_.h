@@ -31,21 +31,21 @@ namespace boost_pt = boost::property_tree;
 class CProgSettings : public uiw::IProgSettings
 {
 public:
-    inline CProgSettings(const too::string& FileNamePath, const too::string& FileExt,
+    inline CProgSettings(const std::string& FileNamePath, const std::string& FileExt,
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
     virtual inline ~CProgSettings();
 
-    virtual inline void Init(const too::string& OrganizationName, const too::string& ApplicationName) override;
+    virtual inline void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
     virtual inline void SetValue(
-        const too::string& SectionName, const too::string& KeyName, const TVariant& Value) override;
-    virtual inline TVariant Value(const too::string& SectionName, const too::string& KeyName,
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    virtual inline TVariant Value(const std::string& SectionName, const std::string& KeyName,
         const TVariant& Default = TVariant()) const override;
 
     virtual inline std::vector<TSectionKeyPair> GetAllKeys() const override;
     virtual inline void Clear() override;
-    virtual inline bool Contains(const too::string& SectionName, const too::string& KeyName) const override;
-    virtual inline void Remove(const too::string& SectionName, const too::string& KeyName) override;
+    virtual inline bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
+    virtual inline void Remove(const std::string& SectionName, const std::string& KeyName) override;
     virtual inline void Sync() override;
 
     virtual inline EError GetError() const override;
@@ -54,7 +54,7 @@ public:
 private:
     mutable EError m_FirstOccurredError{EError::INIT_NOT_CALLED_OR_FAILED};
     StorageFileFormat m_StorageFileFormat{StorageFileFormat::JSON};
-    too::string m_FileName;
+    std::string m_FileName;
     boost_pt::ptree m_PropTree;
 
     void SetError(EError e) const
@@ -63,14 +63,14 @@ private:
             m_FirstOccurredError = e;
     }
     //! \param first and \param second mustn't start or end with HIERARCHY_SEPARATOR
-    static inline too::string concatenateWithHierarchySep(const too::string& first, const too::string& second);
+    static inline std::string concatenateWithHierarchySep(const std::string& first, const std::string& second);
 };
 
 
 //##############################################################################################################
 
 inline CProgSettings::CProgSettings(
-    const too::string& FileNamePath, const too::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
+    const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
     : m_StorageFileFormat(PreferredStorageFileFormat)
 {
     m_FileName = concatenateWithHierarchySep(FileNamePath, FileExt);
@@ -87,15 +87,15 @@ CProgSettings::~CProgSettings()
     }
 }
 
-inline too::string CProgSettings::concatenateWithHierarchySep(const too::string& first, const too::string& second)
+inline std::string CProgSettings::concatenateWithHierarchySep(const std::string& first, const std::string& second)
 {
-    too::string ret{first};
+    std::string ret{first};
     ret += HIERARCHY_SEPARATOR;
     ret += second;
     return ret;
 }
 
-inline void CProgSettings::Init(const too::string&, const too::string&)
+inline void CProgSettings::Init(const std::string&, const std::string&)
 {
     try
     {
@@ -126,9 +126,9 @@ inline void CProgSettings::Init(const too::string&, const too::string&)
 }
 
 inline void CProgSettings::SetValue(
-    const too::string& SectionName, const too::string& KeyName, const IProgSettings::TVariant& Value)
+    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Value)
 {
-    const too::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
     try
     {
         m_PropTree.put(path, Value);
@@ -140,9 +140,9 @@ inline void CProgSettings::SetValue(
 }
 
 inline IProgSettings::TVariant CProgSettings::Value(
-    const too::string& SectionName, const too::string& KeyName, const IProgSettings::TVariant& Default) const
+    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Default) const
 {
-    const too::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
     try
     {
         return m_PropTree.get<int>(path);
@@ -170,7 +170,7 @@ inline IProgSettings::TVariant CProgSettings::Value(
     }
     try
     {
-        return m_PropTree.get<too::string>(path);
+        return m_PropTree.get<std::string>(path);
     }
     catch (const boost_pt::ptree_bad_data&)
     {
@@ -183,7 +183,7 @@ inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() c
 {
     std::vector<IProgSettings::TSectionKeyPair> ret;
     for (const auto& path : m_PropTree)
-        ret.push_back(std::make_pair(too::string(), path.first));
+        ret.push_back(std::make_pair(std::string(), path.first));
     return ret;
 }
 
@@ -192,15 +192,15 @@ inline void CProgSettings::Clear()
     m_PropTree.clear();
 }
 
-inline bool CProgSettings::Contains(const too::string& SectionName, const too::string& KeyName) const
+inline bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
 {
-    const too::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
     return m_PropTree.find(path) != m_PropTree.not_found();
 }
 
-inline void CProgSettings::Remove(const too::string& SectionName, const too::string& KeyName)
+inline void CProgSettings::Remove(const std::string& SectionName, const std::string& KeyName)
 {
-    const too::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
     m_PropTree.erase(path);
 }
 

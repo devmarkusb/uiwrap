@@ -21,7 +21,7 @@ class IResourceString
 public:
     virtual ~IResourceString() {}
 
-    virtual too::string GetString(TResID id) const = 0;
+    virtual std::string GetString(TResID id) const = 0;
 };
 }
 }

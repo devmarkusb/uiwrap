@@ -21,20 +21,20 @@ namespace implQt
 class UIWRAPSHARED_EXPORT CFileSys_Qt : public too::IFileSys
 {
 public:
-    virtual bool SaveToTextFile(const too::string& FilePathNameExt, const too::string& Content);
-    virtual bool LoadFromTextFile(const too::string& FilePathNameExt, too::string& Content);
-    virtual bool CopyFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To);
-    virtual bool DeleteFile(const too::string& FilePathNameExt);
-    virtual bool RenameFile(const too::string& FilePathNameExt_From, const too::string& FilePathNameExt_To);
-    virtual bool CreateFolder(const too::string& FolderPath);
-    virtual bool DeleteFolder(const too::string& FolderPath);
-    virtual bool RenameFolder(const too::string& FolderPath_From, const too::string& FolderPath_To);
-    virtual bool FolderExists(const too::string& FolderPath);
-    virtual bool FileExists(const too::string& FilePathNameExt);
+    virtual bool SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content);
+    virtual bool LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content);
+    virtual bool CopyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To);
+    virtual bool DeleteFile(const std::string& FilePathNameExt);
+    virtual bool RenameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To);
+    virtual bool CreateFolder(const std::string& FolderPath);
+    virtual bool DeleteFolder(const std::string& FolderPath);
+    virtual bool RenameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To);
+    virtual bool FolderExists(const std::string& FolderPath);
+    virtual bool FileExists(const std::string& FilePathNameExt);
 
-    virtual too::string toNativeSeparators(const too::string& Path);
+    virtual std::string toNativeSeparators(const std::string& Path);
 
-    virtual bool GetSystemPath(ESysPathType Type, too::string& Path, bool WithTrailingSeperator);
+    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator);
 };
 }
 }

@@ -20,7 +20,7 @@
 namespace uiw
 {
 IProgSettings* IProgSettings::GetInstance(
-    const too::string& FileNamePath, const too::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
+    const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 

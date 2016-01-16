@@ -10,7 +10,7 @@
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
 #include <memory>
-#include "Toolib/string/tooString.h"
+#include <string>
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
@@ -24,21 +24,21 @@ public:
 
     //! \param FilePathNameWithoutExtension without extension
     static std::unique_ptr<ILibrary> make(
-        const too::string& FilePathNameWithoutExtension = too::string(), const too::string& Version = too::string());
+        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string());
 
     virtual void* ResolveSymbol(std::string Symbol) = 0;
-    virtual void SetFileName(too::string FilePathNameWithoutExtension, too::string Version = too::string()) = 0;
-    virtual too::string GetFileName() const = 0;
+    virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string()) = 0;
+    virtual std::string GetFileName() const = 0;
     virtual bool Load() = 0;
     virtual bool Unload() = 0;
-    virtual too::string GetError() const = 0;
+    virtual std::string GetError() const = 0;
 };
 
 //! Still too abstract, not a real implementation yet.
 class CLibrary : public ILibrary
 {
 public:
-    explicit CLibrary(too::string FilePathNameWithoutExtension = too::string(), too::string Version = too::string())
+    explicit CLibrary(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
         : m_FilePathName(FilePathNameWithoutExtension), m_Version(Version)
     {
         // would call Load here, if FilePathNameWithoutExtension is non-empty, but calling a virtual function
@@ -47,27 +47,27 @@ public:
 
     virtual void* ResolveSymbol(std::string Symbol) = 0;
 
-    virtual void SetFileName(too::string FilePathNameWithoutExtension, too::string Version = too::string())
+    virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
     {
         m_FilePathName = FilePathNameWithoutExtension;
         m_Version      = Version;
     }
 
-    virtual too::string GetFileName() const { return m_FilePathName; }
+    virtual std::string GetFileName() const { return m_FilePathName; }
 
     virtual bool Load() = 0;
     virtual bool Unload() = 0;
 
-    virtual too::string GetError() const { return m_Error; }
+    virtual std::string GetError() const { return m_Error; }
 
 protected:
-    virtual void SetError(too::string Error) { m_Error = Error; }
-    too::string GetVersion() const { return m_Version; }
+    virtual void SetError(std::string Error) { m_Error = Error; }
+    std::string GetVersion() const { return m_Version; }
 
 private:
-    too::string m_FilePathName;
-    too::string m_Version;
-    too::string m_Error;
+    std::string m_FilePathName;
+    std::string m_Version;
+    std::string m_Error;
 };
 }
 

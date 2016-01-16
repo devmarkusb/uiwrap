@@ -11,14 +11,14 @@
 
 #include <boost/variant.hpp>
 #include <vector>
-#include "Toolib/string/tooString.h"
+#include <string>
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
 
 namespace uiw
 {
-static const too::string& HIERARCHY_SEPARATOR = _TOOSTR(".");
+static const std::string& HIERARCHY_SEPARATOR = ".";
 
 class UIWRAPSHARED_EXPORT IProgSettings : private too::non_copyable
 {
@@ -33,30 +33,30 @@ public:
 
     virtual ~IProgSettings() = default;
 
-    static IProgSettings* GetInstance(const too::string& FileNamePath = too::string(),
-        const too::string& FileExt                   = too::string(),
+    static IProgSettings* GetInstance(const std::string& FileNamePath = std::string(),
+        const std::string& FileExt                   = std::string(),
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
-    virtual void Init(const too::string& OrganizationName, const too::string& ApplicationName) = 0;
+    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) = 0;
 
     using TInteger = int;
-    using TVariant = boost::variant<TInteger, double, too::string, bool>;
+    using TVariant = boost::variant<TInteger, double, std::string, bool>;
 
-    virtual void SetValue(const too::string& SectionName, const too::string& KeyName, const TVariant& Value) = 0;
-    void SetValue(const too::string& KeyName, const TVariant& Value) { SetValue(too::string(), KeyName, Value); }
+    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
+    void SetValue(const std::string& KeyName, const TVariant& Value) { SetValue(std::string(), KeyName, Value); }
     virtual TVariant Value(
-        const too::string& SectionName, const too::string& KeyName, const TVariant& Default = TVariant()) const = 0;
-    TVariant Value(const too::string& KeyName, const TVariant& Default = TVariant()) const
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const = 0;
+    TVariant Value(const std::string& KeyName, const TVariant& Default = TVariant()) const
     {
-        return Value(too::string(), KeyName, Default);
+        return Value(std::string(), KeyName, Default);
     }
 
-    using TSectionKeyPair = std::pair<too::string, too::string>;
+    using TSectionKeyPair = std::pair<std::string, std::string>;
     virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
     virtual void Clear() = 0;
-    virtual bool Contains(const too::string& SectionName, const too::string& KeyName) const = 0;
-    bool Contains(const too::string& KeyName) { return Contains(too::string(), KeyName); }
-    virtual void Remove(const too::string& SectionName, const too::string& KeyName) = 0;
-    void Remove(const too::string& KeyName) { Remove(too::string(), KeyName); }
+    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
+    bool Contains(const std::string& KeyName) { return Contains(std::string(), KeyName); }
+    virtual void Remove(const std::string& SectionName, const std::string& KeyName) = 0;
+    void Remove(const std::string& KeyName) { Remove(std::string(), KeyName); }
     //! You need to call this only, if you want to know whether there occurred an error by GetError().
     /** It initiates a persistent writing to data store, which would nevertheless happen asynchronously.
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/
