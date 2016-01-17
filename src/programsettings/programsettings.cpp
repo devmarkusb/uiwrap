@@ -7,7 +7,7 @@
 //! \file
 
 #include "Toolib/std/std_extensions.h"
-#include "Toolib/argsused.h"
+#include "Toolib/ignore_arg.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)

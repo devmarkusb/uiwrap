@@ -9,7 +9,7 @@
 #include "FileSys_.h"
 #include <fstream>
 #include <cstdio>
-#include "Toolib/argsused.h"
+#include "Toolib/ignore_arg.h"
 
 
 namespace uiw
