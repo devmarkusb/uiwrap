@@ -59,7 +59,7 @@ public:
         std::string dll(GetFileName());
         dll += ".dll";
         // LPCTSTR is const wchar_t* and UTF16 assuming Windows-Unicode
-        m_DllHandle = LoadLibrary(too::str::Utf8_string_To_Utf16_wstring(dll).c_str());
+        m_DllHandle = LoadLibrary(too::str::utf8to16_s2ws(dll).c_str());
         if (!m_DllHandle)
         {
             std::stringstream ssErr;
