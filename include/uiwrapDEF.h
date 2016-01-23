@@ -1,5 +1,5 @@
 // Markus Borris, 2015
-// This file is part of my uiwrap library. Open source.
+// This file is part of my uiwrap library.
 
 //! File serves to export symbols for uiwrap as a library.
 /** Note that it uses itself a little bit to do that.

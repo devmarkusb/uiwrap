@@ -1,5 +1,5 @@
 // Markus Borris, 2015
-// This file is part of my uiwrap library. Open source.
+// This file is part of my uiwrap library.
 
 //!
 /** Please note: class CProgSettings is not suitable to be put in a lib; we get linker warnings due to moc content.
