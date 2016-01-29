@@ -12,7 +12,7 @@
 #include <memory>
 #include "Toolib/types.h"
 #include "Toolib/class/non_copyable.h"
-#include "uiwrap/uiwrapDEF.h"
+#include "uiwrapDEF.h"
 
 
 namespace uiw

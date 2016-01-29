@@ -12,13 +12,16 @@
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 // todo
 #else
-// todo
+#include "uiwrap/messagebox/messagebox.h"
 #endif
 
 
 namespace uiw
 {
-static std::unique_ptr<IMessageBox> IMessageBox::make()
+namespace gui
+{
+
+std::unique_ptr<IMessageBox> IMessageBox::make()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
@@ -35,5 +38,7 @@ static std::unique_ptr<IMessageBox> IMessageBox::make()
     return nullptr;
 
 #endif
+}
+
 }
 }
