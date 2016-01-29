@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library.
 
 //!
@@ -13,7 +13,7 @@ namespace uiw
 {
 namespace gui
 {
-typedef long TResID;
+typedef long ResourceID;
 }
 }
 
