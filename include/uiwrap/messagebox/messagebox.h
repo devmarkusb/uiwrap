@@ -10,7 +10,7 @@
 #define MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 
 #include <memory>
-#include "Toolib/types.h"
+#include <string>
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
