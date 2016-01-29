@@ -11,7 +11,6 @@
 
 #include <QMessageBox>
 #include "uiwrap/messagebox/messagebox.h"
-#include "Toolib/class/non_copyable.h"
 
 
 namespace uiw
@@ -19,7 +18,7 @@ namespace uiw
 namespace implQt
 {
 
-class CMessageBox_Qt : public uiw::gui::IMessageBox, private too::non_copyable
+class CMessageBox_Qt : public uiw::gui::IMessageBox
 {
 public:
     virtual ~CMessageBox_Qt() = default;

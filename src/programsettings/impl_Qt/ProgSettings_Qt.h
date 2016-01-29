@@ -21,7 +21,7 @@ namespace uiw
 namespace implQt
 {
 // do not put in a library, see comment at file start
-class CProgSettings : public QObject, public uiw::IProgSettings, private too::non_copyable
+class CProgSettings : public QObject, public uiw::IProgSettings
 {
     Q_OBJECT
 
