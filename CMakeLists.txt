@@ -37,9 +37,22 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         src/messagebox/impl_Qt/MessageBox_Qt.cpp
         src/programsettings/impl_Qt/ProgSettings_Qt.cpp
         )
+
+    if (NOT Qt5Widgets_INCLUDE_DIRS)
+        set(CMAKE_INCLUDE_CURRENT_DIR ON)
+        set(CMAKE_AUTOMOC ON)
+        if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+            set(QT_COMPILER_SUBDIR "mingw492_32")
+        elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+            set(QT_COMPILER_SUBDIR "msvc2013")
+        endif ()
+        list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/projects/externlibs/Qt/5.5/${QT_COMPILER_SUBDIR}")
+        find_package(Qt5 COMPONENTS Widgets) # Widgets contains a.o.t. Core and Gui
+    endif ()
+
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-#    set(TargetUIWrap_IMPL_SOURCES
-#        )
+    #    set(TargetUIWrap_IMPL_SOURCES
+    #        )
 else ()
     set(TargetUIWrap_IMPL_SOURCES
         src/filesys/impl_/FileSys_.cpp
@@ -88,7 +101,12 @@ endif ()
 find_library(ToolibPreBuilt Toolib HINTS ${Toolib_LIBRARY_DIRS})
 
 target_include_directories(${TargetUIWrap} PRIVATE include)
+target_include_directories(${TargetUIWrap} PRIVATE src)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Gui_INCLUDE_DIRS})
+endif ()
 target_include_directories(${TargetUIWrap} PRIVATE ${Toolib_INCLUDE_DIRS})
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBuildEnv/include)
@@ -98,6 +116,10 @@ if (ToolibPreBuilt)
     target_link_libraries(${TargetUIWrap} PUBLIC ${ToolibPreBuilt})
 else ()
     target_link_libraries(${TargetUIWrap} PUBLIC ${Toolib})
+endif ()
+
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
 endif ()
 
 
