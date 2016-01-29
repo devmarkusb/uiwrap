@@ -141,37 +141,37 @@ CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::Stan
     return b;
 }
 
-void CMessageBox_Qt::AddButton(too::gui::IMessageBox::EButton b)
+void CMessageBox_Qt::AddButton(EButton b)
 {
     m_MsgBox.addButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetDefaultButton(too::gui::IMessageBox::EButton b)
+void CMessageBox_Qt::SetDefaultButton(EButton b)
 {
     m_MsgBox.setDefaultButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetEscapeButton(too::gui::IMessageBox::EButton b)
+void CMessageBox_Qt::SetEscapeButton(EButton b)
 {
     m_MsgBox.setEscapeButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetCaption(const too::string& s)
+void CMessageBox_Qt::SetCaption(const std::string& s)
 {
-    m_MsgBox.setText(toos2qs(s));
+    m_MsgBox.setText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetText(const too::string& s)
+void CMessageBox_Qt::SetText(const std::string& s)
 {
-    m_MsgBox.setInformativeText(toos2qs(s));
+    m_MsgBox.setInformativeText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetDetailedText(const too::string& s)
+void CMessageBox_Qt::SetDetailedText(const std::string& s)
 {
-    m_MsgBox.setDetailedText(toos2qs(s));
+    m_MsgBox.setDetailedText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetIcon(too::gui::IMessageBox::EIcon i)
+void CMessageBox_Qt::SetIcon(EIcon i)
 {
     QMessageBox::Icon qi = QMessageBox::NoIcon;
     switch (i)
@@ -201,7 +201,7 @@ bool CMessageBox_Qt::RunModal()
     return true;
 }
 
-too::gui::IMessageBox::EButton CMessageBox_Qt::GetRunResult()
+auto CMessageBox_Qt::GetRunResult() -> EButton
 {
     return StandardButton2EButton(m_RetVal);
 }

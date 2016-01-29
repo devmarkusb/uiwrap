@@ -10,7 +10,7 @@
 #define FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
 
 #include "uiwrap/filesys/filesys.h"
-#include "uiwrap/uiwrapDEF.h"
+#include "uiwrapDEF.h"
 
 
 namespace uiw
@@ -18,7 +18,7 @@ namespace uiw
 namespace implQt
 {
 
-class UIWRAPSHARED_EXPORT CFileSys_Qt : public too::IFileSys
+class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::IFileSys
 {
 public:
     virtual bool SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content);

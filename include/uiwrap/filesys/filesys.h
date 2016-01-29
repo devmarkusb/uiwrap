@@ -72,8 +72,8 @@ public:
     virtual bool SaveToFile(const std::string& FilePathNameExt) = 0;
     virtual bool LoadFromFile(const std::string& FilePathNameExt) = 0;
 };
-}
 
+}
 using IFileSys  = file::IFileSys;
 using IFileData = file::IFileData;
 }
