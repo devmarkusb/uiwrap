@@ -58,7 +58,7 @@ public:
         CURRENT,
         ROOT,
     };
-    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator) = 0;
+    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) = 0;
 };
 
 

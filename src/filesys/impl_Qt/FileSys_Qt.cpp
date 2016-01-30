@@ -13,7 +13,7 @@
 #include <QCoreApplication>
 #include "Toolib/ignore_arg.h"
 #include "Toolib/scope/scopeguard.h"
-#include "string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
 namespace uiw
@@ -95,7 +95,7 @@ std::string CFileSys_Qt::toNativeSeparators(const std::string& Path)
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator)
+bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator)
 {
     switch (Type)
     {
@@ -118,7 +118,7 @@ bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::str
     default:
         Path = qs2s(QDir::current().absolutePath());
     }
-    if (WithTrailingSeperator)
+    if (WithTrailingSeparator)
         Path += FOLDER_SEPARATOR_TO_USE_HERE;
     return true;
 }

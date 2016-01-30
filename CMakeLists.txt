@@ -47,7 +47,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
             set(QT_COMPILER_SUBDIR "msvc2013")
         endif ()
         list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/projects/externlibs/Qt/5.5/${QT_COMPILER_SUBDIR}")
-        find_package(Qt5 COMPONENTS Widgets) # Widgets contains a.o.t. Core and Gui
+        find_package(Qt5 COMPONENTS Widgets Qml) # Widgets contains a.o.t. Core and Gui
     endif ()
 
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
@@ -105,6 +105,7 @@ target_include_directories(${TargetUIWrap} PRIVATE src)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
 endif ()
 target_include_directories(${TargetUIWrap} PRIVATE ${Toolib_INCLUDE_DIRS})
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
@@ -119,6 +120,7 @@ endif ()
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
 target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
+target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
 endif ()
 
 

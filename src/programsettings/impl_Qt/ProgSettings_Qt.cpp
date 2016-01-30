@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library. Open source.
 
 //!
@@ -6,10 +6,13 @@
 */
 //! \file
 
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "ProgSettings_Qt.h"
-#include "../../string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "Toolib/string/string_token.h"
 #include "Toolib/std/std_extensions.h"
+#include "Toolib/assert.h"
 
 
 namespace uiw
@@ -57,6 +60,13 @@ CProgSettings::EError CProgSettings::GetError() const
 void CProgSettings::ResetError()
 {
     m_FirstOccurredError = EError::E_NO_ERROR;
+}
+
+void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name) const
+{
+    TOO_EXPECT_THROW(application_engine);
+    QQmlApplicationEngine* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);
+    ae->rootContext()->setContextProperty(s2qs(name), this);
 }
 
 void CProgSettings::setValue(const QString& SecAndKey, const QVariant& Value)

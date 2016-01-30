@@ -7,7 +7,7 @@
 //! \file
 
 #include "MessageBox_Qt.h"
-#include "../../string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
 namespace uiw

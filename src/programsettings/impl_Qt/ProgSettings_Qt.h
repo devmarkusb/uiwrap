@@ -43,6 +43,8 @@ public:
     virtual EError GetError() const;
     virtual void ResetError() override;
 
+    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) const override;
+
     // ### QML access ###
     //! \param SecAndKey contains section and key like "sectionname/keyname" separated by "/"
     Q_INVOKABLE void setValue(const QString& SecAndKey, const QVariant& Value);

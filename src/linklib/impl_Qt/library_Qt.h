@@ -13,7 +13,7 @@
 #include <QLibrary>
 #include <memory>
 #include "Toolib/std/std_extensions.h"
-#include "../../string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
 namespace uiw

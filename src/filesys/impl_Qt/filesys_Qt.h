@@ -34,7 +34,7 @@ public:
 
     virtual std::string toNativeSeparators(const std::string& Path);
 
-    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator);
+    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator);
 };
 }
 }
