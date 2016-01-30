@@ -85,7 +85,8 @@ if (NOT Toolib_LIBRARY_DIRS)
     set(Toolib_LIBRARY_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/lib)
 endif ()
 
-find_library(ToolibPreBuilt Toolib HINTS ${Toolib_LIBRARY_DIRS})
+set(Toolib_LIBRARY_NAME optimized Toolib debug Toolibd)
+find_library(ToolibPreBuilt ${Toolib_LIBRARY_NAME} HINTS ${Toolib_LIBRARY_DIRS})
 
 target_include_directories(${TargetUIWrap} PRIVATE include)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
