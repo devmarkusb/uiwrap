@@ -23,7 +23,7 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutE
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    std::unique_ptr<ILibrary> p(std::make_unique<implQt::CLibrary_Qt>(FilePathNameWithoutExtension, Version));
+    std::unique_ptr<ILibrary> p(too::make_unique<implQt::CLibrary_Qt>(FilePathNameWithoutExtension, Version));
     if (!FilePathNameWithoutExtension.empty())
         p->Load();
     return p;
@@ -38,9 +38,9 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutE
 #else
     std::unique_ptr<ILibrary> p;
 #if TOO_OS_WINDOWS == 1
-    p = std::make_unique<CLibrary_win>(FilePathNameWithoutExtension, Version);
+    p = too::make_unique<CLibrary_win>(FilePathNameWithoutExtension, Version);
 #elif TOO_OS_LINUX == 1
-    p = std::make_unique<CLibrary_linux>(FilePathNameWithoutExtension, Version);
+    p = too::make_unique<CLibrary_linux>(FilePathNameWithoutExtension, Version);
 #endif
     if (!FilePathNameWithoutExtension.empty())
         p->Load();

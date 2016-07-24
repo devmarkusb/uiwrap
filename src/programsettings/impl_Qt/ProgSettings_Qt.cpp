@@ -36,7 +36,7 @@ inline const std::unique_ptr<QSettings>& CProgSettings::m_settings() const
 
 void CProgSettings::Init(const std::string& OrganizationName, const std::string& ApplicationName)
 {
-    m_settings_impl_doNotUseItDirectlyExceptOnInit = std::make_unique<QSettings>(
+    m_settings_impl_doNotUseItDirectlyExceptOnInit = too::make_unique<QSettings>(
         QSettings::IniFormat, QSettings::UserScope, s2qs(OrganizationName), s2qs(ApplicationName));
     m_FirstOccurredError = EError::E_NO_ERROR;
     GetError();
