@@ -12,6 +12,8 @@
 #include "uiwrap/programsettings/programsettings.h"
 #include <QObject>
 #include <QSettings>
+#include <QString>
+#include <QVariant>
 #include <memory>
 #include "Toolib/class/non_copyable.h"
 
@@ -23,9 +25,10 @@ namespace implQt
 // do not put in a library, see comment at file start
 class CProgSettings : public QObject, public uiw::IProgSettings
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
+    CProgSettings() : QObject() {}
     virtual ~CProgSettings() = default;
 
     virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName);
@@ -43,7 +46,7 @@ public:
     virtual EError GetError() const;
     virtual void ResetError() override;
 
-    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) const override;
+    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) override;
 
     // ### QML access ###
     //! \param SecAndKey contains section and key like "sectionname/keyname" separated by "/"
@@ -51,8 +54,8 @@ public:
     Q_INVOKABLE QVariant value(const QString& SecAndKey, const QVariant& Default = QVariant()) const;
 
 private:
-    inline std::unique_ptr<QSettings>& m_settings();
-    inline const std::unique_ptr<QSettings>& m_settings() const;
+    inline QSettings* m_settings();
+    inline const QSettings* m_settings() const;
     mutable EError m_FirstOccurredError{EError::INIT_NOT_CALLED_OR_FAILED};
 
     void SetError(EError e) const

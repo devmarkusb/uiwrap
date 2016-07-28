@@ -76,7 +76,7 @@ public:
     virtual EError GetError() const = 0;
     virtual void ResetError() = 0;
 
-    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) const
+    virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
     { too::ignore_arg(application_engine); too::ignore_arg(name); }
 };
 }

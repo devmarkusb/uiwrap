@@ -20,24 +20,29 @@ namespace uiw
 namespace implQt
 {
 
-inline std::unique_ptr<QSettings>& CProgSettings::m_settings()
+inline QSettings* CProgSettings::m_settings()
 {
+    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
-    return m_settings_impl_doNotUseItDirectlyExceptOnInit;
+    return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
-inline const std::unique_ptr<QSettings>& CProgSettings::m_settings() const
+inline const QSettings* CProgSettings::m_settings() const
 {
+    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
-    return m_settings_impl_doNotUseItDirectlyExceptOnInit;
+    return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
 void CProgSettings::Init(const std::string& OrganizationName, const std::string& ApplicationName)
 {
     m_settings_impl_doNotUseItDirectlyExceptOnInit = too::make_unique<QSettings>(
         QSettings::IniFormat, QSettings::UserScope, s2qs(OrganizationName), s2qs(ApplicationName));
+    auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
+    TOO_ASSERT(ok == QSettings::NoError);
+    too::ignore_arg(ok);
     m_FirstOccurredError = EError::E_NO_ERROR;
     GetError();
 }
@@ -62,9 +67,11 @@ void CProgSettings::ResetError()
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 
-void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name) const
+void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name)
 {
     TOO_EXPECT_THROW(application_engine);
+    if (!m_settings())
+        return;
     QQmlApplicationEngine* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);
     ae->rootContext()->setContextProperty(s2qs(name), this);
 }
