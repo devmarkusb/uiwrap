@@ -24,9 +24,9 @@ inline std::string qs2s(QString s)
 }
 
 //! std::string to QString
-inline QString s2qs(std::string s)
+inline QString s2qs(const std::string& s)
 {
-    return QString::fromUtf8(s.c_str());
+	return QString::fromUtf8(s.c_str());
 }
 
 }
