@@ -20,58 +20,58 @@ QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b)
     QMessageBox::StandardButton qb = QMessageBox::Ok;
     switch (b)
     {
-    case EButton::CANCEL:
+    case EButton::cancel:
         qb = QMessageBox::Cancel;
         break;
-    case EButton::YES:
+    case EButton::yes:
         qb = QMessageBox::Yes;
         break;
-    case EButton::YESTOALL:
+    case EButton::yestoall:
         qb = QMessageBox::YesToAll;
         break;
-    case EButton::NO:
+    case EButton::no:
         qb = QMessageBox::No;
         break;
-    case EButton::NOTOALL:
+    case EButton::notoall:
         qb = QMessageBox::NoToAll;
         break;
-    case EButton::CLOSE:
+    case EButton::close:
         qb = QMessageBox::Close;
         break;
-    case EButton::IGNORE:
+    case EButton::ignore:
         qb = QMessageBox::Ignore;
         break;
-    case EButton::RETRY:
+    case EButton::retry:
         qb = QMessageBox::Retry;
         break;
-    case EButton::OPEN:
+    case EButton::open:
         qb = QMessageBox::Open;
         break;
-    case EButton::SAVE:
+    case EButton::save:
         qb = QMessageBox::Save;
         break;
-    case EButton::SAVEALL:
+    case EButton::saveall:
         qb = QMessageBox::SaveAll;
         break;
-    case EButton::RESET:
+    case EButton::reset:
         qb = QMessageBox::Reset;
         break;
-    case EButton::DISCARD:
+    case EButton::discard:
         qb = QMessageBox::Discard;
         break;
-    case EButton::APPLY:
+    case EButton::apply:
         qb = QMessageBox::Apply;
         break;
-    case EButton::HELP:
+    case EButton::help:
         qb = QMessageBox::Help;
         break;
-    case EButton::RESTOREDEFAULTS:
+    case EButton::restoredefaults:
         qb = QMessageBox::RestoreDefaults;
         break;
-    case EButton::ABORT:
+    case EButton::abort:
         qb = QMessageBox::Abort;
         break;
-    case EButton::OK:
+    case EButton::ok:
     default:
         qb = QMessageBox::Ok;
     }
@@ -80,63 +80,63 @@ QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b)
 
 CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::StandardButton qb)
 {
-    EButton b = EButton::OK;
+    EButton b = EButton::ok;
     switch (qb)
     {
     case QMessageBox::Cancel:
-        b = EButton::CANCEL;
+        b = EButton::cancel;
         break;
     case QMessageBox::Yes:
-        b = EButton::YES;
+        b = EButton::yes;
         break;
     case QMessageBox::YesToAll:
-        b = EButton::YESTOALL;
+        b = EButton::yestoall;
         break;
     case QMessageBox::No:
-        b = EButton::NO;
+        b = EButton::no;
         break;
     case QMessageBox::NoToAll:
-        b = EButton::NOTOALL;
+        b = EButton::notoall;
         break;
     case QMessageBox::Close:
-        b = EButton::CLOSE;
+        b = EButton::close;
         break;
     case QMessageBox::Ignore:
-        b = EButton::IGNORE;
+        b = EButton::ignore;
         break;
     case QMessageBox::Retry:
-        b = EButton::RETRY;
+        b = EButton::retry;
         break;
     case QMessageBox::Open:
-        b = EButton::OPEN;
+        b = EButton::open;
         break;
     case QMessageBox::Save:
-        b = EButton::SAVE;
+        b = EButton::save;
         break;
     case QMessageBox::SaveAll:
-        b = EButton::SAVEALL;
+        b = EButton::saveall;
         break;
     case QMessageBox::Reset:
-        b = EButton::RESET;
+        b = EButton::reset;
         break;
     case QMessageBox::Discard:
-        b = EButton::DISCARD;
+        b = EButton::discard;
         break;
     case QMessageBox::Apply:
-        b = EButton::APPLY;
+        b = EButton::apply;
         break;
     case QMessageBox::Help:
-        b = EButton::HELP;
+        b = EButton::help;
         break;
     case QMessageBox::RestoreDefaults:
-        b = EButton::RESTOREDEFAULTS;
+        b = EButton::restoredefaults;
         break;
     case QMessageBox::Abort:
-        b = EButton::ABORT;
+        b = EButton::abort;
         break;
     case QMessageBox::Ok:
     default:
-        b = EButton::OK;
+        b = EButton::ok;
     }
     return b;
 }
@@ -176,19 +176,19 @@ void CMessageBox_Qt::SetIcon(EIcon i)
     QMessageBox::Icon qi = QMessageBox::NoIcon;
     switch (i)
     {
-    case EIcon::INFORMATION:
+    case EIcon::information:
         qi = QMessageBox::Information;
         break;
-    case EIcon::QUESTION:
+    case EIcon::question:
         qi = QMessageBox::Question;
         break;
-    case EIcon::WARNING:
+    case EIcon::warning:
         qi = QMessageBox::Warning;
         break;
-    case EIcon::CRITICAL:
+    case EIcon::critical:
         qi = QMessageBox::Critical;
         break;
-    case EIcon::NONE:
+    case EIcon::none:
     default:
         qi = QMessageBox::NoIcon;
     }

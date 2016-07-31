@@ -9,7 +9,9 @@
 #ifndef MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
 #define MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
 
+#include "Toolib\PPDefs\MSVC\SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QMessageBox>
+#include "Toolib\PPDefs\MSVC\SUPPRESS_WARNINGS_EXTERNAL_END"
 #include "uiwrap/messagebox/messagebox.h"
 
 
