@@ -10,7 +10,7 @@
 #define MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 
 #include <memory>
-#include "Toolib/types.h"
+#include <string>
 #include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
 
@@ -24,36 +24,37 @@ class UIWRAPSHARED_EXPORT IMessageBox : private too::non_copyable
 public:
     virtual ~IMessageBox() = default;
 
+    // if you wonder, there is a reason for using lower-case here: winbase #defines "IGNORE", now that's weird...
     enum class EButton
     {
-        OK,
-        CANCEL,
-        YES,
-        YESTOALL,
-        NO,
-        NOTOALL,
-        CLOSE,
-        IGNORE,
-        RETRY,
-        OPEN,
-        SAVE,
-        SAVEALL,
-        RESET,
-        DISCARD,
-        UNDO = DISCARD,
-        APPLY,
-        HELP,
-        RESTOREDEFAULTS,
-        ABORT,
+        ok,
+        cancel,
+        yes,
+        yestoall,
+        no,
+        notoall,
+        close,
+        ignore,
+        retry,
+        open,
+        save,
+        saveall,
+        reset,
+        discard,
+        undo = discard,
+        apply,
+        help,
+        restoredefaults,
+        abort,
     };
 
     enum class EIcon
     {
-        NONE,
-        INFORMATION,
-        QUESTION,
-        WARNING,
-        CRITICAL,
+        none,
+        information,
+        question,
+        warning,
+        critical,
     };
 
     static std::unique_ptr<IMessageBox> make();

@@ -22,7 +22,7 @@ IFileSys* IFileSys::GetInstance()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    static std::unique_ptr<implQt::CFileSys_Qt> instance(std::make_unique<implQt::CFileSys_Qt>());
+    static std::unique_ptr<implQt::CFileSys_Qt> instance(too::make_unique<implQt::CFileSys_Qt>());
     return instance.get();
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
@@ -32,7 +32,7 @@ IFileSys* IFileSys::GetInstance()
 
 #else
 
-    static std::unique_ptr<impl::CFileSys_> instance(std::make_unique<impl::CFileSys_>());
+    static std::unique_ptr<impl::CFileSys_> instance(too::make_unique<impl::CFileSys_>());
     return instance.get();
 
 #endif

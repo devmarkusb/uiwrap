@@ -13,12 +13,15 @@
 #include <vector>
 #include <string>
 #include "Toolib/class/non_copyable.h"
+#include "Toolib/ignore_arg.h"
 #include "uiwrapDEF.h"
 
 
 namespace uiw
 {
+#if !defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 static const std::string& HIERARCHY_SEPARATOR = ".";
+#endif
 
 class UIWRAPSHARED_EXPORT IProgSettings : private too::non_copyable
 {
@@ -72,6 +75,9 @@ public:
     };
     virtual EError GetError() const = 0;
     virtual void ResetError() = 0;
+
+    virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
+    { too::ignore_arg(application_engine); too::ignore_arg(name); }
 };
 }
 

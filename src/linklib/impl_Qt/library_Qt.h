@@ -1,4 +1,4 @@
-// Markus Borris, 2014
+// Markus Borris, 2014-16
 // This file is part of my uiwrap library.
 
 //!
@@ -12,20 +12,21 @@
 #include "uiwrap/linklib/library_interface.h"
 #include <QLibrary>
 #include <memory>
-#include "Toolib/mem/make_unique.h"
-#include "../../string/impl_Qt/StringConvert_Qt.h"
+#include "Toolib/std/std_extensions.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
 namespace uiw
 {
 namespace implQt
 {
+
 class CLibrary_Qt : public CLibrary
 {
 public:
     explicit CLibrary_Qt(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
-        , m_impl(toos2qs(FilePathNameWithoutExtension), toos2qs(Version))
+        , m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
     {
     }
 
@@ -33,10 +34,10 @@ public:
 
     virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
     {
-        m_impl.setFileNameAndVersion(toos2qs(FilePathNameWithoutExtension), toos2qs(Version));
+        m_impl.setFileNameAndVersion(s2qs(FilePathNameWithoutExtension), s2qs(Version));
     }
 
-    virtual std::string GetFileName() const { return qs2toos(m_impl.fileName()); }
+    virtual std::string GetFileName() const { return qs2s(m_impl.fileName()); }
 
     virtual bool Load() { return m_impl.load(); }
 
@@ -44,9 +45,9 @@ public:
 
     virtual std::string GetError() const
     {
-        std::string ret(qs2toos(m_impl.errorString()));
+        std::string ret(qs2s(m_impl.errorString()));
         // unfortunately this is the string Qt returns in case of no error
-        if (ret == "Unknown error"))
+        if (ret == "Unknown error")
             ret.clear();
         return ret;
     }
@@ -54,6 +55,7 @@ public:
 private:
     QLibrary m_impl;
 };
+
 }
 }
 

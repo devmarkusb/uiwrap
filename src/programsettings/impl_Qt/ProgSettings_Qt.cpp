@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library. Open source.
 
 //!
@@ -6,11 +6,13 @@
 */
 //! \file
 
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include "ProgSettings_Qt.h"
-#include "../../string/impl_Qt/StringConvert_Qt.h"
-//#define TOO_USE_BOOST   1
-#include "Toolib/string/string_delim.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "Toolib/string/string_token.h"
 #include "Toolib/std/std_extensions.h"
+#include "Toolib/assert.h"
 
 
 namespace uiw
@@ -18,24 +20,29 @@ namespace uiw
 namespace implQt
 {
 
-inline std::unique_ptr<QSettings>& CProgSettings::m_settings()
+inline QSettings* CProgSettings::m_settings()
 {
+    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
-    return m_settings_impl_doNotUseItDirectlyExceptOnInit;
+    return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
-inline const std::unique_ptr<QSettings>& CProgSettings::m_settings() const
+inline const QSettings* CProgSettings::m_settings() const
 {
+    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
-    return m_settings_impl_doNotUseItDirectlyExceptOnInit;
+    return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
-void CProgSettings::Init(const too::string& OrganizationName, const too::string& ApplicationName)
+void CProgSettings::Init(const std::string& OrganizationName, const std::string& ApplicationName)
 {
-    m_settings_impl_doNotUseItDirectlyExceptOnInit = std::make_unique<QSettings>(
-        QSettings::IniFormat, QSettings::UserScope, toos2qs(OrganizationName), toos2qs(ApplicationName));
+    m_settings_impl_doNotUseItDirectlyExceptOnInit = too::make_unique<QSettings>(
+        QSettings::IniFormat, QSettings::UserScope, s2qs(OrganizationName), s2qs(ApplicationName));
+    auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
+    TOO_ASSERT(ok == QSettings::NoError);
+    too::ignore_arg(ok);
     m_FirstOccurredError = EError::E_NO_ERROR;
     GetError();
 }
@@ -60,6 +67,15 @@ void CProgSettings::ResetError()
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 
+void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name)
+{
+    TOO_EXPECT_THROW(application_engine);
+    if (!m_settings())
+        return;
+    QQmlApplicationEngine* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);
+    ae->rootContext()->setContextProperty(s2qs(name), this);
+}
+
 void CProgSettings::setValue(const QString& SecAndKey, const QVariant& Value)
 {
     if (!m_settings())
@@ -82,12 +98,12 @@ void CProgSettings::Sync()
     GetError();
 }
 
-QString CProgSettings::CreateQtKeyName(const too::string& SectionName, const too::string& KeyName) const
+QString CProgSettings::CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) const
 {
-    return toos2qs(SectionName + _TOOSTR("/") + KeyName);
+    return s2qs(SectionName + "/" + KeyName);
 }
 
-void CProgSettings::Remove(const too::string& SectionName, const too::string& KeyName)
+void CProgSettings::Remove(const std::string& SectionName, const std::string& KeyName)
 {
     if (!m_settings())
         return;
@@ -95,7 +111,7 @@ void CProgSettings::Remove(const too::string& SectionName, const too::string& Ke
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
 
-bool CProgSettings::Contains(const too::string& SectionName, const too::string& KeyName) const
+bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
 {
     if (!m_settings())
         return false;
@@ -121,8 +137,8 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
     retkeys.reserve(keys.size());
     for (auto i : keys)
     {
-        std::vector<too::string> keypath;
-        too::str::tokenizeString(qs2toos(i), _TOOSTR("/"), keypath);
+        std::vector<std::string> keypath;
+        too::str::tokenizeString(qs2s(i), "/", keypath);
         // only support one level of sections, so take the last two entries
         if (keypath.empty())
             continue;
@@ -142,14 +158,14 @@ public:
     //    template<typename T>
     //    QVariant operator()(const T& v) const
     //    {
-    //        if (std::is_same<T,too::string>::value)
-    //            return QVariant(toos2qs(v));
+    //        if (std::is_same<T,std::string>::value)
+    //            return QVariant(s2qs(v));
     //        else
     //            return QVariant(v);
     //    }
     QVariant operator()(const CProgSettings::TInteger& v) const { return QVariant(v); }
     QVariant operator()(const double& v) const { return QVariant(v); }
-    QVariant operator()(const too::string& v) const { return QVariant(toos2qs(v)); }
+    QVariant operator()(const std::string& v) const { return QVariant(s2qs(v)); }
     QVariant operator()(const bool& v) const { return QVariant(v); }
 };
 
@@ -171,7 +187,7 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
         ret = v.toDouble(&isOK);
         break;
     case QMetaType::QString:
-        ret = qs2toos(v.toString());
+        ret = qs2s(v.toString());
         break;
     case QMetaType::Bool:
         ret = v.toBool();
@@ -186,7 +202,7 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
 }
 
 CProgSettings::TVariant CProgSettings::Value(
-    const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Default) const
+    const std::string& SectionName, const std::string& KeyName, const CProgSettings::TVariant& Default) const
 {
     if (!m_settings())
         return TVariant();
@@ -198,7 +214,7 @@ CProgSettings::TVariant CProgSettings::Value(
 }
 
 void CProgSettings::SetValue(
-    const too::string& SectionName, const too::string& KeyName, const CProgSettings::TVariant& Value)
+    const std::string& SectionName, const std::string& KeyName, const CProgSettings::TVariant& Value)
 {
     if (!m_settings())
         return;

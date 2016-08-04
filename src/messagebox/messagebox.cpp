@@ -25,7 +25,7 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    return std::make_unique<implQt::CMessageBox_Qt>();
+    return too::make_unique<implQt::CMessageBox_Qt>();
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
