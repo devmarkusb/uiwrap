@@ -42,11 +42,11 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         set(CMAKE_INCLUDE_CURRENT_DIR ON)
         set(CMAKE_AUTOMOC ON)
         if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-            set(QT_COMPILER_SUBDIR "mingw492_32")
+            set(QT_COMPILER_SUBDIR "mingw53_32")
         elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
             set(QT_COMPILER_SUBDIR "msvc2013")
         endif ()
-        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/5.5/${QT_COMPILER_SUBDIR}")
+        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/5.7/${QT_COMPILER_SUBDIR}")
         find_package(Qt5 COMPONENTS Widgets Qml) # Widgets contains a.o.t. Core and Gui
     endif ()
 
