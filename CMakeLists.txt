@@ -46,7 +46,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
             set(QT_COMPILER_SUBDIR "msvc2013")
         endif ()
-        list(APPEND CMAKE_PREFIX_PATH "$ENV{HOME}/projects/externlibs/Qt/5.5/${QT_COMPILER_SUBDIR}")
+        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/5.5/${QT_COMPILER_SUBDIR}")
         find_package(Qt5 COMPONENTS Widgets Qml) # Widgets contains a.o.t. Core and Gui
     endif ()
 
@@ -84,7 +84,7 @@ set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_L
 set_target_properties(${TargetUIWrap} PROPERTIES DEBUG_POSTFIX "d")
 
 if (NOT Boost_INCLUDE_DIRS)
-    set(BOOST_ROOT "c:/projects/externlibs/boost_1_56_0")
+    set(BOOST_ROOT $ENV{dev_sdk_paths})
     set(Boost_USE_MULTITHREADED     ON)
     set(Boost_USE_STATIC_LIBS       OFF)
     set(Boost_USE_STATIC_RUNTIME    OFF)
@@ -146,7 +146,7 @@ endif ()
 
 set_target_properties(${TargetUIWrapTest} PROPERTIES DEBUG_POSTFIX "d")
 
-set(GTEST_ROOT "c:/projects/externlibs/gtest-1.7.0")
+set(GTEST_ROOT $ENV{dev_sdk_paths})
 set(GTEST_MSVC_SEARCH   MD)
 find_package(GTest 1.7.0)
 
