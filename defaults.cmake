@@ -35,3 +35,8 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_compile_options("-std=c++11")
     add_compile_options("-Wall")
 endif ()
+
+if (MSVC)
+    # not good, I only intended to suppress this for Qt headers but didn't find a way
+    add_definitions(-wd4127)
+endif ()
