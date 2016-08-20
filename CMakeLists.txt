@@ -14,7 +14,9 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-project(uiwrap VERSION 0.1.0.0)
+include(buildnr.cmake)
+project(uiwrap VERSION 0.1.0.${BUILD_NR})
+message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap "uiwrap")
 
 include(defaults.cmake)
@@ -100,6 +102,9 @@ endif ()
 
 set(Toolib_LIBRARY_NAME optimized Toolib debug Toolibd)
 find_library(ToolibPreBuilt ${Toolib_LIBRARY_NAME} HINTS ${Toolib_LIBRARY_DIRS})
+
+configure_file(${TargetUIWrap}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetUIWrap}_build_config.h)
+target_include_directories(${TargetUIWrap} PRIVATE ${CMAKE_BINARY_DIR})
 
 target_include_directories(${TargetUIWrap} PRIVATE include)
 target_include_directories(${TargetUIWrap} PRIVATE src)
