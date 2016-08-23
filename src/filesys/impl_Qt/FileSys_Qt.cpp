@@ -118,7 +118,7 @@ bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::str
     default:
         Path = qs2s(QDir::current().absolutePath());
     }
-    if (WithTrailingSeparator)
+    if (WithTrailingSeparator && !Path.empty())
         Path += FOLDER_SEPARATOR_TO_USE_HERE;
     return true;
 }
