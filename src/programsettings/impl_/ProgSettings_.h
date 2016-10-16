@@ -67,7 +67,7 @@ private:
 };
 
 
-//##############################################################################################################
+//####################################################################################################################
 
 inline CProgSettings::CProgSettings(
     const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
