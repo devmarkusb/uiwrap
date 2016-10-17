@@ -6,8 +6,6 @@
 */
 //! \file
 
-#include "Toolib/std/std_extensions.h"
-#include "Toolib/ignore_arg.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
@@ -15,6 +13,8 @@
 #else
 #include "impl_/ProgSettings_.h"
 #endif
+#include "Toolib/ignore_arg.h"
+#include "Toolib/std/std_extensions.h"
 
 
 namespace uiw

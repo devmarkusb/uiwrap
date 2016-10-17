@@ -6,7 +6,6 @@
 */
 //! \file
 
-#include "Toolib/std/std_extensions.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/filesys_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
@@ -14,6 +13,7 @@
 #else
 #include "impl_/filesys_.h"
 #endif
+#include "Toolib/std/std_extensions.h"
 
 
 namespace uiw

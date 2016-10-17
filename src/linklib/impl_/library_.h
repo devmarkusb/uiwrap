@@ -9,16 +9,15 @@
 #ifndef LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
 #define LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
 
-#include <string>
-#include <assert.h>
+#include "uiwrap/linklib/library_interface.h"
 #include "Toolib/PPDEFS.h"
 #include "Toolib/std/std_extensions.h"
-#include "uiwrap/linklib/library_interface.h"
+#include <string>
 #if TOO_OS_WINDOWS == 1
-#include <windows.h>
-#include <sstream>
-#include "Toolib/string/str_convert.h"
 #include "Toolib/string/lex_cast.h"
+#include "Toolib/string/str_convert.h"
+#include <sstream>
+#include <windows.h>
 #elif TOO_OS_LINUX == 1
 #include <dlfcn.h>
 #endif

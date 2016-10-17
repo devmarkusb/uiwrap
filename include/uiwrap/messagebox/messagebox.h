@@ -9,10 +9,10 @@
 #ifndef MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 #define MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 
+#include "uiwrapDEF.h"
+#include "Toolib/class/non_copyable.h"
 #include <memory>
 #include <string>
-#include "Toolib/class/non_copyable.h"
-#include "uiwrapDEF.h"
 
 
 namespace uiw

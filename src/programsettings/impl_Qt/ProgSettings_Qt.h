@@ -10,12 +10,12 @@
 #define PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
 
 #include "uiwrap/programsettings/programsettings.h"
+#include "Toolib/class/non_copyable.h"
 #include <QObject>
 #include <QSettings>
 #include <QString>
 #include <QVariant>
 #include <memory>
-#include "Toolib/class/non_copyable.h"
 
 
 namespace uiw

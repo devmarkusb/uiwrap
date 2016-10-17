@@ -6,7 +6,6 @@
 */
 //! \file
 
-#include "Toolib/std/std_extensions.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/MessageBox_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
@@ -14,6 +13,7 @@
 #else
 #include "uiwrap/messagebox/messagebox.h"
 #endif
+#include "Toolib/std/std_extensions.h"
 
 
 namespace uiw

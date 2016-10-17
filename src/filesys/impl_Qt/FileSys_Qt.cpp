@@ -7,13 +7,13 @@
 //! \file
 
 #include "FileSys_Qt.h"
-#include <memory>
-#include <QFile>
-#include <QDir>
-#include <QCoreApplication>
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "Toolib/ignore_arg.h"
 #include "Toolib/scope/scopeguard.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include <QCoreApplication>
+#include <QDir>
+#include <QFile>
+#include <memory>
 
 
 namespace uiw

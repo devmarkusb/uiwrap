@@ -10,10 +10,10 @@
 #define LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
 
 #include "uiwrap/linklib/library_interface.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "Toolib/std/std_extensions.h"
 #include <QLibrary>
 #include <memory>
-#include "Toolib/std/std_extensions.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
 namespace uiw

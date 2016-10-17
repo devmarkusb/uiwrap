@@ -9,8 +9,9 @@
 #ifndef RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
 #define RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
 
-#include <string>
 #include "resources.h"
+#include <string>
+
 
 namespace uiw
 {

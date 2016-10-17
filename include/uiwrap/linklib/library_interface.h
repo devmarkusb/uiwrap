@@ -9,10 +9,10 @@
 #ifndef LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
+#include "uiwrapDEF.h"
+#include "Toolib/class/non_copyable.h"
 #include <memory>
 #include <string>
-#include "Toolib/class/non_copyable.h"
-#include "uiwrapDEF.h"
 
 
 namespace uiw

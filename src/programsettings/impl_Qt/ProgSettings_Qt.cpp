@@ -6,13 +6,13 @@
 */
 //! \file
 
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
 #include "ProgSettings_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "Toolib/string/string_token.h"
-#include "Toolib/std/std_extensions.h"
 #include "Toolib/assert.h"
+#include "Toolib/std/std_extensions.h"
+#include "Toolib/string/string_token.h"
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 
 namespace uiw

@@ -9,12 +9,12 @@
 #ifndef PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 #define PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 
-#include <boost/variant.hpp>
-#include <vector>
-#include <string>
+#include "uiwrapDEF.h"
 #include "Toolib/class/non_copyable.h"
 #include "Toolib/ignore_arg.h"
-#include "uiwrapDEF.h"
+#include <boost/variant.hpp>
+#include <string>
+#include <vector>
 
 
 namespace uiw

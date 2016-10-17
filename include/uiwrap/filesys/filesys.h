@@ -9,9 +9,9 @@
 #ifndef FILESYS_H_INCL_xcsabgzduzbvfget32
 #define FILESYS_H_INCL_xcsabgzduzbvfget32
 
-#include <string>
-#include "Toolib/class/non_copyable.h"
 #include "uiwrapDEF.h"
+#include "Toolib/class/non_copyable.h"
+#include <string>
 
 
 #pragma push_macro("CopyFile")
