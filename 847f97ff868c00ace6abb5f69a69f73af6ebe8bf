@@ -1,0 +1,8 @@
+!CAUTION! This commit seemed to cause me a very serious amount of trouble!
+
+A moc file didn't compile. Even switching back didn't repair the situation.
+The solution was cloning the repo freshly.
+
+Then comparing the directories showed some additional .lib and (especially?) .exp files within the buggy dir. Erasing them and deleting and resetting CMake allowed a successful rebuild again.
+
+I bet that's not the full truth.
