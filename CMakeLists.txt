@@ -40,7 +40,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         src/programsettings/impl_Qt/ProgSettings_Qt.cpp
         )
 
-    if (NOT Qt5Widgets_INCLUDE_DIRS)
+    if (NOT Qt5Widgets_INCLUDE_DIRS OR NOT Qt5Qml_INCLUDE_DIRS)
         set(CMAKE_INCLUDE_CURRENT_DIR ON)
         set(CMAKE_AUTOMOC ON)
         if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -49,16 +49,21 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
             set(QT_COMPILER_SUBDIR "msvc2013")
         endif ()
         list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/5.7/${QT_COMPILER_SUBDIR}")
-        find_package(Qt5 COMPONENTS Widgets Qml) # Widgets contains a.o.t. Core and Gui
+        # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
+        # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
+        find_package(Qt5Widgets)
+        find_package(Qt5Qml)
     endif ()
 
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-    #    set(TargetUIWrap_IMPL_SOURCES
-    #        )
+    set(TargetUIWrap_IMPL_SOURCES ""
+        )
+
 else ()
     set(TargetUIWrap_IMPL_SOURCES
         src/filesys/impl_/FileSys_.cpp
         )
+
 endif ()
 
 add_library(${TargetUIWrap} SHARED
@@ -110,8 +115,8 @@ target_include_directories(${TargetUIWrap} PRIVATE include)
 target_include_directories(${TargetUIWrap} PRIVATE src)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
-target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
+    target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
+    target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
 endif ()
 target_include_directories(${TargetUIWrap} PRIVATE ${Toolib_INCLUDE_DIRS})
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
@@ -125,8 +130,8 @@ else ()
 endif ()
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
-target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
+    target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
+    target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
 endif ()
 
 
@@ -134,15 +139,24 @@ endif ()
 
 set(TargetUIWrapTest "UIWrapTest")
 
-file(GLOB_RECURSE TargetUIWrapTest_SRC_INCS "test/*.h")
-
 set(TargetUIWrapTest_SOURCES
-    test/filesys/filesys.test.cpp
+    include/uiwrap/filesys/filesys.test.cpp
     )
+
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    set(TargetUIWrapTest_IMPL_SOURCES
+        include/uiwrap/fundamental_types/impl_Qt/convert_Qt.test.cpp
+    )
+elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+    set(TargetUIWrapTest_IMPL_SOURCES "")
+else ()
+    set(TargetUIWrapTest_IMPL_SOURCES "")
+endif ()
 
 add_executable(${TargetUIWrapTest}
     ${TargetUIWrapTest_SOURCES}
-    ${TargetUIWrapTest_SRC_INCS}
+    ${TargetUIWrapTest_IMPL_SOURCES}
+    ${TargetUIWrap_INCS}
     )
 
 if (WIN32)
@@ -165,9 +179,11 @@ target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooString/incl
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${GTEST_BOTH_LIBRARIES})
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})
 
+set(do_auto_test	ON)
 
-add_custom_command(
-    TARGET ${TargetUIWrapTest} POST_BUILD
-    COMMAND ${TargetUIWrapTest}
-    )
-
+if (do_auto_test)
+    add_custom_command(
+        TARGET ${TargetUIWrapTest} POST_BUILD
+        COMMAND ${TargetUIWrapTest}
+        )
+endif ()
