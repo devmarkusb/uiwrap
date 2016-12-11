@@ -103,7 +103,7 @@ bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::str
         Path = qs2s(QDir::home().absolutePath());
         break;
     case ESysPathType::PROGRAM:
-        Path = qs2s(QCoreApplication::applicationDirPath());
+        Path = qs2s(QDir(QCoreApplication::applicationDirPath()).absolutePath());
         break;
     case ESysPathType::ROOT:
         Path = qs2s(QDir::root().absolutePath());
