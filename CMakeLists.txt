@@ -141,6 +141,7 @@ set(TargetUIWrapTest "UIWrapTest")
 
 set(TargetUIWrapTest_SOURCES
     include/uiwrap/filesys/filesys.test.cpp
+    include/uiwrap/string/impl_Qt/UrlString_util_Qt.test.cpp
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
