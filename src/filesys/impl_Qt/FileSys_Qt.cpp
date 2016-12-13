@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library. Open source.
 
 //!
@@ -10,9 +10,12 @@
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "Toolib/ignore_arg.h"
 #include "Toolib/scope/scopeguard.h"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+#include <QStandardPaths>
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <memory>
 
 
@@ -114,8 +117,50 @@ bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::str
     case ESysPathType::USER:
         Path = qs2s(QDir::home().absolutePath());
         break;
+    case ESysPathType::APPDATA_writable:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+        break;
+    case ESysPathType::APPDATA_readonly:
+    {
+        const auto locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+        if (locations.count() >= 2)
+            Path = qs2s(locations[1]);
+        else if (locations.count() == 1)
+            Path = qs2s(locations[0]);
+        else
+            goto default_label;
+        break;
+    }
+    case ESysPathType::DOCUMENTS:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+        break;
+    case ESysPathType::MUSIC:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
+        break;
+    case ESysPathType::PICTURES:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+        break;
+    case ESysPathType::MOVIES:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
+        break;
+    case ESysPathType::DESKTOP:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+        break;
+    case ESysPathType::FONTS:
+    {
+        const auto locations = QStandardPaths::standardLocations(QStandardPaths::FontsLocation);
+        if (!locations.isEmpty())
+            Path = qs2s(locations[0]);
+        else
+            goto default_label;
+        break;
+    }
+    case ESysPathType::CACHE:
+        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+        break;
     case ESysPathType::CURRENT:
     default:
+    default_label:
         Path = qs2s(QDir::current().absolutePath());
     }
     if (WithTrailingSeparator && !Path.empty())

@@ -49,14 +49,28 @@ public:
 
     virtual std::string toNativeSeparators(const std::string& Path) = 0;
 
+    //! Explanation and examples.
+    /** PROGDATA and USER are the same and yield for Windows something like c:/users/xy,
+        which is not the most recommended place in general.
+        APPDATA_writable and Co. are much more preferable locations.*/
     enum class ESysPathType
     {
-        PROGRAM,
-        USER,
-        PROGDATA,
+        PROGRAM, //! path where exe resides
+        USER, //! consider to use it only rarely
+        PROGDATA, //! consider to use it only rarely
         TEMP,
         CURRENT,
         ROOT,
+        APPDATA_writable, //! e.g. Windows: AppData/Roaming/<APP>
+        APPDATA_readonly, //! e.g. Windows: ProgramData/<APP>
+        APPCONFIG, //! e.g. Windows: AppData/Local/<APP>
+        DOCUMENTS,
+        MUSIC,
+        PICTURES,
+        MOVIES,
+        DESKTOP,
+        FONTS,
+        CACHE,
     };
     virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) = 0;
 };
@@ -69,7 +83,7 @@ class IFileData
 public:
     virtual ~IFileData() = default;
 
-    virtual bool SaveToFile(const std::string& FilePathNameExt) = 0;
+    virtual bool SaveToFile(const std::string& FilePathNameExt) const = 0;
     virtual bool LoadFromFile(const std::string& FilePathNameExt) = 0;
 };
 

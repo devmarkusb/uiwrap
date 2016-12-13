@@ -11,8 +11,10 @@
 #include "Toolib/assert.h"
 #include "Toolib/std/std_extensions.h"
 #include "Toolib/string/string_token.h"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace uiw

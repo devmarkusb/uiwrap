@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library.
 
 //!
@@ -11,10 +11,12 @@
 
 #include "uiwrap/programsettings/programsettings.h"
 #include "Toolib/class/non_copyable.h"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QObject>
 #include <QSettings>
 #include <QString>
 #include <QVariant>
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <memory>
 
 
