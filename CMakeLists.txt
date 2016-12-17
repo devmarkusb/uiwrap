@@ -62,6 +62,7 @@ elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
 else ()
     set(TargetUIWrap_IMPL_SOURCES
         src/filesys/impl_/FileSys_.cpp
+        src/messagebox/impl_/messagebox_.cpp
         )
 
 endif ()
@@ -151,7 +152,9 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
     set(TargetUIWrapTest_IMPL_SOURCES "")
 else ()
-    set(TargetUIWrapTest_IMPL_SOURCES "")
+    set(TargetUIWrapTest_IMPL_SOURCES
+        src/messagebox/impl_/messagebox_.test.cpp
+        )
 endif ()
 
 add_executable(${TargetUIWrapTest}

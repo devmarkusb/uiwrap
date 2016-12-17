@@ -141,37 +141,37 @@ CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::Stan
     return b;
 }
 
-void CMessageBox_Qt::AddButton(EButton b)
+void CMessageBox_Qt::addButton(EButton b)
 {
     m_MsgBox.addButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetDefaultButton(EButton b)
+void CMessageBox_Qt::setDefaultButton(EButton b)
 {
     m_MsgBox.setDefaultButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetEscapeButton(EButton b)
+void CMessageBox_Qt::setEscapeButton(EButton b)
 {
     m_MsgBox.setEscapeButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::SetCaption(const std::string& s)
+void CMessageBox_Qt::setCaption(const std::string& s)
 {
     m_MsgBox.setText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetText(const std::string& s)
+void CMessageBox_Qt::setText(const std::string& s)
 {
     m_MsgBox.setInformativeText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetDetailedText(const std::string& s)
+void CMessageBox_Qt::setDetailedText(const std::string& s)
 {
     m_MsgBox.setDetailedText(s2qs(s));
 }
 
-void CMessageBox_Qt::SetIcon(EIcon i)
+void CMessageBox_Qt::setIcon(EIcon i)
 {
     QMessageBox::Icon qi = QMessageBox::NoIcon;
     switch (i)
@@ -195,13 +195,12 @@ void CMessageBox_Qt::SetIcon(EIcon i)
     m_MsgBox.setIcon(qi);
 }
 
-bool CMessageBox_Qt::RunModal()
+void CMessageBox_Qt::runModal()
 {
     m_RetVal = static_cast<QMessageBox::StandardButton>(m_MsgBox.exec());
-    return true;
 }
 
-auto CMessageBox_Qt::GetRunResult() -> EButton
+auto CMessageBox_Qt::getRunResult() -> EButton
 {
     return StandardButton2EButton(m_RetVal);
 }

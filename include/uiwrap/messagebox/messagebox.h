@@ -24,7 +24,6 @@ class UIWRAPSHARED_EXPORT IMessageBox : private too::non_copyable
 public:
     virtual ~IMessageBox() = default;
 
-    // if you wonder, there is a reason for using lower-case here: winbase #defines "IGNORE", now that's weird...
     enum class EButton
     {
         ok,
@@ -59,17 +58,17 @@ public:
 
     static std::unique_ptr<IMessageBox> make();
 
-    virtual void AddButton(EButton b) = 0;
-    virtual void SetDefaultButton(EButton b) = 0;
-    virtual void SetEscapeButton(EButton b) = 0;
-    virtual void SetCaption(const std::string& s) = 0;
-    virtual void SetText(const std::string& s) = 0;
-    virtual void SetDetailedText(const std::string& s) = 0;
-    virtual void SetIcon(EIcon i) = 0;
+    virtual void addButton(EButton b) = 0;
+    virtual void setDefaultButton(EButton b) = 0;
+    virtual void setEscapeButton(EButton b) = 0;
+    virtual void setCaption(const std::string& s) = 0;
+    virtual void setText(const std::string& s) = 0;
+    virtual void setDetailedText(const std::string& s) = 0;
+    virtual void setIcon(EIcon i) = 0;
 
-    virtual bool RunModal() = 0;
+    virtual void runModal() = 0;
 
-    virtual EButton GetRunResult() = 0;
+    virtual EButton getRunResult() = 0;
 };
 }
 }

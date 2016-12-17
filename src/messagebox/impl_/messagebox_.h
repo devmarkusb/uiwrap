@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2016
 // This file is part of my uiwrap library.
 
 //!
@@ -6,24 +6,21 @@
 */
 //! \file
 
-#ifndef MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
-#define MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
+#ifndef MESSAGEBOX__H_skdljfh7ex5n7xt3
+#define MESSAGEBOX__H_skdljfh7ex5n7xt3
 
 #include "uiwrap/messagebox/messagebox.h"
-#include "Toolib\PPDefs\MSVC\SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
-#include <QMessageBox>
-#include "Toolib\PPDefs\MSVC\SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "Toolib/optional.h"
 
 
 namespace uiw
 {
-namespace implQt
+namespace impl
 {
-
-class CMessageBox_Qt : public uiw::gui::IMessageBox
+class MessageBox : public uiw::gui::IMessageBox
 {
 public:
-    virtual ~CMessageBox_Qt() = default;
+    virtual ~MessageBox() = default;
 
     virtual void addButton(EButton b) override;
     virtual void setDefaultButton(EButton b) override;
@@ -38,11 +35,7 @@ public:
     virtual EButton getRunResult() override;
 
 private:
-    QMessageBox m_MsgBox;
-    QMessageBox::StandardButton m_RetVal{QMessageBox::NoButton};
-
-    QMessageBox::StandardButton EButton2StandardButton(EButton b);
-    EButton StandardButton2EButton(QMessageBox::StandardButton qb);
+    too::opt<EButton> retVal;
 };
 }
 }
