@@ -10,6 +10,7 @@
 #define PROGSETTINGS__H_INCL_ieuhrngt783znt7238t87t3
 
 #include "uiwrap/programsettings/programsettings.h"
+#include "Toolib/error.h"
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include "Toolib/PPDefs/GCC/SUPPRESS_WARNING_unused-local-typedefs_BEGIN"
 #include <boost/property_tree/info_parser.hpp>
@@ -37,10 +38,15 @@ public:
 
     virtual inline void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    virtual inline void SetValue(
-        const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
     virtual inline TVariant Value(const std::string& SectionName, const std::string& KeyName,
         const TVariant& Default = TVariant()) const override;
+    virtual inline void SetValue(
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+
+    virtual std::string ValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
+    virtual void SetValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     virtual inline std::vector<TSectionKeyPair> GetAllKeys() const override;
     virtual inline void Clear() override;
@@ -125,20 +131,6 @@ inline void CProgSettings::Init(const std::string&, const std::string&)
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 
-inline void CProgSettings::SetValue(
-    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Value)
-{
-    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
-    try
-    {
-        m_PropTree.put(path, Value);
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-        SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
-    }
-}
-
 inline IProgSettings::TVariant CProgSettings::Value(
     const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Default) const
 {
@@ -177,6 +169,32 @@ inline IProgSettings::TVariant CProgSettings::Value(
         SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
     }
     return Default;
+}
+
+inline void CProgSettings::SetValue(
+    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Value)
+{
+    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    try
+    {
+        m_PropTree.put(path, Value);
+    }
+    catch (const boost_pt::ptree_bad_data&)
+    {
+        SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
+    }
+}
+
+inline std::string CProgSettings::ValueStr(
+        const std::string&, const std::string&, const std::string&) const
+{
+    throw too::not_implemented("SetValueStr");
+}
+
+inline void CProgSettings::SetValueStr(
+        const std::string&, const std::string&, const std::string&)
+{
+    throw too::not_implemented("SetValueStr");
 }
 
 inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const

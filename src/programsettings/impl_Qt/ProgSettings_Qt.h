@@ -8,6 +8,7 @@
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
 #define PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/programsettings/programsettings.h"
 #include "Toolib/class/non_copyable.h"
@@ -35,9 +36,14 @@ public:
 
     virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName);
 
-    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value);
     virtual TVariant Value(
         const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const;
+    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value);
+
+    virtual std::string ValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
+    virtual void SetValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     virtual std::vector<TSectionKeyPair> GetAllKeys() const;
     virtual void Clear();
@@ -75,4 +81,5 @@ private:
 }
 }
 
-#endif // PROGSETTINGS_QT_H
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
+#endif

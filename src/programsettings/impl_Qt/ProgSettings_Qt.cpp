@@ -223,5 +223,24 @@ void CProgSettings::SetValue(
     m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), var2qvar(Value));
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
+
+std::string CProgSettings::ValueStr(
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const
+{
+    if (!m_settings())
+        return {};
+    QString val{m_settings()->value(CreateQtKeyName(SectionName, KeyName), QVariant{s2qs(Default)}).toString()};
+    GetError();
+    return qs2s(val);
 }
+
+void CProgSettings::SetValueStr(
+        const std::string& SectionName, const std::string& KeyName, const std::string& Value)
+{
+    if (!m_settings())
+        return;
+    m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), s2qs(Value));
 }
+
+} // implQt
+} // uiw

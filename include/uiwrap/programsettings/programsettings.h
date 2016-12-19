@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library.
 
 //!
@@ -44,14 +44,30 @@ public:
     using TInteger = int;
     using TVariant = boost::variant<TInteger, double, std::string, bool>;
 
-    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
-    void SetValue(const std::string& KeyName, const TVariant& Value) { SetValue(std::string(), KeyName, Value); }
+    //! Not working?!
+    class TVariantGetter : public boost::static_visitor<>
+    {
+    public:
+        int operator()(const IProgSettings::TInteger& v) const { return v; }
+        double operator()(const double& v) const { return v; }
+        std::string operator()(const std::string& v) const { return v; }
+        bool operator()(const bool& v) const { return v; }
+    };
+
+    //! Not working?! At least two issues:
+    /** (1) boost variant is just difficult to use
+        (2) Qt implementation yields string always, which doesn't fit when converting to other variant type
+
+        Until any fix, you are unfortunately stuck with the recommendation of using ValueStr/SetValueStr.*/
     virtual TVariant Value(
         const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const = 0;
-    TVariant Value(const std::string& KeyName, const TVariant& Default = TVariant()) const
-    {
-        return Value(std::string(), KeyName, Default);
-    }
+    //! Not working?!
+    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
+
+    virtual std::string ValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const = 0;
+    virtual void SetValueStr(
+            const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
 
     using TSectionKeyPair = std::pair<std::string, std::string>;
     virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
@@ -79,6 +95,7 @@ public:
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
     { too::ignore_arg(application_engine); too::ignore_arg(name); }
 };
+
 }
 
 #endif
