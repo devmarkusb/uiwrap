@@ -8,6 +8,7 @@
 
 #ifndef LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
 #define LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/linklib/library_interface.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
@@ -59,4 +60,5 @@ private:
 }
 }
 
+#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

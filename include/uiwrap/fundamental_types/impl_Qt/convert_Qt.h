@@ -16,6 +16,7 @@
 
 #ifndef CONVERT_QT_H_djkghuinx478gn4289gf32
 #define CONVERT_QT_H_djkghuinx478gn4289gf32
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/narrow.h"
 #include "Toolib/std/std_extensions.h"
@@ -97,4 +98,5 @@ to_qreal<long double>(long double v) noexcept
 } // implQt
 } // uiw
 
+#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

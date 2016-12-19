@@ -8,6 +8,7 @@
 
 #ifndef STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
 #define STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
+//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include <QString>
 
@@ -32,4 +33,5 @@ inline QString s2qs(const std::string& s)
 }
 }
 
+//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif
