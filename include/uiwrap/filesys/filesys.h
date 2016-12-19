@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library.
 
 //!
@@ -11,6 +11,8 @@
 
 #include "uiwrapDEF.h"
 #include "Toolib/class/non_copyable.h"
+#include "Toolib/std/std_extensions.h"
+#include <stdexcept>
 #include <string>
 
 
@@ -35,17 +37,17 @@ public:
 
     static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
-    virtual bool SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content) = 0;
-    virtual bool LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content) = 0;
+    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
+    virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
-    virtual bool CopyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) = 0;
-    virtual bool DeleteFile(const std::string& FilePathNameExt) = 0;
-    virtual bool RenameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) = 0;
-    virtual bool CreateFolder(const std::string& FolderPath) = 0;
-    virtual bool DeleteFolder(const std::string& FolderPath) = 0;
-    virtual bool RenameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To) = 0;
-    virtual bool FolderExists(const std::string& FolderPath) = 0;
-    virtual bool FileExists(const std::string& FilePathNameExt) = 0;
+    virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
+    virtual bool DeleteFile(const std::string& filePathNameExt) = 0;
+    virtual bool RenameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
+    virtual bool CreateFolder(const std::string& folderPath) = 0;
+    virtual bool DeleteFolder(const std::string& folderPath) = 0;
+    virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
+    virtual bool FolderExists(const std::string& folderPath) = 0;
+    virtual bool FileExists(const std::string& filePathNameExt) = 0;
 
     virtual std::string toNativeSeparators(const std::string& Path) = 0;
 
@@ -73,18 +75,38 @@ public:
         CACHE,
     };
     virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) = 0;
+
+    virtual std::string getErrorOfLatestCall() const = 0;
 };
 
 
 //####################################################################################################################
 
+//! Note that the interface forces you to implement std::runtime_error-throwing versions.
+//! This is because for load/save detailed error info is absolutely crucial in most cases.
 class IFileData
 {
 public:
     virtual ~IFileData() = default;
 
-    virtual bool SaveToFile(const std::string& FilePathNameExt) const = 0;
-    virtual bool LoadFromFile(const std::string& FilePathNameExt) = 0;
+    //! Throws std::runtime_error.
+    virtual void saveToFile(const std::string& filePathNameExt) const noexcept(false) = 0;
+    //! Throws std::runtime_error.
+    virtual void loadFromFile(const std::string& filePathNameExt) noexcept(false) = 0;
+
+    bool saveToFile_(const std::string& filePathNameExt) const
+    {
+        try { saveToFile(filePathNameExt); }
+        catch (const std::runtime_error&) { return false; }
+        return true;
+    }
+
+    bool loadFromFile_(const std::string& filePathNameExt) noexcept
+    {
+        try { loadFromFile(filePathNameExt); }
+        catch (const std::runtime_error&) { return false; }
+        return true;
+    }
 };
 
 }

@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-16
 // This file is part of my uiwrap library.
 
 //!
@@ -11,6 +11,7 @@
 
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrapDEF.h"
+#include <string>
 
 
 #if TOO_OS_WINDOWS == 1
@@ -41,6 +42,15 @@ public:
     virtual std::string toNativeSeparators(const std::string& Path) override;
 
     virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator) override;
+
+    virtual std::string getErrorOfLatestCall() const override;
+
+private:
+    std::string latestError;
+
+    template <class FStream>
+    //! Expects FStream to be ofstream or ifstream.
+    bool fstream_failed(const FStream& fs);
 };
 }
 }
