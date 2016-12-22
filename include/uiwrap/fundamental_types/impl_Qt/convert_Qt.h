@@ -3,7 +3,7 @@
 
 //!
 /** Important notice:
-    I decided to make any conversion safe/checked where appropriate ans possible.
+    I decided to make any conversion safe/checked where appropriate and possible.
     That is, range violations result in exceptions. The exceptions are of the
     same type as the ones thrown by assertions from Toolib/assert.h.
     The reason is that these functions ought to be called right at the interface
@@ -16,7 +16,7 @@
 
 #ifndef CONVERT_QT_H_djkghuinx478gn4289gf32
 #define CONVERT_QT_H_djkghuinx478gn4289gf32
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/narrow.h"
 #include "Toolib/std/std_extensions.h"
@@ -98,5 +98,5 @@ to_qreal<long double>(long double v) noexcept
 } // implQt
 } // uiw
 
-#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif
