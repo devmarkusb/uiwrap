@@ -90,9 +90,9 @@ public:
     virtual ~IFileData() = default;
 
     //! Throws std::runtime_error.
-    virtual void saveToFile(const std::string& filePathNameExt) const noexcept_(false) = 0;
+    virtual void saveToFile(const std::string& filePathNameExt) const /*noexcept(false)*/ = 0;
     //! Throws std::runtime_error.
-    virtual void loadFromFile(const std::string& filePathNameExt) noexcept_(false) = 0;
+    virtual void loadFromFile(const std::string& filePathNameExt) /*noexcept(false)*/ = 0;
 
     bool saveToFile_(const std::string& filePathNameExt) const
     {
