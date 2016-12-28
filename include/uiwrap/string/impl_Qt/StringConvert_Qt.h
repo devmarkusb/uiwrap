@@ -10,7 +10,9 @@
 #define STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
 //#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QString>
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace uiw

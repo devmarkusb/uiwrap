@@ -20,7 +20,9 @@
 
 #include "Toolib/narrow.h"
 #include "Toolib/std/std_extensions.h"
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QtGlobal>
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <type_traits>
 
 
