@@ -10,6 +10,7 @@
 #include <fstream>
 #include <cstdio>
 #include "Toolib/ignore_arg.h"
+#include "Toolib/filesys/file.h"
 #include "Toolib/string/lex_cast.h"
 
 
@@ -17,26 +18,11 @@ namespace uiw
 {
 namespace impl
 {
-
-template <class FStream>
-bool CFileSys_::fstream_failed(const FStream& fs)
-{
-    if (fs)
-        return false;
-    if (fs.eof())
-        this->latestError = "eof";
-    else if (fs.bad())
-        this->latestError = "bad";
-    else if (fs.fail())
-        this->latestError = "fail";
-    return true;
-}
-
 bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
 {
     this->latestError.clear();
     std::ofstream file(FilePathNameExt);
-    if (fstream_failed(file))
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
     file << Content;
     return true;
@@ -46,13 +32,13 @@ bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string
 {
     this->latestError.clear();
     std::ifstream file(FilePathNameExt);
-    if (fstream_failed(file))
+   if (too::file::fstream_failed(this->latestError, file))
         return false;
     file.seekg(0, std::ios::end);
-    if (fstream_failed(file))
+   if (too::file::fstream_failed(this->latestError, file))
         return false;
     const auto size = file.tellg();
-    if (fstream_failed(file))
+   if (too::file::fstream_failed(this->latestError, file))
         return false;
     if (size == static_cast<decltype(size)>(-1))
     {
@@ -61,7 +47,7 @@ bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string
     }
     Content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
-    if (fstream_failed(file))
+   if (too::file::fstream_failed(this->latestError, file))
         return false;
     file.read(&Content[0], size);
     return true;
@@ -71,10 +57,10 @@ bool CFileSys_::CopyFile(const std::string& FilePathNameExt_From, const std::str
 {
     this->latestError.clear();
     std::ifstream src(FilePathNameExt_From, std::ios::binary);
-    if (fstream_failed(src))
+   if (too::file::fstream_failed(this->latestError, src))
         return false;
     std::ofstream dst(FilePathNameExt_To, std::ios::binary);
-    if (fstream_failed(dst))
+   if (too::file::fstream_failed(this->latestError, dst))
         return false;
     dst << src.rdbuf();
     return true;

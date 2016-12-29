@@ -47,10 +47,6 @@ public:
 
 private:
     std::string latestError;
-
-    template <class FStream>
-    //! Expects FStream to be ofstream or ifstream.
-    bool fstream_failed(const FStream& fs);
 };
 }
 }
