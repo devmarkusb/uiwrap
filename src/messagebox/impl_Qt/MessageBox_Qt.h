@@ -29,6 +29,7 @@ public:
     virtual void addButton(EButton b) override;
     virtual void setDefaultButton(EButton b) override;
     virtual void setEscapeButton(EButton b) override;
+    virtual void setWindowTitle(const std::string& s) override;
     virtual void setCaption(const std::string& s) override;
     virtual void setText(const std::string& s) override;
     virtual void setDetailedText(const std::string& s) override;
@@ -39,7 +40,7 @@ public:
     virtual EButton getRunResult() override;
 
 private:
-    QMessageBox m_MsgBox;
+    QMessageBox m_MsgBox{};
     QMessageBox::StandardButton m_RetVal{QMessageBox::NoButton};
 
     QMessageBox::StandardButton EButton2StandardButton(EButton b);

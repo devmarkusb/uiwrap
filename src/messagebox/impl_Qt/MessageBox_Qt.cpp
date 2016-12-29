@@ -156,6 +156,11 @@ void CMessageBox_Qt::setEscapeButton(EButton b)
     m_MsgBox.setEscapeButton(EButton2StandardButton(b));
 }
 
+void CMessageBox_Qt::setWindowTitle(const std::string& s)
+{
+    m_MsgBox.setWindowTitle(s2qs(s));
+}
+
 void CMessageBox_Qt::setCaption(const std::string& s)
 {
     m_MsgBox.setText(s2qs(s));

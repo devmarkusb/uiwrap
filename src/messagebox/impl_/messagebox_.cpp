@@ -25,6 +25,10 @@ void MessageBox::setEscapeButton(EButton)
 {
 }
 
+void MessageBox::setWindowTitle(const std::string& s)
+{
+}
+
 void MessageBox::setCaption(const std::string&)
 {
 }

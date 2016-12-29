@@ -61,6 +61,7 @@ public:
     virtual void addButton(EButton b) = 0;
     virtual void setDefaultButton(EButton b) = 0;
     virtual void setEscapeButton(EButton b) = 0;
+    virtual void setWindowTitle(const std::string& s) = 0;
     virtual void setCaption(const std::string& s) = 0;
     virtual void setText(const std::string& s) = 0;
     virtual void setDetailedText(const std::string& s) = 0;
