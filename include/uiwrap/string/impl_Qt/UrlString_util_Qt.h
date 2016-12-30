@@ -40,11 +40,11 @@ inline QString removeFile_urlSchemePrefix(const QUrl& abs_path_with_scheme_prefi
 }
 inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_prefix)
 {
-    const QUrl u{QUrl::fromLocalFile(abs_path_with_scheme_prefix)};
+    const QUrl u{abs_path_with_scheme_prefix};
     return removeFile_urlSchemePrefix(u);
 }
-}
-}
+} // implQt
+} // uiw
 
 //#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif
