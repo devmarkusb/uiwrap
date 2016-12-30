@@ -35,6 +35,7 @@ set(TargetUIWrap_COMMON_SOURCES
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetUIWrap_IMPL_SOURCES
+        include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
         src/filesys/impl_Qt/FileSys_Qt.cpp
         src/messagebox/impl_Qt/MessageBox_Qt.cpp
         src/programsettings/impl_Qt/ProgSettings_Qt.cpp
@@ -142,12 +143,13 @@ set(TargetUIWrapTest "UIWrapTest")
 
 set(TargetUIWrapTest_SOURCES
     include/uiwrap/filesys/filesys.test.cpp
-    include/uiwrap/string/impl_Qt/UrlString_util_Qt.test.cpp
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetUIWrapTest_IMPL_SOURCES
         include/uiwrap/fundamental_types/impl_Qt/convert_Qt.test.cpp
+        include/uiwrap/GUI/impl_Qt/qmlextlib.test.cpp
+        include/uiwrap/string/impl_Qt/UrlString_util_Qt.test.cpp
     )
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
     set(TargetUIWrapTest_IMPL_SOURCES "")
