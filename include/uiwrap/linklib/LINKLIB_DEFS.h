@@ -75,7 +75,7 @@ UIW_LINKLIB_IMPL_CHOICE_WX,
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/LINKLIB_DEFS_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-// todo
+static_assert(false, "not implemented");
 #else
 #include "impl_/LINKLIB_DEFS_.h"
 #endif

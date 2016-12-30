@@ -9,7 +9,7 @@
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/library_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-// todo
+static_assert(false, "not implemented");
 #else
 #include "impl_/library_.h"
 #endif
@@ -30,10 +30,9 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutE
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    // todo
     too::ignore_arg(FilePathNameWithoutExtension);
     too::ignore_arg(Version);
-    return nullptr;
+    throw too::not_implemented{"ILibrary::make"};
 
 #else
     std::unique_ptr<ILibrary> p;

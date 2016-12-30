@@ -26,7 +26,7 @@
 #define UIW_DECL_EXPORT
 #define UIW_DECL_IMPORT
 #else
-// todo, don't think this alone works for all remaining platforms ;)
+// untested, don't think this alone works for all remaining platforms ;)
 #define UIW_DECL_EXPORT
 #define UIW_DECL_IMPORT
 #endif

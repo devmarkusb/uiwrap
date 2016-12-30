@@ -9,7 +9,7 @@
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-// todo
+static_assert(false, "not implemented");
 #else
 #include "impl_/ProgSettings_.h"
 #endif
@@ -32,8 +32,7 @@ IProgSettings* IProgSettings::GetInstance(
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    // todo
-    return nullptr;
+    throw too::not_implemented{"IProgSettings::GetInstance"};
 
 #else
 

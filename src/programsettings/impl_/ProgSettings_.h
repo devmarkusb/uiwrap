@@ -188,7 +188,7 @@ inline void CProgSettings::SetValue(
 inline std::string CProgSettings::ValueStr(
         const std::string&, const std::string&, const std::string&) const
 {
-    throw too::not_implemented("SetValueStr");
+	throw too::not_implemented{"SetValueStr"};
 }
 
 inline void CProgSettings::SetValueStr(
