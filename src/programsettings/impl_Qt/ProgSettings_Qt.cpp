@@ -92,6 +92,11 @@ QVariant CProgSettings::value(const QString& SecAndKey, const QVariant& Default)
     return m_settings()->value(SecAndKey, Default);
 }
 
+void CProgSettings::flush()
+{
+    Sync();
+}
+
 void CProgSettings::Sync()
 {
     if (!m_settings())

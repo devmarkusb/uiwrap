@@ -2,7 +2,7 @@
 // This file is part of my uiwrap library.
 
 //!
-/** Please note: class CProgSettings is not suitable to be put in a lib; we get linker warnings due to moc content.
+/**
 */
 //! \file
 
@@ -11,7 +11,6 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/programsettings/programsettings.h"
-#include "Toolib/class/non_copyable.h"
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QObject>
 #include <QSettings>
@@ -60,6 +59,7 @@ public:
     //! \param SecAndKey contains section and key like "sectionname/keyname" separated by "/"
     Q_INVOKABLE void setValue(const QString& SecAndKey, const QVariant& Value);
     Q_INVOKABLE QVariant value(const QString& SecAndKey, const QVariant& Default = QVariant()) const;
+    Q_INVOKABLE void flush();
 
 private:
     inline QSettings* m_settings();
