@@ -191,13 +191,13 @@ if (do_auto_test)
     if (CMAKE_BUILD_TYPE MATCHES Debug)
         add_custom_command(
             TARGET ${TargetUIWrapTest} POST_BUILD
-            COMMAND qtdeploy_autodepends_bindbg_win.bat
+            COMMAND qtdeploy_autodepends_bindbg_win_uiwraptest.bat
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
     else ()
         add_custom_command(
             TARGET ${TargetUIWrapTest} POST_BUILD
-            COMMAND qtdeploy_autodepends_bin_win.bat
+            COMMAND qtdeploy_autodepends_bin_win_uiwraptest.bat
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
     endif ()
