@@ -188,6 +188,19 @@ target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})
 set(do_auto_test	ON)
 
 if (do_auto_test)
+    if (CMAKE_BUILD_TYPE MATCHES Debug)
+        add_custom_command(
+            TARGET ${TargetUIWrapTest} POST_BUILD
+            COMMAND qtdeploy_autodepends_bindbg_win.bat
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            )
+    else ()
+        add_custom_command(
+            TARGET ${TargetUIWrapTest} POST_BUILD
+            COMMAND qtdeploy_autodepends_bin_win.bat
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            )
+    endif ()
     add_custom_command(
         TARGET ${TargetUIWrapTest} POST_BUILD
         COMMAND ${TargetUIWrapTest}
