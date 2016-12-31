@@ -25,7 +25,7 @@ namespace uiw
 namespace implQt
 {
 
-void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info)
+void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info) const
 {
     latestError = "file ";
     latestError+= op;
@@ -55,7 +55,7 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
     return true;
 }
 
-bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::string& content)
+bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
     latestError.clear();
     QFile f(s2qs(filePathNameExt));
@@ -155,25 +155,25 @@ bool CFileSys_Qt::RenameFolder(const std::string& folderPath_From, const std::st
     return true;
 }
 
-bool CFileSys_Qt::FolderExists(const std::string& folderPath)
+bool CFileSys_Qt::FolderExists(const std::string& folderPath) const
 {
     latestError.clear();
     return QDir().exists(s2qs(folderPath));
 }
 
-bool CFileSys_Qt::FileExists(const std::string& filePathNameExt)
+bool CFileSys_Qt::FileExists(const std::string& filePathNameExt) const
 {
     latestError.clear();
     return QFile::exists(s2qs(filePathNameExt));
 }
 
-std::string CFileSys_Qt::toNativeSeparators(const std::string& Path)
+std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
 {
     latestError.clear();
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator)
+bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const
 {
     latestError.clear();
     switch (Type)

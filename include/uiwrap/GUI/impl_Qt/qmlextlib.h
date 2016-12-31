@@ -29,8 +29,11 @@
 #define QMLEXTLIB_H_eruigx4zgf783427g578sth378g
 //#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap/filesys/filesys.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "uiwrap/string/impl_Qt/UrlString_util_Qt.h"
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include <QDir>
 #include <QObject>
 #include <QString>
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
@@ -56,6 +59,25 @@ public:
     Q_INVOKABLE QString removeFile_urlSchemePrefix(QString file_with_prefix) const
     {
         return ::uiw::implQt::removeFile_urlSchemePrefix(file_with_prefix);
+    }
+
+    //! For Windows \returns path with backlashes instead of slashes.
+    Q_INVOKABLE QString toNativeSeparators(QString file_with_mixed_separators) const
+    {
+        return QDir::toNativeSeparators(file_with_mixed_separators);
+    }
+
+    //! Always \returns path with slashes.
+    Q_INVOKABLE QString fromNativeSeparators(QString file_with_mixed_separators) const
+    {
+        return QDir::fromNativeSeparators(file_with_mixed_separators);
+    }
+
+    //! Expects \param fullpath with slashes only.
+    Q_INVOKABLE bool fileExists(QString fullpath) const
+    {
+        const auto fs = ::uiw::file::IFileSys::GetInstance();
+        return fs->FileExists(::uiw::implQt::qs2s(fullpath));
     }
 };
 } // implQt

@@ -28,7 +28,7 @@ bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::st
     return true;
 }
 
-bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content)
+bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content) const
 {
     this->latestError.clear();
     std::ifstream file(FilePathNameExt);
@@ -112,7 +112,7 @@ bool CFileSys_::RenameFolder(const std::string& FolderPath_From, const std::stri
     return false;
 }
 
-bool CFileSys_::FolderExists(const std::string& FolderPath)
+bool CFileSys_::FolderExists(const std::string& FolderPath) const
 {
     too::ignore_arg(FolderPath);
     this->latestError.clear();
@@ -120,14 +120,14 @@ bool CFileSys_::FolderExists(const std::string& FolderPath)
     return false;
 }
 
-bool CFileSys_::FileExists(const std::string& FilePathNameExt)
+bool CFileSys_::FileExists(const std::string& FilePathNameExt) const
 {
     this->latestError.clear();
     std::ifstream file(FilePathNameExt, std::ios_base::binary);
     return file ? true : false;
 }
 
-std::string CFileSys_::toNativeSeparators(const std::string& Path)
+std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 {
     too::ignore_arg(Path);
     this->latestError.clear();
@@ -135,7 +135,7 @@ std::string CFileSys_::toNativeSeparators(const std::string& Path)
     return std::string();
 }
 
-bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator)
+bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator) const
 {
     this->latestError.clear();
     switch (Type)

@@ -19,7 +19,6 @@ namespace uiw
 {
 namespace implQt
 {
-
 //! QString to std::string
 inline std::string qs2s(QString s)
 {
@@ -31,7 +30,6 @@ inline QString s2qs(const std::string& s)
 {
 	return QString::fromUtf8(s.c_str());
 }
-
 }
 }
 

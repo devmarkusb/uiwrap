@@ -38,7 +38,7 @@ public:
     static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
     virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
-    virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) = 0;
+    virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
     virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
     virtual bool DeleteFile(const std::string& filePathNameExt) = 0;
@@ -46,10 +46,10 @@ public:
     virtual bool CreateFolder(const std::string& folderPath) = 0;
     virtual bool DeleteFolder(const std::string& folderPath) = 0;
     virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
-    virtual bool FolderExists(const std::string& folderPath) = 0;
-    virtual bool FileExists(const std::string& filePathNameExt) = 0;
+    virtual bool FolderExists(const std::string& folderPath) const = 0;
+    virtual bool FileExists(const std::string& filePathNameExt) const = 0;
 
-    virtual std::string toNativeSeparators(const std::string& Path) = 0;
+    virtual std::string toNativeSeparators(const std::string& Path) const = 0;
 
     //! Explanation and examples.
     /** PROGDATA and USER are the same and yield for Windows something like c:/users/xy,
@@ -74,7 +74,7 @@ public:
         FONTS,
         CACHE,
     };
-    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) = 0;
+    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const = 0;
 
     virtual std::string getErrorOfLatestCall() const = 0;
 };
