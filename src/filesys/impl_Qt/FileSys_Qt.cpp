@@ -167,6 +167,13 @@ bool CFileSys_Qt::FileExists(const std::string& filePathNameExt) const
     return QFile::exists(s2qs(filePathNameExt));
 }
 
+bool CFileSys_Qt::isFile(const std::string& filePathNameExt) const
+{
+    latestError.clear();
+    QFileInfo fi{s2qs(filePathNameExt)};
+    return fi.isFile();
+}
+
 std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
 {
     latestError.clear();

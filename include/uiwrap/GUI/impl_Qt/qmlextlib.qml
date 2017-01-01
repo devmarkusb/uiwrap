@@ -57,6 +57,11 @@ QtObject {
         return true;
     }
 
+    //! Expects full path as string with slashes only, \returns bool.
+    function isFile(fullpath) {
+        return true;
+    }
+
 
     //####################################################################################################################
 }

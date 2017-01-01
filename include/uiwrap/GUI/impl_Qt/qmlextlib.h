@@ -79,6 +79,13 @@ public:
         const auto fs = ::uiw::file::IFileSys::GetInstance();
         return fs->FileExists(::uiw::implQt::qs2s(fullpath));
     }
+
+    //! Expects \param fullpath with slashes only.
+    Q_INVOKABLE bool isFile(QString fullpath) const
+    {
+        const auto fs = ::uiw::file::IFileSys::GetInstance();
+        return fs->isFile(::uiw::implQt::qs2s(fullpath));
+    }
 };
 } // implQt
 } // uiw

@@ -7,11 +7,12 @@
 //! \file
 
 #include "FileSys_.h"
-#include <fstream>
-#include <cstdio>
-#include "Toolib/ignore_arg.h"
+#include "Toolib/error.h"
 #include "Toolib/filesys/file.h"
+#include "Toolib/ignore_arg.h"
 #include "Toolib/string/lex_cast.h"
+#include <cstdio>
+#include <fstream>
 
 
 namespace uiw
@@ -125,6 +126,11 @@ bool CFileSys_::FileExists(const std::string& FilePathNameExt) const
     this->latestError.clear();
     std::ifstream file(FilePathNameExt, std::ios_base::binary);
     return file ? true : false;
+}
+
+bool CFileSys_::isFile(const std::string&) const
+{
+    throw too::not_implemented{"isFile"};
 }
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const

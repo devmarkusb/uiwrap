@@ -48,6 +48,7 @@ public:
     virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
     virtual bool FolderExists(const std::string& folderPath) const = 0;
     virtual bool FileExists(const std::string& filePathNameExt) const = 0;
+    virtual bool isFile(const std::string& filePathNameExt) const = 0;
 
     virtual std::string toNativeSeparators(const std::string& Path) const = 0;
 
