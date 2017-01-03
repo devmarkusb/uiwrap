@@ -37,7 +37,7 @@ public:
 
     static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
-    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
+    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content)   = 0;
     virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
     virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
@@ -46,9 +46,9 @@ public:
     virtual bool CreateFolder(const std::string& folderPath) = 0;
     virtual bool DeleteFolder(const std::string& folderPath) = 0;
     virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
-    virtual bool FolderExists(const std::string& folderPath) const = 0;
+    virtual bool FolderExists(const std::string& folderPath) const    = 0;
     virtual bool FileExists(const std::string& filePathNameExt) const = 0;
-    virtual bool isFile(const std::string& filePathNameExt) const = 0;
+    virtual bool isFile(const std::string& filePathNameExt) const     = 0;
 
     virtual std::string toNativeSeparators(const std::string& Path) const = 0;
 
@@ -58,15 +58,15 @@ public:
         APPDATA_writable and Co. are much more preferable locations.*/
     enum class ESysPathType
     {
-        PROGRAM, //! path where exe resides
-        USER, //! consider to use it only rarely
+        PROGRAM,  //! path where exe resides
+        USER,     //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely
         TEMP,
         CURRENT,
         ROOT,
         APPDATA_writable, //! e.g. Windows: AppData/Roaming/<APP>
         APPDATA_readonly, //! e.g. Windows: ProgramData/<APP>
-        APPCONFIG, //! e.g. Windows: AppData/Local/<APP>
+        APPCONFIG,        //! e.g. Windows: AppData/Local/<APP>
         DOCUMENTS,
         MUSIC,
         PICTURES,
@@ -97,19 +97,30 @@ public:
 
     bool saveToFile_(const std::string& filePathNameExt) const
     {
-        try { saveToFile(filePathNameExt); }
-        catch (const std::runtime_error&) { return false; }
+        try
+        {
+            saveToFile(filePathNameExt);
+        }
+        catch (const std::runtime_error&)
+        {
+            return false;
+        }
         return true;
     }
 
     bool loadFromFile_(const std::string& filePathNameExt) noexcept
     {
-        try { loadFromFile(filePathNameExt); }
-        catch (const std::runtime_error&) { return false; }
+        try
+        {
+            loadFromFile(filePathNameExt);
+        }
+        catch (const std::runtime_error&)
+        {
+            return false;
+        }
         return true;
     }
 };
-
 }
 using IFileSys  = file::IFileSys;
 using IFileData = file::IFileData;

@@ -36,6 +36,9 @@ public:
 
     virtual ~IProgSettings() = default;
 
+    //! *Important* Before first usage, that is, with you first call to GetInstance,
+    //! you have to call immediately Init and for Qt afterwards also setAsRootContextProperty.
+    //! Only after that a proper functionality of this class is possible.
     static IProgSettings* GetInstance(const std::string& FileNamePath = std::string(),
         const std::string& FileExt                   = std::string(),
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);

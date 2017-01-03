@@ -30,8 +30,8 @@ inline QString s2qs(const std::string& s)
 {
 	return QString::fromUtf8(s.c_str());
 }
-}
-}
+} // implQt
+} // uiw
 
 //#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif
