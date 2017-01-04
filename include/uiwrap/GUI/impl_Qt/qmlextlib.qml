@@ -64,4 +64,12 @@ QtObject {
 
 
     //####################################################################################################################
+    // translation helper
+    //! Just add 'qmlextlib.dynTr + ' in front of all of your 'qsTr("...")' occurrences (in front, for easier find&replace).
+    //! Cf. .h file for remaining part of doc.
+    //! This is the workaround (at least for Qt <= 5.7) to achieve dynamic translations in GUI for language switch.
+    property string dynTr: ""
+
+
+    //####################################################################################################################
 }

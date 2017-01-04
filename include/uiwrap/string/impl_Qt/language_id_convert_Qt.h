@@ -23,6 +23,8 @@ namespace uiw
 {
 namespace implQt
 {
+//! Throws too::not_implemented for unsupported or unknown \param id, expects id not to be
+//! too::str::auto_systems_language.
 inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
 {
     if (id == too::str::auto_systems_language)

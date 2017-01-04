@@ -43,10 +43,21 @@ namespace uiw
 {
 namespace implQt
 {
+class DynamicTranslator
+{
+public:
+    virtual ~DynamicTranslator() {}
+
+    virtual void updateTranslations() const = 0;
+};
+
 //! The QML extension lib
-class QmlExtLib : public QObject
+class QmlExtLib : public QObject, public DynamicTranslator
 {
     Q_OBJECT
+
+    //! Cf. qml for doc.
+    Q_PROPERTY(QString dynTr MEMBER dynTr NOTIFY dynTrChanged FINAL)
 
 public:
     //! Cf. the forwarded function in the implementation for documentation.
@@ -86,6 +97,18 @@ public:
         const auto fs = ::uiw::file::IFileSys::GetInstance();
         return fs->isFile(::uiw::implQt::qs2s(fullpath));
     }
+
+    //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
+    virtual void updateTranslations() const override
+    {
+        emit dynTrChanged();
+    }
+
+signals:
+    void dynTrChanged() const;
+
+private:
+    QString dynTr;
 };
 } // implQt
 } // uiw
