@@ -15,11 +15,12 @@
 #include <stdexcept>
 #include <string>
 
-
-#pragma push_macro("CopyFile")
+#ifdef CopyFile
 #undef CopyFile
-#pragma push_macro("DeleteFile")
+#endif
+#ifdef DeleteFile
 #undef DeleteFile
+#endif
 
 
 namespace uiw
