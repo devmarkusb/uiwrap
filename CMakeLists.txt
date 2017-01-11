@@ -148,6 +148,7 @@ set(TargetUIWrapTest_SOURCES
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetUIWrapTest_IMPL_SOURCES
         include/uiwrap/fundamental_types/impl_Qt/convert_Qt.test.cpp
+        include/uiwrap/GUI/impl_Qt/cppmodel2qml.test.cpp
         include/uiwrap/GUI/impl_Qt/qmlextlib.test.cpp
         include/uiwrap/string/impl_Qt/UrlString_util_Qt.test.cpp
     )
