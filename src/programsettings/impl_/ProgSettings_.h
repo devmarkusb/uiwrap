@@ -50,6 +50,7 @@ public:
 
     virtual inline std::vector<TSectionKeyPair> GetAllKeys() const override;
     virtual inline void Clear() override;
+    virtual inline void enable(bool enable) override;
     virtual inline bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
     virtual inline void Remove(const std::string& SectionName, const std::string& KeyName) override;
     virtual inline void Sync() override;
@@ -208,6 +209,11 @@ inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() c
 inline void CProgSettings::Clear()
 {
     m_PropTree.clear();
+}
+
+inline void CProgSettings::enable(bool)
+{
+    throw too::not_implemented("enable");
 }
 
 inline bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const

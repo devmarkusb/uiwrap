@@ -33,24 +33,25 @@ public:
     CProgSettings() : QObject() {}
     virtual ~CProgSettings() = default;
 
-    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName);
+    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
     virtual TVariant Value(
-        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const;
-    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value);
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const override;
+    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     virtual std::string ValueStr(
             const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
     virtual void SetValueStr(
             const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
-    virtual std::vector<TSectionKeyPair> GetAllKeys() const;
-    virtual void Clear();
-    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const;
-    virtual void Remove(const std::string& SectionName, const std::string& KeyName);
-    virtual void Sync();
+    virtual std::vector<TSectionKeyPair> GetAllKeys() const override;
+    virtual void Clear() override;
+    virtual void enable(bool enable) override;
+    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
+    virtual void Remove(const std::string& SectionName, const std::string& KeyName) override;
+    virtual void Sync() override;
 
-    virtual EError GetError() const;
+    virtual EError GetError() const override;
     virtual void ResetError() override;
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name) override;
@@ -77,6 +78,7 @@ private:
 
 private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
+    bool enabled{true};
 };
 }
 }

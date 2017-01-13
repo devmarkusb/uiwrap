@@ -24,6 +24,8 @@ namespace implQt
 
 inline QSettings* CProgSettings::m_settings()
 {
+    if (!this->enabled)
+        return {};
     TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
@@ -133,6 +135,11 @@ void CProgSettings::Clear()
         return;
     m_settings()->clear();
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
+}
+
+void CProgSettings::enable(bool enable)
+{
+    this->enabled = enable;
 }
 
 std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const

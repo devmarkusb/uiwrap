@@ -75,6 +75,8 @@ public:
     using TSectionKeyPair = std::pair<std::string, std::string>;
     virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
     virtual void Clear() = 0;
+    //! Enables/disables the class' whole functionality. Default is enabled.
+    virtual void enable(bool enable) = 0;
     virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
     bool Contains(const std::string& KeyName) { return Contains(std::string(), KeyName); }
     virtual void Remove(const std::string& SectionName, const std::string& KeyName) = 0;
