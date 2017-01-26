@@ -148,8 +148,6 @@ bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bo
     {
     case ESysPathType::PROGDATA:
         break;
-    case ESysPathType::PROGRAM:
-        break;
     case ESysPathType::ROOT:
         break;
     case ESysPathType::TEMP:
