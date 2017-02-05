@@ -29,28 +29,28 @@ bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::st
     return true;
 }
 
-bool CFileSys_::LoadFromTextFile(const std::string& FilePathNameExt, std::string& Content) const
+bool CFileSys_::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
     this->latestError.clear();
-    std::ifstream file(FilePathNameExt);
-   if (too::file::fstream_failed(this->latestError, file))
+    std::ifstream file(filePathNameExt);
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
     file.seekg(0, std::ios::end);
-   if (too::file::fstream_failed(this->latestError, file))
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
     const auto size = file.tellg();
-   if (too::file::fstream_failed(this->latestError, file))
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
     if (size == static_cast<decltype(size)>(-1))
     {
         this->latestError = "size == -1";
         return false;
     }
-    Content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
+    content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
-   if (too::file::fstream_failed(this->latestError, file))
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
-    file.read(&Content[0], size);
+    file.read(&content[0], size);
     return true;
 }
 
@@ -58,10 +58,10 @@ bool CFileSys_::CopyFile(const std::string& FilePathNameExt_From, const std::str
 {
     this->latestError.clear();
     std::ifstream src(FilePathNameExt_From, std::ios::binary);
-   if (too::file::fstream_failed(this->latestError, src))
+    if (too::file::fstream_failed(this->latestError, src))
         return false;
     std::ofstream dst(FilePathNameExt_To, std::ios::binary);
-   if (too::file::fstream_failed(this->latestError, dst))
+    if (too::file::fstream_failed(this->latestError, dst))
         return false;
     dst << src.rdbuf();
     return true;
@@ -128,10 +128,7 @@ bool CFileSys_::FileExists(const std::string& FilePathNameExt) const
     return file ? true : false;
 }
 
-bool CFileSys_::isFile(const std::string&) const
-{
-    throw too::not_implemented{"isFile"};
-}
+bool CFileSys_::isFile(const std::string&) const { throw too::not_implemented{"isFile"}; }
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 {
@@ -164,9 +161,6 @@ bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bo
     return false;
 }
 
-std::string CFileSys_::getErrorOfLatestCall() const
-{
-    return this->latestError;
-}
+std::string CFileSys_::getErrorOfLatestCall() const { return this->latestError; }
 } // impl
 } // uiw

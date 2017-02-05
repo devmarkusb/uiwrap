@@ -9,6 +9,7 @@
 #include "FileSys_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "Toolib/ignore_arg.h"
+#include "Toolib/filesys/file.h"
 #include "Toolib/finally.h"
 #include "Toolib/string/lex_cast.h"
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
@@ -57,24 +58,48 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
 
 bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
-    latestError.clear();
-    QFile f(s2qs(filePathNameExt));
-    if (!f.open(QIODevice::ReadOnly))
+    //latestError.clear();
+    //QFile f(s2qs(filePathNameExt));
+    //if (!f.open(QIODevice::ReadOnly))
+    //{
+    //    setFileOpErrorStr(f, "open");
+    //    return false;
+    //}
+    //auto auto_close = too::finally([&f](){ f.close(); });
+    //const qint64 size = f.bytesAvailable();
+    //std::unique_ptr<char[]> buffer(new char[size]);
+    //const qint64 size_read = f.read(buffer.get(), size);
+    //if (size_read == -1)
+    //{
+    //    setFileOpErrorStr(f, "read");
+    //    return false;
+    //}
+    //content.reserve(size_read);
+    //content.assign(buffer.get());
+    //return true;
+
+    // the implementation above wrote garbage at the end of the output string
+
+    this->latestError.clear();
+    std::ifstream file(filePathNameExt);
+    if (too::file::fstream_failed(this->latestError, file))
+        return false;
+    file.seekg(0, std::ios::end);
+    if (too::file::fstream_failed(this->latestError, file))
+        return false;
+    const auto size = file.tellg();
+    if (too::file::fstream_failed(this->latestError, file))
+        return false;
+    if (size == static_cast<decltype(size)>(-1))
     {
-        setFileOpErrorStr(f, "open");
+        this->latestError = "size == -1";
         return false;
     }
-    auto auto_close = too::finally([&f](){ f.close(); });
-    const qint64 size = f.bytesAvailable();
-    std::unique_ptr<char[]> buffer(new char[size]);
-    const qint64 size_read = f.read(buffer.get(), size);
-    if (size_read == -1)
-    {
-        setFileOpErrorStr(f, "read");
+    content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
+    file.seekg(0);
+    if (too::file::fstream_failed(this->latestError, file))
         return false;
-    }
-    content.reserve(size_read);
-    content.assign(buffer.get());
+    file.read(&content[0], size);
     return true;
 }
 
