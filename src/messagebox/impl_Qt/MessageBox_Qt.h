@@ -49,5 +49,5 @@ private:
 }
 }
 
-#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

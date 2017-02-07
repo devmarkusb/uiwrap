@@ -141,40 +141,19 @@ CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::Stan
     return b;
 }
 
-void CMessageBox_Qt::addButton(EButton b)
-{
-    m_MsgBox.addButton(EButton2StandardButton(b));
-}
+void CMessageBox_Qt::addButton(EButton b) { m_MsgBox.addButton(EButton2StandardButton(b)); }
 
-void CMessageBox_Qt::setDefaultButton(EButton b)
-{
-    m_MsgBox.setDefaultButton(EButton2StandardButton(b));
-}
+void CMessageBox_Qt::setDefaultButton(EButton b) { m_MsgBox.setDefaultButton(EButton2StandardButton(b)); }
 
-void CMessageBox_Qt::setEscapeButton(EButton b)
-{
-    m_MsgBox.setEscapeButton(EButton2StandardButton(b));
-}
+void CMessageBox_Qt::setEscapeButton(EButton b) { m_MsgBox.setEscapeButton(EButton2StandardButton(b)); }
 
-void CMessageBox_Qt::setWindowTitle(const std::string& s)
-{
-    m_MsgBox.setWindowTitle(s2qs(s));
-}
+void CMessageBox_Qt::setWindowTitle(const std::string& s) { m_MsgBox.setWindowTitle(s2qs(s)); }
 
-void CMessageBox_Qt::setCaption(const std::string& s)
-{
-    m_MsgBox.setText(s2qs(s));
-}
+void CMessageBox_Qt::setCaption(const std::string& s) { m_MsgBox.setText(s2qs(s)); }
 
-void CMessageBox_Qt::setText(const std::string& s)
-{
-    m_MsgBox.setInformativeText(s2qs(s));
-}
+void CMessageBox_Qt::setText(const std::string& s) { m_MsgBox.setInformativeText(s2qs(s)); }
 
-void CMessageBox_Qt::setDetailedText(const std::string& s)
-{
-    m_MsgBox.setDetailedText(s2qs(s));
-}
+void CMessageBox_Qt::setDetailedText(const std::string& s) { m_MsgBox.setDetailedText(s2qs(s)); }
 
 void CMessageBox_Qt::setIcon(EIcon i)
 {
@@ -200,14 +179,8 @@ void CMessageBox_Qt::setIcon(EIcon i)
     m_MsgBox.setIcon(qi);
 }
 
-void CMessageBox_Qt::runModal()
-{
-    m_RetVal = static_cast<QMessageBox::StandardButton>(m_MsgBox.exec());
-}
+void CMessageBox_Qt::runModal() { m_RetVal = static_cast<QMessageBox::StandardButton>(m_MsgBox.exec()); }
 
-auto CMessageBox_Qt::getRunResult() -> EButton
-{
-    return StandardButton2EButton(m_RetVal);
-}
+auto CMessageBox_Qt::getRunResult() -> EButton { return StandardButton2EButton(m_RetVal); }
 }
 }

@@ -44,9 +44,9 @@ public:
         const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     virtual std::string ValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
     virtual void SetValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     virtual inline std::vector<TSectionKeyPair> GetAllKeys() const override;
     virtual inline void Clear() override;
@@ -186,14 +186,12 @@ inline void CProgSettings::SetValue(
     }
 }
 
-inline std::string CProgSettings::ValueStr(
-        const std::string&, const std::string&, const std::string&) const
+inline std::string CProgSettings::ValueStr(const std::string&, const std::string&, const std::string&) const
 {
-	throw too::not_implemented{"SetValueStr"};
+    throw too::not_implemented{"SetValueStr"};
 }
 
-inline void CProgSettings::SetValueStr(
-        const std::string&, const std::string&, const std::string&)
+inline void CProgSettings::SetValueStr(const std::string&, const std::string&, const std::string&)
 {
     throw too::not_implemented("SetValueStr");
 }
@@ -206,15 +204,9 @@ inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() c
     return ret;
 }
 
-inline void CProgSettings::Clear()
-{
-    m_PropTree.clear();
-}
+inline void CProgSettings::Clear() { m_PropTree.clear(); }
 
-inline void CProgSettings::enable(bool)
-{
-    throw too::not_implemented("enable");
-}
+inline void CProgSettings::enable(bool) { throw too::not_implemented("enable"); }
 
 inline bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
 {
@@ -257,15 +249,9 @@ inline void CProgSettings::Sync()
     }
 }
 
-inline IProgSettings::EError CProgSettings::GetError() const
-{
-    return m_FirstOccurredError;
-}
+inline IProgSettings::EError CProgSettings::GetError() const { return m_FirstOccurredError; }
 
-inline void CProgSettings::ResetError()
-{
-    m_FirstOccurredError = EError::E_NO_ERROR;
-}
+inline void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
 }
 }
 

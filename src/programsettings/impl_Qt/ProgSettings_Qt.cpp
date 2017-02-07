@@ -66,10 +66,7 @@ CProgSettings::EError CProgSettings::GetError() const
     return m_FirstOccurredError;
 }
 
-void CProgSettings::ResetError()
-{
-    m_FirstOccurredError = EError::E_NO_ERROR;
-}
+void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
 
 void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name)
 {
@@ -94,10 +91,7 @@ QVariant CProgSettings::value(const QString& SecAndKey, const QVariant& Default)
     return m_settings()->value(SecAndKey, Default);
 }
 
-void CProgSettings::flush()
-{
-    Sync();
-}
+void CProgSettings::flush() { Sync(); }
 
 void CProgSettings::Sync()
 {
@@ -137,10 +131,7 @@ void CProgSettings::Clear()
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
 
-void CProgSettings::enable(bool enable)
-{
-    this->enabled = enable;
-}
+void CProgSettings::enable(bool enable) { this->enabled = enable; }
 
 std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
 {
@@ -237,7 +228,7 @@ void CProgSettings::SetValue(
 }
 
 std::string CProgSettings::ValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const
+    const std::string& SectionName, const std::string& KeyName, const std::string& Default) const
 {
     if (!m_settings())
         return {};
@@ -246,8 +237,7 @@ std::string CProgSettings::ValueStr(
     return qs2s(val);
 }
 
-void CProgSettings::SetValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Value)
+void CProgSettings::SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value)
 {
     if (!m_settings())
         return;

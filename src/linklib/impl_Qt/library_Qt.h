@@ -26,8 +26,7 @@ class CLibrary_Qt : public CLibrary
 {
 public:
     explicit CLibrary_Qt(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
-        : CLibrary(FilePathNameWithoutExtension, Version)
-        , m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
+        : CLibrary(FilePathNameWithoutExtension, Version), m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
     {
     }
 
@@ -56,9 +55,8 @@ public:
 private:
     QLibrary m_impl;
 };
-
 }
 }
 
-#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

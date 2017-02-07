@@ -99,10 +99,7 @@ public:
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
-    virtual void updateTranslations() const override
-    {
-        emit dynTrChanged();
-    }
+    virtual void updateTranslations() const override { emit dynTrChanged(); }
 
 signals:
     void dynTrChanged() const;

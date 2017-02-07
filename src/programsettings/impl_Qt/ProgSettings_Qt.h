@@ -27,7 +27,7 @@ namespace implQt
 // do not put in a library, see comment at file start
 class CProgSettings : public QObject, public uiw::IProgSettings
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
     CProgSettings() : QObject() {}
@@ -35,14 +35,14 @@ public:
 
     virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    virtual TVariant Value(
-        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const override;
+    virtual TVariant Value(const std::string& SectionName, const std::string& KeyName,
+        const TVariant& Default = TVariant()) const override;
     virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     virtual std::string ValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
     virtual void SetValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     virtual std::vector<TSectionKeyPair> GetAllKeys() const override;
     virtual void Clear() override;

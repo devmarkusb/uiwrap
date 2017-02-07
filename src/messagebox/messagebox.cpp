@@ -37,6 +37,5 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 
 #endif
 }
-
 }
 }

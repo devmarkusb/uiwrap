@@ -68,9 +68,8 @@ public:
     virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
 
     virtual std::string ValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const = 0;
-    virtual void SetValueStr(
-            const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const = 0;
+    virtual void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
 
     using TSectionKeyPair = std::pair<std::string, std::string>;
     virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
@@ -98,9 +97,11 @@ public:
     virtual void ResetError() = 0;
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
-    { too::ignore_arg(application_engine); too::ignore_arg(name); }
+    {
+        too::ignore_arg(application_engine);
+        too::ignore_arg(name);
+    }
 };
-
 }
 
 #endif

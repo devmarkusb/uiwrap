@@ -29,13 +29,13 @@ namespace implQt
 void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info) const
 {
     latestError = "file ";
-    latestError+= op;
-    latestError+= " failed";
+    latestError += op;
+    latestError += " failed";
     if (!info.empty())
-        latestError+= ", " + info;
-    latestError+= ", details: ";
-    latestError+= uiw::implQt::qs2s(f.errorString());
-    latestError+= ", permissions: " + too::lex_cast<std::string>(f.permissions());
+        latestError += ", " + info;
+    latestError += ", details: ";
+    latestError += uiw::implQt::qs2s(f.errorString());
+    latestError += ", permissions: " + too::lex_cast<std::string>(f.permissions());
 }
 
 bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::string& content)
@@ -47,7 +47,10 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
         setFileOpErrorStr(f, "open");
         return false;
     }
-    auto auto_close = too::finally([&f](){ f.close(); });
+    auto auto_close = too::finally([&f]()
+        {
+            f.close();
+        });
     if (f.write(content.c_str()) == -1)
     {
         setFileOpErrorStr(f, "write");
@@ -58,25 +61,25 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
 
 bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
-    //latestError.clear();
-    //QFile f(s2qs(filePathNameExt));
-    //if (!f.open(QIODevice::ReadOnly))
+    // latestError.clear();
+    // QFile f(s2qs(filePathNameExt));
+    // if (!f.open(QIODevice::ReadOnly))
     //{
     //    setFileOpErrorStr(f, "open");
     //    return false;
     //}
-    //auto auto_close = too::finally([&f](){ f.close(); });
-    //const qint64 size = f.bytesAvailable();
-    //std::unique_ptr<char[]> buffer(new char[size]);
-    //const qint64 size_read = f.read(buffer.get(), size);
-    //if (size_read == -1)
+    // auto auto_close = too::finally([&f](){ f.close(); });
+    // const qint64 size = f.bytesAvailable();
+    // std::unique_ptr<char[]> buffer(new char[size]);
+    // const qint64 size_read = f.read(buffer.get(), size);
+    // if (size_read == -1)
     //{
     //    setFileOpErrorStr(f, "read");
     //    return false;
     //}
-    //content.reserve(size_read);
-    //content.assign(buffer.get());
-    //return true;
+    // content.reserve(size_read);
+    // content.assign(buffer.get());
+    // return true;
 
     // the implementation above wrote garbage at the end of the output string
 
@@ -115,7 +118,10 @@ bool CFileSys_Qt::CopyFile(const std::string& filePathNameExt_From, const std::s
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f](){ f.close(); });
+        auto auto_close = too::finally([&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "copy", "target could already be existing, would be overwritten");
     }
     return ok;
@@ -133,7 +139,10 @@ bool CFileSys_Qt::DeleteFile(const std::string& filePathNameExt)
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f](){ f.close(); });
+        auto auto_close = too::finally([&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "remove");
     }
     return ok;
@@ -151,7 +160,10 @@ bool CFileSys_Qt::RenameFile(const std::string& filePathNameExt_From, const std:
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f](){ f.close(); });
+        auto auto_close = too::finally([&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "rename", "target could already be existing, would be overwritten");
     }
     return ok;
@@ -205,7 +217,8 @@ std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const
+bool CFileSys_Qt::GetSystemPath(
+    uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const
 {
     latestError.clear();
     switch (Type)
@@ -273,10 +286,6 @@ bool CFileSys_Qt::GetSystemPath(uiw::file::IFileSys::ESysPathType Type, std::str
     return true;
 }
 
-std::string CFileSys_Qt::getErrorOfLatestCall() const
-{
-    return this->latestError;
-}
-
+std::string CFileSys_Qt::getErrorOfLatestCall() const { return this->latestError; }
 }
 }

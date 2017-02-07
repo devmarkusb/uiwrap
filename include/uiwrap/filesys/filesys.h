@@ -38,7 +38,7 @@ public:
 
     static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
-    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content)   = 0;
+    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
     virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
     virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
@@ -47,9 +47,9 @@ public:
     virtual bool CreateFolder(const std::string& folderPath) = 0;
     virtual bool DeleteFolder(const std::string& folderPath) = 0;
     virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
-    virtual bool FolderExists(const std::string& folderPath) const    = 0;
+    virtual bool FolderExists(const std::string& folderPath) const = 0;
     virtual bool FileExists(const std::string& filePathNameExt) const = 0;
-    virtual bool isFile(const std::string& filePathNameExt) const     = 0;
+    virtual bool isFile(const std::string& filePathNameExt) const = 0;
 
     virtual std::string toNativeSeparators(const std::string& Path) const = 0;
 
@@ -59,7 +59,7 @@ public:
         APPDATA_writable and Co. are much more preferable locations.*/
     enum class ESysPathType
     {
-        //PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv youself
+        // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv youself
         USER,     //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely
         TEMP,
