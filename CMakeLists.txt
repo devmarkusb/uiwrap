@@ -42,13 +42,6 @@ set(TargetUIWrap_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    set(TargetUIWrap_IMPL_SOURCES
-        include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
-        src/filesys/impl_Qt/FileSys_Qt.cpp
-        src/messagebox/impl_Qt/MessageBox_Qt.cpp
-        src/programsettings/impl_Qt/ProgSettings_Qt.cpp
-        )
-
     if (NOT Qt5Widgets_INCLUDE_DIRS OR NOT Qt5Qml_INCLUDE_DIRS)
         set(CMAKE_INCLUDE_CURRENT_DIR ON)
         set(CMAKE_AUTOMOC ON)
@@ -63,6 +56,13 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         find_package(Qt5Widgets)
         find_package(Qt5Qml)
     endif ()
+
+    set(TargetUIWrap_IMPL_SOURCES
+        include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
+        src/filesys/impl_Qt/FileSys_Qt.cpp
+        src/messagebox/impl_Qt/MessageBox_Qt.cpp
+        src/programsettings/impl_Qt/ProgSettings_Qt.cpp
+        )
 
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
     set(TargetUIWrap_IMPL_SOURCES ""
