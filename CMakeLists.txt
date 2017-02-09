@@ -17,7 +17,7 @@ cmake_minimum_required(VERSION 3.4.1)
 include(buildnr.cmake)
 project(uiwrap VERSION 0.1.0.${BUILD_NR})
 message(STATUS "project version: " ${PROJECT_VERSION})
-set(TargetUIWrap "uiwrap")
+set(TargetUIWrap ${PROJECT_NAME})
 
 include(defaults.cmake)
 
@@ -100,16 +100,6 @@ if (NOT Boost_INCLUDE_DIRS)
     find_package(Boost 1.56.0)
 endif ()
 
-if (NOT Toolib_INCLUDE_DIRS)
-    set(Toolib_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/include)
-endif ()
-if (NOT Toolib_LIBRARY_DIRS)
-    set(Toolib_LIBRARY_DIRS ${CMAKE_SOURCE_DIR}/../Toolib/lib)
-endif ()
-
-set(Toolib_LIBRARY_NAME optimized Toolib debug Toolibd)
-find_library(ToolibPreBuilt ${Toolib_LIBRARY_NAME} HINTS ${Toolib_LIBRARY_DIRS})
-
 configure_file(${TargetUIWrap}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetUIWrap}_build_config.h)
 target_include_directories(${TargetUIWrap} PRIVATE ${CMAKE_BINARY_DIR})
 
@@ -125,11 +115,7 @@ target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSuppor
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBuildEnv/include)
 target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooString/include)
 
-if (ToolibPreBuilt)
-    target_link_libraries(${TargetUIWrap} PUBLIC ${ToolibPreBuilt})
-else ()
-    target_link_libraries(${TargetUIWrap} PUBLIC ${Toolib})
-endif ()
+target_link_libraries(${TargetUIWrap} PUBLIC Toolib)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
@@ -139,7 +125,7 @@ endif ()
 
 ################################################################################################
 
-set(TargetUIWrapTest "UIWrapTest")
+set(TargetUIWrapTest ${PROJECT_NAME}Test)
 
 set(TargetUIWrapTest_SOURCES
     include/uiwrap/filesys/filesys.test.cpp
