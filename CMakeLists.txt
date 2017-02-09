@@ -23,6 +23,14 @@ include(defaults.cmake)
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx,... or own (the default)")
 
+if (NOT Boost_INCLUDE_DIRS)
+    set(BOOST_ROOT $ENV{dev_sdk_paths})
+    set(Boost_USE_MULTITHREADED     ON)
+    set(Boost_USE_STATIC_LIBS       OFF)
+    set(Boost_USE_STATIC_RUNTIME    OFF)
+    find_package(Boost 1.56.0)
+endif ()
+
 file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
 file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
 
@@ -75,6 +83,8 @@ add_library(${TargetUIWrap} SHARED
     ${TargetUIWrap_SRC_INCS}
     )
 
+set_target_properties(${TargetUIWrap} PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 if (WIN32)
     set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
 endif ()
@@ -92,28 +102,17 @@ set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_L
 
 set_target_properties(${TargetUIWrap} PROPERTIES DEBUG_POSTFIX "d")
 
-if (NOT Boost_INCLUDE_DIRS)
-    set(BOOST_ROOT $ENV{dev_sdk_paths})
-    set(Boost_USE_MULTITHREADED     ON)
-    set(Boost_USE_STATIC_LIBS       OFF)
-    set(Boost_USE_STATIC_RUNTIME    OFF)
-    find_package(Boost 1.56.0)
-endif ()
-
 configure_file(${TargetUIWrap}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetUIWrap}_build_config.h)
 target_include_directories(${TargetUIWrap} PRIVATE ${CMAKE_BINARY_DIR})
 
-target_include_directories(${TargetUIWrap} PRIVATE include)
+target_include_directories(${TargetUIWrap} PUBLIC include)
 target_include_directories(${TargetUIWrap} PRIVATE src)
 target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
     target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
 endif ()
-target_include_directories(${TargetUIWrap} PRIVATE ${Toolib_INCLUDE_DIRS})
-target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
-target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooBuildEnv/include)
-target_include_directories(${TargetUIWrap} PRIVATE ../ToolsFL/tooString/include)
+target_include_directories(${TargetUIWrap} PUBLIC ${Toolib_INCLUDE_DIRS})
 
 target_link_libraries(${TargetUIWrap} PUBLIC Toolib)
 
@@ -121,6 +120,9 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
 endif ()
+
+set(${TargetUIWrap}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
+    CACHE INTERNAL "${TargetUIWrap}: include directories" FORCE)
 
 
 ################################################################################################
@@ -158,14 +160,9 @@ endif ()
 
 set_target_properties(${TargetUIWrapTest} PROPERTIES DEBUG_POSTFIX "d")
 
-target_include_directories(${TargetUIWrapTest} PRIVATE include)
-target_include_directories(${TargetUIWrapTest} PRIVATE ${Toolib_INCLUDE_DIRS})
-target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
-target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBuildEnv/include)
-target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooString/include)
+target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
-target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main)
-target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})
+target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
 set(do_auto_test	ON)
 
