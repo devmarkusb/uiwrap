@@ -49,7 +49,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
             set(QT_COMPILER_SUBDIR "$ENV{dev_msvc}")
         endif ()
-        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/5.7/${QT_COMPILER_SUBDIR}")
+        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/$ENV{dev_qt_v}/${QT_COMPILER_SUBDIR}")
         # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
         # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
         find_package(Qt5Widgets)
@@ -172,18 +172,13 @@ endif ()
 
 set_target_properties(${TargetUIWrapTest} PROPERTIES DEBUG_POSTFIX "d")
 
-set(GTEST_ROOT $ENV{dev_sdk_paths_gtest})
-set(GTEST_MSVC_SEARCH   MD)
-find_package(GTest 1.7.0)
-
-target_include_directories(${TargetUIWrapTest} PRIVATE ${GTEST_INCLUDE_DIR})
 target_include_directories(${TargetUIWrapTest} PRIVATE include)
 target_include_directories(${TargetUIWrapTest} PRIVATE ${Toolib_INCLUDE_DIRS})
 target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBasicCodeSupport/include)
 target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooBuildEnv/include)
 target_include_directories(${TargetUIWrapTest} PRIVATE ../ToolsFL/tooString/include)
 
-target_link_libraries(${TargetUIWrapTest} PRIVATE ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main)
 target_link_libraries(${TargetUIWrapTest} PRIVATE ${TargetUIWrap})
 
 set(do_auto_test	ON)
