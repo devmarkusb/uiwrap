@@ -23,13 +23,8 @@ include(defaults.cmake)
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx,... or own (the default)")
 
-if (NOT Boost_INCLUDE_DIRS)
-    set(BOOST_ROOT $ENV{dev_sdk_paths})
-    set(Boost_USE_MULTITHREADED     ON)
-    set(Boost_USE_STATIC_LIBS       OFF)
-    set(Boost_USE_STATIC_RUNTIME    OFF)
-    find_package(Boost 1.63.0)
-endif ()
+include(boost.cmake)
+find_package(Boost 1.63.0)
 
 file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
 file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
