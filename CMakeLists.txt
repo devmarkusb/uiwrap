@@ -28,7 +28,7 @@ if (NOT Boost_INCLUDE_DIRS)
     set(Boost_USE_MULTITHREADED     ON)
     set(Boost_USE_STATIC_LIBS       OFF)
     set(Boost_USE_STATIC_RUNTIME    OFF)
-    find_package(Boost 1.56.0)
+    find_package(Boost 1.63.0)
 endif ()
 
 file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
