@@ -154,26 +154,27 @@ target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
 target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
-set(do_auto_test	ON)
+if (WIN32)
+    if (NOT MSVC)
+        if (CMAKE_BUILD_TYPE MATCHES Debug)
+            set(TargetBuildType_for_qtdeploy "--debug")
+        else ()
+            set(TargetBuildType_for_qtdeploy "--release")
+        endif ()
+    else ()
+        set(TargetBuildType_for_qtdeploy)
+    endif ()
+    add_custom_command(
+        TARGET ${TargetUIWrap} POST_BUILD
+        COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
+            ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        )
+endif ()
+
+set(do_auto_test    ON)
 
 if (do_auto_test)
-    if (WIN32)
-        if (NOT MSVC)
-            if (CMAKE_BUILD_TYPE MATCHES Debug)
-                set(TargetBuildType_for_qtdeploy "--debug")
-            else ()
-                set(TargetBuildType_for_qtdeploy "--release")
-            endif ()
-        else ()
-            set(TargetBuildType_for_qtdeploy)
-        endif ()
-        add_custom_command(
-            TARGET ${TargetUIWrap} POST_BUILD
-            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
-                ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            )
-    endif ()
     add_custom_command(
         TARGET ${TargetUIWrapTest} POST_BUILD
         COMMAND ${TargetUIWrapTest}
