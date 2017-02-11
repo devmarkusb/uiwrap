@@ -158,10 +158,19 @@ set(do_auto_test	ON)
 
 if (do_auto_test)
     if (WIN32)
+        if (NOT MSVC)
+            if (CMAKE_BUILD_TYPE MATCHES Debug)
+                set(TargetBuildType_for_qtdeploy "--debug")
+            else ()
+                set(TargetBuildType_for_qtdeploy "--release")
+            endif ()
+        else ()
+            set(TargetBuildType_for_qtdeploy)
+        endif ()
         add_custom_command(
             TARGET ${TargetUIWrap} POST_BUILD
             COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "$ENV{dev_qt_ver_bin}"
-                -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
+                ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
     endif ()
