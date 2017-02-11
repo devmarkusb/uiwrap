@@ -169,7 +169,7 @@ if (do_auto_test)
         endif ()
         add_custom_command(
             TARGET ${TargetUIWrap} POST_BUILD
-            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}"
+            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
                 ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
