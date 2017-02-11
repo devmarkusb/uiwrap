@@ -30,6 +30,9 @@ set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implemen
 include(boost.cmake)
 find_package(Boost 1.63.0)
 
+# we use boost anyway
+set(Toolib_USE_NO_DEPENDENCIES OFF CACHE BOOL "")
+
 file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
 file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
 
