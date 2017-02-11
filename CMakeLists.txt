@@ -37,20 +37,11 @@ set(TargetUIWrap_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    if (NOT Qt5Widgets_INCLUDE_DIRS OR NOT Qt5Qml_INCLUDE_DIRS)
-        set(CMAKE_INCLUDE_CURRENT_DIR ON)
-        set(CMAKE_AUTOMOC ON)
-        if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-            set(QT_COMPILER_SUBDIR "$ENV{dev_mingw}")
-        elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-            set(QT_COMPILER_SUBDIR "$ENV{dev_msvc}")
-        endif ()
-        list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/$ENV{dev_qt_v}/${QT_COMPILER_SUBDIR}")
-        # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
-        # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
-        find_package(Qt5Widgets)
-        find_package(Qt5Qml)
-    endif ()
+    include (qt.cmake)
+    # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
+    # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
+    find_package(Qt5Widgets)
+    find_package(Qt5Qml)
 
     set(TargetUIWrap_IMPL_SOURCES
         include/uiwrap/GUI/impl_Qt/qmlextlib.cpp

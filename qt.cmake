@@ -1,0 +1,18 @@
+# Include this file and just add e.g.
+#   find_package(Qt5Quick)
+#   find_package(Qt5LinguistTools)
+#   find_package(Qt5Widgets)
+#   find_package(Qt5Qml)
+#   # ...
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_AUTOMOC ON)
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if (WIN32)
+        set(QT_COMPILER_SUBDIR "$ENV{dev_mingw}")
+    else ()
+        set(QT_COMPILER_SUBDIR "$ENV{dev_gcc}")
+    endif ()
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    set(QT_COMPILER_SUBDIR "$ENV{dev_msvc}")
+endif ()
+list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/$ENV{dev_qt_v}/${QT_COMPILER_SUBDIR}")
