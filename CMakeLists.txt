@@ -20,6 +20,10 @@ message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
 include(defaults.cmake)
+if (MSVC)
+    # not good, I only intended to suppress this for Qt headers but didn't find a way
+    add_definitions(-wd4127)
+endif ()
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx,... or own (the default)")
 
@@ -153,16 +157,11 @@ target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 set(do_auto_test	ON)
 
 if (do_auto_test)
-    if (CMAKE_BUILD_TYPE MATCHES Debug)
+    if (WIN32)
         add_custom_command(
-            TARGET ${TargetUIWrapTest} POST_BUILD
-            COMMAND qtdeploy_autodepends_bindbg_win_uiwraptest.bat
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            )
-    else ()
-        add_custom_command(
-            TARGET ${TargetUIWrapTest} POST_BUILD
-            COMMAND qtdeploy_autodepends_bin_win_uiwraptest.bat
+            TARGET ${TargetUIWrap} POST_BUILD
+            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "$ENV{dev_qt_ver_bin}"
+                -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
     endif ()
