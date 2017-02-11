@@ -4,15 +4,11 @@
 #   find_package(Qt5Widgets)
 #   find_package(Qt5Qml)
 #   # ...
+set(Qt5_version         "5.8" CACHE STRING "string has to match the subdir under Qt install location, like 5.7 or 5.8")
+set(Qt_compiler_subdir  "mingw53_32" CACHE STRING "string has to match the subdir under Qt version dir of the install location, like mingw53_32 or msvc2013")
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-    if (WIN32)
-        set(QT_COMPILER_SUBDIR "$ENV{dev_mingw}")
-    else ()
-        set(QT_COMPILER_SUBDIR "$ENV{dev_gcc}")
-    endif ()
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    set(QT_COMPILER_SUBDIR "$ENV{dev_msvc}")
-endif ()
-list(APPEND CMAKE_PREFIX_PATH "$ENV{dev_qt_base}/$ENV{dev_qt_v}/${QT_COMPILER_SUBDIR}")
+
+set(Qt_ver_comp_path "$ENV{dev_qt_base}\\${Qt5_version}\\${Qt_compiler_subdir}")
+list(APPEND CMAKE_PREFIX_PATH ${Qt_ver_comp_path})

@@ -25,7 +25,7 @@ if (MSVC)
     add_definitions(-wd4127)
 endif ()
 
-set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx,... or own (the default)")
+set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
 include(boost.cmake)
 find_package(Boost 1.63.0)
@@ -169,7 +169,7 @@ if (do_auto_test)
         endif ()
         add_custom_command(
             TARGET ${TargetUIWrap} POST_BUILD
-            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "$ENV{dev_qt_ver_bin}"
+            COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}"
                 ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             )
