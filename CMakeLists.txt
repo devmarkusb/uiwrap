@@ -14,12 +14,12 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-include(buildnr.cmake)
+include(${TOO_CMAKE_INC_BUILDNR})
 project(uiwrap VERSION 0.1.0.${BUILD_NR})
 message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
-include(defaults.cmake)
+include(${TOO_CMAKE_INC_DEFAULTS})
 if (MSVC)
     # not good, I only intended to suppress this for Qt headers but didn't find a way
     add_definitions(-wd4127)
@@ -27,7 +27,7 @@ endif ()
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
-include(boost.cmake)
+include(${TOO_CMAKE_INC_BOOST})
 find_package(Boost 1.63.0)
 
 # we use boost anyway
@@ -44,7 +44,7 @@ set(TargetUIWrap_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    include (qt.cmake)
+    include (${TOO_CMAKE_INC_QT})
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
     find_package(Qt5Widgets)
