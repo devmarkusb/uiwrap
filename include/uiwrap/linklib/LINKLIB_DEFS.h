@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -61,7 +61,7 @@
 #ifndef LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
 #define LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
 
-#include "Toolib/PPDEFS.H"
+#include "Toolib/PPDEFS.h"
 
 
 //####################################################################################################################

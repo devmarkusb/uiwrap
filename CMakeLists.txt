@@ -53,7 +53,7 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(TargetUIWrap_IMPL_SOURCES
         include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
         src/filesys/impl_Qt/FileSys_Qt.cpp
-        src/messagebox/impl_Qt/MessageBox_Qt.cpp
+        src/messagebox/impl_Qt/messagebox_qt.cpp
         src/programsettings/impl_Qt/ProgSettings_Qt.cpp
         )
 

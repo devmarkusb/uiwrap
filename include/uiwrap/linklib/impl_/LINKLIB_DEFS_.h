@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -9,7 +9,7 @@
 #ifndef LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
 #define LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
 
-#include "Toolib/PPDEFS.H"
+#include "Toolib/PPDEFS.h"
 
 
 #if TOO_OS_WINDOWS == 1
