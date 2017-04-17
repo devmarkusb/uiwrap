@@ -25,7 +25,8 @@ namespace implQt
 class CLibrary_Qt : public CLibrary
 {
 public:
-    explicit CLibrary_Qt(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
+    explicit CLibrary_Qt(
+        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version), m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
     {
     }

@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -78,9 +78,9 @@ private:
 
 inline CProgSettings::CProgSettings(
     const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
-    : m_StorageFileFormat(PreferredStorageFileFormat)
+    : m_StorageFileFormat{PreferredStorageFileFormat}
+    , m_FileName{concatenateWithHierarchySep(FileNamePath, FileExt)}
 {
-    m_FileName = concatenateWithHierarchySep(FileNamePath, FileExt);
 }
 
 CProgSettings::~CProgSettings()

@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -29,7 +29,8 @@ namespace uiw
 class CLibrary_win : public CLibrary
 {
 public:
-    explicit CLibrary_win(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
+    explicit CLibrary_win(
+        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
     {
     }
@@ -90,7 +91,7 @@ class CLibrary_linux : public CLibrary
 {
 public:
     explicit CLibrary_linux(
-        std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
+        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string())
         : CLibrary(FilePathNameWithoutExtension, Version)
     {
     }
