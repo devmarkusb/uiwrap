@@ -1,4 +1,4 @@
-// Markus Borris, 2016
+// Markus Borris, 2016-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,7 +8,8 @@
 
 #ifndef URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f
 #define URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QString>
@@ -46,5 +47,5 @@ inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_pr
 } // implQt
 } // uiw
 
-//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

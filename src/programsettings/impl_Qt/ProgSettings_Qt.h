@@ -1,4 +1,4 @@
-// Markus Borris, 2015-16
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,6 +8,7 @@
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
 #define PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
+#include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/programsettings/programsettings.h"

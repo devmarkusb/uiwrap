@@ -1,4 +1,4 @@
-// Markus Borris, 2015-16
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,7 +8,8 @@
 
 #ifndef STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
 #define STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QString>
@@ -27,5 +28,5 @@ inline QString s2qs(const std::string& s) { return QString::fromUtf8(s.c_str());
 } // implQt
 } // uiw
 
-//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

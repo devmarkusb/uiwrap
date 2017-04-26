@@ -1,6 +1,14 @@
+// Markus Borris, 2016-17
+// This file is part of my uiwrap library.
+
+//!
+/**
+*/
+//! \file
 #ifndef CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #define CPPMODEL2QML_H_dfljkghx4782tgh378g1
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/std/std_extensions.h"
 #include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
@@ -29,5 +37,5 @@ std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
 } // implQt
 } // uiw
 
-//#endif // UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

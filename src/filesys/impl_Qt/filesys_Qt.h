@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,6 +8,7 @@
 
 #ifndef FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
 #define FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
+#include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/filesys/filesys.h"

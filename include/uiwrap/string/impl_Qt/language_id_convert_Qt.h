@@ -1,4 +1,4 @@
-// Markus Borris, 2016
+// Markus Borris, 2016-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,7 +8,8 @@
 
 #ifndef LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
 #define LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/assert.h"
 #include "Toolib/error.h"
@@ -67,5 +68,5 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
 } // implQt
 } // uiw
 
-//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

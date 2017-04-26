@@ -1,4 +1,4 @@
-// Markus Borris, 2016
+// Markus Borris, 2016-17
 // This file is part of my uiwrap library.
 
 //!
@@ -27,7 +27,8 @@
 
 #ifndef QMLEXTLIB_H_eruigx4zgf783427g578sth378g
 #define QMLEXTLIB_H_eruigx4zgf783427g578sth378g
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
@@ -110,5 +111,5 @@ private:
 } // implQt
 } // uiw
 
-//#endif // UIW_LINKLIB_IMPL_CHOICE_QT
+#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

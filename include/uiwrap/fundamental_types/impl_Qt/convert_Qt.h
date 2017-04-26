@@ -1,4 +1,4 @@
-// Markus Borris, 2016
+// Markus Borris, 2016-17
 // This file is part of my uiwrap library.
 
 //!
@@ -16,7 +16,8 @@
 
 #ifndef CONVERT_QT_H_djkghuinx478gn4289gf32
 #define CONVERT_QT_H_djkghuinx478gn4289gf32
-//#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "uiwrap_build_config.h"
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "Toolib/narrow.h"
 #include "Toolib/std/std_extensions.h"
@@ -91,5 +92,5 @@ inline constexpr typename too::enable_if_t<std::is_same<qreal, double>::value, q
 } // implQt
 } // uiw
 
-//#endif //UIW_LINKLIB_IMPL_CHOICE_QT
+#endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

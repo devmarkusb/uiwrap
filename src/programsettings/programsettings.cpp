@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -6,6 +6,7 @@
 */
 //! \file
 
+#include "uiwrap_build_config.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)

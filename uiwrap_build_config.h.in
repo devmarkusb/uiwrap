@@ -16,6 +16,20 @@
 #include <string>
 
 
+#define UIWRAP_IMPL_DETAILS_CHOICE_NUMBER ${uiwrap_impl_choice_number}
+#if UIWRAP_IMPL_DETAILS_CHOICE_NUMBER == 1
+    #define UIW_LINKLIB_IMPL_CHOICE_QT
+    #define UIW_CHOICE_QT
+#elif UIWRAP_IMPL_DETAILS_CHOICE_NUMBER == 2
+    #define UIW_LINKLIB_IMPL_CHOICE_WX
+    #define UIW_CHOICE_WX
+#elif UIWRAP_IMPL_DETAILS_CHOICE_NUMBER == 0
+    #define UIW_LINKLIB_IMPL_CHOICE_OWN
+    #define UIW_CHOICE_OWN
+#else
+    #error "add definitions for new UI framework here"
+#endif
+
 namespace uiw
 {
 inline std::string get_version_of_module()

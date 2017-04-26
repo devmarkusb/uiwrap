@@ -9,6 +9,7 @@
 #ifndef LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
 #define LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
 
+#include "uiwrap_build_config.h"
 #include "Toolib/PPDEFS.h"
 
 

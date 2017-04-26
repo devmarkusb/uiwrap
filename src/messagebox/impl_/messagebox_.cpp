@@ -1,4 +1,4 @@
-// Markus Borris, 2016
+// Markus Borris, 2016-17
 // This file is part of my uiwrap library. Open source.
 
 //!
@@ -19,7 +19,7 @@ void MessageBox::setDefaultButton(EButton) {}
 
 void MessageBox::setEscapeButton(EButton) {}
 
-void MessageBox::setWindowTitle(const std::string& s) {}
+void MessageBox::setWindowTitle(const std::string&) {}
 
 void MessageBox::setCaption(const std::string&) {}
 

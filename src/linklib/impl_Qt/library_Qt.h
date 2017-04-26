@@ -1,4 +1,4 @@
-// Markus Borris, 2014-16
+// Markus Borris, 2014-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,6 +8,7 @@
 
 #ifndef LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
 #define LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
+#include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/linklib/library_interface.h"

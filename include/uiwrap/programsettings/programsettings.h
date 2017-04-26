@@ -1,4 +1,4 @@
-// Markus Borris, 2015-16
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -9,6 +9,7 @@
 #ifndef PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 #define PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 
+#include "uiwrap_build_config.h"
 #include "uiwrapDEF.h"
 #include "Toolib/class/non_copyable.h"
 #include "Toolib/ignore_arg.h"

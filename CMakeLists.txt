@@ -82,21 +82,21 @@ if (WIN32)
     set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
 endif ()
 
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    add_definitions(-DUIW_LINKLIB_IMPL_CHOICE_QT)
-elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-    add_definitions(-DUIW_LINKLIB_IMPL_CHOICE_WX)
-else ()
-    add_definitions(-DUIW_LINKLIB_IMPL_CHOICE_OWN)
-endif ()
-
 # dll export define
 set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_LIBRARY)
 
 set_target_properties(${TargetUIWrap} PROPERTIES DEBUG_POSTFIX "d")
 
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    set(uiwrap_impl_choice_number 1)
+elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+    set(uiwrap_impl_choice_number 2)
+else ()
+    set(uiwrap_impl_choice_number 0)
+endif ()
+
 configure_file(${TargetUIWrap}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetUIWrap}_build_config.h)
-target_include_directories(${TargetUIWrap} PRIVATE ${CMAKE_BINARY_DIR})
+target_include_directories(${TargetUIWrap} PUBLIC ${CMAKE_BINARY_DIR})
 
 target_include_directories(${TargetUIWrap} PUBLIC include)
 target_include_directories(${TargetUIWrap} PRIVATE src)

@@ -47,7 +47,9 @@ public:
     virtual std::string getErrorOfLatestCall() const override;
 
 private:
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_4251_BEGIN"
     mutable std::string latestError;
+#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
 };
 }
 }

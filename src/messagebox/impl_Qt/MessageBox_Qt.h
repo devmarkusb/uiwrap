@@ -1,4 +1,4 @@
-// Markus Borris, 2015
+// Markus Borris, 2015-17
 // This file is part of my uiwrap library.
 
 //!
@@ -8,6 +8,7 @@
 
 #ifndef MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
 #define MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
+#include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/messagebox/messagebox.h"
