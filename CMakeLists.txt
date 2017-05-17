@@ -20,10 +20,6 @@ message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
-if (MSVC)
-    # not good, I only intended to suppress this for Qt headers but didn't find a way
-    add_definitions(-wd4127)
-endif ()
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
@@ -120,6 +116,10 @@ set(${TargetUIWrap}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
 
 ################################################################################################
 
+if (NOT TOO_BUILD_UNITTESTS)
+    return ()
+endif ()
+
 set(TargetUIWrapTest ${PROJECT_NAME}Test)
 
 set(TargetUIWrapTest_SOURCES
@@ -157,23 +157,9 @@ target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
 target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
-if (WIN32)
-    if (NOT MSVC)
-        if (CMAKE_BUILD_TYPE MATCHES Debug)
-            set(TargetBuildType_for_qtdeploy "--debug")
-        else ()
-            set(TargetBuildType_for_qtdeploy "--release")
-        endif ()
-    else ()
-        set(TargetBuildType_for_qtdeploy)
-    endif ()
-    add_custom_command(
-        TARGET ${TargetUIWrap} POST_BUILD
-        COMMAND qtdeploy_autodepends_win.bat "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}" "${Qt_ver_comp_path}\\bin"
-            ${TargetBuildType_for_qtdeploy} -qml -widgets --qmldir ..\\gui\\Qt $<TARGET_FILE_NAME:${TargetUIWrap}>
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        )
-endif ()
+set(TOO_TEMP_TARGET ${TargetUIWrapTest})
+set(TOO_TEMP_QML_DIR)
+include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
 
 set(do_auto_test    ON)
 
