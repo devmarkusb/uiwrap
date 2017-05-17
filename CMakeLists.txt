@@ -20,6 +20,10 @@ message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
 include(${TOO_CMAKE_INC_DEFAULTS})
+if (MSVC)
+    # not good, I only intended to suppress this for Qt headers but didn't find a way
+    add_definitions(-wd4127)
+endif ()
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
