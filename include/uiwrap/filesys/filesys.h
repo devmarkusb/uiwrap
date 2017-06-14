@@ -59,7 +59,7 @@ public:
         APPDATA_writable and Co. are much more preferable locations.*/
     enum class ESysPathType
     {
-        // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv youself
+        // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv yourself
         USER,     //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely
         TEMP,
