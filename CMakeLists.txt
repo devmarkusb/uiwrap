@@ -12,7 +12,7 @@
 # for MSVC, but this is not recommended. You or other will end up in
 # conflicts soon.
 
-cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.8.2)
 
 include(${TOO_CMAKE_INC_BUILDNR})
 project(uiwrap VERSION 0.1.${BUILD_NR}.0)
@@ -28,7 +28,7 @@ endif ()
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
 include(${TOO_CMAKE_INC_BOOST})
-too_find_boost(1 63 0 "")
+too_find_boost(1 64 0 "")
 
 # we use boost anyway
 set(Toolib_USE_NO_DEPENDENCIES OFF CACHE BOOL "")
