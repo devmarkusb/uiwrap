@@ -28,7 +28,7 @@ endif ()
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
 include(${TOO_CMAKE_INC_BOOST})
-too_find_boost(1 64 0 "")
+too_find_boost(${Toolib_USE_BOOST_ver1} ${Toolib_USE_BOOST_ver2} ${Toolib_USE_BOOST_ver3} "")
 
 # we use boost anyway
 set(Toolib_USE_NO_DEPENDENCIES OFF CACHE BOOL "")
