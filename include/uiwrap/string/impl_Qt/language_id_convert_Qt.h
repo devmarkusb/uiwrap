@@ -52,7 +52,7 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
         return QLocale::Hindi;
     else if (id == "it")
         return QLocale::Italian;
-    else if (id == "jp")
+    else if (id == "ja")
         return QLocale::Japanese;
     else if (id == "ko")
         return QLocale::Korean;
