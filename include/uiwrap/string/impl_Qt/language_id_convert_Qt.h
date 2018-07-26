@@ -11,12 +11,12 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "Toolib/assert.h"
-#include "Toolib/error.h"
-#include "Toolib/string/languages.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/assert.h"
+#include "toolib/error.h"
+#include "toolib/string/languages.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QLocale>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <string>
 
 

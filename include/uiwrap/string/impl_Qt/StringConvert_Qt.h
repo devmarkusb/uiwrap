@@ -11,9 +11,9 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QString>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace uiw

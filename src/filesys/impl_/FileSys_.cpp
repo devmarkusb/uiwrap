@@ -7,10 +7,10 @@
 //! \file
 
 #include "FileSys_.h"
-#include "Toolib/error.h"
-#include "Toolib/filesys/file.h"
-#include "Toolib/ignore_arg.h"
-#include "Toolib/string/lex_cast.h"
+#include "toolib/error.h"
+#include "toolib/filesys/file.h"
+#include "toolib/ignore_arg.h"
+#include "toolib/string/lex_cast.h"
 #include <cstdio>
 #include <fstream>
 

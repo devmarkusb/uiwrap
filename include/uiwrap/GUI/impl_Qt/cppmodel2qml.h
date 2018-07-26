@@ -10,11 +10,11 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "Toolib/std/std_extensions.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/std/std_extensions.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QQmlContext>
 #include <QString>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <memory>
 
 

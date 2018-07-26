@@ -10,8 +10,8 @@
 #define FILESYS_H_INCL_xcsabgzduzbvfget32
 
 #include "uiwrapDEF.h"
-#include "Toolib/class/non_copyable.h"
-#include "Toolib/std/std_extensions.h"
+#include "toolib/class/non_copyable.h"
+#include "toolib/std/std_extensions.h"
 #include <stdexcept>
 #include <string>
 

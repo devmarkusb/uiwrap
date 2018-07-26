@@ -11,8 +11,8 @@
 
 #include "uiwrap_build_config.h"
 #include "uiwrapDEF.h"
-#include "Toolib/class/non_copyable.h"
-#include "Toolib/ignore_arg.h"
+#include "toolib/class/non_copyable.h"
+#include "toolib/ignore_arg.h"
 #include <boost/variant.hpp>
 #include <string>
 #include <vector>

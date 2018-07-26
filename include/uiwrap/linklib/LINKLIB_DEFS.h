@@ -62,7 +62,7 @@
 #define LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
 
 #include "uiwrap_build_config.h"
-#include "Toolib/PPDEFS.h"
+#include "toolib/PPDEFS.h"
 
 
 //####################################################################################################################

@@ -12,12 +12,12 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/programsettings/programsettings.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QObject>
 #include <QSettings>
 #include <QString>
 #include <QVariant>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <memory>
 
 

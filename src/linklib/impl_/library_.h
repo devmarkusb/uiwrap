@@ -10,12 +10,12 @@
 #define LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
 
 #include "uiwrap/linklib/library_interface.h"
-#include "Toolib/PPDEFS.h"
-#include "Toolib/std/std_extensions.h"
+#include "toolib/PPDEFS.h"
+#include "toolib/std/std_extensions.h"
 #include <string>
 #if TOO_OS_WINDOWS == 1
-#include "Toolib/string/lex_cast.h"
-#include "Toolib/string/str_convert.h"
+#include "toolib/string/lex_cast.h"
+#include "toolib/string/str_convert.h"
 #include <sstream>
 #include <windows.h>
 #elif TOO_OS_LINUX == 1

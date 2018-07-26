@@ -8,16 +8,16 @@
 
 #include "filesys_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "Toolib/ignore_arg.h"
-#include "Toolib/filesys/file.h"
-#include "Toolib/finally.h"
-#include "Toolib/string/lex_cast.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/ignore_arg.h"
+#include "toolib/filesys/file.h"
+#include "toolib/finally.h"
+#include "toolib/string/lex_cast.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <memory>
 
 

@@ -10,7 +10,7 @@
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
 #include "uiwrapDEF.h"
-#include "Toolib/class/non_copyable.h"
+#include "toolib/class/non_copyable.h"
 #include <memory>
 #include <string>
 

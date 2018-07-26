@@ -1,5 +1,5 @@
 #include "convert_Qt.h"
-#include "Toolib/math/floating_point.h"
+#include "toolib/math/floating_point.h"
 #include "gtest/gtest.h"
 
 

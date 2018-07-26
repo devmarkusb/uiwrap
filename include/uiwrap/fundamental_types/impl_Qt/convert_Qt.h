@@ -5,7 +5,7 @@
 /** Important notice:
     I decided to make any conversion safe/checked where appropriate and possible.
     That is, range violations result in exceptions. The exceptions are of the
-    same type as the ones thrown by assertions from Toolib/assert.h.
+    same type as the ones thrown by assertions from toolib/assert.h.
     The reason is that these functions ought to be called right at the interface
     between GUI and backend only. And this interface is thought to be *the* crucial
     point of error checking. User input has to be checked as thoroughly as possible.
@@ -19,11 +19,11 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "Toolib/narrow.h"
-#include "Toolib/std/std_extensions.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/narrow.h"
+#include "toolib/std/std_extensions.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QtGlobal>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 #include <type_traits>
 
 

@@ -8,13 +8,13 @@
 
 #include "ProgSettings_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "Toolib/assert.h"
-#include "Toolib/std/std_extensions.h"
-#include "Toolib/string/string_token.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/assert.h"
+#include "toolib/std/std_extensions.h"
+#include "toolib/string/string_token.h"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace uiw

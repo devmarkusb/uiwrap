@@ -14,8 +14,8 @@ static_assert(false, "not implemented");
 #else
 #include "impl_/library_.h"
 #endif
-#include "Toolib/ignore_arg.h"
-#include "Toolib/std/std_extensions.h"
+#include "toolib/ignore_arg.h"
+#include "toolib/std/std_extensions.h"
 
 
 namespace uiw

@@ -33,11 +33,11 @@
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "uiwrap/string/impl_Qt/UrlString_util_Qt.h"
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
 #include <QDir>
 #include <QObject>
 #include <QString>
-#include "Toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
 
 
 namespace uiw
