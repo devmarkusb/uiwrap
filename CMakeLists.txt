@@ -91,9 +91,10 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
     target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
 endif ()
-target_include_directories(${TargetUIWrap} PUBLIC ${Toolib_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} PUBLIC ${tfl_INCLUDE_DIRS})
+target_include_directories(${TargetUIWrap} PUBLIC ${toolib_INCLUDE_DIRS})
 
-target_link_libraries(${TargetUIWrap} PUBLIC Toolib)
+target_link_libraries(${TargetUIWrap} PUBLIC toolib)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
@@ -147,9 +148,8 @@ target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
 target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
-set(TOO_TEMP_TARGET ${TargetUIWrapTest})
-set(TOO_TEMP_QML_DIR)
-include(${TOO_CMAKE_INC_QT_DEPLOY_TOO_TEMP_TARGET})
+include(${TOO_CMAKE_INC_QT_DEPLOY})
+too_qt_deploy(${TargetUIWrapTest} "")
 
 set(do_auto_test    ON)
 
