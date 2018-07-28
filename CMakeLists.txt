@@ -5,7 +5,6 @@ project(uiwrap VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
-too_include(defaults.cmake)
 if (MSVC)
     # not good, I only intended to suppress this for Qt headers but didn't find a way
     add_definitions(-wd4127)
