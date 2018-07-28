@@ -16,9 +16,6 @@ set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implemen
 too_include(boost.cmake)
 too_find_boost(${TOO_USE_BOOST_ver1} ${TOO_USE_BOOST_ver2} ${TOO_USE_BOOST_ver3} "")
 
-# we use boost anyway
-set(Toolib_USE_NO_DEPENDENCIES OFF CACHE BOOL "")
-
 file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
 file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
 
