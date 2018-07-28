@@ -62,16 +62,7 @@ add_library(${TargetUIWrap} SHARED
     ${TargetUIWrap_SRC_INCS}
     )
 
-set_target_properties(${TargetUIWrap} PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-if (WIN32)
-    set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
-endif ()
-
-# dll export define
-set_property(TARGET ${TargetUIWrap} APPEND PROPERTY COMPILE_DEFINITIONS UIWRAP_LIBRARY)
-
-set_target_properties(${TargetUIWrap} PROPERTIES DEBUG_POSTFIX "d")
+too_set_target_lib_export_def(${TargetUIWrap} UIWRAP_LIBRARY)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(uiwrap_impl_choice_number 1)
@@ -100,6 +91,8 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
     target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
 endif ()
+
+too_set_target_defaults(${TargetUIWrap})
 
 set(${TargetUIWrap}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
     CACHE INTERNAL "${TargetUIWrap}: include directories" FORCE)
@@ -138,24 +131,13 @@ add_executable(${TargetUIWrapTest}
     ${TargetUIWrap_INCS}
     )
 
-if (WIN32)
-    set_property(TARGET ${TargetUIWrapTest} APPEND PROPERTY COMPILE_DEFINITIONS UNICODE _UNICODE)
-endif ()
-
-set_target_properties(${TargetUIWrapTest} PROPERTIES DEBUG_POSTFIX "d")
-
 target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
 target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
+too_set_target_defaults(${TargetUIWrapTest})
+
 include(${TOO_CMAKE_INC_QT_DEPLOY})
 too_qt_deploy(${TargetUIWrapTest} "")
 
-set(do_auto_test    ON)
-
-if (do_auto_test)
-    add_custom_command(
-        TARGET ${TargetUIWrapTest} POST_BUILD
-        COMMAND ${TargetUIWrapTest}
-        )
-endif ()
+too_run_target_postbuild(${TargetUIWrapTest})
