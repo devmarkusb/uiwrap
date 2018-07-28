@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.8.2)
 
-include(${TOO_CMAKE_INC_BUILDNR})
+too_include(buildnr.cmake)
 project(uiwrap VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
 set(TargetUIWrap ${PROJECT_NAME})
 
-include(${TOO_CMAKE_INC_DEFAULTS})
+too_include(defaults.cmake)
 if (MSVC)
     # not good, I only intended to suppress this for Qt headers but didn't find a way
     add_definitions(-wd4127)
@@ -13,7 +13,7 @@ endif ()
 
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
-include(${TOO_CMAKE_INC_BOOST})
+too_include(boost.cmake)
 too_find_boost(${TOO_USE_BOOST_ver1} ${TOO_USE_BOOST_ver2} ${TOO_USE_BOOST_ver3} "")
 
 # we use boost anyway
@@ -30,7 +30,7 @@ set(TargetUIWrap_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    include (${TOO_CMAKE_INC_QT})
+    too_include(qt.cmake)
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
     find_package(Qt5Widgets)
@@ -137,7 +137,7 @@ target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
 
 too_set_target_defaults(${TargetUIWrapTest})
 
-include(${TOO_CMAKE_INC_QT_DEPLOY})
+too_include(qt_deploy.cmake)
 too_qt_deploy(${TargetUIWrapTest} "")
 
 too_run_target_postbuild(${TargetUIWrapTest})
