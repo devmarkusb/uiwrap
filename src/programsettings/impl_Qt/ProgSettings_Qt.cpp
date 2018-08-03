@@ -185,16 +185,16 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
     TVariant ret;
     switch (v.type())
     {
-    case QMetaType::Int:
+    case QVariant::Int:
         ret = v.toInt(&isOK);
         break;
-    case QMetaType::Double:
+    case QVariant::Double:
         ret = v.toDouble(&isOK);
         break;
-    case QMetaType::QString:
+    case QVariant::String:
         ret = qs2s(v.toString());
         break;
-    case QMetaType::Bool:
+    case QVariant::Bool:
         ret = v.toBool();
         break;
     default:
