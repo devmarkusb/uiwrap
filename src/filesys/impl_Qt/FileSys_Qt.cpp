@@ -38,7 +38,7 @@ void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const
     latestError += ", permissions: " + too::lex_cast<std::string>(f.permissions());
 }
 
-bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::string& content)
+bool CFileSys_Qt::saveToTextFile(const std::string& filePathNameExt, const std::string& content)
 {
     latestError.clear();
     QFile f(s2qs(filePathNameExt));
@@ -47,10 +47,7 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
         setFileOpErrorStr(f, "open");
         return false;
     }
-    auto auto_close = too::finally([&f]()
-        {
-            f.close();
-        });
+    auto auto_close = too::finally([&f]() { f.close(); });
     if (f.write(content.c_str()) == -1)
     {
         setFileOpErrorStr(f, "write");
@@ -59,7 +56,7 @@ bool CFileSys_Qt::SaveToTextFile(const std::string& filePathNameExt, const std::
     return true;
 }
 
-bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
+bool CFileSys_Qt::loadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
     // latestError.clear();
     // QFile f(s2qs(filePathNameExt));
@@ -106,7 +103,7 @@ bool CFileSys_Qt::LoadFromTextFile(const std::string& filePathNameExt, std::stri
     return true;
 }
 
-bool CFileSys_Qt::CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
+bool CFileSys_Qt::copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
 {
     latestError.clear();
     const auto ok = QFile::copy(s2qs(filePathNameExt_From), s2qs(filePathNameExt_To));
@@ -118,16 +115,13 @@ bool CFileSys_Qt::CopyFile(const std::string& filePathNameExt_From, const std::s
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]()
-            {
-                f.close();
-            });
+        auto auto_close = too::finally([&f]() { f.close(); });
         setFileOpErrorStr(f, "copy", "target could already be existing, would be overwritten");
     }
     return ok;
 }
 
-bool CFileSys_Qt::DeleteFile(const std::string& filePathNameExt)
+bool CFileSys_Qt::deleteFile(const std::string& filePathNameExt)
 {
     latestError.clear();
     const auto ok = QFile::remove(s2qs(filePathNameExt));
@@ -139,16 +133,13 @@ bool CFileSys_Qt::DeleteFile(const std::string& filePathNameExt)
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]()
-            {
-                f.close();
-            });
+        auto auto_close = too::finally([&f]() { f.close(); });
         setFileOpErrorStr(f, "remove");
     }
     return ok;
 }
 
-bool CFileSys_Qt::RenameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
+bool CFileSys_Qt::renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
 {
     latestError.clear();
     const auto ok = QFile::rename(s2qs(filePathNameExt_From), s2qs(filePathNameExt_To));
@@ -160,28 +151,25 @@ bool CFileSys_Qt::RenameFile(const std::string& filePathNameExt_From, const std:
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]()
-            {
-                f.close();
-            });
+        auto auto_close = too::finally([&f]() { f.close(); });
         setFileOpErrorStr(f, "rename", "target could already be existing, would be overwritten");
     }
     return ok;
 }
 
-bool CFileSys_Qt::CreateFolder(const std::string& folderPath)
+bool CFileSys_Qt::createFolder(const std::string& folderPath)
 {
     latestError.clear();
     return QDir().mkpath(s2qs(folderPath));
 }
 
-bool CFileSys_Qt::DeleteFolder(const std::string& folderPath)
+bool CFileSys_Qt::deleteFolder(const std::string& folderPath)
 {
     latestError.clear();
     return QDir().rmpath(s2qs(folderPath));
 }
 
-bool CFileSys_Qt::RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To)
+bool CFileSys_Qt::renameFolder(const std::string& folderPath_From, const std::string& folderPath_To)
 {
     latestError.clear();
     if (!QDir().rename(s2qs(folderPath_From), s2qs(folderPath_To)))
@@ -192,13 +180,13 @@ bool CFileSys_Qt::RenameFolder(const std::string& folderPath_From, const std::st
     return true;
 }
 
-bool CFileSys_Qt::FolderExists(const std::string& folderPath) const
+bool CFileSys_Qt::folderExists(const std::string& folderPath) const
 {
     latestError.clear();
     return QDir().exists(s2qs(folderPath));
 }
 
-bool CFileSys_Qt::FileExists(const std::string& filePathNameExt) const
+bool CFileSys_Qt::fileExists(const std::string& filePathNameExt) const
 {
     latestError.clear();
     return QFile::exists(s2qs(filePathNameExt));
@@ -217,7 +205,7 @@ std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-bool CFileSys_Qt::GetSystemPath(
+bool CFileSys_Qt::getSystemPath(
     uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const
 {
     latestError.clear();
@@ -287,5 +275,5 @@ bool CFileSys_Qt::GetSystemPath(
 }
 
 std::string CFileSys_Qt::getErrorOfLatestCall() const { return this->latestError; }
-}
-}
+} // implQt
+} // uiw

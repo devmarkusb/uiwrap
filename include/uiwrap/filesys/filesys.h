@@ -15,13 +15,6 @@
 #include <stdexcept>
 #include <string>
 
-#ifdef CopyFile
-#undef CopyFile
-#endif
-#ifdef DeleteFile
-#undef DeleteFile
-#endif
-
 
 namespace uiw
 {
@@ -34,21 +27,21 @@ class UIWRAPSHARED_EXPORT IFileSys : private too::non_copyable
 public:
     virtual ~IFileSys() = default;
 
-    static IFileSys* GetInstance();
+    static IFileSys* getInstance();
 
     static const char FOLDER_SEPARATOR_TO_USE_HERE = '/';
 
-    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
-    virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
+    virtual bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
+    virtual bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
     //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
-    virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
-    virtual bool DeleteFile(const std::string& filePathNameExt) = 0;
-    virtual bool RenameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
-    virtual bool CreateFolder(const std::string& folderPath) = 0;
-    virtual bool DeleteFolder(const std::string& folderPath) = 0;
-    virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
-    virtual bool FolderExists(const std::string& folderPath) const = 0;
-    virtual bool FileExists(const std::string& filePathNameExt) const = 0;
+    virtual bool copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
+    virtual bool deleteFile(const std::string& filePathNameExt) = 0;
+    virtual bool renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
+    virtual bool createFolder(const std::string& folderPath) = 0;
+    virtual bool deleteFolder(const std::string& folderPath) = 0;
+    virtual bool renameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
+    virtual bool folderExists(const std::string& folderPath) const = 0;
+    virtual bool fileExists(const std::string& filePathNameExt) const = 0;
     virtual bool isFile(const std::string& filePathNameExt) const = 0;
 
     virtual std::string toNativeSeparators(const std::string& Path) const = 0;
@@ -76,7 +69,7 @@ public:
         FONTS,
         CACHE,
     };
-    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const = 0;
+    virtual bool getSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const = 0;
 
     virtual std::string getErrorOfLatestCall() const = 0;
 };
@@ -122,10 +115,10 @@ public:
         return true;
     }
 };
-}
+} // file
 using IFileSys  = file::IFileSys;
 using IFileData = file::IFileData;
-}
+} // uiw
 
 
 #endif

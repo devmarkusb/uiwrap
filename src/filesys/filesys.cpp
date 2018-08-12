@@ -20,7 +20,7 @@ static_assert(false, "not implemented");
 
 namespace uiw
 {
-IFileSys* IFileSys::GetInstance()
+IFileSys* IFileSys::getInstance()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 

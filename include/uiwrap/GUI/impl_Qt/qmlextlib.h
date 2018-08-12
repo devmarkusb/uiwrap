@@ -88,14 +88,14 @@ public:
     //! Expects \param fullpath with slashes only.
     Q_INVOKABLE bool fileExists(QString fullpath) const
     {
-        const auto fs = ::uiw::file::IFileSys::GetInstance();
-        return fs->FileExists(::uiw::implQt::qs2s(fullpath));
+        const auto fs = ::uiw::file::IFileSys::getInstance();
+        return fs->fileExists(::uiw::implQt::qs2s(fullpath));
     }
 
     //! Expects \param fullpath with slashes only.
     Q_INVOKABLE bool isFile(QString fullpath) const
     {
-        const auto fs = ::uiw::file::IFileSys::GetInstance();
+        const auto fs = ::uiw::file::IFileSys::getInstance();
         return fs->isFile(::uiw::implQt::qs2s(fullpath));
     }
 

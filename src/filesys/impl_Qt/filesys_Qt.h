@@ -25,21 +25,21 @@ namespace implQt
 class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::IFileSys
 {
 public:
-    virtual bool SaveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
-    virtual bool LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const override;
-    virtual bool CopyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
-    virtual bool DeleteFile(const std::string& filePathNameExt) override;
-    virtual bool RenameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
-    virtual bool CreateFolder(const std::string& folderPath) override;
-    virtual bool DeleteFolder(const std::string& folderPath) override;
-    virtual bool RenameFolder(const std::string& folderPath_From, const std::string& folderPath_To) override;
-    virtual bool FolderExists(const std::string& folderPath) const override;
-    virtual bool FileExists(const std::string& filePathNameExt) const override;
+    virtual bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
+    virtual bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const override;
+    virtual bool copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
+    virtual bool deleteFile(const std::string& filePathNameExt) override;
+    virtual bool renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
+    virtual bool createFolder(const std::string& folderPath) override;
+    virtual bool deleteFolder(const std::string& folderPath) override;
+    virtual bool renameFolder(const std::string& folderPath_From, const std::string& folderPath_To) override;
+    virtual bool folderExists(const std::string& folderPath) const override;
+    virtual bool fileExists(const std::string& filePathNameExt) const override;
     virtual bool isFile(const std::string& filePathNameExt) const override;
 
     virtual std::string toNativeSeparators(const std::string& Path) const override;
 
-    virtual bool GetSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const override;
+    virtual bool getSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const override;
 
     virtual std::string getErrorOfLatestCall() const override;
 
@@ -48,8 +48,8 @@ private:
 
     void setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info = {}) const;
 };
-}
-}
+} // implQt
+} // uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif
