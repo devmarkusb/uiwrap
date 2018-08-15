@@ -20,6 +20,8 @@ static_assert(false, "not implemented");
 
 namespace uiw
 {
+namespace file
+{
 IFileSys* IFileSys::getInstance()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
@@ -38,4 +40,5 @@ IFileSys* IFileSys::getInstance()
 
 #endif
 }
-}
+} // file
+} // uiw

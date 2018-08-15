@@ -1,4 +1,4 @@
-// Markus Borris, 2015-17
+// Markus Borris, 2015-18
 // This file is part of my uiwrap library. Open source.
 
 //!
@@ -25,7 +25,6 @@ namespace uiw
 {
 namespace implQt
 {
-
 void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info) const
 {
     latestError = "file ";
