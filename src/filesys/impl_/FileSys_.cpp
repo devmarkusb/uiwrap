@@ -1,4 +1,4 @@
-// Markus Borris, 2015-16
+// Markus Borris, 2015-18
 // This file is part of my uiwrap library.
 
 //!
@@ -19,7 +19,7 @@ namespace uiw
 {
 namespace impl
 {
-bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
+bool CFileSys_::saveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
 {
     this->latestError.clear();
     std::ofstream file(FilePathNameExt);
@@ -29,7 +29,7 @@ bool CFileSys_::SaveToTextFile(const std::string& FilePathNameExt, const std::st
     return true;
 }
 
-bool CFileSys_::LoadFromTextFile(const std::string& filePathNameExt, std::string& content) const
+bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string& content) const
 {
     this->latestError.clear();
     std::ifstream file(filePathNameExt);
@@ -54,7 +54,7 @@ bool CFileSys_::LoadFromTextFile(const std::string& filePathNameExt, std::string
     return true;
 }
 
-bool CFileSys_::CopyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
+bool CFileSys_::copyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
 {
     this->latestError.clear();
     std::ifstream src(FilePathNameExt_From, std::ios::binary);
@@ -67,7 +67,7 @@ bool CFileSys_::CopyFile(const std::string& FilePathNameExt_From, const std::str
     return true;
 }
 
-bool CFileSys_::DeleteFile(const std::string& FilePathNameExt)
+bool CFileSys_::deleteFile(const std::string& FilePathNameExt)
 {
     this->latestError.clear();
     const auto res = remove(FilePathNameExt.c_str());
@@ -79,7 +79,7 @@ bool CFileSys_::DeleteFile(const std::string& FilePathNameExt)
     return true;
 }
 
-bool CFileSys_::RenameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
+bool CFileSys_::renameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
 {
     this->latestError.clear();
     too::ignore_arg(FilePathNameExt_From);
@@ -88,7 +88,7 @@ bool CFileSys_::RenameFile(const std::string& FilePathNameExt_From, const std::s
     return false;
 }
 
-bool CFileSys_::CreateFolder(const std::string& FolderPath)
+bool CFileSys_::createFolder(const std::string& FolderPath)
 {
     too::ignore_arg(FolderPath);
     this->latestError.clear();
@@ -96,7 +96,7 @@ bool CFileSys_::CreateFolder(const std::string& FolderPath)
     return false;
 }
 
-bool CFileSys_::DeleteFolder(const std::string& FolderPath)
+bool CFileSys_::deleteFolder(const std::string& FolderPath)
 {
     too::ignore_arg(FolderPath);
     this->latestError.clear();
@@ -104,7 +104,7 @@ bool CFileSys_::DeleteFolder(const std::string& FolderPath)
     return false;
 }
 
-bool CFileSys_::RenameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To)
+bool CFileSys_::renameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To)
 {
     too::ignore_arg(FolderPath_From);
     too::ignore_arg(FolderPath_To);
@@ -113,7 +113,7 @@ bool CFileSys_::RenameFolder(const std::string& FolderPath_From, const std::stri
     return false;
 }
 
-bool CFileSys_::FolderExists(const std::string& FolderPath) const
+bool CFileSys_::folderExists(const std::string& FolderPath) const
 {
     too::ignore_arg(FolderPath);
     this->latestError.clear();
@@ -121,7 +121,7 @@ bool CFileSys_::FolderExists(const std::string& FolderPath) const
     return false;
 }
 
-bool CFileSys_::FileExists(const std::string& FilePathNameExt) const
+bool CFileSys_::fileExists(const std::string& FilePathNameExt) const
 {
     this->latestError.clear();
     std::ifstream file(FilePathNameExt, std::ios_base::binary);
@@ -138,7 +138,7 @@ std::string CFileSys_::toNativeSeparators(const std::string& Path) const
     return std::string();
 }
 
-bool CFileSys_::GetSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator) const
+bool CFileSys_::getSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator) const
 {
     this->latestError.clear();
     switch (Type)

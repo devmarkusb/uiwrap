@@ -69,7 +69,7 @@ public:
         FONTS,
         CACHE,
     };
-    virtual bool getSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const = 0;
+    virtual std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const = 0;
 
     virtual std::string getErrorOfLatestCall() const = 0;
 };

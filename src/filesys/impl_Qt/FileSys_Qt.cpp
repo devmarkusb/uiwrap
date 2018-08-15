@@ -204,73 +204,74 @@ std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-bool CFileSys_Qt::getSystemPath(
-    uiw::file::IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const
+std::string CFileSys_Qt::getSystemPath(
+    uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
 {
+    std::string ret;
     latestError.clear();
-    switch (Type)
+    switch (type)
     {
     case ESysPathType::PROGDATA:
-        Path = qs2s(QDir::home().absolutePath());
+        ret = qs2s(QDir::home().absolutePath());
         break;
     case ESysPathType::ROOT:
-        Path = qs2s(QDir::root().absolutePath());
+        ret = qs2s(QDir::root().absolutePath());
         break;
     case ESysPathType::TEMP:
-        Path = qs2s(QDir::temp().absolutePath());
+        ret = qs2s(QDir::temp().absolutePath());
         break;
     case ESysPathType::USER:
-        Path = qs2s(QDir::home().absolutePath());
+        ret = qs2s(QDir::home().absolutePath());
         break;
     case ESysPathType::APPDATA_writable:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
         break;
     case ESysPathType::APPDATA_readonly:
     {
         const auto locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
         if (locations.count() >= 2)
-            Path = qs2s(locations[1]);
+            ret = qs2s(locations[1]);
         else if (locations.count() == 1)
-            Path = qs2s(locations[0]);
+            ret = qs2s(locations[0]);
         else
             goto default_label;
         break;
     }
     case ESysPathType::DOCUMENTS:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
         break;
     case ESysPathType::MUSIC:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
         break;
     case ESysPathType::PICTURES:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
         break;
     case ESysPathType::MOVIES:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
         break;
     case ESysPathType::DESKTOP:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
         break;
     case ESysPathType::FONTS:
     {
         const auto locations = QStandardPaths::standardLocations(QStandardPaths::FontsLocation);
         if (!locations.isEmpty())
-            Path = qs2s(locations[0]);
+            ret = qs2s(locations[0]);
         else
             goto default_label;
         break;
     }
     case ESysPathType::CACHE:
-        Path = qs2s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
         break;
     case ESysPathType::CURRENT:
     default:
     default_label:
-        Path = qs2s(QDir::current().absolutePath());
+        ret = qs2s(QDir::current().absolutePath());
     }
-    if (WithTrailingSeparator && !Path.empty())
-        Path += FOLDER_SEPARATOR_TO_USE_HERE;
-    return true;
+    if (withTrailingSeparator && !ret.empty())
+        ret += FOLDER_SEPARATOR_TO_USE_HERE;
+    return ret;
 }
 
 std::string CFileSys_Qt::getErrorOfLatestCall() const { return this->latestError; }

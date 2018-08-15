@@ -21,7 +21,7 @@ namespace uiw
 {
 namespace implQt
 {
-class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::IFileSys
+class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys
 {
 public:
     bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
@@ -38,7 +38,7 @@ public:
 
     std::string toNativeSeparators(const std::string& Path) const override;
 
-    bool getSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeparator) const override;
+    std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const override;
 
     std::string getErrorOfLatestCall() const override;
 
