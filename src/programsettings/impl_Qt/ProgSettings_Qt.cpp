@@ -139,7 +139,7 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
     if (!m_settings())
         return retkeys;
     QStringList keys(m_settings()->allKeys());
-    retkeys.reserve(keys.size());
+    retkeys.reserve(static_cast<size_t>(keys.size()));
     for (auto i : keys)
     {
         std::vector<std::string> keypath;
