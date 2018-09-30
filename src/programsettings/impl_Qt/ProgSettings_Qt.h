@@ -32,30 +32,30 @@ class CProgSettings : public QObject, public uiw::IProgSettings
 
 public:
     CProgSettings() : QObject() {}
-    virtual ~CProgSettings() = default;
+    ~CProgSettings() override = default;
 
-    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
+    void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    virtual TVariant Value(const std::string& SectionName, const std::string& KeyName,
+    TVariant Value(const std::string& SectionName, const std::string& KeyName,
         const TVariant& Default = TVariant()) const override;
-    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
-    virtual std::string ValueStr(
+    std::string ValueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
-    virtual void SetValueStr(
+    void SetValueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
-    virtual std::vector<TSectionKeyPair> GetAllKeys() const override;
-    virtual void Clear() override;
-    virtual void enable(bool enable) override;
-    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
-    virtual void Remove(const std::string& SectionName, const std::string& KeyName) override;
-    virtual void Sync() override;
+    std::vector<TSectionKeyPair> GetAllKeys() const override;
+    void Clear() override;
+    void enable(bool enable) override;
+    bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
+    void Remove(const std::string& SectionName, const std::string& KeyName) override;
+    void Sync() override;
 
-    virtual EError GetError() const override;
-    virtual void ResetError() override;
+    EError GetError() const override;
+    void ResetError() override;
 
-    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) override;
+    void setAsRootContextProperty(void* application_engine, const std::string& name) override;
 
     // ### QML access ###
     //! \param SecAndKey contains section and key like "sectionname/keyname" separated by "/"

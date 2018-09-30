@@ -25,20 +25,20 @@ namespace implQt
 class CMessageBox_Qt : public uiw::gui::IMessageBox
 {
 public:
-    virtual ~CMessageBox_Qt() = default;
+    ~CMessageBox_Qt() override = default;
 
-    virtual void addButton(EButton b) override;
-    virtual void setDefaultButton(EButton b) override;
-    virtual void setEscapeButton(EButton b) override;
-    virtual void setWindowTitle(const std::string& s) override;
-    virtual void setCaption(const std::string& s) override;
-    virtual void setText(const std::string& s) override;
-    virtual void setDetailedText(const std::string& s) override;
-    virtual void setIcon(EIcon i) override;
+    void addButton(EButton b) override;
+    void setDefaultButton(EButton b) override;
+    void setEscapeButton(EButton b) override;
+    void setWindowTitle(const std::string& s) override;
+    void setCaption(const std::string& s) override;
+    void setText(const std::string& s) override;
+    void setDetailedText(const std::string& s) override;
+    void setIcon(EIcon i) override;
 
-    virtual void runModal() override;
+    void runModal() override;
 
-    virtual EButton getRunResult() override;
+    EButton getRunResult() override;
 
 private:
     QMessageBox m_MsgBox{};
