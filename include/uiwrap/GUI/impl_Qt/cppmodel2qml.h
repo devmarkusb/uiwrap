@@ -11,10 +11,11 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "toolib/std/std_extensions.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/warnings.h"
+TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
 #include <QQmlContext>
 #include <QString>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+TOO_PRAGMA_WARNINGS_POP
 #include <memory>
 
 

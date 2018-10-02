@@ -11,6 +11,7 @@
 
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrapDEF.h"
+#include "toolib/warnings.h"
 #include <string>
 
 
@@ -46,9 +47,10 @@ public:
     std::string getErrorOfLatestCall() const override;
 
 private:
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_4251_BEGIN"
+TOO_PRAGMA_WARNINGS_PUSH
+TOO_PRAGMA_WARNING_NO_dll_interface_needed
     mutable std::string latestError;
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNING_END"
+TOO_PRAGMA_WARNINGS_POP
 };
 } // impl
 } // uiw

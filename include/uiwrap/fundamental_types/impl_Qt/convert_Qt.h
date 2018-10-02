@@ -21,9 +21,10 @@
 
 #include "toolib/narrow.h"
 #include "toolib/std/std_extensions.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/warnings.h"
+TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
 #include <QtGlobal>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+TOO_PRAGMA_WARNINGS_POP
 #include <type_traits>
 
 

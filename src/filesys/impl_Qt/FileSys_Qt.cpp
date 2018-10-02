@@ -12,12 +12,13 @@
 #include "toolib/filesys/file.h"
 #include "toolib/finally.h"
 #include "toolib/string/lex_cast.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/warnings.h"
+TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+TOO_PRAGMA_WARNINGS_POP
 #include <memory>
 
 

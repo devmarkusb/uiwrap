@@ -11,15 +11,15 @@
 
 #include "uiwrap/programsettings/programsettings.h"
 #include "toolib/error.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
-#include "toolib/PPDefs/GCC/SUPPRESS_WARNING_unused-local-typedefs_BEGIN"
+#include "toolib/warnings.h"
+TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
+TOO_PRAGMA_WARNING_NO_unused_local_typedefs
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
-#include "toolib/PPDefs/GCC/SUPPRESS_WARNING_END"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+TOO_PRAGMA_WARNINGS_POP
 #include <memory>
 
 

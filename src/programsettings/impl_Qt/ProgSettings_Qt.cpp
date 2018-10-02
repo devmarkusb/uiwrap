@@ -11,10 +11,11 @@
 #include "toolib/assert.h"
 #include "toolib/std/std_extensions.h"
 #include "toolib/string/string_token.h"
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_BEGIN"
+#include "toolib/warnings.h"
+TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "toolib/PPDefs/MSVC/SUPPRESS_WARNINGS_EXTERNAL_END"
+TOO_PRAGMA_WARNINGS_POP
 
 
 namespace uiw
