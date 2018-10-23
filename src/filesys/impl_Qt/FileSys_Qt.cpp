@@ -13,7 +13,7 @@
 #include "toolib/finally.h"
 #include "toolib/string/lex_cast.h"
 #include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
+TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>

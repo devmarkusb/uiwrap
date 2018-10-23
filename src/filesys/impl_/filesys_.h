@@ -48,7 +48,7 @@ public:
 
 private:
 TOO_PRAGMA_WARNINGS_PUSH
-TOO_PRAGMA_WARNING_NO_dll_interface_needed
+TOO_WARNING_DISABLE_MSVC(4251)
     mutable std::string latestError;
 TOO_PRAGMA_WARNINGS_POP
 };

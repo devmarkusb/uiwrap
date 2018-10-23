@@ -12,8 +12,8 @@
 #include "uiwrap/programsettings/programsettings.h"
 #include "toolib/error.h"
 #include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_DISABLE_ALL
-TOO_PRAGMA_WARNING_NO_unused_local_typedefs
+TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+TOO_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include <boost/property_tree/info_parser.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/json_parser.hpp>
