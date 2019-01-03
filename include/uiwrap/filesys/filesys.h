@@ -6,8 +6,8 @@
 */
 //! \file
 
-#ifndef FILESYS_H_INCL_xcsabgzduzbvfget32
-#define FILESYS_H_INCL_xcsabgzduzbvfget32
+#ifndef FILESYS_H_xcsabgzduzbvfget32
+#define FILESYS_H_xcsabgzduzbvfget32
 
 #include "uiwrapDEF.h"
 #include "toolib/class/non_copyable.h"

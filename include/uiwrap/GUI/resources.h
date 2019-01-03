@@ -17,7 +17,7 @@ namespace uiw
 namespace gui
 {
 using ResourceID = long;
-//! Alpanumeric variant.
+//! Alphanumeric variant.
 using ResourceID_alnum = std::string;
 } // gui
 } // uiw
