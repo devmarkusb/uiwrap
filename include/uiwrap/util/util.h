@@ -20,7 +20,7 @@ namespace util
 inline std::string resources_base_path()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
-    return "qrc:/";
+    return ":/";
 #else
 #error "not implemented"
 #endif
