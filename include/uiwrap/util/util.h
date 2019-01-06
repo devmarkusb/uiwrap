@@ -17,10 +17,11 @@ namespace uiw
 {
 namespace util
 {
-inline std::string resources_base_path()
+inline const std::string& resources_base_path()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
-    return ":/";
+    static const std::string ret{":/"};
+    return ret;
 #else
 #error "not implemented"
 #endif
