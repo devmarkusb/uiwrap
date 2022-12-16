@@ -17,7 +17,7 @@
 class QFile;
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {

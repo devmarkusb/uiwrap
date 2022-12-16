@@ -6,18 +6,15 @@
 */
 //! \file
 
-#include "FileSys_.h"
-#include "toolib/error.h"
+#include "filesys_.h"
 #include "toolib/filesys/file.h"
-#include "toolib/ignore_arg.h"
 #include "toolib/string/lex_cast.h"
+#include "ul/ul.h"
 #include <cstdio>
 #include <fstream>
 
 
-namespace uiw
-{
-namespace impl
+namespace mb::uiw::impl
 {
 bool CFileSys_::saveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
 {
@@ -82,15 +79,15 @@ bool CFileSys_::deleteFile(const std::string& FilePathNameExt)
 bool CFileSys_::renameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
 {
     this->latestError.clear();
-    too::ignore_arg(FilePathNameExt_From);
-    too::ignore_arg(FilePathNameExt_To);
+    ul::ignore_arg(FilePathNameExt_From);
+    ul::ignore_arg(FilePathNameExt_To);
     this->latestError = "not implemented";
     return false;
 }
 
 bool CFileSys_::createFolder(const std::string& FolderPath)
 {
-    too::ignore_arg(FolderPath);
+    ul::ignore_arg(FolderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -98,7 +95,7 @@ bool CFileSys_::createFolder(const std::string& FolderPath)
 
 bool CFileSys_::deleteFolder(const std::string& FolderPath)
 {
-    too::ignore_arg(FolderPath);
+    ul::ignore_arg(FolderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -106,8 +103,8 @@ bool CFileSys_::deleteFolder(const std::string& FolderPath)
 
 bool CFileSys_::renameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To)
 {
-    too::ignore_arg(FolderPath_From);
-    too::ignore_arg(FolderPath_To);
+    ul::ignore_arg(FolderPath_From);
+    ul::ignore_arg(FolderPath_To);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -115,7 +112,7 @@ bool CFileSys_::renameFolder(const std::string& FolderPath_From, const std::stri
 
 bool CFileSys_::folderExists(const std::string& FolderPath) const
 {
-    too::ignore_arg(FolderPath);
+    ul::ignore_arg(FolderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -128,20 +125,20 @@ bool CFileSys_::fileExists(const std::string& FilePathNameExt) const
     return file ? true : false;
 }
 
-bool CFileSys_::isFile(const std::string&) const { throw too::not_implemented{"isFile"}; }
+bool CFileSys_::isFile(const std::string&) const { throw ul::not_implemented{"isFile"}; }
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 {
-    too::ignore_arg(Path);
+    ul::ignore_arg(Path);
     this->latestError.clear();
     this->latestError = "not implemented";
-    return std::string();
+    return {};
 }
 
-bool CFileSys_::getSystemPath(IFileSys::ESysPathType Type, std::string& Path, bool WithTrailingSeperator) const
+std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
 {
     this->latestError.clear();
-    switch (Type)
+    switch (type)
     {
     case ESysPathType::PROGDATA:
         break;
@@ -155,12 +152,12 @@ bool CFileSys_::getSystemPath(IFileSys::ESysPathType Type, std::string& Path, bo
     default:
         break;
     }
-    if (WithTrailingSeperator)
-        Path += FOLDER_SEPARATOR_TO_USE_HERE;
     this->latestError = "not implemented";
-    return false;
+    if (withTrailingSeparator)
+        return std::string{FOLDER_SEPARATOR_TO_USE_HERE};
+    else
+        return {};
 }
 
 std::string CFileSys_::getErrorOfLatestCall() const { return this->latestError; }
-} // impl
 } // uiw

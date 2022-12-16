@@ -1,24 +1,34 @@
 cmake_minimum_required(VERSION 3.8.2)
 
-too_include(buildnr.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/toolib.cmake)
+
+include(${ul_CMAKE_DIRS}/cmake_util.cmake)
+
+ul_include(buildnr.cmake)
 project(uiwrap VERSION 0.1.${BUILD_NR}.0)
 message(STATUS "project version: " ${PROJECT_VERSION})
-set(TargetUIWrap ${PROJECT_NAME})
+set(target ${PROJECT_NAME})
 
 if (MSVC)
     # not good, I only intended to suppress this for Qt headers but didn't find a way
     add_definitions(-wd4127)
 endif ()
 
+ul_include(defaults.cmake)
+
+ul_include(fetch-clangformat-repo.cmake)
+ul_include(clang-format.cmake)
+ul_include(githooks.cmake)
+
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or own (the default)")
 
-too_include(boost.cmake)
-too_find_boost(${TOO_USE_BOOST_ver1} ${TOO_USE_BOOST_ver2} ${TOO_USE_BOOST_ver3} "")
+ul_include(boost.cmake)
+ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
 
-file(GLOB_RECURSE TargetUIWrap_INCS "include/*.h")
-file(GLOB_RECURSE TargetUIWrap_SRC_INCS "src/*.h")
+file(GLOB_RECURSE target_INCS "include/*.h")
+file(GLOB_RECURSE target_SRC_INCS "src/*.h")
 
-set(TargetUIWrap_COMMON_SOURCES
+set(target_COMMON_SOURCES
     src/filesys/filesys.cpp
     src/linklib/linklib.cpp
     src/messagebox/messagebox.cpp
@@ -26,13 +36,13 @@ set(TargetUIWrap_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    too_include(qt.cmake)
+    ul_include(qt.cmake)
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
     find_package(Qt5Widgets)
     find_package(Qt5Qml)
 
-    set(TargetUIWrap_IMPL_SOURCES
+    set(target_IMPL_SOURCES
         include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
         src/filesys/impl_Qt/FileSys_Qt.cpp
         src/messagebox/impl_Qt/MessageBox_Qt.cpp
@@ -40,25 +50,25 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         )
 
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-    set(TargetUIWrap_IMPL_SOURCES ""
+    set(target_IMPL_SOURCES ""
         )
 
 else ()
-    set(TargetUIWrap_IMPL_SOURCES
+    set(target_IMPL_SOURCES
         src/filesys/impl_/FileSys_.cpp
         src/messagebox/impl_/messagebox_.cpp
         )
 
 endif ()
 
-add_library(${TargetUIWrap} SHARED
-    ${TargetUIWrap_COMMON_SOURCES}
-    ${TargetUIWrap_IMPL_SOURCES}
-    ${TargetUIWrap_INCS}
-    ${TargetUIWrap_SRC_INCS}
+add_library(${target} SHARED
+    ${target_COMMON_SOURCES}
+    ${target_IMPL_SOURCES}
+    ${target_INCS}
+    ${target_SRC_INCS}
     )
 
-too_set_target_lib_export_def(${TargetUIWrap} UIWRAP_LIBRARY)
+ul_set_target_lib_export_def(${target} UIWRAP_LIBRARY)
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(uiwrap_impl_choice_number 1)
@@ -68,72 +78,76 @@ else ()
     set(uiwrap_impl_choice_number 0)
 endif ()
 
-configure_file(${TargetUIWrap}_build_config.h.in ${CMAKE_BINARY_DIR}/${TargetUIWrap}_build_config.h)
-target_include_directories(${TargetUIWrap} PUBLIC ${CMAKE_BINARY_DIR})
+configure_file(${target}_build_config.h.in ${CMAKE_BINARY_DIR}/${target}_build_config.h)
+target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR})
 
-target_include_directories(${TargetUIWrap} PUBLIC include)
-target_include_directories(${TargetUIWrap} PRIVATE src)
-target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
+target_include_directories(${target} PUBLIC include)
+target_include_directories(${target} PRIVATE src)
+target_include_directories(${target} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
-    target_include_directories(${TargetUIWrap} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
+    target_include_directories(${target} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
+    target_include_directories(${target} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
 endif ()
-target_include_directories(${TargetUIWrap} PUBLIC ${tfl_INCLUDE_DIRS})
-target_include_directories(${TargetUIWrap} PUBLIC ${toolib_INCLUDE_DIRS})
+target_include_directories(${target} PUBLIC ${ul_INCLUDE_DIRS})
+target_include_directories(${target} PUBLIC ${toolib_INCLUDE_DIRS})
 
-target_link_libraries(${TargetUIWrap} PUBLIC toolib)
+target_link_libraries(${target} PUBLIC toolib)
+
+if (${UL_LINUX})
+    target_link_libraries(${target} PUBLIC dl)
+endif ()
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Qml)
-    target_link_libraries(${TargetUIWrap} PUBLIC Qt5::Widgets)
+    target_link_libraries(${target} PUBLIC Qt5::Qml)
+    target_link_libraries(${target} PUBLIC Qt5::Widgets)
 endif ()
 
-too_set_target_defaults(${TargetUIWrap})
+ul_set_target_defaults(${target})
 
-set(${TargetUIWrap}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
-    CACHE INTERNAL "${TargetUIWrap}: include directories" FORCE)
+set(${target}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
+    CACHE INTERNAL "${target}: include directories" FORCE)
 
 
 ################################################################################################
 
-if (NOT TOO_BUILD_UNITTESTS)
+if (NOT UL_BUILD_UNITTESTS)
     return ()
 endif ()
 
-set(TargetUIWrapTest ${PROJECT_NAME}Test)
+set(targetTest ${PROJECT_NAME}Test)
 
-set(TargetUIWrapTest_SOURCES
+set(targetTest_SOURCES
     include/uiwrap/filesys/filesys.test.cpp
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    set(TargetUIWrapTest_IMPL_SOURCES
+    set(targetTest_IMPL_SOURCES
         include/uiwrap/fundamental_types/impl_Qt/convert_Qt.test.cpp
         include/uiwrap/GUI/impl_Qt/cppmodel2qml.test.cpp
         include/uiwrap/GUI/impl_Qt/qmlextlib.test.cpp
         include/uiwrap/string/impl_Qt/UrlString_util_Qt.test.cpp
     )
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
-    set(TargetUIWrapTest_IMPL_SOURCES "")
+    set(targetTest_IMPL_SOURCES "")
 else ()
-    set(TargetUIWrapTest_IMPL_SOURCES
+    set(targetTest_IMPL_SOURCES
         src/messagebox/impl_/messagebox_.test.cpp
         )
 endif ()
 
-add_executable(${TargetUIWrapTest}
-    ${TargetUIWrapTest_SOURCES}
-    ${TargetUIWrapTest_IMPL_SOURCES}
-    ${TargetUIWrap_INCS}
+add_executable(${targetTest}
+    ${targetTest_SOURCES}
+    ${targetTest_IMPL_SOURCES}
+    ${target_INCS}
     )
 
-target_include_directories(${TargetUIWrapTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
+target_include_directories(${targetTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
-target_link_libraries(${TargetUIWrapTest} PRIVATE gtest_main ${TargetUIWrap})
+target_link_libraries(${targetTest} PRIVATE gtest_main ${target})
 
-too_set_target_defaults(${TargetUIWrapTest})
+ul_set_target_defaults(${targetTest})
 
-too_include(qt_deploy.cmake)
-too_qt_deploy(${TargetUIWrapTest} "")
+ul_include(qt_deploy.cmake)
+ul_qt_deploy(${targetTest} "")
 
-too_run_target_postbuild(${TargetUIWrapTest})
+ul_run_target_postbuild(${targetTest})

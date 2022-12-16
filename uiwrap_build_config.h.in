@@ -30,9 +30,9 @@
     #error "add definitions for new UI framework here"
 #endif
 
-namespace uiw
+namespace mb::uiw
 {
-inline std::string get_version_of_module()
+inline std::string getVersionOfLib()
 {
     return "@PROJECT_VERSION@";
 }

@@ -10,16 +10,16 @@
 #define MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 
 #include "uiwrapDEF.h"
-#include "toolib/class/non_copyable.h"
+#include "ul/ul.h"
 #include <memory>
 #include <string>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace gui
 {
-class UIWRAPSHARED_EXPORT IMessageBox : private too::non_copyable
+class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable
 {
 public:
     virtual ~IMessageBox() = default;

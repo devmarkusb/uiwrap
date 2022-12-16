@@ -1,6 +1,9 @@
-_build*
 *.user
+.clang-format
+.idea
+_build*
 bin
 bin_*
+cmake-build-*
 lib
 lib_*

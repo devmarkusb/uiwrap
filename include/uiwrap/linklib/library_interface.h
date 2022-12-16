@@ -10,14 +10,14 @@
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
 #include "uiwrapDEF.h"
-#include "toolib/class/non_copyable.h"
+#include "ul/ul.h"
 #include <memory>
 #include <string>
 
 
-namespace uiw
+namespace mb::uiw
 {
-class UIWRAPSHARED_EXPORT ILibrary : private too::non_copyable
+class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable
 {
 public:
     virtual ~ILibrary() = default;

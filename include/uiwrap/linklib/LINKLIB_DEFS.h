@@ -62,7 +62,7 @@
 #define LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
 
 #include "uiwrap_build_config.h"
-#include "toolib/PPDEFS.h"
+#include "ul/macros.h"
 
 
 //####################################################################################################################
@@ -86,7 +86,7 @@ static_assert(false, "not implemented");
 
 //! Put UIW_EXTERN_C_DECLS in front of your YOURLIBSHARED_EXPORT-define
 //! (being switch-wise UIW_DECL_EXPORT/UIW_DECL_IMPORT) if appropriate.
-#if TOO_LANG_STANDARD_CPP == 1
+#if UL_LANG_STANDARD_CPP == 1
 #define UIW_EXTERN_C_DECLS extern "C"
 #define UIW_EXTERN_C_DECLS_BEGIN extern "C" {
 #define UIW_EXTERN_C_DECLS_END }
@@ -98,5 +98,7 @@ static_assert(false, "not implemented");
 
 
 //####################################################################################################################
+
+#include "ul/macros_end.h"
 
 #endif

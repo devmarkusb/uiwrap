@@ -14,26 +14,25 @@ static_assert(false, "not implemented");
 #else
 #include "impl_/ProgSettings_.h"
 #endif
-#include "toolib/ignore_arg.h"
-#include "toolib/std/std_extensions.h"
+#include "ul/ul.h"
 
 
-namespace uiw
+namespace mb::uiw
 {
 IProgSettings* IProgSettings::GetInstance(
     const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    too::ignore_arg(FileNamePath);
-    too::ignore_arg(FileExt);
-    too::ignore_arg(PreferredStorageFileFormat);
+    ul::ignore_arg(FileNamePath);
+    ul::ignore_arg(FileExt);
+    ul::ignore_arg(PreferredStorageFileFormat);
     static implQt::CProgSettings instance;
     return &instance;
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw too::not_implemented{"IProgSettings::GetInstance"};
+    throw ul::not_implemented{"IProgSettings::GetInstance"};
 
 #else
 

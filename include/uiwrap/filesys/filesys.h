@@ -10,19 +10,18 @@
 #define FILESYS_H_xcsabgzduzbvfget32
 
 #include "uiwrapDEF.h"
-#include "toolib/class/non_copyable.h"
-#include "toolib/std/std_extensions.h"
+#include "ul/ul.h"
 #include <stdexcept>
 #include <string>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace file
 {
 //####################################################################################################################
 
-class UIWRAPSHARED_EXPORT IFileSys : private too::non_copyable
+class UIWRAPSHARED_EXPORT IFileSys : private ul::NonCopyable
 {
 public:
     virtual ~IFileSys() = default;

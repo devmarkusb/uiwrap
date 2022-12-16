@@ -10,22 +10,19 @@
 #define PROGSETTINGS__H_INCL_ieuhrngt783znt7238t87t3
 
 #include "uiwrap/programsettings/programsettings.h"
-#include "toolib/error.h"
-#include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-TOO_WARNING_DISABLE_GCC(unused-local-typedefs)
-#include <boost/property_tree/info_parser.hpp>
-#include <boost/property_tree/ini_parser.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
-TOO_PRAGMA_WARNINGS_POP
+#include "ul/ul.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+UL_WARNING_DISABLE_GCC(unused-local-typedefs)
+#include "boost/property_tree/info_parser.hpp"
+#include "boost/property_tree/ini_parser.hpp"
+#include "boost/property_tree/json_parser.hpp"
+#include "boost/property_tree/ptree.hpp"
+#include "boost/property_tree/xml_parser.hpp"
+UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace uiw
-{
-namespace impl
+namespace mb::uiw::impl
 {
 namespace boost_pt = boost::property_tree;
 
@@ -188,12 +185,12 @@ inline void CProgSettings::SetValue(
 
 inline std::string CProgSettings::ValueStr(const std::string&, const std::string&, const std::string&) const
 {
-    throw too::not_implemented{"SetValueStr"};
+    throw ul::not_implemented{"SetValueStr"};
 }
 
 inline void CProgSettings::SetValueStr(const std::string&, const std::string&, const std::string&)
 {
-    throw too::not_implemented("SetValueStr");
+    throw ul::not_implemented("SetValueStr");
 }
 
 inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
@@ -206,7 +203,7 @@ inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() c
 
 inline void CProgSettings::Clear() { m_PropTree.clear(); }
 
-inline void CProgSettings::enable(bool) { throw too::not_implemented("enable"); }
+inline void CProgSettings::enable(bool) { throw ul::not_implemented("enable"); }
 
 inline bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
 {
@@ -252,7 +249,6 @@ inline void CProgSettings::Sync()
 inline IProgSettings::EError CProgSettings::GetError() const { return m_FirstOccurredError; }
 
 inline void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
-}
 }
 
 #endif

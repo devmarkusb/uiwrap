@@ -19,16 +19,14 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/narrow.h"
-#include "toolib/std/std_extensions.h"
-#include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+#include "ul/ul.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QtGlobal>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 #include <type_traits>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {

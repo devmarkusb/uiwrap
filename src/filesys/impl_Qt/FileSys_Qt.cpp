@@ -13,16 +13,16 @@
 #include "toolib/finally.h"
 #include "toolib/string/lex_cast.h"
 #include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
 #include <QStandardPaths>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {

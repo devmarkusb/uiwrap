@@ -10,35 +10,32 @@
 #define MESSAGEBOX__H_skdljfh7ex5n7xt3
 
 #include "uiwrap/messagebox/messagebox.h"
-#include "toolib/optional.h"
+#include "ul/ul.h"
 
 
-namespace uiw
-{
-namespace impl
+namespace mb::uiw::impl
 {
 class MessageBox : public uiw::gui::IMessageBox
 {
 public:
-    virtual ~MessageBox() = default;
+    ~MessageBox() override = default;
 
-    virtual void addButton(EButton b) override;
-    virtual void setDefaultButton(EButton b) override;
-    virtual void setEscapeButton(EButton b) override;
-    virtual void setWindowTitle(const std::string& s) override;
-    virtual void setCaption(const std::string& s) override;
-    virtual void setText(const std::string& s) override;
-    virtual void setDetailedText(const std::string& s) override;
-    virtual void setIcon(EIcon i) override;
+    void addButton(EButton b) override;
+    void setDefaultButton(EButton b) override;
+    void setEscapeButton(EButton b) override;
+    void setWindowTitle(const std::string& s) override;
+    void setCaption(const std::string& s) override;
+    void setText(const std::string& s) override;
+    void setDetailedText(const std::string& s) override;
+    void setIcon(EIcon i) override;
 
-    virtual void runModal() override;
+    void runModal() override;
 
-    virtual EButton getRunResult() override;
+    EButton getRunResult() override;
 
 private:
-    too::opt<EButton> retVal;
+    ul::opt<EButton> retVal;
 };
-}
 }
 
 #endif

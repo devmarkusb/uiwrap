@@ -11,20 +11,20 @@
 
 #include "uiwrap_build_config.h"
 #include "uiwrapDEF.h"
-#include "toolib/class/non_copyable.h"
-#include "toolib/ignore_arg.h"
-#include <boost/variant.hpp>
+#include "ul/ul.h"
+
+#include "boost/variant.hpp"
 #include <string>
 #include <vector>
 
 
-namespace uiw
+namespace mb::uiw
 {
 #if !defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 static const std::string& HIERARCHY_SEPARATOR = ".";
 #endif
 
-class UIWRAPSHARED_EXPORT IProgSettings : private too::non_copyable
+class UIWRAPSHARED_EXPORT IProgSettings : private ul::NonCopyable
 {
 public:
     enum class StorageFileFormat
@@ -99,8 +99,8 @@ public:
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
     {
-        too::ignore_arg(application_engine);
-        too::ignore_arg(name);
+        ul::ignore_arg(application_engine);
+        ul::ignore_arg(name);
     }
 };
 }

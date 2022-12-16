@@ -10,16 +10,15 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/std/std_extensions.h"
-#include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+#include "ul/ul.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QQmlContext>
 #include <QString>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {
@@ -31,7 +30,7 @@ template <class CppModel, class... ConstrParamTypes>
 std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
     QQmlContext& context, QString qmlModelName, ConstrParamTypes&&... params)
 {
-    auto model = too::make_unique<CppModel>(params...);
+    auto model = ul::make_unique<CppModel>(params...);
     context.setContextProperty(qmlModelName, model.get());
     return model;
 }

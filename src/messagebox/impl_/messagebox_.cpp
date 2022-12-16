@@ -9,7 +9,7 @@
 #include "messagebox_.h"
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace impl
 {

@@ -11,19 +11,17 @@
 
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrapDEF.h"
-#include "toolib/warnings.h"
+#include "ul/ul.h"
 #include <string>
 
 
-#if TOO_OS_WINDOWS == 1
+#if UL_OS_WINDOWS == 1
 #undef CopyFile
 #undef DeleteFile
 #endif
 
 
-namespace uiw
-{
-namespace impl
+namespace mb::uiw::impl
 {
 class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys
 {
@@ -42,17 +40,16 @@ public:
 
     std::string toNativeSeparators(const std::string& Path) const override;
 
-    bool getSystemPath(ESysPathType Type, std::string& Path, bool WithTrailingSeperator) const override;
+    std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const override;
 
     std::string getErrorOfLatestCall() const override;
 
 private:
-TOO_PRAGMA_WARNINGS_PUSH
-TOO_WARNING_DISABLE_MSVC(4251)
+UL_PRAGMA_WARNINGS_PUSH
+UL_WARNING_DISABLE_MSVC(4251)
     mutable std::string latestError;
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 };
-} // impl
 } // uiw
 
 #endif

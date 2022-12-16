@@ -13,12 +13,12 @@
 
 #include "uiwrap/linklib/library_interface.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "toolib/std/std_extensions.h"
+#include "ul/ul.h"
 #include <QLibrary>
 #include <memory>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {

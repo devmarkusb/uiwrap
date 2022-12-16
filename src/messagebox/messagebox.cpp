@@ -14,10 +14,10 @@ static_assert(false, "not implemented");
 #else
 #include "impl_/messagebox_.h"
 #endif
-#include "toolib/std/std_extensions.h"
+#include "ul/ul.h"
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace gui
 {
@@ -26,15 +26,15 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    return too::make_unique<uiw::implQt::CMessageBox_Qt>();
+    return ul::make_unique<uiw::implQt::CMessageBox_Qt>();
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw too::not_implemented{"IMessageBox::make"};
+    throw ul::not_implemented{"IMessageBox::make"};
 
 #else
 
-    return too::make_unique<uiw::impl::MessageBox>();
+    return ul::make_unique<uiw::impl::MessageBox>();
 
 #endif
 }

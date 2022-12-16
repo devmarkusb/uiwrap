@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 
 
-using namespace uiw::implQt;
+using namespace mb::uiw::implQt;
 
 TEST(fundamental_types_convert_Qt, from_qreal)
 {

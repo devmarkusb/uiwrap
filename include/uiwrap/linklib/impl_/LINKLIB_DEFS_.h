@@ -10,10 +10,10 @@
 #define LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
 
 #include "uiwrap_build_config.h"
-#include "toolib/PPDEFS.h"
+#include "ul/macros.h"
 
 
-#if TOO_OS_WINDOWS == 1
+#if UL_OS_WINDOWS == 1
 //! Perhaps UIW_LINKLIB_IMPL_CHOICE_OWN_CFG_STATICLIB has to be defined when you compile a library as static lib and
 //! also when you use it.
 #if !defined(UIW_LINKLIB_IMPL_CHOICE_OWN_CFG_STATICLIB)
@@ -23,7 +23,7 @@
 #define UIW_DECL_EXPORT
 #define UIW_DECL_IMPORT
 #endif
-#elif TOO_OS_LINUX == 1
+#elif UL_OS_LINUX == 1
 #define UIW_DECL_EXPORT
 #define UIW_DECL_IMPORT
 #else
@@ -42,12 +42,13 @@
 
 
 //! Declare the dll calling convention for DllMain, Windows.
-#if TOO_OS_WINDOWS == 1 && ((_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED))
+#if UL_OS_WINDOWS == 1 && ((_MSC_VER >= 800) || defined(_STDCALL_SUPPORTED))
 #define UIW_WINAPI_DLLMAIN __stdcall
 #else
 #define UIW_WINAPI_DLLMAIN
 #endif
 #define UIW_APIENTRY WINAPI_DLLMAIN
 
+#include "ul/macros_end.h"
 
 #endif

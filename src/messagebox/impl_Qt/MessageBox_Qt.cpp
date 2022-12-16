@@ -10,7 +10,7 @@
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {

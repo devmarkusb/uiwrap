@@ -15,17 +15,17 @@
 #include "toolib/error.h"
 #include "toolib/string/languages.h"
 #include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QLocale>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 #include <string>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {
-//! Throws too::not_implemented for unsupported or unknown \param id, expects id not to be
+//! Throws ul::not_implemented for unsupported or unknown \param id, expects id not to be
 //! too::str::auto_systems_language.
 inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
 {
@@ -35,7 +35,7 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
         // auto/systems language as a language itself (it really isn't), so please handle it separately
         // (even for Qt I'm unsure whether QLocale::C or QLocale::AnyLanguage are correct choices,
         // the first one certainly not - doc says something about being English always)
-        TOO_ASSERT_THROW(false);
+        UL_ASSERT_THROW(false);
     }
     else if (id == "ar")
         return QLocale::Arabic;
@@ -64,7 +64,7 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
     else if (id == "zh")
         return QLocale::Chinese;
     else
-        throw too::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
+        throw ul::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
 }
 } // implQt
 } // uiw

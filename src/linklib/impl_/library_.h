@@ -10,22 +10,23 @@
 #define LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
 
 #include "uiwrap/linklib/library_interface.h"
-#include "toolib/PPDEFS.h"
-#include "toolib/std/std_extensions.h"
+#include "ul/ul.h"
 #include <string>
-#if TOO_OS_WINDOWS == 1
+
+#include "ul/macros.h"
+#if UL_OS_WINDOWS == 1
 #include "toolib/string/lex_cast.h"
 #include "toolib/string/str_convert.h"
 #include <sstream>
 #include <windows.h>
-#elif TOO_OS_LINUX == 1
+#elif UL_OS_LINUX == 1
 #include <dlfcn.h>
 #endif
 
 
-namespace uiw
+namespace mb::uiw
 {
-#if TOO_OS_WINDOWS == 1
+#if UL_OS_WINDOWS == 1
 class CLibrary_win : public CLibrary
 {
 public:
@@ -86,7 +87,7 @@ public:
 private:
     HMODULE m_DllHandle{nullptr};
 };
-#elif TOO_OS_LINUX == 1
+#elif UL_OS_LINUX == 1
 class CLibrary_linux : public CLibrary
 {
 public:
@@ -122,5 +123,7 @@ private:
 };
 #endif
 }
+
+#include "ul/macros_end.h"
 
 #endif

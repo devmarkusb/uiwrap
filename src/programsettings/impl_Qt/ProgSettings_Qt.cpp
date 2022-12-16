@@ -8,17 +8,15 @@
 
 #include "ProgSettings_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "toolib/assert.h"
-#include "toolib/std/std_extensions.h"
 #include "toolib/string/string_token.h"
-#include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+#include "ul/ul.h"
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {
@@ -27,7 +25,7 @@ inline QSettings* CProgSettings::m_settings()
 {
     if (!this->enabled)
         return {};
-    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
+    UL_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
     return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
@@ -35,7 +33,7 @@ inline QSettings* CProgSettings::m_settings()
 
 inline const QSettings* CProgSettings::m_settings() const
 {
-    TOO_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
+    UL_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
         SetError(EError::INIT_NOT_CALLED_OR_FAILED);
     return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
@@ -43,11 +41,11 @@ inline const QSettings* CProgSettings::m_settings() const
 
 void CProgSettings::Init(const std::string& OrganizationName, const std::string& ApplicationName)
 {
-    m_settings_impl_doNotUseItDirectlyExceptOnInit = too::make_unique<QSettings>(
+    m_settings_impl_doNotUseItDirectlyExceptOnInit = ul::make_unique<QSettings>(
         QSettings::IniFormat, QSettings::UserScope, s2qs(OrganizationName), s2qs(ApplicationName));
     auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
-    TOO_ASSERT(ok == QSettings::NoError);
-    too::ignore_arg(ok);
+    UL_ASSERT(ok == QSettings::NoError);
+    ul::ignore_arg(ok);
     m_FirstOccurredError = EError::E_NO_ERROR;
     GetError();
 }
@@ -71,7 +69,7 @@ void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
 
 void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name)
 {
-    TOO_EXPECT_THROW(application_engine);
+    UL_EXPECT_THROW(application_engine);
     if (!m_settings())
         return;
     QQmlApplicationEngine* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);

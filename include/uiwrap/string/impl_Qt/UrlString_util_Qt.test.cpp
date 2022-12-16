@@ -1,12 +1,13 @@
 #include "UrlString_util_Qt.h"
 #include "StringConvert_Qt.h"
-#include "toolib/PPDEFS.h"
 #include "gtest/gtest.h"
+
+#include "ul/macros.h"
 
 
 TEST(UrlString_util_Qt, remove)
 {
-#if TOO_WINDOWS
+#if UL_WINDOWS
     QString res{uiw::implQt::removeFile_urlSchemePrefix(QStringLiteral("file:///c:/temp/xy/z.txt"))};
     EXPECT_STREQ("c:/temp/xy/z.txt", uiw::implQt::qs2s(res).c_str());
 #else

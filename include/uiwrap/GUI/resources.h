@@ -12,7 +12,7 @@
 #include <string>
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace gui
 {

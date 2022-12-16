@@ -12,12 +12,12 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "toolib/warnings.h"
-TOO_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QString>
-TOO_PRAGMA_WARNINGS_POP
+UL_PRAGMA_WARNINGS_POP
 
 
-namespace uiw
+namespace mb::uiw
 {
 namespace implQt
 {
