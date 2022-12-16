@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef FILESYS_H_xcsabgzduzbvfget32
@@ -52,14 +52,14 @@ public:
     enum class ESysPathType
     {
         // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv yourself
-        USER,     //! consider to use it only rarely
+        USER, //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely
         TEMP,
         CURRENT,
         ROOT,
         APPDATA_writable, //! e.g. Windows: AppData/Roaming/<APP>
         APPDATA_readonly, //! e.g. Windows: ProgramData/<APP>
-        APPCONFIG,        //! e.g. Windows: AppData/Local/<APP>
+        APPCONFIG, //! e.g. Windows: AppData/Local/<APP>
         DOCUMENTS,
         MUSIC,
         PICTURES,
@@ -114,10 +114,10 @@ public:
         return true;
     }
 };
-} // file
-using IFileSys  = file::IFileSys;
+} // namespace file
+using IFileSys = file::IFileSys;
 using IFileData = file::IFileData;
-} // uiw
+} // namespace mb::uiw
 
 
 #endif

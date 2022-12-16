@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
@@ -11,8 +11,8 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "uiwrap/programsettings/programsettings.h"
 #include "toolib/warnings.h"
+#include "uiwrap/programsettings/programsettings.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QObject>
 #include <QSettings>
@@ -27,24 +27,28 @@ namespace mb::uiw
 namespace implQt
 {
 // do not put in a library, see comment at file start
-class CProgSettings : public QObject, public uiw::IProgSettings
+class CProgSettings
+    : public QObject
+    , public uiw::IProgSettings
 {
     Q_OBJECT
 
 public:
-    CProgSettings() : QObject() {}
+    CProgSettings()
+        : QObject()
+    {
+    }
     ~CProgSettings() override = default;
 
     void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    TVariant Value(const std::string& SectionName, const std::string& KeyName,
-        const TVariant& Default = TVariant()) const override;
+    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant())
+        const override;
     void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     std::string ValueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
-    void SetValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+    void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     std::vector<TSectionKeyPair> GetAllKeys() const override;
     void Clear() override;
@@ -82,8 +86,8 @@ private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
     bool enabled{true};
 };
-}
-}
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

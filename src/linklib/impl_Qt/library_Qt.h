@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t
@@ -22,28 +22,40 @@ namespace mb::uiw
 {
 namespace implQt
 {
-
 class CLibrary_Qt : public CLibrary
 {
 public:
     explicit CLibrary_Qt(
         const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string())
-        : CLibrary(FilePathNameWithoutExtension, Version), m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
+        : CLibrary(FilePathNameWithoutExtension, Version)
+        , m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
     {
     }
 
-    virtual void* ResolveSymbol(std::string Symbol) { return reinterpret_cast<void*>(m_impl.resolve(Symbol.c_str())); }
+    virtual void* ResolveSymbol(std::string Symbol)
+    {
+        return reinterpret_cast<void*>(m_impl.resolve(Symbol.c_str()));
+    }
 
     virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
     {
         m_impl.setFileNameAndVersion(s2qs(FilePathNameWithoutExtension), s2qs(Version));
     }
 
-    virtual std::string GetFileName() const { return qs2s(m_impl.fileName()); }
+    virtual std::string GetFileName() const
+    {
+        return qs2s(m_impl.fileName());
+    }
 
-    virtual bool Load() { return m_impl.load(); }
+    virtual bool Load()
+    {
+        return m_impl.load();
+    }
 
-    virtual bool Unload() { return m_impl.unload(); }
+    virtual bool Unload()
+    {
+        return m_impl.unload();
+    }
 
     virtual std::string GetError() const
     {
@@ -57,8 +69,8 @@ public:
 private:
     QLibrary m_impl;
 };
-}
-}
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

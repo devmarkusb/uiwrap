@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr

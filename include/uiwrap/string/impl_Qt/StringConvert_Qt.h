@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
@@ -22,12 +22,18 @@ namespace mb::uiw
 namespace implQt
 {
 //! QString to std::string
-inline std::string qs2s(QString s) { return std::string(s.toUtf8().constData()); }
+inline std::string qs2s(QString s)
+{
+    return std::string(s.toUtf8().constData());
+}
 
 //! std::string to QString
-inline QString s2qs(const std::string& s) { return QString::fromUtf8(s.c_str()); }
-} // implQt
-} // uiw
+inline QString s2qs(const std::string& s)
+{
+    return QString::fromUtf8(s.c_str());
+}
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

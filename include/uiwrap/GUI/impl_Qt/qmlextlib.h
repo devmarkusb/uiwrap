@@ -30,10 +30,10 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "toolib/warnings.h"
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "uiwrap/string/impl_Qt/UrlString_util_Qt.h"
-#include "toolib/warnings.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QDir>
 #include <QObject>
@@ -48,13 +48,17 @@ namespace implQt
 class DynamicTranslator
 {
 public:
-    virtual ~DynamicTranslator() {}
+    virtual ~DynamicTranslator()
+    {
+    }
 
     virtual void updateTranslations() const = 0;
 };
 
 //! The QML extension lib
-class QmlExtLib : public QObject, public DynamicTranslator
+class QmlExtLib
+    : public QObject
+    , public DynamicTranslator
 {
     Q_OBJECT
 
@@ -101,7 +105,10 @@ public:
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
-    virtual void updateTranslations() const override { emit dynTrChanged(); }
+    virtual void updateTranslations() const override
+    {
+        emit dynTrChanged();
+    }
 
 signals:
     void dynTrChanged() const;
@@ -109,8 +116,8 @@ signals:
 private:
     QString dynTr;
 };
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

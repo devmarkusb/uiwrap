@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
@@ -11,8 +11,8 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "uiwrap/filesys/filesys.h"
 #include "uiwrapDEF.h"
+#include "uiwrap/filesys/filesys.h"
 
 class QFile;
 
@@ -47,8 +47,8 @@ private:
 
     void setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info = {}) const;
 };
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

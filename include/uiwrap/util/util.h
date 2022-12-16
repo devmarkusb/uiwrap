@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef UTIL_H_sjkdfg34nizfxn437gt7834
@@ -26,8 +26,7 @@ inline const std::string& resources_base_path()
 #error "not implemented"
 #endif
 }
-} // util
-} // uiw
+} // namespace util
+} // namespace mb::uiw
 
 #endif
-

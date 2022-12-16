@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 #ifndef CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #define CPPMODEL2QML_H_dfljkghx4782tgh378g1
@@ -34,8 +34,8 @@ std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
     context.setContextProperty(qmlModelName, model.get());
     return model;
 }
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

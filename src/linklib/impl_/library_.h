@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
@@ -115,14 +115,17 @@ public:
         return m_DllHandle;
     }
 
-    virtual bool Unload() { return dlclose(m_DllHandle); }
+    virtual bool Unload()
+    {
+        return dlclose(m_DllHandle);
+    }
 
 private:
     void* m_DllHandle{nullptr};
     static const int OPEN_MODE = 2;
 };
 #endif
-}
+} // namespace mb::uiw
 
 #include "ul/macros_end.h"
 

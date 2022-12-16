@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
@@ -71,7 +71,7 @@ public:
 
     virtual EButton getRunResult() = 0;
 };
-}
-}
+} // namespace gui
+} // namespace mb::uiw
 
 #endif

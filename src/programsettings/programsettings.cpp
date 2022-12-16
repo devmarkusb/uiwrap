@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "uiwrap_build_config.h"
@@ -41,4 +41,4 @@ IProgSettings* IProgSettings::GetInstance(
 
 #endif
 }
-}
+} // namespace mb::uiw

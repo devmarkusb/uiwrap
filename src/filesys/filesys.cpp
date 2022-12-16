@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "uiwrap_build_config.h"
@@ -40,5 +40,5 @@ IFileSys* IFileSys::getInstance()
 
 #endif
 }
-} // file
-} // uiw
+} // namespace file
+} // namespace mb::uiw

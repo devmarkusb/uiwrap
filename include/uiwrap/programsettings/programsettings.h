@@ -3,14 +3,14 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 #define PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
 
-#include "uiwrap_build_config.h"
 #include "uiwrapDEF.h"
+#include "uiwrap_build_config.h"
 #include "ul/ul.h"
 
 #include "boost/variant.hpp"
@@ -40,8 +40,8 @@ public:
     //! *Important* Before first usage, that is, with you first call to GetInstance,
     //! you have to call immediately Init and for Qt afterwards also setAsRootContextProperty.
     //! Only after that a proper functionality of this class is possible.
-    static IProgSettings* GetInstance(const std::string& FileNamePath = std::string(),
-        const std::string& FileExt                   = std::string(),
+    static IProgSettings* GetInstance(
+        const std::string& FileNamePath = std::string(), const std::string& FileExt = std::string(),
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
     virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) = 0;
 
@@ -52,10 +52,22 @@ public:
     class TVariantGetter : public boost::static_visitor<>
     {
     public:
-        int operator()(const IProgSettings::TInteger& v) const { return v; }
-        double operator()(const double& v) const { return v; }
-        std::string operator()(const std::string& v) const { return v; }
-        bool operator()(const bool& v) const { return v; }
+        int operator()(const IProgSettings::TInteger& v) const
+        {
+            return v;
+        }
+        double operator()(const double& v) const
+        {
+            return v;
+        }
+        std::string operator()(const std::string& v) const
+        {
+            return v;
+        }
+        bool operator()(const bool& v) const
+        {
+            return v;
+        }
     };
 
     //! Not working?! At least two issues:
@@ -78,9 +90,15 @@ public:
     //! Enables/disables the class' whole functionality. Default is enabled.
     virtual void enable(bool enable) = 0;
     virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
-    bool Contains(const std::string& KeyName) { return Contains(std::string(), KeyName); }
+    bool Contains(const std::string& KeyName)
+    {
+        return Contains(std::string(), KeyName);
+    }
     virtual void Remove(const std::string& SectionName, const std::string& KeyName) = 0;
-    void Remove(const std::string& KeyName) { Remove(std::string(), KeyName); }
+    void Remove(const std::string& KeyName)
+    {
+        Remove(std::string(), KeyName);
+    }
     //! You need to call this only, if you want to know whether there occurred an error by GetError().
     /** It initiates a persistent writing to data store, which would nevertheless happen asynchronously.
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/
@@ -103,6 +121,6 @@ public:
         ul::ignore_arg(name);
     }
 };
-}
+} // namespace mb::uiw
 
 #endif

@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
@@ -20,11 +20,13 @@ namespace gui
 class IResourceString
 {
 public:
-    virtual ~IResourceString() {}
+    virtual ~IResourceString()
+    {
+    }
 
     virtual std::string GetString(ResourceID id) const = 0;
 };
-}
-}
+} // namespace gui
+} // namespace mb::uiw
 
 #endif

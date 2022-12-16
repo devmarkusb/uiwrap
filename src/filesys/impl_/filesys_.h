@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef FILESYS__H_dklzuix3xh8734xr387x2xt35g269x5tgf
@@ -45,11 +45,11 @@ public:
     std::string getErrorOfLatestCall() const override;
 
 private:
-UL_PRAGMA_WARNINGS_PUSH
-UL_WARNING_DISABLE_MSVC(4251)
+    UL_PRAGMA_WARNINGS_PUSH
+    UL_WARNING_DISABLE_MSVC(4251)
     mutable std::string latestError;
-UL_PRAGMA_WARNINGS_POP
+    UL_PRAGMA_WARNINGS_POP
 };
-} // uiw
+} // namespace mb::uiw::impl
 
 #endif

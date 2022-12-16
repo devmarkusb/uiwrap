@@ -3,16 +3,16 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "filesys_Qt.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
-#include "toolib/ignore_arg.h"
 #include "toolib/filesys/file.h"
 #include "toolib/finally.h"
+#include "toolib/ignore_arg.h"
 #include "toolib/string/lex_cast.h"
 #include "toolib/warnings.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QCoreApplication>
 #include <QDir>
@@ -47,7 +47,9 @@ bool CFileSys_Qt::saveToTextFile(const std::string& filePathNameExt, const std::
         setFileOpErrorStr(f, "open");
         return false;
     }
-    auto auto_close = too::finally([&f]() { f.close(); });
+    auto auto_close = too::finally([&f]() {
+        f.close();
+    });
     if (f.write(content.c_str()) == -1)
     {
         setFileOpErrorStr(f, "write");
@@ -115,7 +117,9 @@ bool CFileSys_Qt::copyFile(const std::string& filePathNameExt_From, const std::s
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() { f.close(); });
+        auto auto_close = too::finally([&f]() {
+            f.close();
+        });
         setFileOpErrorStr(f, "copy", "target could already be existing, would be overwritten");
     }
     return ok;
@@ -133,7 +137,9 @@ bool CFileSys_Qt::deleteFile(const std::string& filePathNameExt)
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() { f.close(); });
+        auto auto_close = too::finally([&f]() {
+            f.close();
+        });
         setFileOpErrorStr(f, "remove");
     }
     return ok;
@@ -151,7 +157,9 @@ bool CFileSys_Qt::renameFile(const std::string& filePathNameExt_From, const std:
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() { f.close(); });
+        auto auto_close = too::finally([&f]() {
+            f.close();
+        });
         setFileOpErrorStr(f, "rename", "target could already be existing, would be overwritten");
     }
     return ok;
@@ -205,76 +213,78 @@ std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
     return qs2s(QDir::toNativeSeparators(s2qs(Path)));
 }
 
-std::string CFileSys_Qt::getSystemPath(
-    uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
+std::string CFileSys_Qt::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
 {
     std::string ret;
     latestError.clear();
     switch (type)
     {
-    case ESysPathType::PROGDATA:
-        ret = qs2s(QDir::home().absolutePath());
-        break;
-    case ESysPathType::ROOT:
-        ret = qs2s(QDir::root().absolutePath());
-        break;
-    case ESysPathType::TEMP:
-        ret = qs2s(QDir::temp().absolutePath());
-        break;
-    case ESysPathType::USER:
-        ret = qs2s(QDir::home().absolutePath());
-        break;
-    case ESysPathType::APPDATA_writable:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
-        break;
-    case ESysPathType::APPDATA_readonly:
-    {
-        const auto locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
-        if (locations.count() >= 2)
-            ret = qs2s(locations[1]);
-        else if (locations.count() == 1)
-            ret = qs2s(locations[0]);
-        else
-            goto default_label;
-        break;
-    }
-    case ESysPathType::DOCUMENTS:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
-        break;
-    case ESysPathType::MUSIC:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
-        break;
-    case ESysPathType::PICTURES:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
-        break;
-    case ESysPathType::MOVIES:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
-        break;
-    case ESysPathType::DESKTOP:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
-        break;
-    case ESysPathType::FONTS:
-    {
-        const auto locations = QStandardPaths::standardLocations(QStandardPaths::FontsLocation);
-        if (!locations.isEmpty())
-            ret = qs2s(locations[0]);
-        else
-            goto default_label;
-        break;
-    }
-    case ESysPathType::CACHE:
-        ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
-        break;
-    case ESysPathType::CURRENT:
-    default:
-    default_label:
-        ret = qs2s(QDir::current().absolutePath());
+        case ESysPathType::PROGDATA:
+            ret = qs2s(QDir::home().absolutePath());
+            break;
+        case ESysPathType::ROOT:
+            ret = qs2s(QDir::root().absolutePath());
+            break;
+        case ESysPathType::TEMP:
+            ret = qs2s(QDir::temp().absolutePath());
+            break;
+        case ESysPathType::USER:
+            ret = qs2s(QDir::home().absolutePath());
+            break;
+        case ESysPathType::APPDATA_writable:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+            break;
+        case ESysPathType::APPDATA_readonly:
+        {
+            const auto locations = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+            if (locations.count() >= 2)
+                ret = qs2s(locations[1]);
+            else if (locations.count() == 1)
+                ret = qs2s(locations[0]);
+            else
+                goto default_label;
+            break;
+        }
+        case ESysPathType::DOCUMENTS:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+            break;
+        case ESysPathType::MUSIC:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
+            break;
+        case ESysPathType::PICTURES:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+            break;
+        case ESysPathType::MOVIES:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
+            break;
+        case ESysPathType::DESKTOP:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::DesktopLocation));
+            break;
+        case ESysPathType::FONTS:
+        {
+            const auto locations = QStandardPaths::standardLocations(QStandardPaths::FontsLocation);
+            if (!locations.isEmpty())
+                ret = qs2s(locations[0]);
+            else
+                goto default_label;
+            break;
+        }
+        case ESysPathType::CACHE:
+            ret = qs2s(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+            break;
+        case ESysPathType::CURRENT:
+        default:
+default_label:
+            ret = qs2s(QDir::current().absolutePath());
     }
     if (withTrailingSeparator && !ret.empty())
         ret += FOLDER_SEPARATOR_TO_USE_HERE;
     return ret;
 }
 
-std::string CFileSys_Qt::getErrorOfLatestCall() const { return this->latestError; }
-} // implQt
-} // uiw
+std::string CFileSys_Qt::getErrorOfLatestCall() const
+{
+    return this->latestError;
+}
+} // namespace implQt
+} // namespace mb::uiw

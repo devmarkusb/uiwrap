@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef PROGSETTINGS__H_INCL_ieuhrngt783znt7238t87t3
@@ -12,7 +12,7 @@
 #include "uiwrap/programsettings/programsettings.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-UL_WARNING_DISABLE_GCC(unused-local-typedefs)
+UL_WARNING_DISABLE_GCC(unused - local - typedefs)
 #include "boost/property_tree/info_parser.hpp"
 #include "boost/property_tree/ini_parser.hpp"
 #include "boost/property_tree/json_parser.hpp"
@@ -29,13 +29,15 @@ namespace boost_pt = boost::property_tree;
 class CProgSettings : public uiw::IProgSettings
 {
 public:
-    inline CProgSettings(const std::string& FileNamePath, const std::string& FileExt,
+    inline CProgSettings(
+        const std::string& FileNamePath, const std::string& FileExt,
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
     virtual inline ~CProgSettings();
 
     virtual inline void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    virtual inline TVariant Value(const std::string& SectionName, const std::string& KeyName,
+    virtual inline TVariant Value(
+        const std::string& SectionName, const std::string& KeyName,
         const TVariant& Default = TVariant()) const override;
     virtual inline void SetValue(
         const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
@@ -105,20 +107,20 @@ inline void CProgSettings::Init(const std::string&, const std::string&)
     {
         switch (m_StorageFileFormat)
         {
-        case StorageFileFormat::INI:
-            boost::property_tree::read_ini(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::XML:
-            boost::property_tree::read_xml(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::JSON:
-            boost::property_tree::read_json(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::BOOST_INFO:
-            boost::property_tree::read_info(m_FileName, m_PropTree);
-            break;
-        default:
-            return;
+            case StorageFileFormat::INI:
+                boost::property_tree::read_ini(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::XML:
+                boost::property_tree::read_xml(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::JSON:
+                boost::property_tree::read_json(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::BOOST_INFO:
+                boost::property_tree::read_info(m_FileName, m_PropTree);
+                break;
+            default:
+                return;
         }
     }
     catch (...)
@@ -201,9 +203,15 @@ inline std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() c
     return ret;
 }
 
-inline void CProgSettings::Clear() { m_PropTree.clear(); }
+inline void CProgSettings::Clear()
+{
+    m_PropTree.clear();
+}
 
-inline void CProgSettings::enable(bool) { throw ul::not_implemented("enable"); }
+inline void CProgSettings::enable(bool)
+{
+    throw ul::not_implemented("enable");
+}
 
 inline bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
 {
@@ -223,20 +231,20 @@ inline void CProgSettings::Sync()
     {
         switch (m_StorageFileFormat)
         {
-        case StorageFileFormat::INI:
-            boost::property_tree::write_ini(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::XML:
-            boost::property_tree::write_xml(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::JSON:
-            boost::property_tree::write_json(m_FileName, m_PropTree);
-            break;
-        case StorageFileFormat::BOOST_INFO:
-            boost::property_tree::write_info(m_FileName, m_PropTree);
-            break;
-        default:
-            return;
+            case StorageFileFormat::INI:
+                boost::property_tree::write_ini(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::XML:
+                boost::property_tree::write_xml(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::JSON:
+                boost::property_tree::write_json(m_FileName, m_PropTree);
+                break;
+            case StorageFileFormat::BOOST_INFO:
+                boost::property_tree::write_info(m_FileName, m_PropTree);
+                break;
+            default:
+                return;
         }
     }
     catch (...)
@@ -246,9 +254,15 @@ inline void CProgSettings::Sync()
     }
 }
 
-inline IProgSettings::EError CProgSettings::GetError() const { return m_FirstOccurredError; }
-
-inline void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
+inline IProgSettings::EError CProgSettings::GetError() const
+{
+    return m_FirstOccurredError;
 }
+
+inline void CProgSettings::ResetError()
+{
+    m_FirstOccurredError = EError::E_NO_ERROR;
+}
+} // namespace mb::uiw::impl
 
 #endif

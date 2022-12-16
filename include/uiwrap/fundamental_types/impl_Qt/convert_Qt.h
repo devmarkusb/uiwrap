@@ -88,8 +88,8 @@ inline constexpr typename too::enable_if_t<std::is_same<qreal, double>::value, q
 }
 
 //####################################################################################################################
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "uiwrap_build_config.h"
@@ -21,7 +21,6 @@ namespace mb::uiw
 {
 namespace gui
 {
-
 std::unique_ptr<IMessageBox> IMessageBox::make()
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
@@ -38,5 +37,5 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 
 #endif
 }
-}
-}
+} // namespace gui
+} // namespace mb::uiw

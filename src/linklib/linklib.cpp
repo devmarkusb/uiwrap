@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "uiwrap_build_config.h"
@@ -49,4 +49,4 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutE
 
 #endif
 }
-}
+} // namespace mb::uiw

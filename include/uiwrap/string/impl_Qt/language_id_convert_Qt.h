@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
@@ -66,8 +66,8 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
     else
         throw ul::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
 }
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

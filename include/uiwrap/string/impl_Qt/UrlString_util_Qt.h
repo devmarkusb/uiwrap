@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f
@@ -45,8 +45,8 @@ inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_pr
     const QUrl u{abs_path_with_scheme_prefix};
     return removeFile_urlSchemePrefix(u);
 }
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

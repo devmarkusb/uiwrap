@@ -3,12 +3,12 @@
 
 //!
 /** Please note: class CProgSettings is not suitable to be put in a lib; we get linker warnings due to moc content.
-*/
+ */
 //! \file
 
 #include "ProgSettings_Qt.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "toolib/string/string_token.h"
+#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QQmlApplicationEngine>
@@ -20,7 +20,6 @@ namespace mb::uiw
 {
 namespace implQt
 {
-
 inline QSettings* CProgSettings::m_settings()
 {
     if (!this->enabled)
@@ -65,7 +64,10 @@ CProgSettings::EError CProgSettings::GetError() const
     return m_FirstOccurredError;
 }
 
-void CProgSettings::ResetError() { m_FirstOccurredError = EError::E_NO_ERROR; }
+void CProgSettings::ResetError()
+{
+    m_FirstOccurredError = EError::E_NO_ERROR;
+}
 
 void CProgSettings::setAsRootContextProperty(void* application_engine, const std::string& name)
 {
@@ -90,7 +92,10 @@ QVariant CProgSettings::value(const QString& SecAndKey, const QVariant& Default)
     return m_settings()->value(SecAndKey, Default);
 }
 
-void CProgSettings::flush() { Sync(); }
+void CProgSettings::flush()
+{
+    Sync();
+}
 
 void CProgSettings::Sync()
 {
@@ -130,7 +135,10 @@ void CProgSettings::Clear()
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
 
-void CProgSettings::enable(bool enable) { this->enabled = enable; }
+void CProgSettings::enable(bool enable)
+{
+    this->enabled = enable;
+}
 
 std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
 {
@@ -167,10 +175,22 @@ public:
     //        else
     //            return QVariant(v);
     //    }
-    QVariant operator()(const CProgSettings::TInteger& v) const { return QVariant(v); }
-    QVariant operator()(const double& v) const { return QVariant(v); }
-    QVariant operator()(const std::string& v) const { return QVariant(s2qs(v)); }
-    QVariant operator()(const bool& v) const { return QVariant(v); }
+    QVariant operator()(const CProgSettings::TInteger& v) const
+    {
+        return QVariant(v);
+    }
+    QVariant operator()(const double& v) const
+    {
+        return QVariant(v);
+    }
+    QVariant operator()(const std::string& v) const
+    {
+        return QVariant(s2qs(v));
+    }
+    QVariant operator()(const bool& v) const
+    {
+        return QVariant(v);
+    }
 };
 
 QVariant CProgSettings::var2qvar(const CProgSettings::TVariant& v) const
@@ -184,21 +204,21 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
     TVariant ret;
     switch (v.type())
     {
-    case QVariant::Int:
-        ret = v.toInt(&isOK);
-        break;
-    case QVariant::Double:
-        ret = v.toDouble(&isOK);
-        break;
-    case QVariant::String:
-        ret = qs2s(v.toString());
-        break;
-    case QVariant::Bool:
-        ret = v.toBool();
-        break;
-    default:
-        isOK = false;
-        break;
+        case QVariant::Int:
+            ret = v.toInt(&isOK);
+            break;
+        case QVariant::Double:
+            ret = v.toDouble(&isOK);
+            break;
+        case QVariant::String:
+            ret = qs2s(v.toString());
+            break;
+        case QVariant::Bool:
+            ret = v.toBool();
+            break;
+        default:
+            isOK = false;
+            break;
     }
     if (!isOK)
         SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
@@ -243,5 +263,5 @@ void CProgSettings::SetValueStr(const std::string& SectionName, const std::strin
     m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), s2qs(Value));
 }
 
-} // implQt
-} // uiw
+} // namespace implQt
+} // namespace mb::uiw

@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #include "filesys_.h"
@@ -125,7 +125,10 @@ bool CFileSys_::fileExists(const std::string& FilePathNameExt) const
     return file ? true : false;
 }
 
-bool CFileSys_::isFile(const std::string&) const { throw ul::not_implemented{"isFile"}; }
+bool CFileSys_::isFile(const std::string&) const
+{
+    throw ul::not_implemented{"isFile"};
+}
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 {
@@ -140,17 +143,17 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
     this->latestError.clear();
     switch (type)
     {
-    case ESysPathType::PROGDATA:
-        break;
-    case ESysPathType::ROOT:
-        break;
-    case ESysPathType::TEMP:
-        break;
-    case ESysPathType::USER:
-        break;
-    case ESysPathType::CURRENT:
-    default:
-        break;
+        case ESysPathType::PROGDATA:
+            break;
+        case ESysPathType::ROOT:
+            break;
+        case ESysPathType::TEMP:
+            break;
+        case ESysPathType::USER:
+            break;
+        case ESysPathType::CURRENT:
+        default:
+            break;
     }
     this->latestError = "not implemented";
     if (withTrailingSeparator)
@@ -159,5 +162,8 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
         return {};
 }
 
-std::string CFileSys_::getErrorOfLatestCall() const { return this->latestError; }
-} // uiw
+std::string CFileSys_::getErrorOfLatestCall() const
+{
+    return this->latestError;
+}
+} // namespace mb::uiw::impl

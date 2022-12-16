@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
@@ -39,7 +39,8 @@ class CLibrary : public ILibrary
 {
 public:
     explicit CLibrary(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
-        : m_FilePathName(FilePathNameWithoutExtension), m_Version(Version)
+        : m_FilePathName(FilePathNameWithoutExtension)
+        , m_Version(Version)
     {
         // would call Load here, if FilePathNameWithoutExtension is non-empty, but calling a virtual function
         // from a constructor would always only call the function of the base/current class
@@ -50,25 +51,37 @@ public:
     virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
     {
         m_FilePathName = FilePathNameWithoutExtension;
-        m_Version      = Version;
+        m_Version = Version;
     }
 
-    virtual std::string GetFileName() const { return m_FilePathName; }
+    virtual std::string GetFileName() const
+    {
+        return m_FilePathName;
+    }
 
     virtual bool Load() = 0;
     virtual bool Unload() = 0;
 
-    virtual std::string GetError() const { return m_Error; }
+    virtual std::string GetError() const
+    {
+        return m_Error;
+    }
 
 protected:
-    virtual void SetError(std::string Error) { m_Error = Error; }
-    std::string GetVersion() const { return m_Version; }
+    virtual void SetError(std::string Error)
+    {
+        m_Error = Error;
+    }
+    std::string GetVersion() const
+    {
+        return m_Version;
+    }
 
 private:
     std::string m_FilePathName;
     std::string m_Version;
     std::string m_Error;
 };
-}
+} // namespace mb::uiw
 
 #endif

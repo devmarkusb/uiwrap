@@ -3,7 +3,7 @@
 
 //!
 /**
-*/
+ */
 //! \file
 
 #ifndef MESSAGEBOX__H_skdljfh7ex5n7xt3
@@ -36,6 +36,6 @@ public:
 private:
     ul::opt<EButton> retVal;
 };
-}
+} // namespace mb::uiw::impl
 
 #endif
