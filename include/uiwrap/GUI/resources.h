@@ -13,6 +13,6 @@ namespace mb::uiw::gui
 using ResourceID = long;
 //! Alphanumeric variant.
 using ResourceID_alnum = std::string;
-} // namespace mb::uiw
+} // namespace mb::uiw::gui
 
 #endif

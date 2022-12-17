@@ -26,7 +26,7 @@ inline QString s2qs(const std::string& s)
 {
     return QString::fromUtf8(s.c_str());
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

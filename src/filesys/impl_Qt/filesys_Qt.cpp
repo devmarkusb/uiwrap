@@ -275,4 +275,4 @@ std::string CFileSys_Qt::getErrorOfLatestCall() const
 {
     return this->latestError;
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt

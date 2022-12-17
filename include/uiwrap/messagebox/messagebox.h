@@ -65,6 +65,6 @@ public:
 
     virtual EButton getRunResult() = 0;
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::gui
 
 #endif

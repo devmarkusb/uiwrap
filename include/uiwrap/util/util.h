@@ -20,6 +20,6 @@ inline const std::string& resources_base_path()
 #error "not implemented"
 #endif
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::util
 
 #endif

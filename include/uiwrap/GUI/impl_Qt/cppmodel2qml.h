@@ -29,7 +29,7 @@ std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
     context.setContextProperty(qmlModelName, model.get());
     return model;
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

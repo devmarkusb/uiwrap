@@ -48,8 +48,7 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, TargetTyp
 }
 
 template <>
-constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(
-    qreal v) noexcept
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(qreal v) noexcept
 {
     return ul::narrow_cast<float>(v);
 }
@@ -84,7 +83,7 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to
 }
 
 //####################################################################################################################
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif //UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

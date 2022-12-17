@@ -198,4 +198,4 @@ auto CMessageBox_Qt::getRunResult() -> EButton
 {
     return StandardButton2EButton(m_RetVal);
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt

@@ -32,16 +32,12 @@ public:
 
     void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    TVariant Value(
-        const std::string& SectionName, const std::string& KeyName,
-        const TVariant& Default) const override;
-    void SetValue(
-        const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
+    void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     std::string ValueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Default) const override;
-    void SetValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+    void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     std::vector<TSectionKeyPair> GetAllKeys() const override;
     void Clear() override;

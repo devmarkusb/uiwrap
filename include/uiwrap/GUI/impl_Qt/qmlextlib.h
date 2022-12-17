@@ -86,17 +86,17 @@ public:
     }
 
     //! Expects fullpath with slashes only.
-    Q_INVOKABLE [[nodiscard]] static bool fileExists(QString fullpath)
+    Q_INVOKABLE [[nodiscard]] static bool fileExists(const QString& fullpath)
     {
         const auto fs = uiw::file::IFileSys::getInstance();
-        return fs->fileExists(uiw::implQt::qs2s(std::move(fullpath)));
+        return fs->fileExists(uiw::implQt::qs2s(fullpath));
     }
 
     //! Expects fullpath with slashes only.
-    Q_INVOKABLE [[nodiscard]] static bool isFile(QString fullpath)
+    Q_INVOKABLE [[nodiscard]] static bool isFile(const QString& fullpath)
     {
         const auto fs = uiw::file::IFileSys::getInstance();
-        return fs->isFile(uiw::implQt::qs2s(std::move(fullpath)));
+        return fs->isFile(uiw::implQt::qs2s(fullpath));
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
@@ -111,7 +111,7 @@ signals:
 private:
     QString dynTr;
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

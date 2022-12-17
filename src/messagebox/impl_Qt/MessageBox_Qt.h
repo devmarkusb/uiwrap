@@ -41,7 +41,7 @@ private:
     static QMessageBox::StandardButton EButton2StandardButton(EButton b);
     EButton StandardButton2EButton(QMessageBox::StandardButton qb);
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

@@ -37,8 +37,7 @@ public:
 
     void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default)
-        const override;
+    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
     void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     std::string ValueStr(
@@ -73,15 +72,15 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
-    static QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) ;
-    static QVariant var2qvar(const TVariant& v) ;
+    static QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName);
+    static QVariant var2qvar(const TVariant& v);
     TVariant qvar2var(const QVariant& v) const;
 
 private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
     bool enabled{true};
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

@@ -18,6 +18,6 @@ public:
 
     [[nodiscard]] virtual std::string getString(ResourceID id) const = 0;
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::gui
 
 #endif

@@ -27,4 +27,4 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 
 #endif
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::gui

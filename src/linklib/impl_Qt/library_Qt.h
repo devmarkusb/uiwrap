@@ -19,8 +19,7 @@ namespace mb::uiw::implQt
 class CLibrary_Qt : public CLibrary
 {
 public:
-    explicit CLibrary_Qt(
-        const std::string& filePathNameWithoutExtension, const std::string& version)
+    explicit CLibrary_Qt(const std::string& filePathNameWithoutExtension, const std::string& version)
         : CLibrary(filePathNameWithoutExtension, version)
         , m_impl(s2qs(filePathNameWithoutExtension), s2qs(version))
     {
@@ -63,7 +62,7 @@ public:
 private:
     QLibrary m_impl;
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

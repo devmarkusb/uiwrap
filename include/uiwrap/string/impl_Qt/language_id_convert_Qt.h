@@ -57,7 +57,7 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
     else
         throw ul::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

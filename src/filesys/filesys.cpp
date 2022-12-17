@@ -9,9 +9,7 @@ static_assert(false, "not implemented");
 #include "ul/ul.h"
 
 
-namespace mb::uiw
-{
-namespace file
+namespace mb::uiw::file
 {
 IFileSys* IFileSys::getInstance()
 {
@@ -31,5 +29,4 @@ IFileSys* IFileSys::getInstance()
 
 #endif
 }
-} // namespace file
-} // namespace mb::uiw
+} // namespace mb::uiw::file

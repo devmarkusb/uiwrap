@@ -39,7 +39,7 @@ inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_pr
     const QUrl u{abs_path_with_scheme_prefix};
     return removeFile_urlSchemePrefix(u);
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

@@ -252,4 +252,4 @@ void CProgSettings::SetValueStr(const std::string& SectionName, const std::strin
         return;
     m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), s2qs(Value));
 }
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
