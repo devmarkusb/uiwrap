@@ -2,8 +2,8 @@
 
 //! \file
 
-#ifndef PROGSETTINGS__H_INCL_ieuhrngt783znt7238t87t3
-#define PROGSETTINGS__H_INCL_ieuhrngt783znt7238t87t3
+#ifndef PROGSETTINGS_H_ieuhrngt783znt7238t87t3
+#define PROGSETTINGS_H_ieuhrngt783znt7238t87t3
 
 #include "uiwrap/programsettings/programsettings.h"
 #include "ul/ul.h"

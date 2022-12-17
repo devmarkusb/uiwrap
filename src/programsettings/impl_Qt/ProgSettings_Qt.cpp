@@ -8,7 +8,7 @@
 
 #include "ProgSettings_Qt.h"
 #include "toolib/string/string_token.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QQmlApplicationEngine>

@@ -2,8 +2,8 @@
 
 //! \file
 
-#ifndef LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
-#define LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74
+#ifndef LIBRARY_H_kdnlfglknhcguewhgureihxrexq74
+#define LIBRARY_H_kdnlfglknhcguewhgureihxrexq74
 
 #include "uiwrap/linklib/library_interface.h"
 #include "ul/ul.h"

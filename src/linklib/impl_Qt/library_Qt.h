@@ -8,15 +8,13 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/linklib/library_interface.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
 #include <QLibrary>
 #include <memory>
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 class CLibrary_Qt : public CLibrary
 {
@@ -65,7 +63,6 @@ public:
 private:
     QLibrary m_impl;
 };
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

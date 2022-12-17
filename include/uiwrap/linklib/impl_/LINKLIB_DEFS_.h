@@ -2,8 +2,8 @@
 
 //! \file
 
-#ifndef LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
-#define LINKLIB_DEFS__H_INCL_sjdnxfzuergf3ui7yt83gzf7r87wr
+#ifndef LINKLIB_DEFS_H_sjdnxfzuergf3ui7yt83gzf7r87wr
+#define LINKLIB_DEFS_H_sjdnxfzuergf3ui7yt83gzf7r87wr
 
 #include "uiwrap_build_config.h"
 #include "ul/macros.h"

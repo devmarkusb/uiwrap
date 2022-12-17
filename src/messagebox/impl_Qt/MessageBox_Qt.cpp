@@ -3,7 +3,7 @@
 //! \file
 
 #include "MessageBox_Qt.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 
 
 namespace mb::uiw::implQt

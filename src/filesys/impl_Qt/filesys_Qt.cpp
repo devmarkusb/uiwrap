@@ -4,7 +4,7 @@
 //! \file
 
 #include "filesys_Qt.h"
-#include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 
 #include "toolib/filesys/file.h"
 #include "toolib/string/lex_cast.h"

@@ -1,5 +1,5 @@
-#include "UrlString_util_Qt.h"
-#include "StringConvert_Qt.h"
+#include "urlstring_util_Qt.h"
+#include "stringconvert_Qt.h"
 #include "gtest/gtest.h"
 
 #include "ul/macros.h"
