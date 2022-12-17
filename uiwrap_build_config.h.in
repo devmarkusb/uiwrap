@@ -10,8 +10,8 @@
         You can tailor this one to your needs.
         Note that you will need to re-run CMake.
 */
-#ifndef UIWRAP_BUILD_CONFIG_H_INCL_souihrf7384xt783ghf7y842ghf
-#define UIWRAP_BUILD_CONFIG_H_INCL_souihrf7384xt783ghf7y842ghf
+#ifndef UIWRAP_BUILD_CONFIG_H_souihrf7384xt783ghf7y842ghf
+#define UIWRAP_BUILD_CONFIG_H_souihrf7384xt783ghf7y842ghf
 
 #include <string>
 
