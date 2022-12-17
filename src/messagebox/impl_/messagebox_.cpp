@@ -1,9 +1,5 @@
-// Markus Borris, 2016-17
-// This file is part of my uiwrap library. Open source.
+// 2016-17
 
-//!
-/**
- */
 //! \file
 
 #include "messagebox_.h"

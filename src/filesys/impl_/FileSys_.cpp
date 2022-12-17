@@ -1,8 +1,5 @@
 // 2015-18
 
-//!
-/**
- */
 //! \file
 
 #include "filesys_.h"

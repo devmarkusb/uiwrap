@@ -1,8 +1,5 @@
 // 2016-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f

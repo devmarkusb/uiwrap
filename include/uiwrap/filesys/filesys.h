@@ -1,8 +1,5 @@
 // 2015-18
 
-//!
-/**
- */
 //! \file
 
 #ifndef FILESYS_H_xcsabgzduzbvfget32

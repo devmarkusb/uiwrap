@@ -1,8 +1,5 @@
 // 2015-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef LIBRARY__H_INCL_kdnlfglknhcguewhgureihxrexq74

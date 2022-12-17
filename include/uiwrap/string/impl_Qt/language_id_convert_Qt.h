@@ -1,8 +1,5 @@
 // 2016-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45

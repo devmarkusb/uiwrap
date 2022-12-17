@@ -1,8 +1,5 @@
 // 2015-17
 
-//!
-/**
- */
 //! \file
 
 #include "uiwrap_build_config.h"

@@ -1,8 +1,5 @@
 // 2019
 
-//!
-/**
- */
 //! \file
 
 #ifndef UTIL_H_sjkdfg34nizfxn437gt7834

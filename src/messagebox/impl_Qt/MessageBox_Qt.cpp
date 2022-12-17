@@ -1,18 +1,12 @@
-// Markus Borris, 2015
-// This file is part of my uiwrap library. Open source.
+// 2015
 
-//!
-/**
- */
 //! \file
 
 #include "MessageBox_Qt.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b)
 {
@@ -208,5 +202,4 @@ auto CMessageBox_Qt::getRunResult() -> EButton
 {
     return StandardButton2EButton(m_RetVal);
 }
-} // namespace implQt
 } // namespace mb::uiw

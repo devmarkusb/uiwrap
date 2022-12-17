@@ -1,8 +1,5 @@
 // 2015-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
@@ -41,7 +38,7 @@ private:
     QMessageBox m_MsgBox{};
     QMessageBox::StandardButton m_RetVal{QMessageBox::NoButton};
 
-    QMessageBox::StandardButton EButton2StandardButton(EButton b);
+    static QMessageBox::StandardButton EButton2StandardButton(EButton b);
     EButton StandardButton2EButton(QMessageBox::StandardButton qb);
 };
 } // namespace mb::uiw

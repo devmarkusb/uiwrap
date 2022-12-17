@@ -1,8 +1,5 @@
 // 2016
 
-//!
-/**
- */
 //! \file
 
 #ifndef MESSAGEBOX__H_skdljfh7ex5n7xt3

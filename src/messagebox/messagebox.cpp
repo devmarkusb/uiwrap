@@ -1,9 +1,5 @@
-// Markus Borris, 2015-17
-// This file is part of my uiwrap library. Open source.
+// 2015-17
 
-//!
-/**
- */
 //! \file
 
 #include "uiwrap_build_config.h"

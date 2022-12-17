@@ -1,8 +1,5 @@
 // 2014-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef LIBRARY_QT_H_INCL_slkhgncioue8zn87tc3t2n87t

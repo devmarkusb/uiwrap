@@ -1,9 +1,7 @@
 // 2016-17
 
-//!
-/**
- */
 //! \file
+
 #ifndef CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #define CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #include "uiwrap_build_config.h"

@@ -1,8 +1,5 @@
 // 2015-18
 
-//!
-/**
- */
 //! \file
 
 #ifndef FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx

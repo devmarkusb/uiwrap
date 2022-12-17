@@ -1,8 +1,5 @@
 // 2015-17
 
-//!
-/**
- */
 //! \file
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3

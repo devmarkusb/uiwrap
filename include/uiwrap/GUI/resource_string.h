@@ -1,8 +1,5 @@
 // 2015
 
-//!
-/**
- */
 //! \file
 
 #ifndef RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
@@ -12,20 +9,15 @@
 #include <string>
 
 
-namespace mb::uiw
-{
-namespace gui
+namespace mb::uiw::gui
 {
 class IResourceString
 {
 public:
-    virtual ~IResourceString()
-    {
-    }
+    virtual ~IResourceString() = default;
 
-    virtual std::string GetString(ResourceID id) const = 0;
+    [[nodiscard]] virtual std::string GetString(ResourceID id) const = 0;
 };
-} // namespace gui
 } // namespace mb::uiw
 
 #endif
