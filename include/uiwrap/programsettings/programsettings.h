@@ -1,5 +1,4 @@
-// Markus Borris, 2015-17
-// This file is part of my uiwrap library.
+// 2015-17
 
 //!
 /**
