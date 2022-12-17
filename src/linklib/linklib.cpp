@@ -1,7 +1,3 @@
-// 2015-17
-
-//! \file
-
 #include "uiwrap_build_config.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/library_Qt.h"
@@ -17,19 +13,19 @@ static_assert(false, "not implemented");
 
 namespace mb::uiw
 {
-std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutExtension, const std::string& Version)
+std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutExtension, const std::string& version)
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    std::unique_ptr<ILibrary> p(ul::make_unique<implQt::CLibrary_Qt>(FilePathNameWithoutExtension, Version));
-    if (!FilePathNameWithoutExtension.empty())
+    std::unique_ptr<ILibrary> p(ul::make_unique<implQt::CLibrary_Qt>(filePathNameWithoutExtension, version));
+    if (!filePathNameWithoutExtension.empty())
         p->Load();
     return p;
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    ul::ignore_arg(FilePathNameWithoutExtension);
-    ul::ignore_arg(Version);
+    ul::ignore_arg(filePathNameWithoutExtension);
+    ul::ignore_arg(version);
     throw ul::not_implemented{"ILibrary::make"};
 
 #else
@@ -37,9 +33,9 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& FilePathNameWithoutE
 #if UL_OS_WINDOWS
     p = ul::make_unique<CLibrary_win>(FilePathNameWithoutExtension, Version);
 #elif UL_OS_LINUX
-    p = ul::make_unique<CLibrary_linux>(FilePathNameWithoutExtension, Version);
+    p = ul::make_unique<CLibrary_linux>(filePathNameWithoutExtension, version);
 #endif
-    if (!FilePathNameWithoutExtension.empty())
+    if (!filePathNameWithoutExtension.empty())
         p->Load();
     return p;
 

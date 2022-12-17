@@ -33,10 +33,10 @@ public:
 
     virtual ~IProgSettings() = default;
 
-    //! *Important* Before first usage, that is, with you first call to GetInstance,
-    //! you have to call immediately Init and for Qt afterwards also setAsRootContextProperty.
-    //! Only after that a proper functionality of this class is possible.
-    static IProgSettings* GetInstance(
+    /** *Important* Before first usage, that is, with you first call to getInstance,
+        you have to call immediately Init and for Qt afterwards also setAsRootContextProperty.
+        Only after that a proper functionality of this class is possible.*/
+    static IProgSettings* getInstance(
         const std::string& FileNamePath = std::string(), const std::string& FileExt = std::string(),
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
     virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) = 0;
@@ -71,22 +71,22 @@ public:
         (2) Qt implementation yields string always, which doesn't fit when converting to other variant type
 
         Until any fix, you are unfortunately stuck with the recommendation of using ValueStr/SetValueStr.*/
-    virtual TVariant Value(
-        const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant()) const = 0;
+    [[nodiscard]] virtual TVariant Value(
+        const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const = 0;
     //! Not working?!
     virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
 
-    virtual std::string ValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const = 0;
+    [[nodiscard]] virtual std::string ValueStr(
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const = 0;
     virtual void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
 
     using TSectionKeyPair = std::pair<std::string, std::string>;
-    virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
+    [[nodiscard]] virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
     virtual void Clear() = 0;
     //! Enables/disables the class' whole functionality. Default is enabled.
     virtual void enable(bool enable) = 0;
-    virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
-    bool Contains(const std::string& KeyName)
+    [[nodiscard]] virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
+    [[nodiscard]] bool Contains(const std::string& KeyName) const
     {
         return Contains(std::string(), KeyName);
     }
@@ -108,7 +108,7 @@ public:
         ERROR_READING_SETTINGS,
         INTERNAL_ERROR__VARIANT_CONVERSION,
     };
-    virtual EError GetError() const = 0;
+    [[nodiscard]] virtual EError GetError() const = 0;
     virtual void ResetError() = 0;
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)

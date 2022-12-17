@@ -7,22 +7,17 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/assert.h"
-#include "toolib/error.h"
 #include "toolib/string/languages.h"
-#include "toolib/warnings.h"
+#include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QLocale>
 UL_PRAGMA_WARNINGS_POP
 #include <string>
 
 
-namespace mb::uiw
+namespace mb::uiw::implQt
 {
-namespace implQt
-{
-//! Throws ul::not_implemented for unsupported or unknown \param id, expects id not to be
-//! too::str::auto_systems_language.
+//! Throws ul::not_implemented for unsupported or unknown id, expects id not to be too::str::auto_systems_language.
 inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
 {
     if (id == too::str::auto_systems_language)
@@ -62,7 +57,6 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
     else
         throw ul::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
 }
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

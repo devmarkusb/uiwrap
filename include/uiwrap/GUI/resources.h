@@ -8,14 +8,11 @@
 #include <string>
 
 
-namespace mb::uiw
-{
-namespace gui
+namespace mb::uiw::gui
 {
 using ResourceID = long;
 //! Alphanumeric variant.
 using ResourceID_alnum = std::string;
-} // namespace gui
 } // namespace mb::uiw
 
 #endif

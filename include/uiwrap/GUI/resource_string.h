@@ -16,7 +16,7 @@ class IResourceString
 public:
     virtual ~IResourceString() = default;
 
-    [[nodiscard]] virtual std::string GetString(ResourceID id) const = 0;
+    [[nodiscard]] virtual std::string getString(ResourceID id) const = 0;
 };
 } // namespace mb::uiw
 

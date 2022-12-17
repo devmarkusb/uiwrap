@@ -1,8 +1,3 @@
-// Markus Borris, 2015-18
-// This file is part of my uiwrap library. Open source.
-
-//! \file
-
 #include "filesys_Qt.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 

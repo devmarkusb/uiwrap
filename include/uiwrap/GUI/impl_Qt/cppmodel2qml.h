@@ -15,9 +15,7 @@ UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 //! Usage: pass sth. like qml_engine.rootContext() to \param context, decide for a name by which
 //! the property is accessed in qml, pass it to \param qmlModelName, then pass arbitrary constructor
@@ -31,7 +29,6 @@ std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
     context.setContextProperty(qmlModelName, model.get());
     return model;
 }
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

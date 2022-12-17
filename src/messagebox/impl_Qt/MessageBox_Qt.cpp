@@ -1,7 +1,3 @@
-// 2015
-
-//! \file
-
 #include "MessageBox_Qt.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 

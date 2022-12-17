@@ -11,9 +11,7 @@
 #include <string>
 
 
-namespace mb::uiw
-{
-namespace gui
+namespace mb::uiw::gui
 {
 class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable
 {
@@ -67,7 +65,6 @@ public:
 
     virtual EButton getRunResult() = 0;
 };
-} // namespace gui
 } // namespace mb::uiw
 
 #endif

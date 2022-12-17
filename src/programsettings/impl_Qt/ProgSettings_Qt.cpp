@@ -1,11 +1,3 @@
-// Markus Borris, 2015-16
-// This file is part of my uiwrap library. Open source.
-
-//!
-/** Please note: class CProgSettings is not suitable to be put in a lib; we get linker warnings due to moc content.
- */
-//! \file
-
 #include "ProgSettings_Qt.h"
 #include "toolib/string/string_token.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
@@ -16,11 +8,9 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 
 
-namespace mb::uiw
+namespace mb::uiw::implQt
 {
-namespace implQt
-{
-inline QSettings* CProgSettings::m_settings()
+QSettings* CProgSettings::m_settings()
 {
     if (!this->enabled)
         return {};
@@ -30,7 +20,7 @@ inline QSettings* CProgSettings::m_settings()
     return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
-inline const QSettings* CProgSettings::m_settings() const
+const QSettings* CProgSettings::m_settings() const
 {
     UL_ASSERT(m_settings_impl_doNotUseItDirectlyExceptOnInit);
     if (!m_settings_impl_doNotUseItDirectlyExceptOnInit)
@@ -74,7 +64,7 @@ void CProgSettings::setAsRootContextProperty(void* application_engine, const std
     UL_EXPECT_THROW(application_engine);
     if (!m_settings())
         return;
-    QQmlApplicationEngine* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);
+    auto* ae = reinterpret_cast<QQmlApplicationEngine*>(application_engine);
     ae->rootContext()->setContextProperty(s2qs(name), this);
 }
 
@@ -88,7 +78,7 @@ void CProgSettings::setValue(const QString& SecAndKey, const QVariant& Value)
 QVariant CProgSettings::value(const QString& SecAndKey, const QVariant& Default) const
 {
     if (!m_settings())
-        return QVariant();
+        return {};
     return m_settings()->value(SecAndKey, Default);
 }
 
@@ -105,7 +95,7 @@ void CProgSettings::Sync()
     GetError();
 }
 
-QString CProgSettings::CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) const
+QString CProgSettings::CreateQtKeyName(const std::string& SectionName, const std::string& KeyName)
 {
     return s2qs(SectionName + "/" + KeyName);
 }
@@ -147,7 +137,7 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
         return retkeys;
     QStringList keys(m_settings()->allKeys());
     retkeys.reserve(static_cast<size_t>(keys.size()));
-    for (auto i : keys)
+    for (const auto& i : keys)
     {
         std::vector<std::string> keypath;
         too::str::tokenizeString(qs2s(i), "/", keypath);
@@ -177,11 +167,11 @@ public:
     //    }
     QVariant operator()(const CProgSettings::TInteger& v) const
     {
-        return QVariant(v);
+        return {v};
     }
     QVariant operator()(const double& v) const
     {
-        return QVariant(v);
+        return {v};
     }
     QVariant operator()(const std::string& v) const
     {
@@ -189,11 +179,11 @@ public:
     }
     QVariant operator()(const bool& v) const
     {
-        return QVariant(v);
+        return {v};
     }
 };
 
-QVariant CProgSettings::var2qvar(const CProgSettings::TVariant& v) const
+QVariant CProgSettings::var2qvar(const CProgSettings::TVariant& v)
 {
     return boost::apply_visitor(Convert_var2qvar_visitor(), v);
 }
@@ -229,7 +219,7 @@ CProgSettings::TVariant CProgSettings::Value(
     const std::string& SectionName, const std::string& KeyName, const CProgSettings::TVariant& Default) const
 {
     if (!m_settings())
-        return TVariant();
+        return {};
     QVariant val(m_settings()->value(CreateQtKeyName(SectionName, KeyName), var2qvar(Default)));
     GetError();
     if (!val.isValid() || val.isNull())
@@ -262,6 +252,4 @@ void CProgSettings::SetValueStr(const std::string& SectionName, const std::strin
         return;
     m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), s2qs(Value));
 }
-
-} // namespace implQt
 } // namespace mb::uiw

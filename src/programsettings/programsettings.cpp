@@ -1,7 +1,3 @@
-// 2015-17
-
-//! \file
-
 #include "uiwrap_build_config.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/ProgSettings_Qt.h"
@@ -15,7 +11,7 @@ static_assert(false, "not implemented");
 
 namespace mb::uiw
 {
-IProgSettings* IProgSettings::GetInstance(
+IProgSettings* IProgSettings::getInstance(
     const std::string& FileNamePath, const std::string& FileExt, StorageFileFormat PreferredStorageFileFormat)
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)

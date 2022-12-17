@@ -1,7 +1,3 @@
-// 2015-18
-
-//! \file
-
 #include "filesys_.h"
 #include "toolib/filesys/file.h"
 #include "toolib/string/lex_cast.h"

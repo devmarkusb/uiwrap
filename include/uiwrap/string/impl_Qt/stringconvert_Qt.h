@@ -16,7 +16,7 @@ UL_PRAGMA_WARNINGS_POP
 namespace mb::uiw::implQt
 {
 //! QString to std::string
-inline std::string qs2s(QString s)
+inline std::string qs2s(const QString& s)
 {
     return std::string(s.toUtf8().constData());
 }

@@ -35,11 +35,11 @@ public:
     virtual bool createFolder(const std::string& folderPath) = 0;
     virtual bool deleteFolder(const std::string& folderPath) = 0;
     virtual bool renameFolder(const std::string& folderPath_From, const std::string& folderPath_To) = 0;
-    virtual bool folderExists(const std::string& folderPath) const = 0;
-    virtual bool fileExists(const std::string& filePathNameExt) const = 0;
-    virtual bool isFile(const std::string& filePathNameExt) const = 0;
+    [[nodiscard]] virtual bool folderExists(const std::string& folderPath) const = 0;
+    [[nodiscard]] virtual bool fileExists(const std::string& filePathNameExt) const = 0;
+    [[nodiscard]] virtual bool isFile(const std::string& filePathNameExt) const = 0;
 
-    virtual std::string toNativeSeparators(const std::string& Path) const = 0;
+    [[nodiscard]] virtual std::string toNativeSeparators(const std::string& Path) const = 0;
 
     //! Explanation and examples.
     /** PROGDATA and USER are the same and yield for Windows something like c:/users/xy,
@@ -64,9 +64,9 @@ public:
         FONTS,
         CACHE,
     };
-    virtual std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const = 0;
+    [[nodiscard]] virtual std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const = 0;
 
-    virtual std::string getErrorOfLatestCall() const = 0;
+    [[nodiscard]] virtual std::string getErrorOfLatestCall() const = 0;
 };
 
 
@@ -84,7 +84,7 @@ public:
     //! Throws std::runtime_error.
     virtual void loadFromFile(const std::string& filePathNameExt) /*noexcept(false)*/ = 0;
 
-    bool saveToFile_(const std::string& filePathNameExt) const
+    [[nodiscard]] bool saveToFile_(const std::string& filePathNameExt) const
     {
         try
         {
@@ -114,6 +114,5 @@ public:
 using IFileSys = file::IFileSys;
 using IFileData = file::IFileData;
 } // namespace mb::uiw
-
 
 #endif

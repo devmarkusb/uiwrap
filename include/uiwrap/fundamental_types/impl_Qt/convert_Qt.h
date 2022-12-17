@@ -1,7 +1,7 @@
 // 2016-17
 
-//!
-/** Important notice:
+/** \file
+    Important notice:
     I decided to make any conversion safe/checked where appropriate and possible.
     That is, range violations result in exceptions. The exceptions are of the
     same type as the ones thrown by assertions from toolib/assert.h.
@@ -11,7 +11,6 @@
     Below that, in the backend, of course we wozuld only check for programmers
     errors, which we don't.
 */
-//! \file
 
 #ifndef CONVERT_QT_H_djkghuinx478gn4289gf32
 #define CONVERT_QT_H_djkghuinx478gn4289gf32
@@ -49,7 +48,7 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, TargetTyp
 }
 
 template <>
-inline constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(
     qreal v) noexcept
 {
     return ul::narrow_cast<float>(v);
@@ -78,7 +77,7 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to
 }
 
 template <>
-inline constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to_qreal<long double>(
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to_qreal<long double>(
     long double v) noexcept
 {
     return ul::narrow_cast<qreal>(v);

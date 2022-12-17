@@ -1,6 +1,7 @@
 // 2015-17
 
-//! \file
+/** \file
+    Please note: class CProgSettings is not suitable to be put in a lib; we get linker warnings due to moc content.*/
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
 #define PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
@@ -36,12 +37,12 @@ public:
 
     void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default = TVariant())
+    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default)
         const override;
     void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
     std::string ValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Default = {}) const override;
+        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const override;
     void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
     std::vector<TSectionKeyPair> GetAllKeys() const override;
@@ -63,8 +64,8 @@ public:
     Q_INVOKABLE void flush();
 
 private:
-    inline QSettings* m_settings();
-    inline const QSettings* m_settings() const;
+    QSettings* m_settings();
+    const QSettings* m_settings() const;
     mutable EError m_FirstOccurredError{EError::INIT_NOT_CALLED_OR_FAILED};
 
     void SetError(EError e) const
@@ -72,8 +73,8 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
-    QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) const;
-    QVariant var2qvar(const TVariant& v) const;
+    static QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName) ;
+    static QVariant var2qvar(const TVariant& v) ;
     TVariant qvar2var(const QVariant& v) const;
 
 private:

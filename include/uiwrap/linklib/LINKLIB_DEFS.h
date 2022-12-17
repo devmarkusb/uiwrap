@@ -1,7 +1,7 @@
 // 2015-17
 
-//!
-/** Usage I: The following steps are for a library (shared or static) as intended target.
+/** \file
+    Usage I: The following steps are for a library (shared or static) as intended target.
     (1) In the build configuration of your library define sth. like YOURLIB_LIBRARY. This is
     the indicator, that a library should be built from the code. Of course you don't do this in
     the application which later uses the library.
@@ -55,7 +55,6 @@
         there is no equivalence std::function* <-> function pointer.
     - Note: Never use late binding, if not absolutely necessary. There are just more pitfalls.
 */
-//! \file
 
 #ifndef LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
 #define LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3

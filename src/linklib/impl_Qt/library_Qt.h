@@ -20,38 +20,38 @@ class CLibrary_Qt : public CLibrary
 {
 public:
     explicit CLibrary_Qt(
-        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string())
-        : CLibrary(FilePathNameWithoutExtension, Version)
-        , m_impl(s2qs(FilePathNameWithoutExtension), s2qs(Version))
+        const std::string& filePathNameWithoutExtension, const std::string& version)
+        : CLibrary(filePathNameWithoutExtension, version)
+        , m_impl(s2qs(filePathNameWithoutExtension), s2qs(version))
     {
     }
 
-    virtual void* ResolveSymbol(std::string Symbol)
+    void* ResolveSymbol(std::string symbol) override
     {
-        return reinterpret_cast<void*>(m_impl.resolve(Symbol.c_str()));
+        return reinterpret_cast<void*>(m_impl.resolve(symbol.c_str()));
     }
 
-    virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
+    void SetFileName(std::string filePathNameWithoutExtension, std::string version) override
     {
-        m_impl.setFileNameAndVersion(s2qs(FilePathNameWithoutExtension), s2qs(Version));
+        m_impl.setFileNameAndVersion(s2qs(filePathNameWithoutExtension), s2qs(version));
     }
 
-    virtual std::string GetFileName() const
+    [[nodiscard]] std::string GetFileName() const override
     {
         return qs2s(m_impl.fileName());
     }
 
-    virtual bool Load()
+    bool Load() override
     {
         return m_impl.load();
     }
 
-    virtual bool Unload()
+    bool Unload() override
     {
         return m_impl.unload();
     }
 
-    virtual std::string GetError() const
+    [[nodiscard]] std::string GetError() const override
     {
         std::string ret(qs2s(m_impl.errorString()));
         // unfortunately this is the string Qt returns in case of no error

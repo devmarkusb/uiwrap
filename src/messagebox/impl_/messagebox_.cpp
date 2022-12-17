@@ -1,7 +1,3 @@
-// 2016-17
-
-//! \file
-
 #include "messagebox_.h"
 
 

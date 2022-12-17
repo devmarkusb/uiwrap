@@ -93,7 +93,7 @@ public:
     {
     }
 
-    virtual void* ResolveSymbol(std::string Symbol)
+    void* ResolveSymbol(std::string Symbol) override
     {
         if (!m_DllHandle)
         {
@@ -103,7 +103,7 @@ public:
         return dlsym(m_DllHandle, Symbol.c_str());
     }
 
-    virtual bool Load()
+    bool Load() override
     {
         std::string dll(GetFileName());
         dll += ".so";
@@ -111,7 +111,7 @@ public:
         return m_DllHandle;
     }
 
-    virtual bool Unload()
+    bool Unload() override
     {
         return dlclose(m_DllHandle);
     }

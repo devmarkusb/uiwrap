@@ -1,9 +1,7 @@
 // 2015
 
-//! File serves to export symbols for uiwrap as a library.
-/** Note that it uses itself a little bit to do that.
- */
-//! \file
+//! \file File serves to export symbols for uiwrap as a library.
+/** Note that it uses itself a little bit to do that.*/
 
 #ifndef UIWRAPDEF_H_INCL_aibuxsgfnz342975ty31
 #define UIWRAPDEF_H_INCL_aibuxsgfnz342975ty31

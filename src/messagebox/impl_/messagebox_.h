@@ -2,8 +2,8 @@
 
 //! \file
 
-#ifndef MESSAGEBOX__H_skdljfh7ex5n7xt3
-#define MESSAGEBOX__H_skdljfh7ex5n7xt3
+#ifndef MESSAGEBOX_H_skdljfh7ex5n7xt3
+#define MESSAGEBOX_H_skdljfh7ex5n7xt3
 
 #include "uiwrap/messagebox/messagebox.h"
 #include "ul/ul.h"

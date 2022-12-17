@@ -9,6 +9,7 @@
 #include "ul/ul.h"
 #include <memory>
 #include <string>
+#include <utility>
 
 
 namespace mb::uiw
@@ -18,57 +19,57 @@ class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable
 public:
     virtual ~ILibrary() = default;
 
-    //! \param FilePathNameWithoutExtension without extension
+    //! \param filePathNameWithoutExtension without extension
     static std::unique_ptr<ILibrary> make(
-        const std::string& FilePathNameWithoutExtension = std::string(), const std::string& Version = std::string());
+        const std::string& filePathNameWithoutExtension, const std::string& version);
 
-    virtual void* ResolveSymbol(std::string Symbol) = 0;
-    virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string()) = 0;
-    virtual std::string GetFileName() const = 0;
+    virtual void* ResolveSymbol(std::string symbol) = 0;
+    virtual void SetFileName(std::string filePathNameWithoutExtension, std::string version) = 0;
+    [[nodiscard]] virtual std::string GetFileName() const = 0;
     virtual bool Load() = 0;
     virtual bool Unload() = 0;
-    virtual std::string GetError() const = 0;
+    [[nodiscard]] virtual std::string GetError() const = 0;
 };
 
 //! Still too abstract, not a real implementation yet.
 class CLibrary : public ILibrary
 {
 public:
-    explicit CLibrary(std::string FilePathNameWithoutExtension = std::string(), std::string Version = std::string())
-        : m_FilePathName(FilePathNameWithoutExtension)
-        , m_Version(Version)
+    explicit CLibrary(std::string filePathNameWithoutExtension, std::string version)
+        : m_FilePathName(std::move(filePathNameWithoutExtension))
+        , m_Version(std::move(version))
     {
         // would call Load here, if FilePathNameWithoutExtension is non-empty, but calling a virtual function
         // from a constructor would always only call the function of the base/current class
     }
 
-    virtual void* ResolveSymbol(std::string Symbol) = 0;
+    void* ResolveSymbol(std::string symbol) override = 0;
 
-    virtual void SetFileName(std::string FilePathNameWithoutExtension, std::string Version = std::string())
+    void SetFileName(std::string filePathNameWithoutExtension, std::string version) override
     {
-        m_FilePathName = FilePathNameWithoutExtension;
-        m_Version = Version;
+        m_FilePathName = filePathNameWithoutExtension;
+        m_Version = version;
     }
 
-    virtual std::string GetFileName() const
+    [[nodiscard]] std::string GetFileName() const override
     {
         return m_FilePathName;
     }
 
-    virtual bool Load() = 0;
-    virtual bool Unload() = 0;
+    bool Load() override = 0;
+    bool Unload() override = 0;
 
-    virtual std::string GetError() const
+    [[nodiscard]] std::string GetError() const override
     {
         return m_Error;
     }
 
 protected:
-    virtual void SetError(std::string Error)
+    virtual void SetError(std::string error)
     {
-        m_Error = Error;
+        m_Error = std::move(error);
     }
-    std::string GetVersion() const
+    [[nodiscard]] std::string GetVersion() const
     {
         return m_Version;
     }

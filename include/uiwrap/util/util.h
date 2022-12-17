@@ -9,9 +9,7 @@
 #include <string>
 
 
-namespace mb::uiw
-{
-namespace util
+namespace mb::uiw::util
 {
 inline const std::string& resources_base_path()
 {
@@ -22,7 +20,6 @@ inline const std::string& resources_base_path()
 #error "not implemented"
 #endif
 }
-} // namespace util
 } // namespace mb::uiw
 
 #endif

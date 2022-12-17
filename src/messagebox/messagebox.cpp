@@ -1,7 +1,3 @@
-// 2015-17
-
-//! \file
-
 #include "uiwrap_build_config.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/MessageBox_Qt.h"
@@ -13,9 +9,7 @@ static_assert(false, "not implemented");
 #include "ul/ul.h"
 
 
-namespace mb::uiw
-{
-namespace gui
+namespace mb::uiw::gui
 {
 std::unique_ptr<IMessageBox> IMessageBox::make()
 {
@@ -33,5 +27,4 @@ std::unique_ptr<IMessageBox> IMessageBox::make()
 
 #endif
 }
-} // namespace gui
 } // namespace mb::uiw

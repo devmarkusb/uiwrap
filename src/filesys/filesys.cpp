@@ -1,7 +1,3 @@
-// 2015-17
-
-//! \file
-
 #include "uiwrap_build_config.h"
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/filesys_Qt.h"
