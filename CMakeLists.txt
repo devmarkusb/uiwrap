@@ -117,15 +117,15 @@ endif ()
 set(targetTest ${PROJECT_NAME}Test)
 
 set(targetTest_SOURCES
-    include/uiwrap/filesys/filesys.test.cpp
+        src/filesys/filesys.test.cpp
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     set(targetTest_IMPL_SOURCES
-        include/uiwrap/fundamental_types/impl_Qt/convert_Qt.test.cpp
-        include/uiwrap/GUI/impl_Qt/cppmodel2qml.test.cpp
-        include/uiwrap/GUI/impl_Qt/qmlextlib.test.cpp
-        include/uiwrap/string/impl_Qt/urlstring_util_Qt.test.cpp
+            src/fundamental_types/impl_Qt/convert_Qt.test.cpp
+            src/GUI/impl_Qt/cppmodel2qml.test.cpp
+            src/GUI/impl_Qt/qmlextlib.test.cpp
+            src/string/impl_Qt/urlstring_util_Qt.test.cpp
     )
 elseif (uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
     set(targetTest_IMPL_SOURCES "")
