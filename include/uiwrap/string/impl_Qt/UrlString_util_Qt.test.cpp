@@ -5,6 +5,8 @@
 #include "ul/macros.h"
 
 
+namespace uiw = mb::uiw;
+
 TEST(UrlString_util_Qt, remove)
 {
 #if UL_WINDOWS

@@ -11,16 +11,14 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/warnings.h"
+#include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QString>
 #include <QUrl>
 UL_PRAGMA_WARNINGS_POP
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 //! \param abs_path needs to be an absolut path of a file or dir.
 //! This function prepends something like `file:///`. This is called the
@@ -45,7 +43,6 @@ inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_pr
     const QUrl u{abs_path_with_scheme_prefix};
     return removeFile_urlSchemePrefix(u);
 }
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

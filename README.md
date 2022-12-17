@@ -19,13 +19,22 @@ command-line version of certain GUI apps.
 
 ## Usage
 
-* Set CMake variable `uiwrap_USE_IMPLEMENTATION` to either
-  * "qt"
-  * "" (nothing), or leave out entirely, meaning console
+Set environment variables:
+* `export dev_sdk_path=/path-to-sdks/` where versions of Qt reside
+(and possibly also boost).
+* `export dev_qt_base=$dev_sdk_path/qt_linux` (e.g.) where Qt versions
+can be found in subdirs like `5.9.1`. 
+
+Set the following CMake variables:
+* `uiwrap_USE_IMPLEMENTATION` to either
+  * `qt`
+  * `""` (nothing), or leave out entirely, meaning console
   * ...
 
-* Set CMake variables UL_USE_BOOST_ver1, UL_USE_BOOST_ver2, UL_USE_BOOST_ver3
+* `UL_USE_BOOST_ver1, UL_USE_BOOST_ver2, UL_USE_BOOST_ver3`
 according to the Boost library version you want to use ("ver1.ver2.ver3").
+* `UL_QT5_VERSION` to e.g. `5.9.1`
+* `UL_QT_COMPILER_SUBDIR` to e.g. `gcc_64`
 
 ## Requirements
 

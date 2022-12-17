@@ -10,7 +10,6 @@
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 #include "impl_Qt/filesys_Qt.h"
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
-#include "toolib/error.h"
 static_assert(false, "not implemented");
 #else
 #include "impl_/filesys_.h"

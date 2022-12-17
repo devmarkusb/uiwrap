@@ -11,8 +11,8 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/warnings.h"
 #include "uiwrap/programsettings/programsettings.h"
+#include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QObject>
 #include <QSettings>
@@ -22,9 +22,7 @@ UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 // do not put in a library, see comment at file start
 class CProgSettings
@@ -86,7 +84,6 @@ private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
     bool enabled{true};
 };
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

@@ -30,10 +30,10 @@
 #include "uiwrap_build_config.h"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "toolib/warnings.h"
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
 #include "uiwrap/string/impl_Qt/UrlString_util_Qt.h"
+#include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QDir>
 #include <QObject>
@@ -41,16 +41,12 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 class DynamicTranslator
 {
 public:
-    virtual ~DynamicTranslator()
-    {
-    }
+    virtual ~DynamicTranslator() = default;
 
     virtual void updateTranslations() const = 0;
 };
@@ -69,13 +65,13 @@ public:
     //! Cf. the forwarded function in the implementation for documentation.
     Q_INVOKABLE QString prependFile_urlSchemePrefix(QString file_without_prefix) const
     {
-        return ::uiw::implQt::prependFile_urlSchemePrefix(file_without_prefix);
+        return uiw::implQt::prependFile_urlSchemePrefix(file_without_prefix);
     }
 
     //! Cf. the forwarded function in the implementation for documentation.
     Q_INVOKABLE QString removeFile_urlSchemePrefix(QString file_with_prefix) const
     {
-        return ::uiw::implQt::removeFile_urlSchemePrefix(file_with_prefix);
+        return uiw::implQt::removeFile_urlSchemePrefix(file_with_prefix);
     }
 
     //! For Windows \returns path with backlashes instead of slashes.
@@ -93,15 +89,15 @@ public:
     //! Expects \param fullpath with slashes only.
     Q_INVOKABLE bool fileExists(QString fullpath) const
     {
-        const auto fs = ::uiw::file::IFileSys::getInstance();
-        return fs->fileExists(::uiw::implQt::qs2s(fullpath));
+        const auto fs = uiw::file::IFileSys::getInstance();
+        return fs->fileExists(uiw::implQt::qs2s(fullpath));
     }
 
     //! Expects \param fullpath with slashes only.
     Q_INVOKABLE bool isFile(QString fullpath) const
     {
-        const auto fs = ::uiw::file::IFileSys::getInstance();
-        return fs->isFile(::uiw::implQt::qs2s(fullpath));
+        const auto fs = uiw::file::IFileSys::getInstance();
+        return fs->isFile(uiw::implQt::qs2s(fullpath));
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
@@ -116,7 +112,6 @@ signals:
 private:
     QString dynTr;
 };
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

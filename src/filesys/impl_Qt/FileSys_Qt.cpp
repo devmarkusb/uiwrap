@@ -7,12 +7,11 @@
 //! \file
 
 #include "filesys_Qt.h"
-#include "toolib/filesys/file.h"
-#include "toolib/finally.h"
-#include "toolib/ignore_arg.h"
-#include "toolib/string/lex_cast.h"
-#include "toolib/warnings.h"
 #include "uiwrap/string/impl_Qt/StringConvert_Qt.h"
+
+#include "toolib/filesys/file.h"
+#include "toolib/string/lex_cast.h"
+#include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QCoreApplication>
 #include <QDir>
@@ -22,9 +21,7 @@ UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info) const
 {
@@ -47,7 +44,7 @@ bool CFileSys_Qt::saveToTextFile(const std::string& filePathNameExt, const std::
         setFileOpErrorStr(f, "open");
         return false;
     }
-    auto auto_close = too::finally([&f]() {
+    auto auto_close = ul::finally([&f]() {
         f.close();
     });
     if (f.write(content.c_str()) == -1)
@@ -67,7 +64,7 @@ bool CFileSys_Qt::loadFromTextFile(const std::string& filePathNameExt, std::stri
     //    setFileOpErrorStr(f, "open");
     //    return false;
     //}
-    // auto auto_close = too::finally([&f](){ f.close(); });
+    // auto auto_close = ul::finally([&f](){ f.close(); });
     // const qint64 size = f.bytesAvailable();
     // std::unique_ptr<char[]> buffer(new char[size]);
     // const qint64 size_read = f.read(buffer.get(), size);
@@ -117,7 +114,7 @@ bool CFileSys_Qt::copyFile(const std::string& filePathNameExt_From, const std::s
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() {
+        auto auto_close = ul::finally([&f]() {
             f.close();
         });
         setFileOpErrorStr(f, "copy", "target could already be existing, would be overwritten");
@@ -137,7 +134,7 @@ bool CFileSys_Qt::deleteFile(const std::string& filePathNameExt)
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() {
+        auto auto_close = ul::finally([&f]() {
             f.close();
         });
         setFileOpErrorStr(f, "remove");
@@ -157,7 +154,7 @@ bool CFileSys_Qt::renameFile(const std::string& filePathNameExt_From, const std:
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = too::finally([&f]() {
+        auto auto_close = ul::finally([&f]() {
             f.close();
         });
         setFileOpErrorStr(f, "rename", "target could already be existing, would be overwritten");
@@ -286,5 +283,4 @@ std::string CFileSys_Qt::getErrorOfLatestCall() const
 {
     return this->latestError;
 }
-} // namespace implQt
 } // namespace mb::uiw
