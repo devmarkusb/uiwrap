@@ -8,7 +8,7 @@ include(FetchContent)
 
 FetchContent_Declare(mb-toolib
         GIT_REPOSITORY "/home/markus/projects/git/libs/toolib"
-        GIT_TAG HEAD
+        GIT_TAG origin/HEAD
         GIT_SHALLOW ON
         )
 
