@@ -52,3 +52,11 @@ project, you might need to copy the two files
 to your project's root dir.
 Compiling and testing the library standalone should just work,
 but this is untested.
+
+## FAQ
+
+### Namespace clashes
+
+In rare cases when you need to have another namespace `uiw`
+around, you can do something like
+`add_compile_definitions(UIW_DISABLE_NAMESPACE_ALIAS=1)`.

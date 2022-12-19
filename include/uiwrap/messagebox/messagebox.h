@@ -6,6 +6,7 @@
 #define MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3
 
 #include "uiwrapDEF.h"
+#include "../config.h"
 #include "ul/ul.h"
 #include <memory>
 #include <string>
@@ -66,5 +67,7 @@ public:
     virtual EButton getRunResult() = 0;
 };
 } // namespace mb::uiw::gui
+
+UIW_HEADER_END
 
 #endif

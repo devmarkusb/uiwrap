@@ -25,9 +25,11 @@
 
 #ifndef QMLEXTLIB_H_eruigx4zgf783427g578sth378g
 #define QMLEXTLIB_H_eruigx4zgf783427g578sth378g
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap_build_config.h"
+#include "../../config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "uiwrap/filesys/filesys.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "uiwrap/string/impl_Qt/urlstring_util_Qt.h"
@@ -114,4 +116,7 @@ private:
 } // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
+
+UIW_HEADER_END
+
 #endif

@@ -4,9 +4,11 @@
 
 #ifndef CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #define CPPMODEL2QML_H_dfljkghx4782tgh378g1
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap_build_config.h"
+#include "../../config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <QQmlContext>
@@ -32,4 +34,7 @@ std::unique_ptr<CppModel> createCppModelAndSetAsQmlProp(
 } // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
+
+UIW_HEADER_END
+
 #endif

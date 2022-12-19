@@ -4,9 +4,10 @@
 
 #ifndef LINKLIB_DEFS_QT_H_INCL_skdhoikmhcnvncynmxcof78s7
 #define LINKLIB_DEFS_QT_H_INCL_skdhoikmhcnvncynmxcof78s7
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap_build_config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include <QtCore/QtGlobal>
 
 

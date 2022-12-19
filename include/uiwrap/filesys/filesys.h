@@ -6,6 +6,7 @@
 #define FILESYS_H_xcsabgzduzbvfget32
 
 #include "uiwrapDEF.h"
+#include "../config.h"
 #include "ul/ul.h"
 #include <stdexcept>
 #include <string>
@@ -114,5 +115,7 @@ public:
 using IFileSys = file::IFileSys;
 using IFileData = file::IFileData;
 } // namespace mb::uiw
+
+UIW_HEADER_END
 
 #endif

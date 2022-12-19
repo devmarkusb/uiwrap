@@ -4,9 +4,11 @@
 
 #ifndef LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
 #define LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap_build_config.h"
+#include "../../config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "toolib/string/languages.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
@@ -60,4 +62,7 @@ inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
 } // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
+
+UIW_HEADER_END
+
 #endif

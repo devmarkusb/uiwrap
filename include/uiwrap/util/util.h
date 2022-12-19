@@ -6,6 +6,7 @@
 #define UTIL_H_sjkdfg34nizfxn437gt7834
 
 #include "uiwrap_build_config.h"
+#include "../config.h"
 #include <string>
 
 
@@ -21,5 +22,7 @@ inline const std::string& resources_base_path()
 #endif
 }
 } // namespace mb::uiw::util
+
+UIW_HEADER_END
 
 #endif

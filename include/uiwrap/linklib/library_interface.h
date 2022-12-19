@@ -6,6 +6,7 @@
 #define LIBRARY_INTERFACE_H_INCL_siuhxg378tzn3263
 
 #include "uiwrapDEF.h"
+#include "../config.h"
 #include "ul/ul.h"
 #include <memory>
 #include <string>
@@ -79,5 +80,7 @@ private:
     std::string m_Error;
 };
 } // namespace mb::uiw
+
+UIW_HEADER_END
 
 #endif

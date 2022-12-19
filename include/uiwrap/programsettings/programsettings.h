@@ -7,6 +7,7 @@
 
 #include "uiwrapDEF.h"
 #include "uiwrap_build_config.h"
+#include "../config.h"
 #include "ul/ul.h"
 
 #include "boost/variant.hpp"
@@ -118,5 +119,7 @@ public:
     }
 };
 } // namespace mb::uiw
+
+UIW_HEADER_END
 
 #endif
