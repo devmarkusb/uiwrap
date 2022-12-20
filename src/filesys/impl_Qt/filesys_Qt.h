@@ -2,20 +2,19 @@
 
 //! \file
 
-#ifndef FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
-#define FILESYS_QT_H_INCL_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#ifndef FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
+#define FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
 
+#include "uiwrap_build_config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "uiwrapDEF.h"
 #include "uiwrap/filesys/filesys.h"
 
 class QFile;
 
 
-namespace mb::uiw
-{
-namespace implQt
+namespace mb::uiw::implQt
 {
 class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys
 {
@@ -43,7 +42,6 @@ private:
 
     void setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info = {}) const;
 };
-} // namespace implQt
 } // namespace mb::uiw
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT

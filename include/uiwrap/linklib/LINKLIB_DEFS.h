@@ -56,8 +56,8 @@
     - Note: Never use late binding, if not absolutely necessary. There are just more pitfalls.
 */
 
-#ifndef LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
-#define LINKLIB_DEFS_H_INCL_jkdhngicuheiwux5hgn84whn8w3gt3
+#ifndef LINKLIB_DEFS_H_jkdhngicuheiwux5hgn84whn8w3gt3
+#define LINKLIB_DEFS_H_jkdhngicuheiwux5hgn84whn8w3gt3
 
 #include "uiwrap_build_config.h"
 #include "ul/macros.h"

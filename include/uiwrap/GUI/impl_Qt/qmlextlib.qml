@@ -27,22 +27,22 @@ QtObject {
     //####################################################################################################################
     // string handling for files, urls
 
-    //! Expects string, \returns string.
+    //! Expects string, returns string.
     function prependFile_urlSchemePrefix(file_without_prefix) {
         return file_without_prefix;
     }
 
-    //! Expects string, \returns string.
+    //! Expects string, returns string.
     function removeFile_urlSchemePrefix(file_with_prefix) {
         return file_with_prefix;
     }
 
-    //! Expects string, \returns string.
+    //! Expects string, returns string.
     function toNativeSeparators(file_with_mixed_separators) {
         return file_with_mixed_separators;
     }
 
-    //! Expects string, \returns string.
+    //! Expects string, returns string.
     function fromNativeSeparators(file_with_mixed_separators) {
         return file_with_mixed_separators;
     }
@@ -51,12 +51,12 @@ QtObject {
     //####################################################################################################################
     // file system
 
-    //! Expects full path as string with slashes only, \returns bool.
+    //! Expects full path as string with slashes only, returns bool.
     function fileExists(fullpath) {
         return true;
     }
 
-    //! Expects full path as string with slashes only, \returns bool.
+    //! Expects full path as string with slashes only, returns bool.
     function isFile(fullpath) {
         return true;
     }

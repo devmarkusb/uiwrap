@@ -2,8 +2,8 @@
 
 //! \file
 
-#ifndef PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
-#define PROGRAMSETTINGS_H_INCL_skzhfisxfuxskydfnixusgfiwz
+#ifndef PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
+#define PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
 
 #include "uiwrapDEF.h"
 #include "uiwrap_build_config.h"

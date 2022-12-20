@@ -29,7 +29,7 @@ public:
 
     virtual bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) = 0;
     virtual bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const = 0;
-    //! Should not overwrite if exists, \returns false then. Call DeleteFile first.
+    //! Should not overwrite if exists, returns false then. Call DeleteFile first.
     virtual bool copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
     virtual bool deleteFile(const std::string& filePathNameExt) = 0;
     virtual bool renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) = 0;
