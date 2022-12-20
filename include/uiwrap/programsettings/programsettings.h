@@ -40,7 +40,7 @@ public:
     static IProgSettings* getInstance(
         const std::string& FileNamePath = std::string(), const std::string& FileExt = std::string(),
         StorageFileFormat PreferredStorageFileFormat = StorageFileFormat::JSON);
-    virtual void Init(const std::string& OrganizationName, const std::string& ApplicationName) = 0;
+    virtual void init(const std::string& OrganizationName, const std::string& ApplicationName) = 0;
 
     using TInteger = int;
     using TVariant = boost::variant<TInteger, double, std::string, bool>;
@@ -71,35 +71,35 @@ public:
     /** (1) boost variant is just difficult to use
         (2) Qt implementation yields string always, which doesn't fit when converting to other variant type
 
-        Until any fix, you are unfortunately stuck with the recommendation of using ValueStr/SetValueStr.*/
-    [[nodiscard]] virtual TVariant Value(
+        Until any fix, you are unfortunately stuck with the recommendation of using valueStr/setValueStr.*/
+    [[nodiscard]] virtual TVariant value(
         const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const = 0;
     //! Not working?!
-    virtual void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
+    virtual void setValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) = 0;
 
-    [[nodiscard]] virtual std::string ValueStr(
+    [[nodiscard]] virtual std::string valueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Default) const = 0;
-    virtual void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
+    virtual void setValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) = 0;
 
     using TSectionKeyPair = std::pair<std::string, std::string>;
-    [[nodiscard]] virtual std::vector<TSectionKeyPair> GetAllKeys() const = 0;
-    virtual void Clear() = 0;
+    [[nodiscard]] virtual std::vector<TSectionKeyPair> getAllKeys() const = 0;
+    virtual void clear() = 0;
     //! Enables/disables the class' whole functionality. Default is enabled.
     virtual void enable(bool enable) = 0;
-    [[nodiscard]] virtual bool Contains(const std::string& SectionName, const std::string& KeyName) const = 0;
-    [[nodiscard]] bool Contains(const std::string& KeyName) const
+    [[nodiscard]] virtual bool contains(const std::string& SectionName, const std::string& KeyName) const = 0;
+    [[nodiscard]] bool contains(const std::string& KeyName) const
     {
-        return Contains(std::string(), KeyName);
+        return contains(std::string(), KeyName);
     }
-    virtual void Remove(const std::string& SectionName, const std::string& KeyName) = 0;
-    void Remove(const std::string& KeyName)
+    virtual void remove(const std::string& SectionName, const std::string& KeyName) = 0;
+    void remove(const std::string& KeyName)
     {
-        Remove(std::string(), KeyName);
+        remove(std::string(), KeyName);
     }
-    //! You need to call this only, if you want to know whether there occurred an error by GetError().
+    //! You need to call this only, if you want to know whether there occurred an error by getError().
     /** It initiates a persistent writing to data store, which would nevertheless happen asynchronously.
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/
-    virtual void Sync() = 0;
+    virtual void sync() = 0;
 
     enum class EError
     {
@@ -109,8 +109,8 @@ public:
         ERROR_READING_SETTINGS,
         INTERNAL_ERROR__VARIANT_CONVERSION,
     };
-    [[nodiscard]] virtual EError GetError() const = 0;
-    virtual void ResetError() = 0;
+    [[nodiscard]] virtual EError getError() const = 0;
+    virtual void resetError() = 0;
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
     {

@@ -179,12 +179,12 @@ void CProgSettings::SetValue(
 
 std::string CProgSettings::ValueStr(const std::string&, const std::string&, const std::string&) const
 {
-    throw ul::not_implemented{"SetValueStr"};
+    throw ul::not_implemented{"ValueStr"};
 }
 
 void CProgSettings::SetValueStr(const std::string&, const std::string&, const std::string&)
 {
-    throw ul::not_implemented("SetValueStr");
+    throw ul::not_implemented("setValueStr");
 }
 
 std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const

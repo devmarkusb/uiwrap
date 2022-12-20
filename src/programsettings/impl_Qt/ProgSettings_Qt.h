@@ -35,24 +35,24 @@ public:
     }
     ~CProgSettings() override = default;
 
-    void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
+    void init(const std::string& OrganizationName, const std::string& ApplicationName) override;
 
-    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
-    void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    TVariant value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
+    void setValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
 
-    std::string ValueStr(
+    std::string valueStr(
         const std::string& SectionName, const std::string& KeyName, const std::string& Default) const override;
-    void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+    void setValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
 
-    std::vector<TSectionKeyPair> GetAllKeys() const override;
-    void Clear() override;
+    std::vector<TSectionKeyPair> getAllKeys() const override;
+    void clear() override;
     void enable(bool enable) override;
-    bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
-    void Remove(const std::string& SectionName, const std::string& KeyName) override;
-    void Sync() override;
+    bool contains(const std::string& SectionName, const std::string& KeyName) const override;
+    void remove(const std::string& SectionName, const std::string& KeyName) override;
+    void sync() override;
 
-    EError GetError() const override;
-    void ResetError() override;
+    EError getError() const override;
+    void resetError() override;
 
     void setAsRootContextProperty(void* application_engine, const std::string& name) override;
 
