@@ -24,11 +24,11 @@ IProgSettings* IProgSettings::getInstance(
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw ul::not_implemented{"IProgSettings::GetInstance"};
+    throw ul::not_implemented{"IProgSettings::getInstance"};
 
 #else
 
-    static impl::CProgSettings instance(FileNamePath, FileExt, PreferredStorageFileFormat);
+    static impl::CProgSettings instance(fileNamePath, fileExt, preferredStorageFileFormat);
     return &instance;
 
 #endif

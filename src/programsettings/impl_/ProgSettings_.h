@@ -30,24 +30,24 @@ public:
         StorageFileFormat preferredStorageFileFormat = StorageFileFormat::JSON);
     ~CProgSettings() override;
 
-    void Init(const std::string& OrganizationName, const std::string& ApplicationName) override;
+    void init(const std::string& organizationName, const std::string& applicationName) override;
 
-    TVariant Value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
-    void SetValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    TVariant value(const std::string& sectionName, const std::string& keyName, const TVariant& def) const override;
+    void setValue(const std::string& sectionName, const std::string& keyName, const TVariant& value) override;
 
-    std::string ValueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const override;
-    void SetValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+    std::string valueStr(
+        const std::string& sectionName, const std::string& keyName, const std::string& def) const override;
+    void setValueStr(const std::string& sectionName, const std::string& keyName, const std::string& value) override;
 
-    std::vector<TSectionKeyPair> GetAllKeys() const override;
-    void Clear() override;
+    std::vector<TSectionKeyPair> getAllKeys() const override;
+    void clear() override;
     void enable(bool enable) override;
-    bool Contains(const std::string& SectionName, const std::string& KeyName) const override;
-    void Remove(const std::string& SectionName, const std::string& KeyName) override;
-    void Sync() override;
+    bool contains(const std::string& sectionName, const std::string& keyName) const override;
+    void remove(const std::string& sectionName, const std::string& keyName) override;
+    void sync() override;
 
-    EError GetError() const override;
-    void ResetError() override;
+    EError getError() const override;
+    void resetError() override;
 
 private:
     mutable EError m_FirstOccurredError{EError::INIT_NOT_CALLED_OR_FAILED};
@@ -78,7 +78,7 @@ CProgSettings::~CProgSettings()
 {
     try
     {
-        Sync();
+        sync();
     }
     catch (...)
     {
@@ -93,7 +93,7 @@ std::string CProgSettings::concatenateWithHierarchySep(const std::string& first,
     return ret;
 }
 
-void CProgSettings::Init(const std::string&, const std::string&)
+void CProgSettings::init(const std::string&, const std::string&)
 {
     try
     {
@@ -123,17 +123,17 @@ void CProgSettings::Init(const std::string&, const std::string&)
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 
-IProgSettings::TVariant CProgSettings::Value(
-    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Default) const
+IProgSettings::TVariant CProgSettings::value(
+    const std::string& sectionName, const std::string& keyName, const IProgSettings::TVariant& def) const
 {
-    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     try
     {
         return m_PropTree.get<int>(path);
     }
     catch (const boost_pt::ptree_bad_path&)
     {
-        return Default;
+        return def;
     }
     catch (const boost_pt::ptree_bad_data&)
     {
@@ -160,16 +160,16 @@ IProgSettings::TVariant CProgSettings::Value(
     {
         SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
     }
-    return Default;
+    return def;
 }
 
-void CProgSettings::SetValue(
-    const std::string& SectionName, const std::string& KeyName, const IProgSettings::TVariant& Value)
+void CProgSettings::setValue(
+    const std::string& sectionName, const std::string& keyName, const IProgSettings::TVariant& value)
 {
-    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     try
     {
-        m_PropTree.put(path, Value);
+        m_PropTree.put(path, value);
     }
     catch (const boost_pt::ptree_bad_data&)
     {
@@ -177,17 +177,17 @@ void CProgSettings::SetValue(
     }
 }
 
-std::string CProgSettings::ValueStr(const std::string&, const std::string&, const std::string&) const
+std::string CProgSettings::valueStr(const std::string&, const std::string&, const std::string&) const
 {
-    throw ul::not_implemented{"ValueStr"};
+    throw ul::not_implemented{"valueStr"};
 }
 
-void CProgSettings::SetValueStr(const std::string&, const std::string&, const std::string&)
+void CProgSettings::setValueStr(const std::string&, const std::string&, const std::string&)
 {
     throw ul::not_implemented("setValueStr");
 }
 
-std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
+std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const
 {
     std::vector<IProgSettings::TSectionKeyPair> ret;
     for (const auto& path : m_PropTree)
@@ -195,7 +195,7 @@ std::vector<IProgSettings::TSectionKeyPair> CProgSettings::GetAllKeys() const
     return ret;
 }
 
-void CProgSettings::Clear()
+void CProgSettings::clear()
 {
     m_PropTree.clear();
 }
@@ -205,19 +205,19 @@ void CProgSettings::enable(bool)
     throw ul::not_implemented("enable");
 }
 
-bool CProgSettings::Contains(const std::string& SectionName, const std::string& KeyName) const
+bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const
 {
-    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     return m_PropTree.find(path) != m_PropTree.not_found();
 }
 
-void CProgSettings::Remove(const std::string& SectionName, const std::string& KeyName)
+void CProgSettings::remove(const std::string& sectionName, const std::string& keyName)
 {
-    const std::string path{concatenateWithHierarchySep(SectionName, KeyName)};
+    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     m_PropTree.erase(path);
 }
 
-void CProgSettings::Sync()
+void CProgSettings::sync()
 {
     try
     {
@@ -246,12 +246,12 @@ void CProgSettings::Sync()
     }
 }
 
-IProgSettings::EError CProgSettings::GetError() const
+IProgSettings::EError CProgSettings::getError() const
 {
     return m_FirstOccurredError;
 }
 
-void CProgSettings::ResetError()
+void CProgSettings::resetError()
 {
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
