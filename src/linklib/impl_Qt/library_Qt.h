@@ -10,7 +10,8 @@
 #include "uiwrap/linklib/library_interface.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
-#include <QLibrary>
+
+#include "QLibrary"
 #include <memory>
 
 

@@ -11,20 +11,20 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QString>
-#include <QUrl>
+#include "QString"
+#include "QUrl"
 UL_PRAGMA_WARNINGS_POP
 
 
 namespace mb::uiw::implQt
 {
-//! \param abs_path needs to be an absolut path of a file or dir.
-//! This function prepends something like `file:///`. This is called the
-//! scheme and can be 'ftp' or 'http' and such, all appended with '://'.
-//! Probably the third slash '/' belongs to the path itself for the
-//! 'file' case.
-//! We don't make any suggestion at this place of whether you will need
-//! native separators or not. There are appropriate conversion functions.
+/** \param abs_path needs to be an absolut path of a file or dir.
+    This function prepends something like `file:///`. This is called the
+    scheme and can be 'ftp' or 'http' and such, all appended with '://'.
+    Probably the third slash '/' belongs to the path itself for the
+    'file' case.
+    We don't make any suggestion at this place of whether you will need
+    native separators or not. There are appropriate conversion functions.*/
 inline QString prependFile_urlSchemePrefix(const QString& abs_path)
 {
     QUrl u{QUrl::fromLocalFile(abs_path)};

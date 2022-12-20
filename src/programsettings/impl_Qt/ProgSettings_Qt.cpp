@@ -3,8 +3,8 @@
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
+#include "QQmlApplicationEngine"
+#include "QQmlContext"
 UL_PRAGMA_WARNINGS_POP
 
 

@@ -11,10 +11,10 @@
 #include "uiwrap/programsettings/programsettings.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QObject>
-#include <QSettings>
-#include <QString>
-#include <QVariant>
+#include "QObject"
+#include "QSettings"
+#include "QString"
+#include "QVariant"
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 

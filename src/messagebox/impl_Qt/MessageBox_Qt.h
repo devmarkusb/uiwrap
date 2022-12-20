@@ -10,7 +10,7 @@
 #include "uiwrap/messagebox/messagebox.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QMessageBox>
+#include "QMessageBox"
 UL_PRAGMA_WARNINGS_POP
 
 

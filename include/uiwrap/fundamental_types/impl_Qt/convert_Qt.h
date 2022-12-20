@@ -21,7 +21,7 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QtGlobal>
+#include "QtGlobal"
 UL_PRAGMA_WARNINGS_POP
 #include <type_traits>
 

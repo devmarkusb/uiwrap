@@ -8,7 +8,7 @@
 #include "uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include <QtCore/QtGlobal>
+#include "QtCore/QtGlobal"
 
 
 #define UIW_DECL_EXPORT Q_DECL_EXPORT

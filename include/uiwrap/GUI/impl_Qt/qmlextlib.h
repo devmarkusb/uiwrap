@@ -35,9 +35,9 @@
 #include "uiwrap/string/impl_Qt/urlstring_util_Qt.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-#include <QDir>
-#include <QObject>
-#include <QString>
+#include "QDir"
+#include "QObject"
+#include "QString"
 #include <utility>
 UL_PRAGMA_WARNINGS_POP
 
