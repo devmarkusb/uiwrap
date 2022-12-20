@@ -22,16 +22,16 @@ namespace mb::uiw::impl
 class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys
 {
 public:
-    bool saveToTextFile(const std::string& FilePathNameExt, const std::string& Content) override;
-    bool loadFromTextFile(const std::string& FilePathNameExt, std::string& Content) const override;
-    bool copyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) override;
-    bool deleteFile(const std::string& FilePathNameExt) override;
-    bool renameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To) override;
-    bool createFolder(const std::string& FolderPath) override;
-    bool deleteFolder(const std::string& FolderPath) override;
-    bool renameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To) override;
-    bool folderExists(const std::string& FolderPath) const override;
-    bool fileExists(const std::string& FilePathNameExt) const override;
+    bool saveToTextFile(const std::string& filePathNameExt, const std::string& Content) override;
+    bool loadFromTextFile(const std::string& filePathNameExt, std::string& Content) const override;
+    bool copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
+    bool deleteFile(const std::string& filePathNameExt) override;
+    bool renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
+    bool createFolder(const std::string& folderPath) override;
+    bool deleteFolder(const std::string& folderPath) override;
+    bool renameFolder(const std::string& folderPath_From, const std::string& folderPath_To) override;
+    bool folderExists(const std::string& folderPath) const override;
+    bool fileExists(const std::string& filePathNameExt) const override;
     bool isFile(const std::string& filePathNameExt) const override;
 
     std::string toNativeSeparators(const std::string& Path) const override;

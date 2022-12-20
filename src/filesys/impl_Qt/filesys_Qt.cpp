@@ -196,10 +196,10 @@ bool CFileSys_Qt::isFile(const std::string& filePathNameExt) const
     return fi.isFile();
 }
 
-std::string CFileSys_Qt::toNativeSeparators(const std::string& Path) const
+std::string CFileSys_Qt::toNativeSeparators(const std::string& path) const
 {
     latestError.clear();
-    return qs2s(QDir::toNativeSeparators(s2qs(Path)));
+    return qs2s(QDir::toNativeSeparators(s2qs(path)));
 }
 
 std::string CFileSys_Qt::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const

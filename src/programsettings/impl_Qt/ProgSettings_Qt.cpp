@@ -28,10 +28,10 @@ const QSettings* CProgSettings::m_settings() const
     return m_settings_impl_doNotUseItDirectlyExceptOnInit.get();
 }
 
-void CProgSettings::init(const std::string& OrganizationName, const std::string& ApplicationName)
+void CProgSettings::init(const std::string& organizationName, const std::string& applicationName)
 {
     m_settings_impl_doNotUseItDirectlyExceptOnInit = ul::make_unique<QSettings>(
-        QSettings::IniFormat, QSettings::UserScope, s2qs(OrganizationName), s2qs(ApplicationName));
+        QSettings::IniFormat, QSettings::UserScope, s2qs(organizationName), s2qs(applicationName));
     auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
     UL_ASSERT(ok == QSettings::NoError);
     ul::ignore_arg(ok);
@@ -68,18 +68,18 @@ void CProgSettings::setAsRootContextProperty(void* application_engine, const std
     ae->rootContext()->setContextProperty(s2qs(name), this);
 }
 
-void CProgSettings::setValue(const QString& SecAndKey, const QVariant& Value)
+void CProgSettings::setValue(const QString& secAndKey, const QVariant& value)
 {
     if (!m_settings())
         return;
-    m_settings()->setValue(SecAndKey, Value);
+    m_settings()->setValue(secAndKey, value);
 }
 
-QVariant CProgSettings::value(const QString& SecAndKey, const QVariant& Default) const
+QVariant CProgSettings::value(const QString& secAndKey, const QVariant& def) const
 {
     if (!m_settings())
         return {};
-    return m_settings()->value(SecAndKey, Default);
+    return m_settings()->value(secAndKey, def);
 }
 
 void CProgSettings::flush()
@@ -95,24 +95,24 @@ void CProgSettings::sync()
     getError();
 }
 
-QString CProgSettings::CreateQtKeyName(const std::string& SectionName, const std::string& KeyName)
+QString CProgSettings::CreateQtKeyName(const std::string& sectionName, const std::string& keyName)
 {
-    return s2qs(SectionName + "/" + KeyName);
+    return s2qs(sectionName + "/" + keyName);
 }
 
-void CProgSettings::remove(const std::string& SectionName, const std::string& KeyName)
+void CProgSettings::remove(const std::string& sectionName, const std::string& keyName)
 {
     if (!m_settings())
         return;
-    m_settings()->remove(CreateQtKeyName(SectionName, KeyName));
+    m_settings()->remove(CreateQtKeyName(sectionName, keyName));
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
 
-bool CProgSettings::contains(const std::string& SectionName, const std::string& KeyName) const
+bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const
 {
     if (!m_settings())
         return false;
-    bool ret = m_settings()->contains(CreateQtKeyName(SectionName, KeyName));
+    bool ret = m_settings()->contains(CreateQtKeyName(sectionName, keyName));
     getError();
     return ret;
 }
@@ -216,11 +216,11 @@ CProgSettings::TVariant CProgSettings::qvar2var(const QVariant& v) const
 }
 
 CProgSettings::TVariant CProgSettings::value(
-    const std::string& SectionName, const std::string& KeyName, const CProgSettings::TVariant& Default) const
+    const std::string& sectionName, const std::string& keyName, const CProgSettings::TVariant& def) const
 {
     if (!m_settings())
         return {};
-    QVariant val(m_settings()->value(CreateQtKeyName(SectionName, KeyName), var2qvar(Default)));
+    QVariant val(m_settings()->value(CreateQtKeyName(sectionName, keyName), var2qvar(def)));
     getError();
     if (!val.isValid() || val.isNull())
         SetError(EError::ERROR_READING_SETTINGS);
@@ -228,28 +228,28 @@ CProgSettings::TVariant CProgSettings::value(
 }
 
 void CProgSettings::setValue(
-    const std::string& SectionName, const std::string& KeyName, const CProgSettings::TVariant& Value)
+    const std::string& sectionName, const std::string& keyName, const CProgSettings::TVariant& value)
 {
     if (!m_settings())
         return;
-    m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), var2qvar(Value));
+    m_settings()->setValue(CreateQtKeyName(sectionName, keyName), var2qvar(value));
     // here writing can occur asynchronously, so GetError() doesn't make sense before a call to Sync()
 }
 
 std::string CProgSettings::valueStr(
-    const std::string& SectionName, const std::string& KeyName, const std::string& Default) const
+    const std::string& sectionName, const std::string& keyName, const std::string& def) const
 {
     if (!m_settings())
         return {};
-    QString val{m_settings()->value(CreateQtKeyName(SectionName, KeyName), QVariant{s2qs(Default)}).toString()};
+    QString val{m_settings()->value(CreateQtKeyName(sectionName, keyName), QVariant{s2qs(def)}).toString()};
     getError();
     return qs2s(val);
 }
 
-void CProgSettings::setValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value)
+void CProgSettings::setValueStr(const std::string& sectionName, const std::string& keyName, const std::string& value)
 {
     if (!m_settings())
         return;
-    m_settings()->setValue(CreateQtKeyName(SectionName, KeyName), s2qs(Value));
+    m_settings()->setValue(CreateQtKeyName(sectionName, keyName), s2qs(value));
 }
 } // namespace mb::uiw::implQt

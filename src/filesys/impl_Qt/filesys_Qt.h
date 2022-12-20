@@ -31,7 +31,7 @@ public:
     bool fileExists(const std::string& filePathNameExt) const override;
     bool isFile(const std::string& filePathNameExt) const override;
 
-    std::string toNativeSeparators(const std::string& Path) const override;
+    std::string toNativeSeparators(const std::string& path) const override;
 
     std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const override;
 

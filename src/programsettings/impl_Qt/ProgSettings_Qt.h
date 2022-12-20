@@ -5,9 +5,10 @@
 
 #ifndef PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
 #define PROGSETTINGS_QT_H_odzhf837t738tnx4387t34t3
-#include "uiwrap_build_config.h"
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
+#include "uiwrap_build_config.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "uiwrap/programsettings/programsettings.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
@@ -35,20 +36,20 @@ public:
     }
     ~CProgSettings() override = default;
 
-    void init(const std::string& OrganizationName, const std::string& ApplicationName) override;
+    void init(const std::string& organizationName, const std::string& applicationName) override;
 
-    TVariant value(const std::string& SectionName, const std::string& KeyName, const TVariant& Default) const override;
-    void setValue(const std::string& SectionName, const std::string& KeyName, const TVariant& Value) override;
+    TVariant value(const std::string& sectionName, const std::string& keyName, const TVariant& def) const override;
+    void setValue(const std::string& sectionName, const std::string& keyName, const TVariant& value) override;
 
     std::string valueStr(
-        const std::string& SectionName, const std::string& KeyName, const std::string& Default) const override;
-    void setValueStr(const std::string& SectionName, const std::string& KeyName, const std::string& Value) override;
+        const std::string& sectionName, const std::string& keyName, const std::string& def) const override;
+    void setValueStr(const std::string& sectionName, const std::string& keyName, const std::string& value) override;
 
     std::vector<TSectionKeyPair> getAllKeys() const override;
     void clear() override;
     void enable(bool enable) override;
-    bool contains(const std::string& SectionName, const std::string& KeyName) const override;
-    void remove(const std::string& SectionName, const std::string& KeyName) override;
+    bool contains(const std::string& sectionName, const std::string& keyName) const override;
+    void remove(const std::string& sectionName, const std::string& keyName) override;
     void sync() override;
 
     EError getError() const override;
@@ -57,9 +58,9 @@ public:
     void setAsRootContextProperty(void* application_engine, const std::string& name) override;
 
     // ### QML access ###
-    //! \param SecAndKey contains section and key like "sectionname/keyname" separated by "/"
-    Q_INVOKABLE void setValue(const QString& SecAndKey, const QVariant& Value);
-    Q_INVOKABLE QVariant value(const QString& SecAndKey, const QVariant& Default = QVariant()) const;
+    //! \param secAndKey contains section and key like "sectionname/keyname" separated by "/"
+    Q_INVOKABLE void setValue(const QString& secAndKey, const QVariant& value);
+    Q_INVOKABLE QVariant value(const QString& secAndKey, const QVariant& def = QVariant()) const;
     Q_INVOKABLE void flush();
 
 private:
@@ -72,7 +73,7 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
-    static QString CreateQtKeyName(const std::string& SectionName, const std::string& KeyName);
+    static QString CreateQtKeyName(const std::string& sectionName, const std::string& keyName);
     static QVariant var2qvar(const TVariant& v);
     TVariant qvar2var(const QVariant& v) const;
 

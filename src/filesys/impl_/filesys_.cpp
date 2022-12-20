@@ -8,10 +8,10 @@
 
 namespace mb::uiw::impl
 {
-bool CFileSys_::saveToTextFile(const std::string& FilePathNameExt, const std::string& Content)
+bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::string& Content)
 {
     this->latestError.clear();
-    std::ofstream file(FilePathNameExt);
+    std::ofstream file(filePathNameExt);
     if (too::file::fstream_failed(this->latestError, file))
         return false;
     file << Content;
@@ -43,23 +43,23 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
     return true;
 }
 
-bool CFileSys_::copyFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
+bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
 {
     this->latestError.clear();
-    std::ifstream src(FilePathNameExt_From, std::ios::binary);
+    std::ifstream src(filePathNameExt_From, std::ios::binary);
     if (too::file::fstream_failed(this->latestError, src))
         return false;
-    std::ofstream dst(FilePathNameExt_To, std::ios::binary);
+    std::ofstream dst(filePathNameExt_To, std::ios::binary);
     if (too::file::fstream_failed(this->latestError, dst))
         return false;
     dst << src.rdbuf();
     return true;
 }
 
-bool CFileSys_::deleteFile(const std::string& FilePathNameExt)
+bool CFileSys_::deleteFile(const std::string& filePathNameExt)
 {
     this->latestError.clear();
-    const auto res = remove(FilePathNameExt.c_str());
+    const auto res = remove(filePathNameExt.c_str());
     if (res)
     {
         this->latestError = too::lex_cast<std::string>(res);
@@ -68,52 +68,52 @@ bool CFileSys_::deleteFile(const std::string& FilePathNameExt)
     return true;
 }
 
-bool CFileSys_::renameFile(const std::string& FilePathNameExt_From, const std::string& FilePathNameExt_To)
+bool CFileSys_::renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
 {
     this->latestError.clear();
-    ul::ignore_arg(FilePathNameExt_From);
-    ul::ignore_arg(FilePathNameExt_To);
+    ul::ignore_arg(filePathNameExt_From);
+    ul::ignore_arg(filePathNameExt_To);
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::createFolder(const std::string& FolderPath)
+bool CFileSys_::createFolder(const std::string& folderPath)
 {
-    ul::ignore_arg(FolderPath);
-    this->latestError.clear();
-    this->latestError = "not implemented";
-    return false;
-}
-
-bool CFileSys_::deleteFolder(const std::string& FolderPath)
-{
-    ul::ignore_arg(FolderPath);
+    ul::ignore_arg(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::renameFolder(const std::string& FolderPath_From, const std::string& FolderPath_To)
+bool CFileSys_::deleteFolder(const std::string& folderPath)
 {
-    ul::ignore_arg(FolderPath_From);
-    ul::ignore_arg(FolderPath_To);
+    ul::ignore_arg(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::folderExists(const std::string& FolderPath) const
+bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::string& folderPath_To)
 {
-    ul::ignore_arg(FolderPath);
+    ul::ignore_arg(folderPath_From);
+    ul::ignore_arg(folderPath_To);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::fileExists(const std::string& FilePathNameExt) const
+bool CFileSys_::folderExists(const std::string& folderPath) const
+{
+    ul::ignore_arg(folderPath);
+    this->latestError.clear();
+    this->latestError = "not implemented";
+    return false;
+}
+
+bool CFileSys_::fileExists(const std::string& filePathNameExt) const
 {
     this->latestError.clear();
-    std::ifstream file(FilePathNameExt, std::ios_base::binary);
+    std::ifstream file(filePathNameExt, std::ios_base::binary);
     return file ? true : false;
 }
 
