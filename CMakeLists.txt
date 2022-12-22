@@ -36,7 +36,7 @@ set(target_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    ul_include(qt.cmake)
+    ul_include(qt5.cmake)
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
     find_package(Qt5 COMPONENTS Core Widgets Qml)
