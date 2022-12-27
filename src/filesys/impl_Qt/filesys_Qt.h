@@ -42,7 +42,7 @@ private:
 
     void setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info = {}) const;
 };
-} // namespace mb::uiw
+} // namespace mb::uiw::implQt
 
 #endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

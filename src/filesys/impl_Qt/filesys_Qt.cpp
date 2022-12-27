@@ -36,9 +36,11 @@ bool CFileSys_Qt::saveToTextFile(const std::string& filePathNameExt, const std::
         setFileOpErrorStr(f, "open");
         return false;
     }
-    auto auto_close = ul::finally([&f]() {
-        f.close();
-    });
+    auto auto_close = ul::finally(
+        [&f]()
+        {
+            f.close();
+        });
     if (f.write(content.c_str()) == -1)
     {
         setFileOpErrorStr(f, "write");
@@ -106,9 +108,11 @@ bool CFileSys_Qt::copyFile(const std::string& filePathNameExt_From, const std::s
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = ul::finally([&f]() {
-            f.close();
-        });
+        auto auto_close = ul::finally(
+            [&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "copy", "target could already be existing, would be overwritten");
     }
     return ok;
@@ -126,9 +130,11 @@ bool CFileSys_Qt::deleteFile(const std::string& filePathNameExt)
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = ul::finally([&f]() {
-            f.close();
-        });
+        auto auto_close = ul::finally(
+            [&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "remove");
     }
     return ok;
@@ -146,9 +152,11 @@ bool CFileSys_Qt::renameFile(const std::string& filePathNameExt_From, const std:
             setFileOpErrorStr(f, "open");
             return false;
         }
-        auto auto_close = ul::finally([&f]() {
-            f.close();
-        });
+        auto auto_close = ul::finally(
+            [&f]()
+            {
+                f.close();
+            });
         setFileOpErrorStr(f, "rename", "target could already be existing, would be overwritten");
     }
     return ok;
