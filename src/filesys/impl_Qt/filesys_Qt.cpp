@@ -90,7 +90,7 @@ bool CFileSys_Qt::loadFromTextFile(const std::string& filePathNameExt, std::stri
     file.seekg(0);
     if (too::file::fstream_failed(this->latestError, file))
         return false;
-    file.read(&content[0], size);
+    file.read(&content[0], static_cast<std::streamsize>(size));
     return true;
 }
 
