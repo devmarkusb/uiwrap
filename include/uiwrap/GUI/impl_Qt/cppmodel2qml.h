@@ -16,7 +16,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-
 namespace mb::uiw::implQt
 {
 //! Usage: pass sth. like qml_engine.rootContext() to context, decide for a name by which

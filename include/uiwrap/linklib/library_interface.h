@@ -12,7 +12,6 @@
 #include <string>
 #include <utility>
 
-
 namespace mb::uiw
 {
 class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable
@@ -69,6 +68,7 @@ protected:
     {
         m_Error = std::move(error);
     }
+
     [[nodiscard]] std::string GetVersion() const
     {
         return m_Version;

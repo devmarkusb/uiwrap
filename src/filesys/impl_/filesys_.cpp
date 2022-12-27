@@ -5,7 +5,6 @@
 #include <cstdio>
 #include <fstream>
 
-
 namespace mb::uiw::impl
 {
 bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::string& Content)

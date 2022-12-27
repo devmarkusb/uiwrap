@@ -11,7 +11,6 @@
 #include <stdexcept>
 #include <string>
 
-
 namespace mb::uiw
 {
 namespace file
@@ -70,7 +69,6 @@ public:
     [[nodiscard]] virtual std::string getErrorOfLatestCall() const = 0;
 };
 
-
 //####################################################################################################################
 
 //! Note that the interface forces you to implement std::runtime_error-throwing versions.
@@ -112,6 +110,7 @@ public:
     }
 };
 } // namespace file
+
 using IFileSys = file::IFileSys;
 using IFileData = file::IFileData;
 } // namespace mb::uiw

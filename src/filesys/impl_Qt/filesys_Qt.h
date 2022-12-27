@@ -13,7 +13,6 @@
 
 class QFile;
 
-
 namespace mb::uiw::implQt
 {
 class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys

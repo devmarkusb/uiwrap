@@ -19,7 +19,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-
 namespace mb::uiw::implQt
 {
 // do not put in a library, see comment at file start
@@ -34,6 +33,7 @@ public:
         : QObject()
     {
     }
+
     ~CProgSettings() override = default;
 
     void init(const std::string& organizationName, const std::string& applicationName) override;
@@ -73,6 +73,7 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
+
     static QString CreateQtKeyName(const std::string& sectionName, const std::string& keyName);
     static QVariant var2qvar(const TVariant& v);
     TVariant qvar2var(const QVariant& v) const;

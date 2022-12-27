@@ -15,7 +15,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QUrl"
 UL_PRAGMA_WARNINGS_POP
 
-
 namespace mb::uiw::implQt
 {
 /** \param abs_path needs to be an absolut path of a file or dir.
@@ -36,6 +35,7 @@ inline QString removeFile_urlSchemePrefix(const QUrl& abs_path_with_scheme_prefi
 {
     return abs_path_with_scheme_prefix.toLocalFile();
 }
+
 inline QString removeFile_urlSchemePrefix(const QString& abs_path_with_scheme_prefix)
 {
     const QUrl u{abs_path_with_scheme_prefix};

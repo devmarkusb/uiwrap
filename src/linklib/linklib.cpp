@@ -10,7 +10,6 @@ static_assert(false, "not implemented");
 
 #include "ul/macros.h"
 
-
 namespace mb::uiw
 {
 std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutExtension, const std::string& version)

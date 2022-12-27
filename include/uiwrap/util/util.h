@@ -9,7 +9,6 @@
 #include "../config.h"
 #include <string>
 
-
 namespace mb::uiw::util
 {
 inline const std::string& resources_base_path()

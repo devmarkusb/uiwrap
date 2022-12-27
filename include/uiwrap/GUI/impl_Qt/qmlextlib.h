@@ -41,7 +41,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <utility>
 UL_PRAGMA_WARNINGS_POP
 
-
 namespace mb::uiw::implQt
 {
 class DynamicTranslator

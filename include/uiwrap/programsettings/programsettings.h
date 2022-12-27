@@ -5,15 +5,14 @@
 #ifndef PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
 #define PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
 
-#include "uiwrapDEF.h"
 #include "uiwrap_build_config.h"
+#include "uiwrapDEF.h"
 #include "../config.h"
 #include "ul/ul.h"
 
 #include "boost/variant.hpp"
 #include <string>
 #include <vector>
-
 
 namespace mb::uiw
 {
@@ -53,14 +52,17 @@ public:
         {
             return v;
         }
+
         double operator()(const double& v) const
         {
             return v;
         }
+
         std::string operator()(const std::string& v) const
         {
             return v;
         }
+
         bool operator()(const bool& v) const
         {
             return v;
@@ -87,15 +89,19 @@ public:
     //! Enables/disables the class' whole functionality. Default is enabled.
     virtual void enable(bool enable) = 0;
     [[nodiscard]] virtual bool contains(const std::string& sectionName, const std::string& keyName) const = 0;
+
     [[nodiscard]] bool contains(const std::string& keyName) const
     {
         return contains(std::string(), keyName);
     }
+
     virtual void remove(const std::string& sectionName, const std::string& keyName) = 0;
+
     void remove(const std::string& keyName)
     {
         remove(std::string(), keyName);
     }
+
     //! You need to call this only, if you want to know whether there occurred an error by getError().
     /** It initiates a persistent writing to data store, which would nevertheless happen asynchronously.
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/

@@ -8,7 +8,6 @@
 #include "uiwrap/messagebox/messagebox.h"
 #include "ul/ul.h"
 
-
 namespace mb::uiw::impl
 {
 class MessageBox : public uiw::gui::IMessageBox

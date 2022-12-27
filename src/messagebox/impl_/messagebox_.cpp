@@ -1,6 +1,5 @@
 #include "messagebox_.h"
 
-
 namespace mb::uiw
 {
 namespace impl

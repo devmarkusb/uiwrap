@@ -17,7 +17,6 @@ UL_WARNING_DISABLE_GCC(unused - local - typedefs)
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-
 namespace mb::uiw::impl
 {
 namespace boost_pt = boost::property_tree;
@@ -60,10 +59,10 @@ private:
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
+
     //! first and second mustn't start or end with HIERARCHY_SEPARATOR
     static std::string concatenateWithHierarchySep(const std::string& first, const std::string& second);
 };
-
 
 //####################################################################################################################
 

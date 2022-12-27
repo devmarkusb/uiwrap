@@ -7,7 +7,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QQmlContext"
 UL_PRAGMA_WARNINGS_POP
 
-
 namespace mb::uiw::implQt
 {
 QSettings* CProgSettings::m_settings()
@@ -169,14 +168,17 @@ public:
     {
         return {v};
     }
+
     QVariant operator()(const double& v) const
     {
         return {v};
     }
+
     QVariant operator()(const std::string& v) const
     {
         return QVariant(s2qs(v));
     }
+
     QVariant operator()(const bool& v) const
     {
         return {v};

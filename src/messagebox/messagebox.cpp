@@ -8,7 +8,6 @@ static_assert(false, "not implemented");
 #endif
 #include "ul/ul.h"
 
-
 namespace mb::uiw::gui
 {
 std::unique_ptr<IMessageBox> IMessageBox::make()

@@ -11,7 +11,6 @@
 #include <memory>
 #include <string>
 
-
 namespace mb::uiw::gui
 {
 class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable

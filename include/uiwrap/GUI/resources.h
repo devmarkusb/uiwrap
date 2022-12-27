@@ -8,7 +8,6 @@
 #include "../config.h"
 #include <string>
 
-
 namespace mb::uiw::gui
 {
 using ResourceID = long;

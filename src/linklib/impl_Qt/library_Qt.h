@@ -15,7 +15,6 @@
 #include "QLibrary"
 #include <memory>
 
-
 namespace mb::uiw::implQt
 {
 class CLibrary_Qt : public CLibrary

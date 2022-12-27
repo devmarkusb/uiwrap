@@ -12,7 +12,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-
 namespace mb::uiw::implQt
 {
 void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info) const

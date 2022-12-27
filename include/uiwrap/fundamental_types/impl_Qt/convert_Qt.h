@@ -25,7 +25,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <type_traits>
 
-
 namespace mb::uiw::implQt
 {
 //####################################################################################################################
@@ -54,7 +53,6 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> fr
 {
     return ul::narrow_cast<float>(v);
 }
-
 
 //####################################################################################################################
 //! To qreal.

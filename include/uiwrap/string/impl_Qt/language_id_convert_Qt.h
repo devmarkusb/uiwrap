@@ -16,7 +16,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <string>
 
-
 namespace mb::uiw::implQt
 {
 //! Throws ul::not_implemented for unsupported or unknown id, expects id not to be too::str::auto_systems_language.

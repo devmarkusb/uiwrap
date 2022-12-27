@@ -8,7 +8,6 @@ static_assert(false, "not implemented");
 #endif
 #include "ul/ul.h"
 
-
 namespace mb::uiw
 {
 IProgSettings* IProgSettings::getInstance(

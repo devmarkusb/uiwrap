@@ -13,7 +13,6 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QMessageBox"
 UL_PRAGMA_WARNINGS_POP
 
-
 namespace mb::uiw::implQt
 {
 class CMessageBox_Qt : public uiw::gui::IMessageBox
