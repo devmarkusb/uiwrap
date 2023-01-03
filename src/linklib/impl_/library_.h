@@ -9,7 +9,6 @@
 #include "ul/ul.h"
 #include <string>
 
-#include "ul/macros.h"
 #if UL_OS_WINDOWS == 1
 #include "toolib/string/lex_cast.h"
 #include "toolib/string/str_convert.h"
@@ -122,7 +121,5 @@ private:
 };
 #endif
 } // namespace mb::uiw
-
-#include "ul/macros_end.h"
 
 #endif

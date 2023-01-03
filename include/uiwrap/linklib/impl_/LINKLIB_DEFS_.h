@@ -45,6 +45,4 @@
 #endif
 #define UIW_APIENTRY WINAPI_DLLMAIN
 
-#include "ul/macros_end.h"
-
 #endif
