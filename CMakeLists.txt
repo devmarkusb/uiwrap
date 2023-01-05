@@ -16,7 +16,7 @@ endif ()
 
 ul_include(defaults.cmake)
 
-ul_include(fetch-clangformat-repo.cmake)
+ul_include(clang-format-repo-fetch.cmake)
 ul_include(clang-format.cmake)
 ul_include(githooks.cmake)
 
