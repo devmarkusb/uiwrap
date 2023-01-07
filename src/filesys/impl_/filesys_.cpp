@@ -3,6 +3,7 @@
 #include "toolib/string/lex_cast.h"
 #include "ul/ul.h"
 #include <cstdio>
+#include <filesystem>
 #include <fstream>
 
 namespace mb::uiw::impl
@@ -132,6 +133,7 @@ std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
 {
     this->latestError.clear();
+    std::string ret;
     switch (type)
     {
         case ESysPathType::PROGDATA:
@@ -143,12 +145,16 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
         case ESysPathType::USER:
             break;
         case ESysPathType::CURRENT:
+            break;
+        case ESysPathType::APPDATA_writable:
+            ret = std::filesystem::temp_directory_path();
+            break;
         default:
             break;
     }
     this->latestError = "not implemented";
     if (withTrailingSeparator)
-        return std::string{FOLDER_SEPARATOR_TO_USE_HERE};
+        return ret + FOLDER_SEPARATOR_TO_USE_HERE;
     else
         return {};
 }
