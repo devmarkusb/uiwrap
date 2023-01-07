@@ -63,38 +63,38 @@ class QmlExtLib
 
 public:
     //! Cf. the forwarded function in the implementation for documentation.
-    Q_INVOKABLE [[nodiscard]] static QString prependFile_urlSchemePrefix(const QString& file_without_prefix)
+    [[nodiscard]] Q_INVOKABLE static QString prependFile_urlSchemePrefix(const QString& file_without_prefix)
     {
         return uiw::implQt::prependFile_urlSchemePrefix(file_without_prefix);
     }
 
     //! Cf. the forwarded function in the implementation for documentation.
-    Q_INVOKABLE [[nodiscard]] static QString removeFile_urlSchemePrefix(const QString& file_with_prefix)
+    [[nodiscard]] Q_INVOKABLE static QString removeFile_urlSchemePrefix(const QString& file_with_prefix)
     {
         return uiw::implQt::removeFile_urlSchemePrefix(file_with_prefix);
     }
 
     //! For Windows returns path with backlashes instead of slashes.
-    Q_INVOKABLE [[nodiscard]] static QString toNativeSeparators(const QString& file_with_mixed_separators)
+    [[nodiscard]] Q_INVOKABLE static QString toNativeSeparators(const QString& file_with_mixed_separators)
     {
         return QDir::toNativeSeparators(file_with_mixed_separators);
     }
 
     //! Always returns path with slashes.
-    Q_INVOKABLE [[nodiscard]] static QString fromNativeSeparators(const QString& file_with_mixed_separators)
+    [[nodiscard]] Q_INVOKABLE static QString fromNativeSeparators(const QString& file_with_mixed_separators)
     {
         return QDir::fromNativeSeparators(file_with_mixed_separators);
     }
 
     //! Expects fullpath with slashes only.
-    Q_INVOKABLE [[nodiscard]] static bool fileExists(const QString& fullpath)
+    [[nodiscard]] Q_INVOKABLE static bool fileExists(const QString& fullpath)
     {
         const auto fs = uiw::file::IFileSys::getInstance();
         return fs->fileExists(uiw::implQt::qs2s(fullpath));
     }
 
     //! Expects fullpath with slashes only.
-    Q_INVOKABLE [[nodiscard]] static bool isFile(const QString& fullpath)
+    [[nodiscard]] Q_INVOKABLE static bool isFile(const QString& fullpath)
     {
         const auto fs = uiw::file::IFileSys::getInstance();
         return fs->isFile(uiw::implQt::qs2s(fullpath));
