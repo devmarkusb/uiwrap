@@ -10,11 +10,11 @@
         You can tailor this one to your needs.
         Note that you will need to re-run CMake.
 */
+
 #ifndef UIWRAP_BUILD_CONFIG_H_souihrf7384xt783ghf7y842ghf
 #define UIWRAP_BUILD_CONFIG_H_souihrf7384xt783ghf7y842ghf
 
 #include <string>
-
 
 #define UIWRAP_IMPL_DETAILS_CHOICE_NUMBER ${uiwrap_impl_choice_number}
 #if UIWRAP_IMPL_DETAILS_CHOICE_NUMBER == 1
