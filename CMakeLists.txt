@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8.2)
 
-include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/toolib.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
 
 include(${ul_CMAKE_DIRS}/cmake_util.cmake)
 
@@ -87,9 +87,6 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
     target_include_directories(${target} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
 endif ()
 target_include_directories(${target} PUBLIC ${ul_INCLUDE_DIRS})
-target_include_directories(${target} PUBLIC ${toolib_INCLUDE_DIRS})
-
-target_link_libraries(${target} PUBLIC toolib)
 
 if (${UL_LINUX})
     target_link_libraries(${target} PUBLIC dl)

@@ -1,5 +1,4 @@
 #include "ProgSettings_Qt.h"
-#include "toolib/string/string_token.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
@@ -139,7 +138,7 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const
     for (const auto& i : keys)
     {
         std::vector<std::string> keypath;
-        too::str::tokenizeString(qs2s(i), "/", keypath);
+        ul::str::tokenizeString(qs2s(i), "/", keypath);
         // only support one level of sections, so take the last two entries
         if (keypath.empty())
             continue;

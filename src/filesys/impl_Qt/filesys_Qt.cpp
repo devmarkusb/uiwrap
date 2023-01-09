@@ -1,8 +1,5 @@
 #include "filesys_Qt.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
-
-#include "toolib/filesys/file.h"
-#include "toolib/string/lex_cast.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QCoreApplication"
@@ -23,7 +20,7 @@ void CFileSys_Qt::setFileOpErrorStr(const QFile& f, const std::string& op, const
         latestError += ", " + info;
     latestError += ", details: ";
     latestError += uiw::implQt::qs2s(f.errorString());
-    latestError += ", permissions: " + too::lex_cast<std::string>(f.permissions());
+    latestError += ", permissions: " + ul::lex_cast<std::string>(f.permissions());
 }
 
 bool CFileSys_Qt::saveToTextFile(const std::string& filePathNameExt, const std::string& content)
@@ -74,13 +71,13 @@ bool CFileSys_Qt::loadFromTextFile(const std::string& filePathNameExt, std::stri
 
     this->latestError.clear();
     std::ifstream file(filePathNameExt);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     file.seekg(0, std::ios::end);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     const auto size = file.tellg();
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     if (size == static_cast<decltype(size)>(-1))
     {
@@ -89,7 +86,7 @@ bool CFileSys_Qt::loadFromTextFile(const std::string& filePathNameExt, std::stri
     }
     content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     file.read(&content[0], static_cast<std::streamsize>(size));
     return true;

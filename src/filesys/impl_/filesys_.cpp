@@ -12,7 +12,7 @@ bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::st
 {
     this->latestError.clear();
     std::ofstream file(filePathNameExt);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     file << Content;
     return true;
@@ -22,13 +22,13 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
 {
     this->latestError.clear();
     std::ifstream file(filePathNameExt);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     file.seekg(0, std::ios::end);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     const auto size = file.tellg();
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     if (size == static_cast<decltype(size)>(-1))
     {
@@ -37,7 +37,7 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
     }
     content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
-    if (too::file::fstream_failed(this->latestError, file))
+    if (ul::file::fstream_failed(this->latestError, file))
         return false;
     file.read(&content[0], size);
     return true;
@@ -47,10 +47,10 @@ bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::str
 {
     this->latestError.clear();
     std::ifstream src(filePathNameExt_From, std::ios::binary);
-    if (too::file::fstream_failed(this->latestError, src))
+    if (ul::file::fstream_failed(this->latestError, src))
         return false;
     std::ofstream dst(filePathNameExt_To, std::ios::binary);
-    if (too::file::fstream_failed(this->latestError, dst))
+    if (ul::file::fstream_failed(this->latestError, dst))
         return false;
     dst << src.rdbuf();
     return true;
@@ -62,7 +62,7 @@ bool CFileSys_::deleteFile(const std::string& filePathNameExt)
     const auto res = remove(filePathNameExt.c_str());
     if (res)
     {
-        this->latestError = too::lex_cast<std::string>(res);
+        this->latestError = ul::lex_cast<std::string>(res);
         return false;
     }
     return true;

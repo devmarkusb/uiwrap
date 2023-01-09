@@ -9,7 +9,6 @@
 #include "../../config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "toolib/string/languages.h"
 #include "ul/ul.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QLocale"
@@ -18,10 +17,10 @@ UL_PRAGMA_WARNINGS_POP
 
 namespace mb::uiw::implQt
 {
-//! Throws ul::not_implemented for unsupported or unknown id, expects id not to be too::str::auto_systems_language.
-inline QLocale::Language fromLanguageID(const too::str::LangID_iso639_1& id)
+//! Throws ul::not_implemented for unsupported or unknown id, expects id not to be ul::str::auto_systems_language.
+inline QLocale::Language fromLanguageID(const ul::str::LangID_iso639_1& id)
 {
-    if (id == too::str::auto_systems_language)
+    if (id == ul::str::auto_systems_language)
     {
         // on library-level we can't be sure that every GUI framework besides Qt understands
         // auto/systems language as a language itself (it really isn't), so please handle it separately

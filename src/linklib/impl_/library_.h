@@ -10,8 +10,6 @@
 #include <string>
 
 #if UL_OS_WINDOWS == 1
-#include "toolib/string/lex_cast.h"
-#include "toolib/string/str_convert.h"
 #include <sstream>
 #include <windows.h>
 #elif UL_OS_LINUX == 1
@@ -44,7 +42,7 @@ public:
         {
             std::stringstream ssErr;
             ssErr << "GetProcAddress " << Symbol << " failed: ";
-            ssErr << too::lex_cast<std::string>(GetLastError());
+            ssErr << ul::lex_cast<std::string>(GetLastError());
             SetError(ssErr.str());
         }
         return reinterpret_cast<void*>(ret);
@@ -55,12 +53,12 @@ public:
         std::string dll(GetFileName());
         dll += ".dll";
         // LPCTSTR is const wchar_t* and UTF16 assuming Windows-Unicode
-        m_DllHandle = LoadLibrary(too::str::utf8to16_s2ws(dll).c_str());
+        m_DllHandle = LoadLibrary(ul::str::utf8to16_s2ws(dll).c_str());
         if (!m_DllHandle)
         {
             std::stringstream ssErr;
             ssErr << "LoadLibrary " << dll << " failed: ";
-            ssErr << too::lex_cast<std::string>(GetLastError());
+            ssErr << ul::lex_cast<std::string>(GetLastError());
             SetError(ssErr.str());
         }
         return m_DllHandle ? true : false;
@@ -73,7 +71,7 @@ public:
         {
             std::stringstream ssErr;
             ssErr << "FreeLibrary " << GetFileName() << " failed: ";
-            ssErr << too::lex_cast<std::string, DWORD>(GetLastError());
+            ssErr << ul::lex_cast<std::string, DWORD>(GetLastError());
             SetError(ssErr.str());
         }
         return ret;
