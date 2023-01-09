@@ -4,7 +4,7 @@
     Important notice:
     I decided to make any conversion safe/checked where appropriate and possible.
     That is, range violations result in exceptions. The exceptions are of the
-    same type as the ones thrown by assertions from toolib/assert.h.
+    same type as the ones thrown by assertions from ul/assert.h.
     The reason is that these functions ought to be called right at the interface
     between GUI and backend only. And this interface is thought to be *the* crucial
     point of error checking. User input has to be checked as thoroughly as possible.
