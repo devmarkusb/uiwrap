@@ -120,8 +120,8 @@ public:
 
     virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
     {
-        ul::ignore_arg(application_engine);
-        ul::ignore_arg(name);
+        ul::ignore_unused(application_engine);
+        ul::ignore_unused(name);
     }
 };
 } // namespace mb::uiw

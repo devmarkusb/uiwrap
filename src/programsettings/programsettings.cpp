@@ -15,9 +15,9 @@ IProgSettings* IProgSettings::getInstance(
 {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
-    ul::ignore_arg(fileNamePath);
-    ul::ignore_arg(fileExt);
-    ul::ignore_arg(preferredStorageFileFormat);
+    ul::ignore_unused(fileNamePath);
+    ul::ignore_unused(fileExt);
+    ul::ignore_unused(preferredStorageFileFormat);
     static implQt::CProgSettings instance;
     return &instance;
 

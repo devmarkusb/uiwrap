@@ -71,15 +71,15 @@ bool CFileSys_::deleteFile(const std::string& filePathNameExt)
 bool CFileSys_::renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
 {
     this->latestError.clear();
-    ul::ignore_arg(filePathNameExt_From);
-    ul::ignore_arg(filePathNameExt_To);
+    ul::ignore_unused(filePathNameExt_From);
+    ul::ignore_unused(filePathNameExt_To);
     this->latestError = "not implemented";
     return false;
 }
 
 bool CFileSys_::createFolder(const std::string& folderPath)
 {
-    ul::ignore_arg(folderPath);
+    ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -87,7 +87,7 @@ bool CFileSys_::createFolder(const std::string& folderPath)
 
 bool CFileSys_::deleteFolder(const std::string& folderPath)
 {
-    ul::ignore_arg(folderPath);
+    ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -95,8 +95,8 @@ bool CFileSys_::deleteFolder(const std::string& folderPath)
 
 bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::string& folderPath_To)
 {
-    ul::ignore_arg(folderPath_From);
-    ul::ignore_arg(folderPath_To);
+    ul::ignore_unused(folderPath_From);
+    ul::ignore_unused(folderPath_To);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -104,7 +104,7 @@ bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::stri
 
 bool CFileSys_::folderExists(const std::string& folderPath) const
 {
-    ul::ignore_arg(folderPath);
+    ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
@@ -124,7 +124,7 @@ bool CFileSys_::isFile(const std::string&) const
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const
 {
-    ul::ignore_arg(Path);
+    ul::ignore_unused(Path);
     this->latestError.clear();
     this->latestError = "not implemented";
     return {};

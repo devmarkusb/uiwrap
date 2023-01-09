@@ -33,7 +33,7 @@ void CProgSettings::init(const std::string& organizationName, const std::string&
         QSettings::IniFormat, QSettings::UserScope, s2qs(organizationName), s2qs(applicationName));
     auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
     UL_ASSERT(ok == QSettings::NoError);
-    ul::ignore_arg(ok);
+    ul::ignore_unused(ok);
     m_FirstOccurredError = EError::E_NO_ERROR;
     getError();
 }

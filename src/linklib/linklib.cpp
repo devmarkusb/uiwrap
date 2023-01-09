@@ -21,8 +21,8 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutE
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    ul::ignore_arg(filePathNameWithoutExtension);
-    ul::ignore_arg(version);
+    ul::ignore_unused(filePathNameWithoutExtension);
+    ul::ignore_unused(version);
     throw ul::not_implemented{"ILibrary::make"};
 
 #else
