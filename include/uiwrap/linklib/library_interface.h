@@ -1,5 +1,3 @@
-// 2015
-
 //! \file
 
 #ifndef LIBRARY_INTERFACE_H_siuhxg378tzn3263

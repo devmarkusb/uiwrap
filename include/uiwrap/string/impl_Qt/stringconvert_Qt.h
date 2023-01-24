@@ -1,5 +1,3 @@
-// 2015-17
-
 //! \file
 
 #ifndef STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3

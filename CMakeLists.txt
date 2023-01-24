@@ -25,6 +25,12 @@ own (the default, a CLI)")
 ul_include(boost.cmake)
 ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
 
+option(UIW_DISABLE_NAMESPACE_ALIAS "Set to ON if you want the base namespace to be mb::uiw instead of ul" OFF)
+configure_file(
+        ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h.in
+        ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h
+        @ONLY)
+
 file(GLOB_RECURSE target_INCS "include/*.h")
 file(GLOB_RECURSE target_SRC_INCS "src/*.h")
 

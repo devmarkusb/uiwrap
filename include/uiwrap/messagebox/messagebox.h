@@ -1,5 +1,3 @@
-// 2015
-
 //! \file
 
 #ifndef MESSAGEBOX_H_ydugfbxuzgnfv8eqgwgw23d3

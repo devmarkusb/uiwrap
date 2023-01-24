@@ -1,5 +1,3 @@
-// 2015-17
-
 //! \file
 
 #ifndef PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz

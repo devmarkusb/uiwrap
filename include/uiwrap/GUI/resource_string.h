@@ -1,5 +1,3 @@
-// 2015
-
 //! \file
 
 #ifndef RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y

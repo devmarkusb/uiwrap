@@ -1,5 +1,3 @@
-// 2016-17
-
 /** \file
     *Important*
     This file implements a model collecting various library functions. The purpose of these functions

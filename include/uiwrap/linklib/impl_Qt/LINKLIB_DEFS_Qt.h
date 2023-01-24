@@ -1,5 +1,3 @@
-// 2015-17
-
 //! \file
 
 #ifndef LINKLIB_DEFS_QT_H_skdhoikmhcnvncynmxcof78s7

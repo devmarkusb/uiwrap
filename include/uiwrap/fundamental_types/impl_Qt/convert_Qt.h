@@ -1,5 +1,3 @@
-// 2016-17
-
 /** \file
     Important notice:
     I decided to make any conversion safe/checked where appropriate and possible.
