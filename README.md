@@ -37,23 +37,6 @@ according to the Boost library version you want to use ("ver1.ver2.ver3").
 * `UL_QT5_VERSION` to e.g. `5.9.1`
 * `UL_QT_COMPILER_SUBDIR` to e.g. `gcc_64`
 
-## Requirements
-
-See subsection according to `uiwrap_USE_IMPLEMENTATION`.
-
-### qt
-
-Seems to require
-* Qt5Core, Qt5Gui, Qt5Network, Qt5Qml, Qt5Widgets
-
-So in order to run the tests successfully from within a comprising
-project, you might need to copy the two files
-    qtdeploy_autodepends_bin_win_uiwraptest.bat
-    qtdeploy_autodepends_bindbg_win_uiwraptest.bat
-to your project's root dir.
-Compiling and testing the library standalone should just work,
-but this is untested.
-
 ## FAQ
 
 ### Namespace clashes
