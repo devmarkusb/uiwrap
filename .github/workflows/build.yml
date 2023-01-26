@@ -53,6 +53,7 @@ jobs:
       run: >
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
         -DUL_QT5_VERSION:STRING=$qt_version -DUL_QT_COMPILER_SUBDIR:STRING=${{matrix.config.qtcomp}}
+        -Duiwrap_USE_IMPLEMENTATION=qt
 
     - name: Build
       # Build your program with the given configuration
