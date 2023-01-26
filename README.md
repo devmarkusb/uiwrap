@@ -28,7 +28,7 @@ can be found in subdirs like `5.9.1`.
 Set the following CMake variables:
 * `uiwrap_USE_IMPLEMENTATION` to either
   * `qt`
-  * `""` (nothing), or leave out entirely, meaning console through an
+  * `own`, or leave out entirely, meaning console through an
 'own' implementation
   * ...
 

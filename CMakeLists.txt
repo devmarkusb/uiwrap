@@ -22,8 +22,10 @@ ul_include(githooks.cmake)
 set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or \
 own (the default, a CLI)")
 
-ul_include(boost.cmake)
-ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "own")
+    ul_include(boost.cmake)
+    ul_find_boost(${UL_USE_BOOST_ver1} ${UL_USE_BOOST_ver2} ${UL_USE_BOOST_ver3} "")
+endif()
 
 option(UIW_DISABLE_NAMESPACE_ALIAS "Set to ON if you want the base namespace to be mb::uiw instead of ul" OFF)
 configure_file(
