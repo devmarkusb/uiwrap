@@ -1,5 +1,7 @@
 # uiwrap library
 
+[![build](https://github.com/devmarkusb/uiwrap/actions/workflows/build.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/build.yml)
+
 A library to wrap and select an underlying (G)UI implementation
 of your choice.
 We would like to support:
