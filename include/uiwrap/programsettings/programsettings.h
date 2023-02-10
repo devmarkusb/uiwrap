@@ -8,7 +8,6 @@
 #include "../config.h"
 #include "ul/ul.h"
 
-#include "boost/variant.hpp"
 #include <string>
 #include <vector>
 
@@ -38,44 +37,6 @@ public:
         const std::string& fileNamePath = std::string(), const std::string& fileExt = std::string(),
         StorageFileFormat preferredStorageFileFormat = StorageFileFormat::JSON);
     virtual void init(const std::string& organizationName, const std::string& applicationName) = 0;
-
-    using TInteger = int;
-    using TVariant = boost::variant<TInteger, double, std::string, bool>;
-
-    //! Not working?!
-    class TVariantGetter : public boost::static_visitor<>
-    {
-    public:
-        int operator()(const IProgSettings::TInteger& v) const
-        {
-            return v;
-        }
-
-        double operator()(const double& v) const
-        {
-            return v;
-        }
-
-        std::string operator()(const std::string& v) const
-        {
-            return v;
-        }
-
-        bool operator()(const bool& v) const
-        {
-            return v;
-        }
-    };
-
-    //! Not working?! At least two issues:
-    /** (1) boost variant is just difficult to use
-        (2) Qt implementation yields string always, which doesn't fit when converting to other variant type
-
-        Until any fix, you are unfortunately stuck with the recommendation of using valueStr/setValueStr.*/
-    [[nodiscard]] virtual TVariant value(
-        const std::string& sectionName, const std::string& keyName, const TVariant& def) const = 0;
-    //! Not working?!
-    virtual void setValue(const std::string& sectionName, const std::string& keyName, const TVariant& value) = 0;
 
     [[nodiscard]] virtual std::string valueStr(
         const std::string& sectionName, const std::string& keyName, const std::string& def) const = 0;
