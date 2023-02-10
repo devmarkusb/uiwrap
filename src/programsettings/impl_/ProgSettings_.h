@@ -31,9 +31,6 @@ public:
 
     void init(const std::string& organizationName, const std::string& applicationName) override;
 
-    TVariant value(const std::string& sectionName, const std::string& keyName, const TVariant& def) const override;
-    void setValue(const std::string& sectionName, const std::string& keyName, const TVariant& value) override;
-
     std::string valueStr(
         const std::string& sectionName, const std::string& keyName, const std::string& def) const override;
     void setValueStr(const std::string& sectionName, const std::string& keyName, const std::string& value) override;
@@ -120,60 +117,6 @@ void CProgSettings::init(const std::string&, const std::string&)
         return;
     }
     m_FirstOccurredError = EError::E_NO_ERROR;
-}
-
-IProgSettings::TVariant CProgSettings::value(
-    const std::string& sectionName, const std::string& keyName, const IProgSettings::TVariant& def) const
-{
-    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
-    try
-    {
-        return m_PropTree.get<int>(path);
-    }
-    catch (const boost_pt::ptree_bad_path&)
-    {
-        return def;
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-    }
-    try
-    {
-        return m_PropTree.get<double>(path);
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-    }
-    try
-    {
-        return m_PropTree.get<bool>(path);
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-    }
-    try
-    {
-        return m_PropTree.get<std::string>(path);
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-        SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
-    }
-    return def;
-}
-
-void CProgSettings::setValue(
-    const std::string& sectionName, const std::string& keyName, const IProgSettings::TVariant& value)
-{
-    const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
-    try
-    {
-        m_PropTree.put(path, value);
-    }
-    catch (const boost_pt::ptree_bad_data&)
-    {
-        SetError(EError::INTERNAL_ERROR__VARIANT_CONVERSION);
-    }
 }
 
 std::string CProgSettings::valueStr(const std::string&, const std::string&, const std::string&) const

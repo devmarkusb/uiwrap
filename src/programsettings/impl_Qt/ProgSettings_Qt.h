@@ -38,9 +38,6 @@ public:
 
     void init(const std::string& organizationName, const std::string& applicationName) override;
 
-    TVariant value(const std::string& sectionName, const std::string& keyName, const TVariant& def) const override;
-    void setValue(const std::string& sectionName, const std::string& keyName, const TVariant& value) override;
-
     std::string valueStr(
         const std::string& sectionName, const std::string& keyName, const std::string& def) const override;
     void setValueStr(const std::string& sectionName, const std::string& keyName, const std::string& value) override;
@@ -75,8 +72,6 @@ private:
     }
 
     static QString CreateQtKeyName(const std::string& sectionName, const std::string& keyName);
-    static QVariant var2qvar(const TVariant& v);
-    TVariant qvar2var(const QVariant& v) const;
 
 private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
