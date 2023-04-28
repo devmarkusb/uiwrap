@@ -8,11 +8,9 @@ static_assert(false, "not implemented");
 #endif
 #include "ul/ul.h"
 
-namespace mb::uiw
-{
+namespace mb::uiw {
 IProgSettings* IProgSettings::getInstance(
-    const std::string& fileNamePath, const std::string& fileExt, StorageFileFormat preferredStorageFileFormat)
-{
+    const std::string& fileNamePath, const std::string& fileExt, StorageFileFormat preferredStorageFileFormat) {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
     ul::ignore_unused(fileNamePath);

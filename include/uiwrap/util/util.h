@@ -7,10 +7,8 @@
 #include "../config.h"
 #include <string>
 
-namespace mb::uiw::util
-{
-inline const std::string& resources_base_path()
-{
+namespace mb::uiw::util {
+inline const std::string& resources_base_path() {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
     static const std::string ret{":/"};
     return ret;

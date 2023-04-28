@@ -6,8 +6,7 @@
 #include "../config.h"
 #include <string>
 
-namespace mb::uiw::gui
-{
+namespace mb::uiw::gui {
 using ResourceID = long;
 //! Alphanumeric variant.
 using ResourceID_alnum = std::string;

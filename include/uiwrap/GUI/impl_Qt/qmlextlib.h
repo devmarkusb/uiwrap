@@ -39,10 +39,8 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include <utility>
 UL_PRAGMA_WARNINGS_POP
 
-namespace mb::uiw::implQt
-{
-class DynamicTranslator
-{
+namespace mb::uiw::implQt {
+class DynamicTranslator {
 public:
     virtual ~DynamicTranslator() = default;
 
@@ -52,8 +50,7 @@ public:
 //! The QML extension lib
 class QmlExtLib
     : public QObject
-    , public DynamicTranslator
-{
+    , public DynamicTranslator {
     Q_OBJECT
 
     //! Cf. qml for doc.
@@ -61,46 +58,39 @@ class QmlExtLib
 
 public:
     //! Cf. the forwarded function in the implementation for documentation.
-    [[nodiscard]] Q_INVOKABLE static QString prependFile_urlSchemePrefix(const QString& file_without_prefix)
-    {
+    [[nodiscard]] Q_INVOKABLE static QString prependFile_urlSchemePrefix(const QString& file_without_prefix) {
         return uiw::implQt::prependFile_urlSchemePrefix(file_without_prefix);
     }
 
     //! Cf. the forwarded function in the implementation for documentation.
-    [[nodiscard]] Q_INVOKABLE static QString removeFile_urlSchemePrefix(const QString& file_with_prefix)
-    {
+    [[nodiscard]] Q_INVOKABLE static QString removeFile_urlSchemePrefix(const QString& file_with_prefix) {
         return uiw::implQt::removeFile_urlSchemePrefix(file_with_prefix);
     }
 
     //! For Windows returns path with backlashes instead of slashes.
-    [[nodiscard]] Q_INVOKABLE static QString toNativeSeparators(const QString& file_with_mixed_separators)
-    {
+    [[nodiscard]] Q_INVOKABLE static QString toNativeSeparators(const QString& file_with_mixed_separators) {
         return QDir::toNativeSeparators(file_with_mixed_separators);
     }
 
     //! Always returns path with slashes.
-    [[nodiscard]] Q_INVOKABLE static QString fromNativeSeparators(const QString& file_with_mixed_separators)
-    {
+    [[nodiscard]] Q_INVOKABLE static QString fromNativeSeparators(const QString& file_with_mixed_separators) {
         return QDir::fromNativeSeparators(file_with_mixed_separators);
     }
 
     //! Expects fullpath with slashes only.
-    [[nodiscard]] Q_INVOKABLE static bool fileExists(const QString& fullpath)
-    {
+    [[nodiscard]] Q_INVOKABLE static bool fileExists(const QString& fullpath) {
         const auto fs = uiw::file::IFileSys::getInstance();
         return fs->fileExists(uiw::implQt::qs2s(fullpath));
     }
 
     //! Expects fullpath with slashes only.
-    [[nodiscard]] Q_INVOKABLE static bool isFile(const QString& fullpath)
-    {
+    [[nodiscard]] Q_INVOKABLE static bool isFile(const QString& fullpath) {
         const auto fs = uiw::file::IFileSys::getInstance();
         return fs->isFile(uiw::implQt::qs2s(fullpath));
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
-    void updateTranslations() const override
-    {
+    void updateTranslations() const override {
         emit dynTrChanged();
     }
 

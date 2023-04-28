@@ -17,12 +17,10 @@ UL_WARNING_DISABLE_GCC(unused - local - typedefs)
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-namespace mb::uiw::impl
-{
+namespace mb::uiw::impl {
 namespace boost_pt = boost::property_tree;
 
-class CProgSettings : public uiw::IProgSettings
-{
+class CProgSettings : public uiw::IProgSettings {
 public:
     CProgSettings(
         const std::string& fileNamePath, const std::string& fileExt,
@@ -51,8 +49,7 @@ private:
     std::string m_FileName;
     boost_pt::ptree m_PropTree;
 
-    void SetError(EError e) const
-    {
+    void SetError(EError e) const {
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }
@@ -66,35 +63,26 @@ private:
 CProgSettings::CProgSettings(
     const std::string& fileNamePath, const std::string& fileExt, StorageFileFormat preferredStorageFileFormat)
     : m_StorageFileFormat{preferredStorageFileFormat}
-    , m_FileName{concatenateWithHierarchySep(fileNamePath, fileExt)}
-{
+    , m_FileName{concatenateWithHierarchySep(fileNamePath, fileExt)} {
 }
 
-CProgSettings::~CProgSettings()
-{
-    try
-    {
+CProgSettings::~CProgSettings() {
+    try {
         sync();
-    }
-    catch (...)
-    {
+    } catch (...) {
     }
 }
 
-std::string CProgSettings::concatenateWithHierarchySep(const std::string& first, const std::string& second)
-{
+std::string CProgSettings::concatenateWithHierarchySep(const std::string& first, const std::string& second) {
     std::string ret{first};
     ret += HIERARCHY_SEPARATOR;
     ret += second;
     return ret;
 }
 
-void CProgSettings::init(const std::string&, const std::string&)
-{
-    try
-    {
-        switch (m_StorageFileFormat)
-        {
+void CProgSettings::init(const std::string&, const std::string&) {
+    try {
+        switch (m_StorageFileFormat) {
             case StorageFileFormat::INI:
                 boost::property_tree::read_ini(m_FileName, m_PropTree);
                 break;
@@ -110,61 +98,49 @@ void CProgSettings::init(const std::string&, const std::string&)
             default:
                 return;
         }
-    }
-    catch (...)
-    {
+    } catch (...) {
         SetError(EError::ERROR_READING_SETTINGS);
         return;
     }
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 
-std::string CProgSettings::valueStr(const std::string&, const std::string&, const std::string&) const
-{
+std::string CProgSettings::valueStr(const std::string&, const std::string&, const std::string&) const {
     throw ul::not_implemented{"valueStr"};
 }
 
-void CProgSettings::setValueStr(const std::string&, const std::string&, const std::string&)
-{
+void CProgSettings::setValueStr(const std::string&, const std::string&, const std::string&) {
     throw ul::not_implemented("setValueStr");
 }
 
-std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const
-{
+std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
     std::vector<IProgSettings::TSectionKeyPair> ret;
     for (const auto& path : m_PropTree)
         ret.emplace_back(std::string(), path.first);
     return ret;
 }
 
-void CProgSettings::clear()
-{
+void CProgSettings::clear() {
     m_PropTree.clear();
 }
 
-void CProgSettings::enable(bool)
-{
+void CProgSettings::enable(bool) {
     throw ul::not_implemented("enable");
 }
 
-bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const
-{
+bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const {
     const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     return m_PropTree.find(path) != m_PropTree.not_found();
 }
 
-void CProgSettings::remove(const std::string& sectionName, const std::string& keyName)
-{
+void CProgSettings::remove(const std::string& sectionName, const std::string& keyName) {
     const std::string path{concatenateWithHierarchySep(sectionName, keyName)};
     m_PropTree.erase(path);
 }
 
-void CProgSettings::sync()
-{
-    try
-    {
-        switch (m_StorageFileFormat)
-        {
+void CProgSettings::sync() {
+    try {
+        switch (m_StorageFileFormat) {
             case StorageFileFormat::INI:
                 boost::property_tree::write_ini(m_FileName, m_PropTree);
                 break;
@@ -180,21 +156,17 @@ void CProgSettings::sync()
             default:
                 return;
         }
-    }
-    catch (...)
-    {
+    } catch (...) {
         SetError(EError::ERROR_WRITING_SETTINGS);
         return;
     }
 }
 
-IProgSettings::EError CProgSettings::getError() const
-{
+IProgSettings::EError CProgSettings::getError() const {
     return m_FirstOccurredError;
 }
 
-void CProgSettings::resetError()
-{
+void CProgSettings::resetError() {
     m_FirstOccurredError = EError::E_NO_ERROR;
 }
 } // namespace mb::uiw::impl

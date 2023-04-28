@@ -23,8 +23,7 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <type_traits>
 
-namespace mb::uiw::implQt
-{
+namespace mb::uiw::implQt {
 //####################################################################################################################
 //! From qreal.
 /** Be careful when converting qreal to float and qreal is double in your case.
@@ -32,23 +31,20 @@ namespace mb::uiw::implQt
     the loss of precision or even range is acceptable for you.*/
 template <typename TargetType>
 // TargetType expected to be floating point.
-constexpr typename ul::enable_if_t<std::is_same<qreal, float>::value, TargetType> from_qreal(qreal v) noexcept
-{
+constexpr typename ul::enable_if_t<std::is_same<qreal, float>::value, TargetType> from_qreal(qreal v) noexcept {
     static_assert(std::is_floating_point<TargetType>::value, "target type needs to be float, double or long double");
     return v;
 }
 
 template <typename TargetType>
 // TargetType expected to be floating point.
-constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, TargetType> from_qreal(qreal v) noexcept
-{
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, TargetType> from_qreal(qreal v) noexcept {
     static_assert(std::is_floating_point<TargetType>::value, "target type needs to be float, double or long double");
     return v;
 }
 
 template <>
-constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(qreal v) noexcept
-{
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> from_qreal<float>(qreal v) noexcept {
     return ul::narrow_cast<float>(v);
 }
 
@@ -59,24 +55,21 @@ constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, float> fr
     the loss of precision or even range is acceptable for you.*/
 template <typename SourceType>
 // SourceType expected to be floating point.
-constexpr qreal to_qreal(typename ul::enable_if_t<std::is_same<qreal, float>::value, SourceType> v) noexcept
-{
+constexpr qreal to_qreal(typename ul::enable_if_t<std::is_same<qreal, float>::value, SourceType> v) noexcept {
     static_assert(std::is_floating_point<SourceType>::value, "source type needs to be float, double or long double");
     return ul::narrow_cast<qreal>(v);
 }
 
 template <typename SourceType>
 // SourceType expected to be floating point.
-constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to_qreal(SourceType v) noexcept
-{
+constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to_qreal(SourceType v) noexcept {
     static_assert(std::is_floating_point<SourceType>::value, "source type needs to be float, double or long double");
     return v;
 }
 
 template <>
 constexpr typename ul::enable_if_t<std::is_same<qreal, double>::value, qreal> to_qreal<long double>(
-    long double v) noexcept
-{
+    long double v) noexcept {
     return ul::narrow_cast<qreal>(v);
 }
 

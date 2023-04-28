@@ -9,14 +9,11 @@
 #include <stdexcept>
 #include <string>
 
-namespace mb::uiw
-{
-namespace file
-{
+namespace mb::uiw {
+namespace file {
 //####################################################################################################################
 
-class UIWRAPSHARED_EXPORT IFileSys : private ul::NonCopyable
-{
+class UIWRAPSHARED_EXPORT IFileSys : private ul::NonCopyable {
 public:
     virtual ~IFileSys() = default;
 
@@ -43,8 +40,7 @@ public:
     /** PROGDATA and USER are the same and yield for Windows something like c:/users/xy,
         which is not the most recommended place in general.
         APPDATA_writable and Co. are much more preferable locations.*/
-    enum class ESysPathType
-    {
+    enum class ESysPathType {
         // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv yourself
         USER, //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely
@@ -71,8 +67,7 @@ public:
 
 //! Note that the interface forces you to implement std::runtime_error-throwing versions.
 //! This is because for load/save detailed error info is absolutely crucial in most cases.
-class IFileData
-{
+class IFileData {
 public:
     virtual ~IFileData() = default;
 
@@ -81,27 +76,19 @@ public:
     //! Throws std::runtime_error.
     virtual void loadFromFile(const std::string& filePathNameExt) /*noexcept(false)*/ = 0;
 
-    [[nodiscard]] bool saveToFile_(const std::string& filePathNameExt) const
-    {
-        try
-        {
+    [[nodiscard]] bool saveToFile_(const std::string& filePathNameExt) const {
+        try {
             saveToFile(filePathNameExt);
-        }
-        catch (const std::runtime_error&)
-        {
+        } catch (const std::runtime_error&) {
             return false;
         }
         return true;
     }
 
-    bool loadFromFile_(const std::string& filePathNameExt) noexcept
-    {
-        try
-        {
+    bool loadFromFile_(const std::string& filePathNameExt) noexcept {
+        try {
             loadFromFile(filePathNameExt);
-        }
-        catch (const std::runtime_error&)
-        {
+        } catch (const std::runtime_error&) {
             return false;
         }
         return true;

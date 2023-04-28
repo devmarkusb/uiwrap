@@ -17,10 +17,8 @@
 #endif
 
 
-namespace mb::uiw::impl
-{
-class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys
-{
+namespace mb::uiw::impl {
+class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys {
 public:
     bool saveToTextFile(const std::string& filePathNameExt, const std::string& Content) override;
     bool loadFromTextFile(const std::string& filePathNameExt, std::string& Content) const override;
