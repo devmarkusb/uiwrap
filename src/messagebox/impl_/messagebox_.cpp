@@ -1,47 +1,35 @@
 #include "messagebox_.h"
 
-namespace mb::uiw
-{
-namespace impl
-{
-void MessageBox::addButton(EButton)
-{
+namespace mb::uiw {
+namespace impl {
+void MessageBox::addButton(EButton) {
 }
 
-void MessageBox::setDefaultButton(EButton)
-{
+void MessageBox::setDefaultButton(EButton) {
 }
 
-void MessageBox::setEscapeButton(EButton)
-{
+void MessageBox::setEscapeButton(EButton) {
 }
 
-void MessageBox::setWindowTitle(const std::string&)
-{
+void MessageBox::setWindowTitle(const std::string&) {
 }
 
-void MessageBox::setCaption(const std::string&)
-{
+void MessageBox::setCaption(const std::string&) {
 }
 
-void MessageBox::setText(const std::string&)
-{
+void MessageBox::setText(const std::string&) {
 }
 
-void MessageBox::setDetailedText(const std::string&)
-{
+void MessageBox::setDetailedText(const std::string&) {
 }
 
-void MessageBox::setIcon(EIcon)
-{
+void MessageBox::setIcon(EIcon) {
 }
 
-void MessageBox::runModal()
-{
+void MessageBox::runModal() {
 }
 
-auto MessageBox::getRunResult() -> EButton
-{
+auto MessageBox::getRunResult() -> EButton {
     if (!this->retVal)
         return EButton::ignore;
     return *this->retVal;

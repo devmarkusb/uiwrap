@@ -1,13 +1,10 @@
 #include "MessageBox_Qt.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 
-namespace mb::uiw::implQt
-{
-QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b)
-{
+namespace mb::uiw::implQt {
+QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b) {
     QMessageBox::StandardButton qb = QMessageBox::Ok;
-    switch (b)
-    {
+    switch (b) {
         case EButton::cancel:
             qb = QMessageBox::Cancel;
             break;
@@ -66,11 +63,9 @@ QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b)
     return qb;
 }
 
-CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::StandardButton qb)
-{
+CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::StandardButton qb) {
     EButton b = EButton::ok;
-    switch (qb)
-    {
+    switch (qb) {
         case QMessageBox::Cancel:
             b = EButton::cancel;
             break;
@@ -129,46 +124,37 @@ CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::Stan
     return b;
 }
 
-void CMessageBox_Qt::addButton(EButton b)
-{
+void CMessageBox_Qt::addButton(EButton b) {
     m_MsgBox.addButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::setDefaultButton(EButton b)
-{
+void CMessageBox_Qt::setDefaultButton(EButton b) {
     m_MsgBox.setDefaultButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::setEscapeButton(EButton b)
-{
+void CMessageBox_Qt::setEscapeButton(EButton b) {
     m_MsgBox.setEscapeButton(EButton2StandardButton(b));
 }
 
-void CMessageBox_Qt::setWindowTitle(const std::string& s)
-{
+void CMessageBox_Qt::setWindowTitle(const std::string& s) {
     m_MsgBox.setWindowTitle(s2qs(s));
 }
 
-void CMessageBox_Qt::setCaption(const std::string& s)
-{
+void CMessageBox_Qt::setCaption(const std::string& s) {
     m_MsgBox.setText(s2qs(s));
 }
 
-void CMessageBox_Qt::setText(const std::string& s)
-{
+void CMessageBox_Qt::setText(const std::string& s) {
     m_MsgBox.setInformativeText(s2qs(s));
 }
 
-void CMessageBox_Qt::setDetailedText(const std::string& s)
-{
+void CMessageBox_Qt::setDetailedText(const std::string& s) {
     m_MsgBox.setDetailedText(s2qs(s));
 }
 
-void CMessageBox_Qt::setIcon(EIcon i)
-{
+void CMessageBox_Qt::setIcon(EIcon i) {
     QMessageBox::Icon qi = QMessageBox::NoIcon;
-    switch (i)
-    {
+    switch (i) {
         case EIcon::information:
             qi = QMessageBox::Information;
             break;
@@ -188,13 +174,11 @@ void CMessageBox_Qt::setIcon(EIcon i)
     m_MsgBox.setIcon(qi);
 }
 
-void CMessageBox_Qt::runModal()
-{
+void CMessageBox_Qt::runModal() {
     m_RetVal = static_cast<QMessageBox::StandardButton>(m_MsgBox.exec());
 }
 
-auto CMessageBox_Qt::getRunResult() -> EButton
-{
+auto CMessageBox_Qt::getRunResult() -> EButton {
     return StandardButton2EButton(m_RetVal);
 }
 } // namespace mb::uiw::implQt

@@ -4,10 +4,8 @@
 #include <filesystem>
 #include <fstream>
 
-namespace mb::uiw::impl
-{
-bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::string& Content)
-{
+namespace mb::uiw::impl {
+bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::string& Content) {
     this->latestError.clear();
     std::ofstream file(filePathNameExt);
     if (ul::file::fstream_failed(this->latestError, file))
@@ -16,8 +14,7 @@ bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::st
     return true;
 }
 
-bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string& content) const
-{
+bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string& content) const {
     this->latestError.clear();
     std::ifstream file(filePathNameExt);
     if (ul::file::fstream_failed(this->latestError, file))
@@ -28,8 +25,7 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
     const auto size = file.tellg();
     if (ul::file::fstream_failed(this->latestError, file))
         return false;
-    if (size == static_cast<decltype(size)>(-1))
-    {
+    if (size == static_cast<decltype(size)>(-1)) {
         this->latestError = "size == -1";
         return false;
     }
@@ -41,8 +37,7 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
     return true;
 }
 
-bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
-{
+bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) {
     this->latestError.clear();
     std::ifstream src(filePathNameExt_From, std::ios::binary);
     if (ul::file::fstream_failed(this->latestError, src))
@@ -54,20 +49,17 @@ bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::str
     return true;
 }
 
-bool CFileSys_::deleteFile(const std::string& filePathNameExt)
-{
+bool CFileSys_::deleteFile(const std::string& filePathNameExt) {
     this->latestError.clear();
     const auto res = remove(filePathNameExt.c_str());
-    if (res)
-    {
+    if (res) {
         this->latestError = ul::lex_cast<std::string>(res);
         return false;
     }
     return true;
 }
 
-bool CFileSys_::renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To)
-{
+bool CFileSys_::renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) {
     this->latestError.clear();
     ul::ignore_unused(filePathNameExt_From);
     ul::ignore_unused(filePathNameExt_To);
@@ -75,24 +67,21 @@ bool CFileSys_::renameFile(const std::string& filePathNameExt_From, const std::s
     return false;
 }
 
-bool CFileSys_::createFolder(const std::string& folderPath)
-{
+bool CFileSys_::createFolder(const std::string& folderPath) {
     ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::deleteFolder(const std::string& folderPath)
-{
+bool CFileSys_::deleteFolder(const std::string& folderPath) {
     ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::string& folderPath_To)
-{
+bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::string& folderPath_To) {
     ul::ignore_unused(folderPath_From);
     ul::ignore_unused(folderPath_To);
     this->latestError.clear();
@@ -100,40 +89,34 @@ bool CFileSys_::renameFolder(const std::string& folderPath_From, const std::stri
     return false;
 }
 
-bool CFileSys_::folderExists(const std::string& folderPath) const
-{
+bool CFileSys_::folderExists(const std::string& folderPath) const {
     ul::ignore_unused(folderPath);
     this->latestError.clear();
     this->latestError = "not implemented";
     return false;
 }
 
-bool CFileSys_::fileExists(const std::string& filePathNameExt) const
-{
+bool CFileSys_::fileExists(const std::string& filePathNameExt) const {
     this->latestError.clear();
     std::ifstream file(filePathNameExt, std::ios_base::binary);
     return file ? true : false;
 }
 
-bool CFileSys_::isFile(const std::string&) const
-{
+bool CFileSys_::isFile(const std::string&) const {
     throw ul::not_implemented{"isFile"};
 }
 
-std::string CFileSys_::toNativeSeparators(const std::string& Path) const
-{
+std::string CFileSys_::toNativeSeparators(const std::string& Path) const {
     ul::ignore_unused(Path);
     this->latestError.clear();
     this->latestError = "not implemented";
     return {};
 }
 
-std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const
-{
+std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const {
     this->latestError.clear();
     std::string ret;
-    switch (type)
-    {
+    switch (type) {
         case ESysPathType::PROGDATA:
             break;
         case ESysPathType::ROOT:
@@ -157,8 +140,7 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
         return {};
 }
 
-std::string CFileSys_::getErrorOfLatestCall() const
-{
+std::string CFileSys_::getErrorOfLatestCall() const {
     return this->latestError;
 }
 } // namespace mb::uiw::impl

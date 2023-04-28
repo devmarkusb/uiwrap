@@ -19,19 +19,16 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <memory>
 
-namespace mb::uiw::implQt
-{
+namespace mb::uiw::implQt {
 // do not put in a library, see comment at file start
 class CProgSettings
     : public QObject
-    , public uiw::IProgSettings
-{
+    , public uiw::IProgSettings {
     Q_OBJECT
 
 public:
     CProgSettings()
-        : QObject()
-    {
+        : QObject() {
     }
 
     ~CProgSettings() override = default;
@@ -65,8 +62,7 @@ private:
     const QSettings* m_settings() const;
     mutable EError m_FirstOccurredError{EError::INIT_NOT_CALLED_OR_FAILED};
 
-    void SetError(EError e) const
-    {
+    void SetError(EError e) const {
         if (m_FirstOccurredError == EError::E_NO_ERROR)
             m_FirstOccurredError = e;
     }

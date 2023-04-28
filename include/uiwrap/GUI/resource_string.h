@@ -7,10 +7,8 @@
 #include "../config.h"
 #include <string>
 
-namespace mb::uiw::gui
-{
-class IResourceString
-{
+namespace mb::uiw::gui {
+class IResourceString {
 public:
     virtual ~IResourceString() = default;
 

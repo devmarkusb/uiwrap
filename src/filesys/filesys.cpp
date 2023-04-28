@@ -8,10 +8,8 @@ static_assert(false, "not implemented");
 #endif
 #include "ul/ul.h"
 
-namespace mb::uiw::file
-{
-IFileSys* IFileSys::getInstance()
-{
+namespace mb::uiw::file {
+IFileSys* IFileSys::getInstance() {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
     static std::unique_ptr<implQt::CFileSys_Qt> instance(ul::make_unique<implQt::CFileSys_Qt>());

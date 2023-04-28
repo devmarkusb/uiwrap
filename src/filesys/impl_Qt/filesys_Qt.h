@@ -13,10 +13,8 @@
 
 class QFile;
 
-namespace mb::uiw::implQt
-{
-class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys
-{
+namespace mb::uiw::implQt {
+class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys {
 public:
     bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
     bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const override;

@@ -5,8 +5,7 @@
 
 namespace uiw = mb::uiw;
 
-TEST(UrlString_util_Qt, remove)
-{
+TEST(UrlString_util_Qt, remove) {
 #if UL_WINDOWS
     QString res{uiw::implQt::removeFile_urlSchemePrefix(QStringLiteral("file:///c:/temp/xy/z.txt"))};
     EXPECT_STREQ("c:/temp/xy/z.txt", uiw::implQt::qs2s(res).c_str());
@@ -16,8 +15,7 @@ TEST(UrlString_util_Qt, remove)
 #endif
 }
 
-TEST(UrlString_util_Qt, prepend)
-{
+TEST(UrlString_util_Qt, prepend) {
     QString res{uiw::implQt::prependFile_urlSchemePrefix(QStringLiteral("c:/temp/xy/z.txt"))};
     EXPECT_STREQ("file:///c:/temp/xy/z.txt", uiw::implQt::qs2s(res).c_str());
 }

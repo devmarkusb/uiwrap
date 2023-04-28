@@ -8,10 +8,8 @@ static_assert(false, "not implemented");
 #endif
 #include "ul/ul.h"
 
-namespace mb::uiw::gui
-{
-std::unique_ptr<IMessageBox> IMessageBox::make()
-{
+namespace mb::uiw::gui {
+std::unique_ptr<IMessageBox> IMessageBox::make() {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
     return ul::make_unique<uiw::implQt::CMessageBox_Qt>();

@@ -9,15 +9,12 @@
 #include <memory>
 #include <string>
 
-namespace mb::uiw::gui
-{
-class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable
-{
+namespace mb::uiw::gui {
+class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable {
 public:
     virtual ~IMessageBox() = default;
 
-    enum class EButton
-    {
+    enum class EButton {
         ok,
         cancel,
         yes,
@@ -39,8 +36,7 @@ public:
         abort,
     };
 
-    enum class EIcon
-    {
+    enum class EIcon {
         none,
         information,
         question,

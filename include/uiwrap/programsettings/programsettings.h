@@ -11,17 +11,14 @@
 #include <string>
 #include <vector>
 
-namespace mb::uiw
-{
+namespace mb::uiw {
 #if !defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 static const std::string& HIERARCHY_SEPARATOR = ".";
 #endif
 
-class UIWRAPSHARED_EXPORT IProgSettings : private ul::NonCopyable
-{
+class UIWRAPSHARED_EXPORT IProgSettings : private ul::NonCopyable {
 public:
-    enum class StorageFileFormat
-    {
+    enum class StorageFileFormat {
         INI,
         XML,
         JSON,
@@ -49,15 +46,13 @@ public:
     virtual void enable(bool enable) = 0;
     [[nodiscard]] virtual bool contains(const std::string& sectionName, const std::string& keyName) const = 0;
 
-    [[nodiscard]] bool contains(const std::string& keyName) const
-    {
+    [[nodiscard]] bool contains(const std::string& keyName) const {
         return contains(std::string(), keyName);
     }
 
     virtual void remove(const std::string& sectionName, const std::string& keyName) = 0;
 
-    void remove(const std::string& keyName)
-    {
+    void remove(const std::string& keyName) {
         remove(std::string(), keyName);
     }
 
@@ -66,8 +61,7 @@ public:
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/
     virtual void sync() = 0;
 
-    enum class EError
-    {
+    enum class EError {
         E_NO_ERROR = 0, // scary: NO_ERROR seems to be defined somewhere in system headers!?
         INIT_NOT_CALLED_OR_FAILED,
         ERROR_WRITING_SETTINGS,
@@ -77,8 +71,7 @@ public:
     [[nodiscard]] virtual EError getError() const = 0;
     virtual void resetError() = 0;
 
-    virtual void setAsRootContextProperty(void* application_engine, const std::string& name)
-    {
+    virtual void setAsRootContextProperty(void* application_engine, const std::string& name) {
         ul::ignore_unused(application_engine);
         ul::ignore_unused(name);
     }

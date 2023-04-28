@@ -83,11 +83,9 @@ static_assert(false, "not implemented");
 //! Put UIW_EXTERN_C_DECLS in front of your YOURLIBSHARED_EXPORT-define
 //! (being switch-wise UIW_DECL_EXPORT/UIW_DECL_IMPORT) if appropriate.
 #if UL_LANG_STANDARD_CPP == 1
-#define UIW_EXTERN_C_DECLS extern "C"
-#define UIW_EXTERN_C_DECLS_BEGIN \
-    extern "C" \
-    {
-#define UIW_EXTERN_C_DECLS_END }
+#define UIW_EXTERN_C_DECLS       extern "C"
+#define UIW_EXTERN_C_DECLS_BEGIN extern "C" {
+#define UIW_EXTERN_C_DECLS_END   }
 #else
 #define UIW_EXTERN_C_DECLS
 #define UIW_EXTERN_C_DECLS_BEGIN

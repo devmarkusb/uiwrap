@@ -10,10 +10,8 @@
 #include <string>
 #include <utility>
 
-namespace mb::uiw
-{
-class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable
-{
+namespace mb::uiw {
+class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable {
 public:
     virtual ~ILibrary() = default;
 
@@ -29,46 +27,39 @@ public:
 };
 
 //! Still too abstract, not a real implementation yet.
-class CLibrary : public ILibrary
-{
+class CLibrary : public ILibrary {
 public:
     explicit CLibrary(std::string filePathNameWithoutExtension, std::string version)
         : m_FilePathName(std::move(filePathNameWithoutExtension))
-        , m_Version(std::move(version))
-    {
+        , m_Version(std::move(version)) {
         // would call Load here, if FilePathNameWithoutExtension is non-empty, but calling a virtual function
         // from a constructor would always only call the function of the base/current class
     }
 
     void* ResolveSymbol(std::string symbol) override = 0;
 
-    void SetFileName(std::string filePathNameWithoutExtension, std::string version) override
-    {
+    void SetFileName(std::string filePathNameWithoutExtension, std::string version) override {
         m_FilePathName = filePathNameWithoutExtension;
         m_Version = version;
     }
 
-    [[nodiscard]] std::string GetFileName() const override
-    {
+    [[nodiscard]] std::string GetFileName() const override {
         return m_FilePathName;
     }
 
     bool Load() override = 0;
     bool Unload() override = 0;
 
-    [[nodiscard]] std::string GetError() const override
-    {
+    [[nodiscard]] std::string GetError() const override {
         return m_Error;
     }
 
 protected:
-    virtual void SetError(std::string error)
-    {
+    virtual void SetError(std::string error) {
         m_Error = std::move(error);
     }
 
-    [[nodiscard]] std::string GetVersion() const
-    {
+    [[nodiscard]] std::string GetVersion() const {
         return m_Version;
     }
 

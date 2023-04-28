@@ -13,20 +13,16 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 #include <string>
 
-namespace mb::uiw::implQt
-{
+namespace mb::uiw::implQt {
 //! Throws ul::not_implemented for unsupported or unknown id, expects id not to be ul::str::auto_systems_language.
-inline QLocale::Language fromLanguageID(const ul::str::LangID_iso639_1& id)
-{
-    if (id == ul::str::auto_systems_language)
-    {
+inline QLocale::Language fromLanguageID(const ul::str::LangID_iso639_1& id) {
+    if (id == ul::str::auto_systems_language) {
         // on library-level we can't be sure that every GUI framework besides Qt understands
         // auto/systems language as a language itself (it really isn't), so please handle it separately
         // (even for Qt I'm unsure whether QLocale::C or QLocale::AnyLanguage are correct choices,
         // the first one certainly not - doc says something about being English always)
         UL_ASSERT_THROW(false);
-    }
-    else if (id == "ar")
+    } else if (id == "ar")
         return QLocale::Arabic;
     else if (id == "bn")
         return QLocale::Bengali;

@@ -4,8 +4,7 @@
 
 using namespace mb::uiw::implQt;
 
-TEST(fundamental_types_convert_Qt, from_qreal)
-{
+TEST(fundamental_types_convert_Qt, from_qreal) {
     EXPECT_TRUE(ul::almost_equal(2.45, from_qreal<double>(qreal{2.45})));
     EXPECT_TRUE(ul::math::approx_equal(2.45L, from_qreal<long double>(qreal{2.45}), 1e-15L));
     EXPECT_TRUE(ul::math::approx_equal(2.45f, from_qreal<float>(qreal{2.45}), 1e-4f));
@@ -19,8 +18,7 @@ TEST(fundamental_types_convert_Qt, from_qreal)
     EXPECT_TRUE(ul::math::approx_equal(-2.45f, from_qreal<float>(qreal{-2.45}), 1e-4f));
 }
 
-TEST(fundamental_types_convert_Qt, to_qreal)
-{
+TEST(fundamental_types_convert_Qt, to_qreal) {
     EXPECT_TRUE(ul::almost_equal(qreal{2.45}, to_qreal(2.45)));
     EXPECT_TRUE(ul::math::approx_equal(qreal{2.45}, to_qreal(2.45L), qreal{1e-15}));
     EXPECT_TRUE(ul::math::approx_equal(qreal{2.45}, to_qreal(2.45f), qreal{1e-4}));
