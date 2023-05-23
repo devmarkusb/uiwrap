@@ -17,7 +17,7 @@ IFileSys* IFileSys::getInstance() {
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw ul::not_implemented{"IFileSys::GetInstance()"};
+    throw ul::NotImplemented{"IFileSys::GetInstance()"};
 
 #else
 

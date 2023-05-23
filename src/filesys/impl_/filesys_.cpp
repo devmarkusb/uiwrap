@@ -103,7 +103,7 @@ bool CFileSys_::fileExists(const std::string& filePathNameExt) const {
 }
 
 bool CFileSys_::isFile(const std::string&) const {
-    throw ul::not_implemented{"isFile"};
+    throw ul::NotImplemented{"isFile"};
 }
 
 std::string CFileSys_::toNativeSeparators(const std::string& Path) const {

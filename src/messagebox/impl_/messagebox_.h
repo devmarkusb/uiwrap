@@ -27,7 +27,7 @@ public:
     EButton getRunResult() override;
 
 private:
-    ul::opt<EButton> retVal;
+    ul::Opt<EButton> retVal;
 };
 } // namespace mb::uiw::impl
 

@@ -14,8 +14,8 @@ UL_PRAGMA_WARNINGS_POP
 #include <string>
 
 namespace mb::uiw::implQt {
-//! Throws ul::not_implemented for unsupported or unknown id, expects id not to be ul::str::auto_systems_language.
-inline QLocale::Language fromLanguageID(const ul::str::LangID_iso639_1& id) {
+//! Throws ul::NotImplemented for unsupported or unknown id, expects id not to be ul::str::auto_systems_language.
+inline QLocale::Language fromLanguageID(const ul::str::LangIdIso6391& id) {
     if (id == ul::str::auto_systems_language) {
         // on library-level we can't be sure that every GUI framework besides Qt understands
         // auto/systems language as a language itself (it really isn't), so please handle it separately
@@ -49,7 +49,7 @@ inline QLocale::Language fromLanguageID(const ul::str::LangID_iso639_1& id) {
     else if (id == "zh")
         return QLocale::Chinese;
     else
-        throw ul::not_implemented{"unsupported or unknonwn ISO 639-1 language code"};
+        throw ul::NotImplemented{"unsupported or unknonwn ISO 639-1 language code"};
 }
 } // namespace mb::uiw::implQt
 

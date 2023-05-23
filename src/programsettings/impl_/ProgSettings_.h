@@ -106,11 +106,11 @@ void CProgSettings::init(const std::string&, const std::string&) {
 }
 
 std::string CProgSettings::valueStr(const std::string&, const std::string&, const std::string&) const {
-    throw ul::not_implemented{"valueStr"};
+    throw ul::NotImplemented{"valueStr"};
 }
 
 void CProgSettings::setValueStr(const std::string&, const std::string&, const std::string&) {
-    throw ul::not_implemented("setValueStr");
+    throw ul::NotImplemented("setValueStr");
 }
 
 std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
@@ -125,7 +125,7 @@ void CProgSettings::clear() {
 }
 
 void CProgSettings::enable(bool) {
-    throw ul::not_implemented("enable");
+    throw ul::NotImplemented("enable");
 }
 
 bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const {

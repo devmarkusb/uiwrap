@@ -21,7 +21,7 @@ IProgSettings* IProgSettings::getInstance(
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw ul::not_implemented{"IProgSettings::getInstance"};
+    throw ul::NotImplemented{"IProgSettings::getInstance"};
 
 #else
 
