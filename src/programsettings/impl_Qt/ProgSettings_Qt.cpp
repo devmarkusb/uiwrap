@@ -118,7 +118,7 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
     retkeys.reserve(static_cast<size_t>(keys.size()));
     for (const auto& i : keys) {
         std::vector<std::string> keypath;
-        ul::str::tokenizeString(qs2s(i), "/", keypath);
+        ul::str::tokenize_string(qs2s(i), "/", keypath);
         // only support one level of sections, so take the last two entries
         if (keypath.empty())
             continue;

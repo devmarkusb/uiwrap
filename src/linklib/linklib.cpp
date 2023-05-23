@@ -21,7 +21,7 @@ std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutE
 
     ul::ignore_unused(filePathNameWithoutExtension);
     ul::ignore_unused(version);
-    throw ul::not_implemented{"ILibrary::make"};
+    throw ul::NotImplemented{"ILibrary::make"};
 
 #else
     std::unique_ptr<ILibrary> p;

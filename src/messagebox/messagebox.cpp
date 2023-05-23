@@ -16,7 +16,7 @@ std::unique_ptr<IMessageBox> IMessageBox::make() {
 
 #elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
 
-    throw ul::not_implemented{"IMessageBox::make"};
+    throw ul::NotImplemented{"IMessageBox::make"};
 
 #else
 
