@@ -99,6 +99,8 @@ if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
 endif ()
 target_include_directories(${target} PUBLIC ${ul_INCLUDE_DIRS})
 
+target_link_libraries(${target} PUBLIC mb-util)
+
 if (${UL_LINUX})
     target_link_libraries(${target} PUBLIC dl)
 endif ()
