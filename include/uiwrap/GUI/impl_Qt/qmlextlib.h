@@ -44,7 +44,7 @@ class DynamicTranslator {
 public:
     virtual ~DynamicTranslator() = default;
 
-    virtual void updateTranslations() const = 0;
+    virtual void updateTranslations() = 0;
 };
 
 //! The QML extension lib
@@ -90,12 +90,12 @@ public:
     }
 
     //! Call this after installing a new translator. Cf. .qml file dynTr for remaining part of doc.
-    void updateTranslations() const override {
+    void updateTranslations() override {
         emit dynTrChanged();
     }
 
 signals:
-    void dynTrChanged() const;
+    void dynTrChanged();
 
 private:
     QString dynTr;
