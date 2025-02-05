@@ -5,6 +5,7 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QQmlApplicationEngine"
 #include "QQmlContext"
 UL_PRAGMA_WARNINGS_POP
+#include <utility>
 
 namespace mb::uiw::implQt {
 QSettings* CProgSettings::m_settings() {
@@ -116,7 +117,7 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
         return retkeys;
     QStringList keys(m_settings()->allKeys());
     retkeys.reserve(static_cast<size_t>(keys.size()));
-    for (const auto& i : keys) {
+    for (const auto& i : std::as_const(keys)) {
         std::vector<std::string> keypath;
         ul::str::tokenize_string(qs2s(i), "/", keypath);
         // only support one level of sections, so take the last two entries
