@@ -44,10 +44,11 @@ set(target_COMMON_SOURCES
     )
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    ul_include(qt5.cmake)
+    ul_include(qt.cmake)
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
-    find_package(Qt5 COMPONENTS Core Widgets Qml)
+    find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)
+    qt_standard_project_setup(REQUIRES 6.8)
 
     set(target_IMPL_SOURCES
         include/uiwrap/GUI/impl_Qt/qmlextlib.cpp
@@ -68,12 +69,21 @@ else ()
 
 endif ()
 
-add_library(${target} SHARED
-    ${target_COMMON_SOURCES}
-    ${target_IMPL_SOURCES}
-    ${target_INCS}
-    ${target_SRC_INCS}
+if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+    qt_add_library(${target} SHARED
+        ${target_COMMON_SOURCES}
+        ${target_IMPL_SOURCES}
+        ${target_INCS}
+        ${target_SRC_INCS}
     )
+else ()
+    add_library(${target} SHARED
+        ${target_COMMON_SOURCES}
+        ${target_IMPL_SOURCES}
+        ${target_INCS}
+        ${target_SRC_INCS}
+    )
+endif ()
 
 ul_set_target_lib_export_def(${target} UIWRAP_LIBRARY)
 
@@ -93,11 +103,6 @@ target_include_directories(${target} PRIVATE src)
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "own")
     target_include_directories(${target} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 endif()
-if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_include_directories(${target} SYSTEM PUBLIC ${Qt5Qml_INCLUDE_DIRS})
-    target_include_directories(${target} SYSTEM PUBLIC ${Qt5Widgets_INCLUDE_DIRS})
-endif ()
-target_include_directories(${target} PUBLIC ${ul_INCLUDE_DIRS})
 
 target_link_libraries(${target} PUBLIC mb-util)
 
@@ -106,8 +111,7 @@ if (${UL_LINUX})
 endif ()
 
 if (uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
-    target_link_libraries(${target} PUBLIC Qt5::Qml)
-    target_link_libraries(${target} PUBLIC Qt5::Widgets)
+    target_link_libraries(${target} PUBLIC Qt::Core Qt::Gui Qt::Qml Qt::Widgets)
 endif ()
 
 ul_set_target_defaults(${target})
