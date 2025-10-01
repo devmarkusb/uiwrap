@@ -20,7 +20,7 @@
         (where qmlextlib.h is located as well)*/
 //! \file
 
-import QtQuick 2.7
+import QtQuick
 
 
 QtObject {
