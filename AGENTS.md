@@ -6,13 +6,13 @@ Canonical instructions for AI agents and AGENTS.md-compatible tools working in t
 
 **uiwrap** is a small C++ shared library that abstracts UI-adjacent concerns (filesystem, message boxes, program settings, Qt/QML helpers, etc.) behind implementation choices:
 
-- **`own`** (default): console-oriented implementation; uses **Boost** (via parent CMake defaults).
+- **`own`** (default): console-oriented implementation; uses **Boost** (`find_package(Boost ... CONFIG)` in this repo’s `CMakeLists.txt`).
 - **`qt`**: **Qt 6** (`Core`, `Gui`, `Qml`, `Widgets`); `qt_standard_project_setup(REQUIRES 6.8)` in `CMakeLists.txt`.
 - **`wx`**: stub / not fully wired in CMake sources.
 
 It links against **`mb::util`** (INTERFACE target, `mb/ul/` headers), pulled in by `cmake_util/util.cmake` via **FetchContent** from GitHub (`devmarkusb/util`) at **`main`** (shallow clone, submodules recurse). If the parent project already defines **`mb.util`**, `util.cmake` skips FetchContent (`if(TARGET mb.util)`). First configure needs network access unless the dependency is already cached.
 
-**Boost (implementation `own`):** `mb_ul_include(boost.cmake)` from mb.util (`cmake/cmake-util/boost.cmake` in the **util** repo). The macro must not use `return()` on success (CMake macro semantics would stop the caller’s `CMakeLists.txt`); keep fixes in **sdks/util** (submodule) and push them to `devmarkusb/util` so FetchContent consumers see the same file.
+**Boost (implementation `own`):** `find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)`; link **`Boost::headers`** when available. No `MB_UL_SDK_PATH` / `dev_sdk_path` layout is required for Boost if CMake can find a suitable install (e.g. system, Homebrew, or vcpkg via `CMAKE_PREFIX_PATH` as in CI).
 
 **C++ standard:** **C++20** is required for current mb.util headers (e.g. `std::integral`, concepts). `CMakeLists.txt` sets `CMAKE_CXX_STANDARD` to 20 for this project.
 
@@ -25,7 +25,7 @@ Standalone example (Qt implementation; adjust `CMAKE_PREFIX_PATH` to your Qt 6 i
 ```sh
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Debug \
-  -Duiwrap_USE_IMPLEMENTATION=qt \
+  -DMB_UIWRAP_USE_IMPLEMENTATION=qt \
   -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH" \
   -DMB_UIWRAP_BUILD_TESTS=ON
 cmake --build .
@@ -33,7 +33,7 @@ cmake --build .
 
 **Unverified per machine:** exact `CMAKE_PREFIX_PATH` / kit layout; see **`README.md`** for Qt **6** discovery and optional `dev_sdk_path` layout.
 
-For the non-Qt default (`own`), CMake includes Boost via `mb_ul_include(boost.cmake)` and `mb_ul_find_boost(...)` (from mb.util / util repo).
+For the non-Qt default (`own`), ensure **Boost** is installed and visible to CMake (`CMAKE_PREFIX_PATH` or a default search path). CI installs it in **`.github/workflows/preset-test-with-boost.yml`** and **`build-and-test-with-boost.yml`** (vcpkg on Beman containers / Windows, Homebrew on macOS).
 
 ## 3. Test commands
 
@@ -44,7 +44,7 @@ cd build
 ctest --output-on-failure
 ```
 
-CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop, `qt5compat` module), CMake with `-Duiwrap_USE_IMPLEMENTATION=qt` and `-DMB_UIWRAP_BUILD_TESTS=ON`, then `ctest -C <Debug|RelWithDebInfo> --output-on-failure` from the build directory (see the workflow file for the exact one-liner).
+CI (`.github/workflows/ci.yml`): preset and matrix jobs install **Boost** for the default `own` backend (vcpkg / Homebrew) and use **`-DMB_UIWRAP_USE_IMPLEMENTATION=qt`** where Qt matrix jobs apply; see workflow files for details.
 
 ## 4. Formatting and linting
 
@@ -65,7 +65,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 ## 6. Coding conventions
 
 - **C++:** **C++20** for mb.util and this library; Qt 6 as required by linked modules.
-- **Namespaces:** primary **`mb::uiw::`** (see `UIW_DISABLE_NAMESPACE_ALIAS` / `config_gen.h.in`).
+- **Namespaces:** primary **`mb::uiw::`** (see `MB_UIWRAP_DISABLE_NAMESPACE_ALIAS` / `config_gen.h.in`).
 - **Headers:** include guards like `#ifndef FILESYS_H_...` (not `#pragma once`) in existing style.
 - **Implementation selection:** respect `UIW_LINKLIB_IMPL_CHOICE_*` / `uiwrap_build_config.h` patterns already used in `.cpp` dispatch files.
 - **Qt:** prefer existing patterns in `impl_Qt/`; keep GUI-agnostic contracts in public headers where possible.
@@ -89,7 +89,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 
 ## 10. Review checklist before final response
 
-1. Does the change compile for the intended `uiwrap_USE_IMPLEMENTATION` (`qt` / `own`)?
+1. Does the change compile for the intended `MB_UIWRAP_USE_IMPLEMENTATION` (`qt` / `own`)?
 2. Are Qt-specific includes and code confined to `impl_Qt/` (or existing Qt-specific test files)?
 3. If tests exist for the area, were they run (`ctest` or equivalent)?
 4. Does **clang-format** match `.clang-format` for touched C/C++ files?
