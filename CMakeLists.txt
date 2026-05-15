@@ -3,6 +3,26 @@ cmake_minimum_required(VERSION 3.30...4.3)
 # Default build number (overridden by mb_ul_include(buildnr.cmake) after mb.util is available).
 set(BUILD_NR "0" CACHE STRING "Should be set by your buildserver")
 
+# Standalone tree: apply FetchContent lockfile before project() when CMakePresets do not inject it via
+# CMAKE_PROJECT_TOP_LEVEL_INCLUDES (see devmarkusb/cpp-lib-template).
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+    set(_mb_uiwrap_skip_lockfile 0)
+    if(DEFINED CMAKE_PROJECT_TOP_LEVEL_INCLUDES AND CMAKE_PROJECT_TOP_LEVEL_INCLUDES)
+        foreach(_mb_uiwrap_inc IN LISTS CMAKE_PROJECT_TOP_LEVEL_INCLUDES)
+            if(_mb_uiwrap_inc MATCHES "fetch-content-from-lockfile")
+                set(_mb_uiwrap_skip_lockfile 1)
+                break()
+            endif()
+        endforeach()
+    endif()
+    if(
+        NOT _mb_uiwrap_skip_lockfile
+        AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
+    )
+        include("${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake")
+    endif()
+endif()
+
 project(
     mb.uiwrap
     DESCRIPTION "UI-adjacent abstraction (filesystem, message boxes, settings, Qt helpers)"
@@ -22,17 +42,47 @@ option(
     ${PROJECT_IS_TOP_LEVEL}
 )
 
-include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
-
-if(MB_UIWRAP_BUILD_TESTS)
-    if(DEFINED mb_ul_fetch_SOURCE_DIR)
-        set(_mb_uiwrap_ctest_root "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake/mb-devenv-ctest-root.cmake")
-        if(EXISTS "${_mb_uiwrap_ctest_root}")
-            list(PREPEND CMAKE_MODULE_PATH "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake")
-            include(mb-devenv-ctest-root)
+if(PROJECT_IS_TOP_LEVEL)
+    # cpp-lib-template uses add_subdirectory(devenv), which configures the devenv submodule and runs
+    # mb_pre_commit_setup there first. That nested configure uses CUSTOM hook install and fails when
+    # this repo sets core.hooksPath (common with a checked-in .githooks directory). We only need
+    # devenv/cmake on the module path for toolchains and mb-devenv-* includes; the outer
+    # mb_pre_commit_setup() below matches the template's project()-level call.
+    list(PREPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/devenv/cmake")
+    if(MB_UIWRAP_BUILD_TESTS)
+        include(mb-devenv-ctest-root)
+    endif()
+    include(mb-devenv-defaults)
+    include(mb-devenv-install-library-config)
+    execute_process(
+        COMMAND git -C "${CMAKE_SOURCE_DIR}" config --get core.hooksPath
+        OUTPUT_VARIABLE _mb_uiwrap_core_hooks_path
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE _mb_uiwrap_core_hooks_path_rc
+        ERROR_QUIET
+    )
+    if(_mb_uiwrap_core_hooks_path_rc EQUAL 0 AND NOT _mb_uiwrap_core_hooks_path STREQUAL "")
+        message(
+            STATUS
+            "mb_pre_commit_setup skipped: git core.hooksPath='${_mb_uiwrap_core_hooks_path}'. "
+            "Unset with: git config --unset-all core.hooksPath (then reconfigure) to match cpp-lib-template hook install."
+        )
+    else()
+        mb_pre_commit_setup()
+    endif()
+else()
+    if(MB_UIWRAP_BUILD_TESTS)
+        if(DEFINED mb_ul_fetch_SOURCE_DIR)
+            set(_mb_uiwrap_ctest_root "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake/mb-devenv-ctest-root.cmake")
+            if(EXISTS "${_mb_uiwrap_ctest_root}")
+                list(PREPEND CMAKE_MODULE_PATH "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake")
+                include(mb-devenv-ctest-root)
+            endif()
         endif()
     endif()
 endif()
+
+include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
 
 mb_ul_include(buildnr.cmake)
 set(target uiwrap)
@@ -146,7 +196,10 @@ if(NOT MB_UIWRAP_BUILD_TESTS)
     return()
 endif()
 
-if(NOT TARGET gtest_main)
+if(NOT TARGET GTest::gtest_main)
+    find_package(GTest QUIET)
+endif()
+if(NOT TARGET GTest::gtest_main)
     include(FetchContent)
     FetchContent_Declare(
         googletest
@@ -190,7 +243,15 @@ add_executable(${targetTest}
 
 target_include_directories(${targetTest} PRIVATE ${uiwrap_INCLUDE_DIRS})
 
-target_link_libraries(${targetTest} PRIVATE gtest_main ${target})
+if(TARGET GTest::gtest_main)
+    set(_mb_uiwrap_gtest_main GTest::gtest_main)
+elseif(TARGET gtest_main)
+    set(_mb_uiwrap_gtest_main gtest_main)
+else()
+    message(FATAL_ERROR "uiwrap tests: expected GTest::gtest_main or gtest_main target after GTest setup.")
+endif()
+
+target_link_libraries(${targetTest} PRIVATE ${_mb_uiwrap_gtest_main} ${target})
 
 mb_devenv_set_target_defaults(${targetTest})
 
