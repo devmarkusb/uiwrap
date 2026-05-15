@@ -53,7 +53,9 @@ Set the following CMake variables when using the `own` backend (versions come fr
 * `UIW_DISABLE_NAMESPACE_ALIAS` — see FAQ below.
 * `UL_BUILD_UNITTESTS` — set to `ON` to build the `uiwrapTest` target and register CTest tests.
 
-When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost.
+When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost. The parent should create the **`mb-util`** target (legacy util) **before** adding uiwrap, so `cmake_util/util.cmake` does not FetchContent a second copy.
+
+Standalone clones pull **devmarkusb/util** at a **pinned git ref** (`MB_UTIL_FETCH_TAG` in `cmake_util/util.cmake`). That ref tracks the legacy layout compatible with `ul::` / `mb-util`; the **`main`** branch of util is a different library (**mb.util**) and will not configure uiwrap as-is.
 
 ## FAQ
 
