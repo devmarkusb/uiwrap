@@ -1,6 +1,6 @@
 # AGENTS.md — uiwrap
 
-Canonical instructions for AI agents and AGENTS.md-compatible tools working in this repository (the **uiwrap** library).
+Canonical instructions for AI agents and AGENTS.md-compatible tools working in this repository (the **uiwrap** library). For **CMake layout and option naming**, treat [devmarkusb/cpp-lib-template](https://github.com/devmarkusb/cpp-lib-template) as the reference (`project(... DESCRIPTION ...)`, `MB_*_BUILD_*` options, `[CMAKE.SKIP_TESTS]` marker, optional `mb-devenv-ctest-root` when present in mb.util’s `devenv/`).
 
 ## 1. Project overview
 
@@ -10,7 +10,11 @@ Canonical instructions for AI agents and AGENTS.md-compatible tools working in t
 - **`qt`**: **Qt 6** (`Core`, `Gui`, `Qml`, `Widgets`); `qt_standard_project_setup(REQUIRES 6.8)` in `CMakeLists.txt`.
 - **`wx`**: stub / not fully wired in CMake sources.
 
-It links against legacy **`mb-util`** (INTERFACE target, `ul/` headers), pulled in by `cmake_util/util.cmake` via **FetchContent** from GitHub (`devmarkusb/util`) at a **pinned commit** (`MB_UTIL_FETCH_TAG`, default matches branch `last-old-build-on-mac`). The current **`main`** branch of that repo is the **mb.util** rewrite and is **not** CMake/C++ compatible with this tree. Override the tag only when you know the revision matches this API. If the parent project already defines **`mb-util`**, `util.cmake` skips FetchContent (guard: **`TARGET mb-util`**, not `ulBuildEnv`). First configure needs network access unless the dependency is already cached.
+It links against **`mb::util`** (INTERFACE target, `mb/ul/` headers), pulled in by `cmake_util/util.cmake` via **FetchContent** from GitHub (`devmarkusb/util`) at **`main`** (shallow clone, submodules recurse). If the parent project already defines **`mb.util`**, `util.cmake` skips FetchContent (`if(TARGET mb.util)`). First configure needs network access unless the dependency is already cached.
+
+**Boost (implementation `own`):** `mb_ul_include(boost.cmake)` from mb.util (`cmake/cmake-util/boost.cmake` in the **util** repo). The macro must not use `return()` on success (CMake macro semantics would stop the caller’s `CMakeLists.txt`); keep fixes in **sdks/util** (submodule) and push them to `devmarkusb/util` so FetchContent consumers see the same file.
+
+**C++ standard:** **C++20** is required for current mb.util headers (e.g. `std::integral`, concepts). `CMakeLists.txt` sets `CMAKE_CXX_STANDARD` to 20 for this project.
 
 This tree can be built **standalone** (open this folder as the CMake source dir) or **as a subdirectory** of a larger project (e.g. a monorepo). When embedded, follow the **parent** project’s configure flags and output layout.
 
@@ -23,24 +27,24 @@ mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Debug \
   -Duiwrap_USE_IMPLEMENTATION=qt \
   -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH" \
-  -DUL_BUILD_UNITTESTS=ON
+  -DMB_UIWRAP_BUILD_TESTS=ON
 cmake --build .
 ```
 
 **Unverified per machine:** exact `CMAKE_PREFIX_PATH` / kit layout; see **`README.md`** for Qt **6** discovery and optional `dev_sdk_path` layout.
 
-For the non-Qt default (`own`), CMake includes Boost via `ul_find_boost(...)`; versions are defined by the fetched **mb-util** / `ul_*` defaults, not duplicated here.
+For the non-Qt default (`own`), CMake includes Boost via `mb_ul_include(boost.cmake)` and `mb_ul_find_boost(...)` (from mb.util / util repo).
 
 ## 3. Test commands
 
-Tests are registered with CTest only if **`UL_BUILD_UNITTESTS`** is **not** `OFF` (otherwise `CMakeLists.txt` returns before defining `uiwrapTest`).
+When **`MB_UIWRAP_BUILD_TESTS`** is **ON** (see [devmarkusb/cpp-lib-template](https://github.com/devmarkusb/cpp-lib-template) for the same `MB_<LIB>_BUILD_TESTS` pattern), `uiwrapTest` is built and **`add_test(NAME uiwrap_unit_tests ...)`** registers it with CTest. Default is **`PROJECT_IS_TOP_LEVEL`** only (same as the template). When uiwrap is embedded, set **`MB_UIWRAP_BUILD_TESTS`** explicitly if you want its tests; it is **not** tied to the parent’s **`UL_BUILD_UNITTESTS`** (that flag remains for the main app’s test target in WealthPlanner). The library half of `CMakeLists.txt` ends with **`return()`** when tests are off so the test block stays a single tail section.
 
 ```sh
 cd build
 ctest --output-on-failure
 ```
 
-CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop, `qt5compat` module), CMake with `-Duiwrap_USE_IMPLEMENTATION=qt` and `-DUL_BUILD_UNITTESTS=ON`, then `ctest -C <Debug|RelWithDebInfo> --output-on-failure` from the build directory (see the workflow file for the exact one-liner).
+CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop, `qt5compat` module), CMake with `-Duiwrap_USE_IMPLEMENTATION=qt` and `-DMB_UIWRAP_BUILD_TESTS=ON`, then `ctest -C <Debug|RelWithDebInfo> --output-on-failure` from the build directory (see the workflow file for the exact one-liner).
 
 ## 4. Formatting and linting
 
@@ -55,12 +59,12 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 |------|------|
 | `include/uiwrap/` | Public headers; `config_gen.h` is **generated** from `config_gen.h.in` — do not hand-edit the generated file. |
 | `src/` | Implementation; `impl_Qt/`, `impl_/`, etc. |
-| `cmake_util/util.cmake` | FetchContent for legacy **mb-util**; early return when **`TARGET mb-util`** already exists. Pin `MB_UTIL_FETCH_TAG` vs util `main` (incompatible). |
+| `cmake_util/util.cmake` | FetchContent for **mb.util** on **`main`**; skip when **`TARGET mb.util`** already exists. |
 | `CMakeLists.txt` | Library target `uiwrap`, optional `uiwrapTest`, implementation switch. |
 
 ## 6. Coding conventions
 
-- **C++:** C++17 or as required by linked Qt 6 / mb-util (follow existing code).
+- **C++:** **C++20** for mb.util and this library; Qt 6 as required by linked modules.
 - **Namespaces:** primary **`mb::uiw::`** (see `UIW_DISABLE_NAMESPACE_ALIAS` / `config_gen.h.in`).
 - **Headers:** include guards like `#ifndef FILESYS_H_...` (not `#pragma once`) in existing style.
 - **Implementation selection:** respect `UIW_LINKLIB_IMPL_CHOICE_*` / `uiwrap_build_config.h` patterns already used in `.cpp` dispatch files.
@@ -75,7 +79,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 
 - **`LICENSE`** — legal text.
 - **Generated / configured outputs:** `include/uiwrap/config_gen.h` (output of `configure_file`; edit `.in` instead).
-- **Upstream-only or policy-sensitive:** changing **`cmake_util/util.cmake`** FetchContent pins (URL/tag) affects reproducibility and supply chain — discuss before changing.
+- **Upstream-only or policy-sensitive:** changing **`cmake_util/util.cmake`** FetchContent URL/tag affects reproducibility and supply chain — discuss before pinning away from `main`.
 - **Do not** add secrets, signing material, or production credentials to this repo.
 
 ## 9. Security and privacy constraints
@@ -90,7 +94,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 3. If tests exist for the area, were they run (`ctest` or equivalent)?
 4. Does **clang-format** match `.clang-format` for touched C/C++ files?
 5. If `config_gen.h.in` changed, is regenerated `config_gen.h` consistent (or left to CMake as appropriate)?
-6. When embedded in a parent repo, does the change avoid breaking the parent’s CMake assumptions (`mb-util` / include order, `ulBuildEnv`)?
+6. When embedded in a parent repo, does the change avoid breaking the parent’s CMake assumptions (`mb.util` / `mb::util`, include order, FetchContent guard)?
 
 ## Maintenance policy (stacking)
 

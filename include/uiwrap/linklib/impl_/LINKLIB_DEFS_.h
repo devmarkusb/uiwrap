@@ -4,7 +4,7 @@
 #define LINKLIB_DEFS_H_sjdnxfzuergf3ui7yt83gzf7r87wr
 
 #include "uiwrap_build_config.h"
-#include "ul/macros.h"
+#include "mb/ul/buildenv/macros.hpp"
 
 
 #if UL_OS_WINDOWS == 1

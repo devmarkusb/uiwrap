@@ -6,7 +6,7 @@
 #define LIBRARY_H_kdnlfglknhcguewhgureihxrexq74
 
 #include "uiwrap/linklib/library_interface.h"
-#include "ul/ul.h"
+#include "mb/ul/ul.hpp"
 #include <string>
 
 #if UL_OS_WINDOWS == 1
@@ -36,7 +36,7 @@ public:
         if (!ret) {
             std::stringstream ssErr;
             ssErr << "GetProcAddress " << Symbol << " failed: ";
-            ssErr << ul::lex_cast<std::string>(GetLastError());
+            ssErr << ul::lex_cast<std::string, DWORD>(GetLastError());
             SetError(ssErr.str());
         }
         return reinterpret_cast<void*>(ret);
@@ -50,7 +50,7 @@ public:
         if (!m_DllHandle) {
             std::stringstream ssErr;
             ssErr << "LoadLibrary " << dll << " failed: ";
-            ssErr << ul::lex_cast<std::string>(GetLastError());
+            ssErr << ul::lex_cast<std::string, DWORD>(GetLastError());
             SetError(ssErr.str());
         }
         return m_DllHandle ? true : false;

@@ -10,7 +10,7 @@
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "uiwrap/programsettings/programsettings.h"
-#include "ul/ul.h"
+#include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QObject"
 #include "QSettings"

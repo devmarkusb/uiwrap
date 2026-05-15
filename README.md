@@ -41,21 +41,21 @@ CI (`.github/workflows/build.yml`) installs **Qt 6.9.3** via `jurplel/install-qt
 
 ### Console / “own” (`uiwrap_USE_IMPLEMENTATION=own`, default)
 
-Uses the non-Qt implementations and **Boost** via the shared CMake helpers from **mb-util** (`cmake_util/util.cmake`).
+Uses the non-Qt implementations and **Boost** via the shared CMake helpers from **mb.util** (`mb_ul_include(boost.cmake)` after `cmake_util/util.cmake`).
 
-Set the following CMake variables when using the `own` backend (versions come from the fetched **mb-util** defaults unless you override):
+Set the following CMake variables when using the `own` backend (versions come from mb.util’s `boost.cmake` defaults unless you override):
 
-* `UL_USE_BOOST_ver1`, `UL_USE_BOOST_ver2`, `UL_USE_BOOST_ver3` — Boost version triple (`"ver1.ver2.ver3"`).
+* `MB_UL_USE_BOOST_ver1`, `MB_UL_USE_BOOST_ver2`, `MB_UL_USE_BOOST_ver3` — Boost version triple (`"ver1.ver2.ver3"`).
 
 ### CMake options (all backends)
 
 * `uiwrap_USE_IMPLEMENTATION` — `qt`, `own` (default), or `wx` (stub).
 * `UIW_DISABLE_NAMESPACE_ALIAS` — see FAQ below.
-* `UL_BUILD_UNITTESTS` — set to `ON` to build the `uiwrapTest` target and register CTest tests.
+* `MB_UIWRAP_BUILD_TESTS` — `ON` to build the `uiwrapTest` target and register CTest tests (same naming idea as [cpp-lib-template](https://github.com/devmarkusb/cpp-lib-template) `MB_*_BUILD_TESTS`). Default is **`PROJECT_IS_TOP_LEVEL`** only; when uiwrap is **`add_subdirectory`’d**, pass **`-DMB_UIWRAP_BUILD_TESTS=ON`** explicitly if you want its tests (independent of a parent **`UL_BUILD_UNITTESTS`**).
 
-When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost. The parent should create the **`mb-util`** target (legacy util) **before** adding uiwrap, so `cmake_util/util.cmake` does not FetchContent a second copy.
+When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost. If the parent already defines **`mb.util`**, `cmake_util/util.cmake` skips FetchContent.
 
-Standalone clones pull **devmarkusb/util** at a **pinned git ref** (`MB_UTIL_FETCH_TAG` in `cmake_util/util.cmake`). That ref tracks the legacy layout compatible with `ul::` / `mb-util`; the **`main`** branch of util is a different library (**mb.util**) and will not configure uiwrap as-is.
+Standalone / first-time configure uses **FetchContent** of **devmarkusb/util** at **`main`** (see `cmake_util/util.cmake`); keep the submodule under `sdks/util` in sync with that remote when you change util CMake or headers.
 
 ## FAQ
 
