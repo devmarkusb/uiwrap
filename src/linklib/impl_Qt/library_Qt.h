@@ -10,7 +10,7 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "uiwrap/linklib/library_interface.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
-#include "ul/ul.h"
+#include "mb/ul/ul.hpp"
 
 #include "QLibrary"
 #include <memory>

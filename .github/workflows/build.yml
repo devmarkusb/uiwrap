@@ -53,7 +53,7 @@ jobs:
       run: >
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
         -Duiwrap_USE_IMPLEMENTATION=qt
-        -DUL_BUILD_UNITTESTS=ON
+        -DMB_UIWRAP_BUILD_TESTS=ON
 
     - name: Build
       # Build your program with the given configuration

@@ -8,7 +8,7 @@
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
 #include "uiwrap/messagebox/messagebox.h"
-#include "ul/ul.h"
+#include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QMessageBox"
 UL_PRAGMA_WARNINGS_POP

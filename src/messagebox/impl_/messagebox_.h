@@ -6,7 +6,8 @@
 #define MESSAGEBOX_H_skdljfh7ex5n7xt3
 
 #include "uiwrap/messagebox/messagebox.h"
-#include "ul/ul.h"
+#include "mb/ul/ul.hpp"
+#include <optional>
 
 namespace mb::uiw::impl {
 class MessageBox : public uiw::gui::IMessageBox {
@@ -27,7 +28,7 @@ public:
     EButton getRunResult() override;
 
 private:
-    ul::Opt<EButton> retVal;
+    std::optional<EButton> retVal;
 };
 } // namespace mb::uiw::impl
 
