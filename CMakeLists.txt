@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.30...4.3)
 
-# Default build number (overridden by mb_ul_include(buildnr.cmake) after mb.util is available).
-set(BUILD_NR "0" CACHE STRING "Should be set by your buildserver")
+# Public cache: MB_UIWRAP_BUILD_NR (legacy -DBUILD_NR= is still honored when MB_UIWRAP_BUILD_NR is unset).
+if(DEFINED BUILD_NR AND NOT DEFINED MB_UIWRAP_BUILD_NR)
+    set(MB_UIWRAP_BUILD_NR "${BUILD_NR}" CACHE STRING "Build number segment for mb.uiwrap version (0.1.<nr>.0)." FORCE)
+endif()
+if(NOT DEFINED MB_UIWRAP_BUILD_NR)
+    set(MB_UIWRAP_BUILD_NR "0" CACHE STRING "Build number segment for mb.uiwrap version (0.1.<nr>.0).")
+endif()
 
 # Standalone tree: apply FetchContent lockfile before project() when CMakePresets do not inject it via
 # CMAKE_PROJECT_TOP_LEVEL_INCLUDES (see devmarkusb/cpp-lib-template).
@@ -27,7 +32,7 @@ project(
     mb.uiwrap
     DESCRIPTION "UI-adjacent abstraction (filesystem, message boxes, settings, Qt helpers)"
     LANGUAGES CXX
-    VERSION 0.1.${BUILD_NR}.0
+    VERSION 0.1.${MB_UIWRAP_BUILD_NR}.0
 )
 
 # mb.util headers on main require C++20 (e.g. std::integral, concepts).
@@ -93,19 +98,33 @@ if(MSVC)
     add_definitions(-wd4127)
 endif()
 
-set(uiwrap_USE_IMPLEMENTATION "own" CACHE STRING "Choose the desired UI implementation out of: qt, wx, ... or \
-own (the default, a CLI)")
-
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "own")
-    mb_ul_include(boost.cmake)
-    mb_ul_find_boost(${MB_UL_USE_BOOST_ver1} ${MB_UL_USE_BOOST_ver2} ${MB_UL_USE_BOOST_ver3} "")
+# Public cache: MB_UIWRAP_USE_IMPLEMENTATION (legacy -Duiwrap_USE_IMPLEMENTATION= is still honored on first configure).
+if(DEFINED uiwrap_USE_IMPLEMENTATION AND NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION)
+    set(MB_UIWRAP_USE_IMPLEMENTATION "${uiwrap_USE_IMPLEMENTATION}" CACHE STRING
+        "UI backend: qt, wx (stub), or own (CLI / no toolkit)." FORCE)
+endif()
+if(NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION)
+    set(MB_UIWRAP_USE_IMPLEMENTATION "own" CACHE STRING "UI backend: qt, wx (stub), or own (CLI / no toolkit).")
 endif()
 
-option(UIW_DISABLE_NAMESPACE_ALIAS "Set to ON if you want the base namespace to be mb::uiw instead of ul" OFF)
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
+    set(MB_UIWRAP_BOOST_MIN_VERSION "1.67" CACHE STRING "Minimum Boost for the \"own\" backend (header-only property_tree).")
+    find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)
+endif()
+
+option(
+    MB_UIWRAP_DISABLE_NAMESPACE_ALIAS
+    "ON: base namespace is mb::uiw; OFF (default): ul:: is an alias for mb::uiw::"
+    OFF)
+if(DEFINED UIW_DISABLE_NAMESPACE_ALIAS)
+    set(MB_UIWRAP_DISABLE_NAMESPACE_ALIAS "${UIW_DISABLE_NAMESPACE_ALIAS}" CACHE BOOL
+        "ON: base namespace is mb::uiw; OFF (default): ul:: is an alias for mb::uiw::"
+        FORCE)
+endif()
+set(UIW_DISABLE_NAMESPACE_ALIAS "${MB_UIWRAP_DISABLE_NAMESPACE_ALIAS}")
 configure_file(
     ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h.in
-    ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h
-    @ONLY)
+    ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h)
 
 file(GLOB_RECURSE target_INCS "include/*.h")
 file(GLOB_RECURSE target_SRC_INCS "src/*.h")
@@ -117,7 +136,7 @@ set(target_COMMON_SOURCES
     src/programsettings/programsettings.cpp
 )
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     mb_ul_include(qt.cmake)
     # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
@@ -131,7 +150,7 @@ if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
         src/programsettings/impl_Qt/ProgSettings_Qt.cpp
     )
 
-elseif(uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "wx")
     set(target_IMPL_SOURCES "")
 
 else()
@@ -142,7 +161,7 @@ else()
 
 endif()
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     qt_add_library(${target} SHARED
         ${target_COMMON_SOURCES}
         ${target_IMPL_SOURCES}
@@ -160,9 +179,9 @@ endif()
 
 mb_devenv_set_target_lib_export_def(${target} UIWRAP_LIBRARY)
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     set(uiwrap_impl_choice_number 1)
-elseif(uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "wx")
     set(uiwrap_impl_choice_number 2)
 else()
     set(uiwrap_impl_choice_number 0)
@@ -173,8 +192,18 @@ target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR})
 
 target_include_directories(${target} PUBLIC include)
 target_include_directories(${target} PRIVATE src)
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "own")
-    target_include_directories(${target} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
+    if(TARGET Boost::headers)
+        target_link_libraries(${target} PUBLIC Boost::headers)
+    else()
+        target_include_directories(${target} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
+    endif()
+    target_compile_definitions(
+        ${target}
+        PRIVATE
+            BOOST_ALL_NO_LIB
+            BOOST_FILESYSTEM_NO_DEPRECATED
+    )
 endif()
 
 target_link_libraries(${target} PUBLIC mb::util)
@@ -183,7 +212,7 @@ if(MB_DEVENV_LINUX)
     target_link_libraries(${target} PUBLIC dl)
 endif()
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     target_link_libraries(${target} PUBLIC Qt::Core Qt::Gui Qt::Qml Qt::Widgets)
 endif()
 
@@ -220,14 +249,14 @@ set(targetTest_SOURCES
     src/filesys/filesys.test.cpp
 )
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     set(targetTest_IMPL_SOURCES
         src/fundamental_types/impl_Qt/convert_Qt.test.cpp
         src/GUI/impl_Qt/cppmodel2qml.test.cpp
         src/GUI/impl_Qt/qmlextlib.test.cpp
         src/string/impl_Qt/urlstring_util_Qt.test.cpp
     )
-elseif(uiwrap_USE_IMPLEMENTATION STREQUAL "wx")
+elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "wx")
     set(targetTest_IMPL_SOURCES "")
 else()
     set(targetTest_IMPL_SOURCES
@@ -255,7 +284,7 @@ target_link_libraries(${targetTest} PRIVATE ${_mb_uiwrap_gtest_main} ${target})
 
 mb_devenv_set_target_defaults(${targetTest})
 
-if(uiwrap_USE_IMPLEMENTATION STREQUAL "qt")
+if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     mb_ul_include(qt-deploy.cmake)
     mb_ul_qt_deploy(${targetTest} "")
 endif()

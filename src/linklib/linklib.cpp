@@ -9,7 +9,8 @@ static_assert(false, "not implemented");
 #include "mb/ul/ul.hpp"
 
 namespace mb::uiw {
-std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutExtension, const std::string& version) {
+std::unique_ptr<ILibrary> ILibrary::make(const std::string& filePathNameWithoutExtension,
+    [[maybe_unused]] const std::string& version) {
 #if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
 
     std::unique_ptr<ILibrary> p(ul::make_unique<implQt::CLibrary_Qt>(filePathNameWithoutExtension, version));

@@ -1,0 +1,59 @@
+name: preset test matrix (Boost for uiwrap)
+
+# Same contract as devmarkusb/devenv preset-test, plus Boost install for the default "own" backend.
+
+on:
+  workflow_call:
+    inputs:
+      matrix_config:
+        description: >-
+          JSON array of objects, e.g. {"preset":"ci","runner":"ubuntu-latest"} or {"preset":"ci","image":"..."}.
+          For Windows/MSVC use "runner":"windows-latest".
+        type: string
+        required: true
+
+jobs:
+  preset_test_matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        presets: ${{ fromJSON(inputs.matrix_config) }}
+    name: "Preset: ${{ matrix.presets.preset }} on ${{ matrix.presets.runner || 'ubuntu-latest' }}"
+    runs-on: ${{ matrix.presets.runner || 'ubuntu-latest' }}
+    container: ${{ matrix.presets.image && matrix.presets.image || fromJSON('null') }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: "recursive"
+      - name: Install Boost (Linux / macOS)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -x /opt/vcpkg/vcpkg ]]; then
+            export VCPKG_DEFAULT_TRIPLET=x64-linux
+            /opt/vcpkg/vcpkg install boost-property-tree --triplet x64-linux
+            echo "CMAKE_PREFIX_PATH=/opt/vcpkg/installed/x64-linux${CMAKE_PREFIX_PATH:+:${CMAKE_PREFIX_PATH}}" >> "${GITHUB_ENV}"
+          elif [[ "${RUNNER_OS:-}" == "macOS" ]]; then
+            brew install boost
+          fi
+      - name: Install Boost (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $root = $env:VCPKG_INSTALLATION_ROOT
+          if (-not $root) { throw 'VCPKG_INSTALLATION_ROOT is not set' }
+          & "$root/vcpkg.exe" install boost-property-tree --triplet x64-windows
+          $prefix = Join-Path $root 'installed\x64-windows'
+          Add-Content -Path $env:GITHUB_ENV -Value "CMAKE_PREFIX_PATH=$prefix"
+      - name: Setup build environment
+        if: matrix.presets.runner
+        uses: lukka/get-cmake@6c740684eca256565af86fb8b8fdf43dd3f6fbc0 # v4.3.0
+      - name: Setup MSVC
+        if: startsWith(matrix.presets.runner, 'windows')
+        uses: TheMrMilchmann/setup-msvc-dev@v4
+        with:
+          arch: x64
+      - name: Run preset
+        shell: bash
+        run: cmake --workflow --preset ${{ matrix.presets.preset }}

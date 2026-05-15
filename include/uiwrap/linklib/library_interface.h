@@ -16,7 +16,8 @@ public:
     virtual ~ILibrary() = default;
 
     //! \param filePathNameWithoutExtension without extension
-    static std::unique_ptr<ILibrary> make(const std::string& filePathNameWithoutExtension, const std::string& version);
+    static std::unique_ptr<ILibrary> make(const std::string& filePathNameWithoutExtension,
+        [[maybe_unused]] const std::string& version);
 
     virtual void* ResolveSymbol(std::string symbol) = 0;
     virtual void SetFileName(std::string filePathNameWithoutExtension, std::string version) = 0;

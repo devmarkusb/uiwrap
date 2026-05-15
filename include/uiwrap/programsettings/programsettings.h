@@ -66,7 +66,7 @@ public:
         INIT_NOT_CALLED_OR_FAILED,
         ERROR_WRITING_SETTINGS,
         ERROR_READING_SETTINGS,
-        INTERNAL_ERROR__VARIANT_CONVERSION,
+        INTERNAL_ERROR_VARIANT_CONVERSION,
     };
     [[nodiscard]] virtual EError getError() const = 0;
     virtual void resetError() = 0;

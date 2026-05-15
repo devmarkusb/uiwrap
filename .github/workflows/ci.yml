@@ -9,7 +9,7 @@ on:
 
 jobs:
   preset-test:
-    uses: devmarkusb/devenv/.github/workflows/preset-test.yml@main
+    uses: ./.github/workflows/preset-test-with-boost.yml
     with:
       matrix_config: >
         [
@@ -27,7 +27,7 @@ jobs:
         ]
 
   build-and-test:
-    uses: devmarkusb/devenv/.github/workflows/build-and-test.yml@main
+    uses: ./.github/workflows/build-and-test-with-boost.yml
     with:
       matrix_config: >
         {
