@@ -23,7 +23,7 @@ jobs:
     runs-on: ${{matrix.config.os}}
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -53,6 +53,7 @@ jobs:
       run: >
         cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
         -Duiwrap_USE_IMPLEMENTATION=qt
+        -DUL_BUILD_UNITTESTS=ON
 
     - name: Build
       # Build your program with the given configuration

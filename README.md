@@ -21,23 +21,39 @@ command-line version of certain GUI apps.
 
 ## Usage
 
-Set environment variables:
-* `export dev_sdk_path=/path-to-sdks/` where versions of Qt reside
-(and possibly also boost).
-* `export dev_qt_base=$dev_sdk_path/qt_linux` (e.g.) where Qt versions
-can be found in subdirs like `5.9.1`. 
+### Qt (`uiwrap_USE_IMPLEMENTATION=qt`)
 
-Set the following CMake variables:
-* `uiwrap_USE_IMPLEMENTATION` to either
-  * `qt`
-  * `own`, or leave out entirely, meaning console through an
-'own' implementation
-  * ...
+**CMake** uses **Qt 6** (`find_package(Qt6 ...)` with `qt_standard_project_setup(REQUIRES 6.8)` in `CMakeLists.txt`).
 
-* `UL_USE_BOOST_ver1, UL_USE_BOOST_ver2, UL_USE_BOOST_ver3`
-according to the Boost library version you want to use ("ver1.ver2.ver3").
-* `UL_QT5_VERSION` to e.g. `5.9.1`
-* `UL_QT_COMPILER_SUBDIR` to e.g. `gcc_64`
+Point CMake at your Qt 6 install, for example:
+
+```sh
+export CMAKE_PREFIX_PATH=/path/to/Qt/6.9.3/gcc_64   # typical Linux layout
+# or on macOS: .../Qt/6.9.3/macos
+```
+
+Optional environment layout (if your toolchain expects it):
+
+* `export dev_sdk_path=/path-to-sdks/` where Qt (and possibly Boost) live.
+* `export dev_qt_base=$dev_sdk_path/qt_linux` (or similar) with **versioned** Qt 6 directories under it (e.g. `6.9.3/gcc_64`), then set `CMAKE_PREFIX_PATH` to that kit’s root.
+
+CI (`.github/workflows/build.yml`) installs **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop, `qt5compat` module) and configures with `-Duiwrap_USE_IMPLEMENTATION=qt`.
+
+### Console / “own” (`uiwrap_USE_IMPLEMENTATION=own`, default)
+
+Uses the non-Qt implementations and **Boost** via the shared CMake helpers from **mb-util** (`cmake_util/util.cmake`).
+
+Set the following CMake variables when using the `own` backend (versions come from the fetched **mb-util** defaults unless you override):
+
+* `UL_USE_BOOST_ver1`, `UL_USE_BOOST_ver2`, `UL_USE_BOOST_ver3` — Boost version triple (`"ver1.ver2.ver3"`).
+
+### CMake options (all backends)
+
+* `uiwrap_USE_IMPLEMENTATION` — `qt`, `own` (default), or `wx` (stub).
+* `UIW_DISABLE_NAMESPACE_ALIAS` — see FAQ below.
+* `UL_BUILD_UNITTESTS` — set to `ON` to build the `uiwrapTest` target and register CTest tests.
+
+When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost.
 
 ## FAQ
 
