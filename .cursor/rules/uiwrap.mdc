@@ -1,0 +1,11 @@
+---
+description: uiwrap SDK — follow nested AGENTS.md (monorepo path sdks/uiwrap)
+globs:
+  - "sdks/uiwrap/**"
+---
+
+Follow **`AGENTS.md`** at `sdks/uiwrap/AGENTS.md` (canonical for build, test, format, layout, and edit restrictions).
+
+**Workspace root is this `uiwrap` repo:** Cursor may not match the glob above; read `AGENTS.md` in the repo root manually. Optionally add a second rule locally with `globs: ["**"]` and `alwaysApply: false` scoped to this folder only when it is the workspace root.
+
+Do not duplicate long policy text into this rule file.
