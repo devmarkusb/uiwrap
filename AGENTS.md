@@ -10,7 +10,7 @@ Canonical instructions for AI agents and AGENTS.md-compatible tools working in t
 - **`qt`**: **Qt 6** (`Core`, `Gui`, `Qml`, `Widgets`); `qt_standard_project_setup(REQUIRES 6.8)` in `CMakeLists.txt`.
 - **`wx`**: stub / not fully wired in CMake sources.
 
-It links against **`mb-util`**, pulled in by `cmake_util/util.cmake` via **FetchContent** from GitHub (`devmarkusb/util`). First configure needs network access to fetch that dependency unless it is already populated in the CMake cache.
+It links against legacy **`mb-util`** (INTERFACE target, `ul/` headers), pulled in by `cmake_util/util.cmake` via **FetchContent** from GitHub (`devmarkusb/util`) at a **pinned commit** (`MB_UTIL_FETCH_TAG`, default matches branch `last-old-build-on-mac`). The current **`main`** branch of that repo is the **mb.util** rewrite and is **not** CMake/C++ compatible with this tree. Override the tag only when you know the revision matches this API. If the parent project already defines **`mb-util`**, `util.cmake` skips FetchContent (guard: **`TARGET mb-util`**, not `ulBuildEnv`). First configure needs network access unless the dependency is already cached.
 
 This tree can be built **standalone** (open this folder as the CMake source dir) or **as a subdirectory** of a larger project (e.g. a monorepo). When embedded, follow the **parent** project’s configure flags and output layout.
 
@@ -55,7 +55,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 |------|------|
 | `include/uiwrap/` | Public headers; `config_gen.h` is **generated** from `config_gen.h.in` — do not hand-edit the generated file. |
 | `src/` | Implementation; `impl_Qt/`, `impl_/`, etc. |
-| `cmake_util/util.cmake` | FetchContent for **mb-util** and early include guard when `ulBuildEnv` already exists (embedded build). |
+| `cmake_util/util.cmake` | FetchContent for legacy **mb-util**; early return when **`TARGET mb-util`** already exists. Pin `MB_UTIL_FETCH_TAG` vs util `main` (incompatible). |
 | `CMakeLists.txt` | Library target `uiwrap`, optional `uiwrapTest`, implementation switch. |
 
 ## 6. Coding conventions
@@ -90,7 +90,7 @@ CI (`.github/workflows/build.yml`): **ubuntu-latest**, **Qt 6.9.3** via `jurplel
 3. If tests exist for the area, were they run (`ctest` or equivalent)?
 4. Does **clang-format** match `.clang-format` for touched C/C++ files?
 5. If `config_gen.h.in` changed, is regenerated `config_gen.h` consistent (or left to CMake as appropriate)?
-6. When embedded in a parent repo, does the change avoid breaking the parent’s CMake assumptions (`ulBuildEnv`, include paths)?
+6. When embedded in a parent repo, does the change avoid breaking the parent’s CMake assumptions (`mb-util` / include order, `ulBuildEnv`)?
 
 ## Maintenance policy (stacking)
 
