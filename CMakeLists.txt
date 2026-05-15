@@ -1,22 +1,5 @@
 cmake_minimum_required(VERSION 3.30...4.3)
 
-# Older uiwrap revisions set CMAKE_PROJECT_TOP_LEVEL_INCLUDES to a removed hook file; drop stale cache entries.
-if(DEFINED CACHE{CMAKE_PROJECT_TOP_LEVEL_INCLUDES})
-    if(
-        CMAKE_PROJECT_TOP_LEVEL_INCLUDES MATCHES "uiwrap_fetch_mb_pre_commit"
-        AND NOT EXISTS "${CMAKE_PROJECT_TOP_LEVEL_INCLUDES}"
-    )
-        unset(CMAKE_PROJECT_TOP_LEVEL_INCLUDES CACHE)
-    endif()
-endif()
-
-# mb.util calls mb_pre_commit_setup() (real impl from devmarkusb/pre-commit when using util's CMakePresets).
-# Standalone uiwrap does not need that machinery; provide a no-op if the parent did not define the macro.
-if(NOT COMMAND mb_pre_commit_setup)
-    macro(mb_pre_commit_setup)
-    endmacro()
-endif()
-
 # Default build number (overridden by mb_ul_include(buildnr.cmake) after mb.util is available).
 set(BUILD_NR "0" CACHE STRING "Should be set by your buildserver")
 
