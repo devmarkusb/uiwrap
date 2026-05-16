@@ -5,6 +5,7 @@
 
 #include "uiwrapDEF.h"
 #include "../config.h"
+#include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
 #include <stdexcept>
 #include <string>
@@ -13,7 +14,7 @@ namespace mb::uiw {
 namespace file {
 //####################################################################################################################
 
-class UIWRAPSHARED_EXPORT IFileSys : private ul::NonCopyable {
+class UIWRAPSHARED_EXPORT IFileSys : private ExportNonCopyable {
 public:
     virtual ~IFileSys() = default;
 

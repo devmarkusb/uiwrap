@@ -6,6 +6,7 @@
 #include "uiwrap_build_config.h"
 #include "uiwrapDEF.h"
 #include "../config.h"
+#include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
 
 #include <string>
@@ -16,7 +17,7 @@ namespace mb::uiw {
 static const std::string& HIERARCHY_SEPARATOR = ".";
 #endif
 
-class UIWRAPSHARED_EXPORT IProgSettings : private ul::NonCopyable {
+class UIWRAPSHARED_EXPORT IProgSettings : private ExportNonCopyable {
 public:
     enum class StorageFileFormat {
         INI,

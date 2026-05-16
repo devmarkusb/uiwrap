@@ -14,7 +14,7 @@ It links against **`mb::util`** (INTERFACE target, `mb/ul/` headers), pulled in 
 
 **Boost (implementation `own`):** `find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)`; link **`Boost::headers`** when available. No `MB_UL_SDK_PATH` / `dev_sdk_path` layout is required for Boost if CMake can find a suitable install (e.g. system, Homebrew, or vcpkg via `CMAKE_PREFIX_PATH` as in CI).
 
-**C++ standard:** **C++20** is required for current mb.util headers (e.g. `std::integral`, concepts). `CMakeLists.txt` sets `CMAKE_CXX_STANDARD` to 20 for this project.
+**C++ standard:** **C++23** in `CMakeLists.txt` (mb.util on `main` needs at least C++20). MSVC presets also set `CMAKE_CXX_STANDARD` to 23.
 
 This tree can be built **standalone** (open this folder as the CMake source dir) or **as a subdirectory** of a larger project (e.g. a monorepo). When embedded, follow the **parent** project’s configure flags and output layout.
 
@@ -64,7 +64,7 @@ CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`devenv/.github/w
 
 ## 6. Coding conventions
 
-- **C++:** **C++20** for mb.util and this library; Qt 6 as required by linked modules.
+- **C++:** **C++23** for this library (mb.util needs C++20+); Qt 6 as required by linked modules.
 - **Namespaces:** primary **`mb::uiw::`** (see `MB_UIWRAP_DISABLE_NAMESPACE_ALIAS` / `config_gen.h.in`).
 - **Headers:** include guards like `#ifndef FILESYS_H_...` (not `#pragma once`) in existing style.
 - **Implementation selection:** respect `UIW_LINKLIB_IMPL_CHOICE_*` / `uiwrap_build_config.h` patterns already used in `.cpp` dispatch files.

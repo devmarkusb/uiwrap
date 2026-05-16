@@ -5,13 +5,14 @@
 
 #include "uiwrapDEF.h"
 #include "../config.h"
+#include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
 #include <memory>
 #include <string>
 #include <utility>
 
 namespace mb::uiw {
-class UIWRAPSHARED_EXPORT ILibrary : private ul::NonCopyable {
+class UIWRAPSHARED_EXPORT ILibrary : private ExportNonCopyable {
 public:
     virtual ~ILibrary() = default;
 

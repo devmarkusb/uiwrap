@@ -5,12 +5,13 @@
 
 #include "uiwrapDEF.h"
 #include "../config.h"
+#include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
 #include <memory>
 #include <string>
 
 namespace mb::uiw::gui {
-class UIWRAPSHARED_EXPORT IMessageBox : private ul::NonCopyable {
+class UIWRAPSHARED_EXPORT IMessageBox : private ExportNonCopyable {
 public:
     virtual ~IMessageBox() = default;
 
