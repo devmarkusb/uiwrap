@@ -5,6 +5,7 @@
 A library to wrap and select an underlying (G)UI implementation
 of your choice.
 We would like to support:
+
 * console/terminal
 * Qt
 * ... and others (e.g. wxWidgets) when needed.
@@ -23,7 +24,8 @@ command-line version of certain GUI apps.
 
 ### Qt (`MB_UIWRAP_USE_IMPLEMENTATION=qt`)
 
-**CMake** uses **Qt 6** (`find_package(Qt6 ...)` with `qt_standard_project_setup(REQUIRES 6.8)` in `CMakeLists.txt`).
+**CMake** uses **Qt 6** (`find_package(Qt6 ...)` with `qt_standard_project_setup(REQUIRES 6.8)` in
+`CMakeLists.txt`).
 
 Point CMake at your Qt 6 install, for example:
 
@@ -35,13 +37,18 @@ export CMAKE_PREFIX_PATH=/path/to/Qt/6.9.3/gcc_64   # typical Linux layout
 Optional environment layout (if your toolchain expects it):
 
 * `export dev_sdk_path=/path-to-sdks/` where Qt lives.
-* `export dev_qt_base=$dev_sdk_path/qt_linux` (or similar) with **versioned** Qt 6 directories under it (e.g. `6.9.3/gcc_64`), then set `CMAKE_PREFIX_PATH` to that kit’s root.
+* `export dev_qt_base=$dev_sdk_path/qt_linux` (or similar) with **versioned** Qt 6 directories under
+  it (e.g. `6.9.3/gcc_64`), then set `CMAKE_PREFIX_PATH` to that kit’s root.
 
-CI (`.github/workflows/ci.yml`) installs **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop, `qt5compat` module) when applicable and configures with `-DMB_UIWRAP_USE_IMPLEMENTATION=qt`.
+CI (`.github/workflows/ci.yml`) installs **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop,
+`qt5compat` module) when applicable and configures with `-DMB_UIWRAP_USE_IMPLEMENTATION=qt`.
 
 ### Console / “own” (`MB_UIWRAP_USE_IMPLEMENTATION=own`, default)
 
-Uses the non-Qt implementations and **Boost** (`find_package(Boost ... CONFIG)`), discovered via `CMAKE_PREFIX_PATH` or a normal Boost install layout. CI runs **`devenv/install-boost.sh`** (vcpkg on Beman containers / Windows, Homebrew on macOS, apt on plain Linux); locally: `python3 devenv/install-boost.py --ensure --print-prefix-path`.
+Uses the non-Qt implementations and **Boost** (`find_package(Boost ... CONFIG)`), discovered via
+`CMAKE_PREFIX_PATH` or a normal Boost install layout. CI runs **`devenv/install-boost.sh`** (vcpkg on
+Beman containers / Windows, Homebrew on macOS, apt on plain Linux); locally:
+`python3 devenv/install-boost.py --ensure --print-prefix-path`.
 
 Public tuning:
 
@@ -49,14 +56,26 @@ Public tuning:
 
 ### CMake options (all backends)
 
-* `MB_UIWRAP_USE_IMPLEMENTATION` — `qt`, `own` (default), or `wx` (stub). Legacy `-Duiwrap_USE_IMPLEMENTATION=` is still read on first configure if `MB_UIWRAP_USE_IMPLEMENTATION` is unset.
-* `MB_UIWRAP_BUILD_NR` — build number segment in `project(... VERSION 0.1.<nr>.0)`. Legacy `-DBUILD_NR=` is honored when `MB_UIWRAP_BUILD_NR` is unset.
-* `MB_UIWRAP_DISABLE_NAMESPACE_ALIAS` — see FAQ below. Legacy `-DUIW_DISABLE_NAMESPACE_ALIAS=` is honored if set in the cache.
-* `MB_UIWRAP_BUILD_TESTS` — `ON` to build the `uiwrapTest` target and register CTest tests (same naming idea as [cpp-lib-template](https://github.com/devmarkusb/cpp-lib-template) `MB_*_BUILD_TESTS`). Default is **`PROJECT_IS_TOP_LEVEL`** only; when uiwrap is **`add_subdirectory`’d**, pass **`-DMB_UIWRAP_BUILD_TESTS=ON`** explicitly if you want its tests (independent of a parent **`UL_BUILD_UNITTESTS`**).
+* `MB_UIWRAP_USE_IMPLEMENTATION` — `qt`, `own` (default), or `wx` (stub). Legacy
+  `-Duiwrap_USE_IMPLEMENTATION=` is still read on first configure if `MB_UIWRAP_USE_IMPLEMENTATION` is
+  unset.
+* `MB_UIWRAP_BUILD_NR` — build number segment in `project(... VERSION 0.1.<nr>.0)`. Legacy
+  `-DBUILD_NR=` is honored when `MB_UIWRAP_BUILD_NR` is unset.
+* `MB_UIWRAP_DISABLE_NAMESPACE_ALIAS` — see FAQ below. Legacy `-DUIW_DISABLE_NAMESPACE_ALIAS=` is
+  honored if set in the cache.
+* `MB_UIWRAP_BUILD_TESTS` — `ON` to build the `uiwrapTest` target and register CTest tests (same
+  naming idea as [cpp-lib-template](https://github.com/devmarkusb/cpp-lib-template) `MB_*_BUILD_TESTS`).
+  Default is **`PROJECT_IS_TOP_LEVEL`** only; when uiwrap is **`add_subdirectory`’d**, pass
+  **`-DMB_UIWRAP_BUILD_TESTS=ON`** explicitly if you want its tests (independent of a parent
+  **`UL_BUILD_UNITTESTS`**).
 
-When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install paths for Qt and Boost. If the parent already defines **`mb.util`**, `cmake_util/util.cmake` skips FetchContent.
+When **uiwrap** is embedded in a larger repository, follow that parent’s CMake variables and install
+paths for Qt and Boost. If the parent already defines **`mb.util`**, `cmake_util/util.cmake` skips
+FetchContent.
 
-Standalone / first-time configure uses **FetchContent** of **devmarkusb/util** at **`main`** (see `cmake_util/util.cmake`); keep the submodule under `sdks/util` in sync with that remote when you change util CMake or headers.
+Standalone / first-time configure uses **FetchContent** of **devmarkusb/util** at **`main`** (see
+`cmake_util/util.cmake`); keep the submodule under `sdks/util` in sync with that remote when you change
+util CMake or headers.
 
 ## FAQ
 

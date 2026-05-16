@@ -14,7 +14,7 @@ UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_PRAGMA_WARNINGS_POP
 
 namespace mb::uiw::implQt {
-/** \param abs_path needs to be an absolut path of a file or dir.
+/** \param abs_path needs to be an absolute path of a file or dir.
     This function prepends something like `file:///`. This is called the
     scheme and can be 'ftp' or 'http' and such, all appended with '://'.
     Probably the third slash '/' belongs to the path itself for the

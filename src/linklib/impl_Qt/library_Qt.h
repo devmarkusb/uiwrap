@@ -8,9 +8,9 @@
 #include "uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "mb/ul/ul.hpp"
 #include "uiwrap/linklib/library_interface.h"
 #include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
-#include "mb/ul/ul.hpp"
 
 #include "QLibrary"
 #include <memory>

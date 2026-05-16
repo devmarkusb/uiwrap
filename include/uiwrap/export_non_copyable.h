@@ -6,7 +6,6 @@
 #include "uiwrapDEF.h"
 
 namespace mb::uiw {
-
 class UIWRAPSHARED_EXPORT ExportNonCopyable {
 protected:
     ExportNonCopyable() = default;
@@ -16,7 +15,6 @@ protected:
     ExportNonCopyable(ExportNonCopyable&&) = delete;
     ExportNonCopyable& operator=(ExportNonCopyable&&) = delete;
 };
-
 } // namespace mb::uiw
 
 #endif
