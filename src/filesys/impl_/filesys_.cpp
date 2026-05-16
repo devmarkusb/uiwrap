@@ -128,7 +128,7 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
         case ESysPathType::CURRENT:
             break;
         case ESysPathType::APPDATA_writable:
-            ret = std::filesystem::temp_directory_path();
+            ret = std::filesystem::temp_directory_path().string();
             break;
         default:
             break;
