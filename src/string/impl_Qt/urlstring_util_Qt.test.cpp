@@ -1,6 +1,6 @@
 #include "uiwrap/string/impl_Qt/urlstring_util_Qt.h"
-#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "mb/ul/buildenv/macros.hpp"
+#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "gtest/gtest.h"
 
 namespace uiw = mb::uiw;

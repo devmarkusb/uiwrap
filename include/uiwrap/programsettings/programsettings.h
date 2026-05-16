@@ -32,7 +32,8 @@ public:
         you have to call immediately Init and for Qt afterwards also setAsRootContextProperty.
         Only after that a proper functionality of this class is possible.*/
     static IProgSettings* getInstance(
-        const std::string& fileNamePath = std::string(), const std::string& fileExt = std::string(),
+        const std::string& fileNamePath = std::string(),
+        const std::string& fileExt = std::string(),
         StorageFileFormat preferredStorageFileFormat = StorageFileFormat::JSON);
     virtual void init(const std::string& organizationName, const std::string& applicationName) = 0;
 

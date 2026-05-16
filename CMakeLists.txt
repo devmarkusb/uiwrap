@@ -2,17 +2,29 @@ cmake_minimum_required(VERSION 3.30...4.3)
 
 # Public cache: MB_UIWRAP_BUILD_NR (legacy -DBUILD_NR= is still honored when MB_UIWRAP_BUILD_NR is unset).
 if(DEFINED BUILD_NR AND NOT DEFINED MB_UIWRAP_BUILD_NR)
-    set(MB_UIWRAP_BUILD_NR "${BUILD_NR}" CACHE STRING "Build number segment for mb.uiwrap version (0.1.<nr>.0)." FORCE)
+    set(MB_UIWRAP_BUILD_NR
+        "${BUILD_NR}"
+        CACHE STRING
+        "Build number segment for mb.uiwrap version (0.1.<nr>.0)."
+        FORCE
+    )
 endif()
 if(NOT DEFINED MB_UIWRAP_BUILD_NR)
-    set(MB_UIWRAP_BUILD_NR "0" CACHE STRING "Build number segment for mb.uiwrap version (0.1.<nr>.0).")
+    set(MB_UIWRAP_BUILD_NR
+        "0"
+        CACHE STRING
+        "Build number segment for mb.uiwrap version (0.1.<nr>.0)."
+    )
 endif()
 
 # Standalone tree: apply FetchContent lockfile before project() when CMakePresets do not inject it via
 # CMAKE_PROJECT_TOP_LEVEL_INCLUDES (see devmarkusb/cpp-lib-template).
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     set(_mb_uiwrap_skip_lockfile 0)
-    if(DEFINED CMAKE_PROJECT_TOP_LEVEL_INCLUDES AND CMAKE_PROJECT_TOP_LEVEL_INCLUDES)
+    if(
+        DEFINED CMAKE_PROJECT_TOP_LEVEL_INCLUDES
+        AND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
+    )
         foreach(_mb_uiwrap_inc IN LISTS CMAKE_PROJECT_TOP_LEVEL_INCLUDES)
             if(_mb_uiwrap_inc MATCHES "fetch-content-from-lockfile")
                 set(_mb_uiwrap_skip_lockfile 1)
@@ -22,15 +34,19 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     endif()
     if(
         NOT _mb_uiwrap_skip_lockfile
-        AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
+        AND EXISTS
+            "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
     )
-        include("${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake")
+        include(
+            "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
+        )
     endif()
 endif()
 
 project(
     mb.uiwrap
-    DESCRIPTION "UI-adjacent abstraction (filesystem, message boxes, settings, Qt helpers)"
+    DESCRIPTION
+        "UI-adjacent abstraction (filesystem, message boxes, settings, Qt helpers)"
     LANGUAGES CXX
     VERSION 0.1.${MB_UIWRAP_BUILD_NR}.0
 )
@@ -59,34 +75,75 @@ if(PROJECT_IS_TOP_LEVEL)
     endif()
     include(mb-devenv-defaults)
     include(mb-devenv-install-library-config)
-    execute_process(
-        COMMAND git -C "${CMAKE_SOURCE_DIR}" config --get core.hooksPath
-        OUTPUT_VARIABLE _mb_uiwrap_core_hooks_path
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        RESULT_VARIABLE _mb_uiwrap_core_hooks_path_rc
-        ERROR_QUIET
+endif()
+
+# mb-pre-commit: top-level via lockfile before project(); embedded via FetchContent (lockfile script needs TOP_LEVEL_INCLUDES).
+if(NOT PROJECT_IS_TOP_LEVEL AND NOT COMMAND mb_pre_commit_setup_subdirectory)
+    include(FetchContent)
+    FetchContent_Declare(
+        mb_pre_commit
+        GIT_REPOSITORY https://github.com/devmarkusb/pre-commit
+        GIT_TAG v3.0.0
+        GIT_SHALLOW ON
+        EXCLUDE_FROM_ALL
+        SYSTEM
     )
-    if(_mb_uiwrap_core_hooks_path_rc EQUAL 0 AND NOT _mb_uiwrap_core_hooks_path STREQUAL "")
-        message(
-            STATUS
-            "mb_pre_commit_setup skipped: git core.hooksPath='${_mb_uiwrap_core_hooks_path}'. "
-            "Unset with: git config --unset-all core.hooksPath (then reconfigure) to match cpp-lib-template hook install."
-        )
-    else()
-        if(PROJECT_IS_TOP_LEVEL)
-            mb_pre_commit_setup()
-        else()
-            mb_pre_commit_setup_subdirectory()
-        endif()
+    if(POLICY CMP0169)
+        cmake_policy(PUSH)
+        cmake_policy(SET CMP0169 OLD)
     endif()
+    FetchContent_Populate(mb_pre_commit)
+    if(POLICY CMP0169)
+        cmake_policy(POP)
+    endif()
+    include("${mb_pre_commit_SOURCE_DIR}/cmake/mb-pre-commit.cmake")
+endif()
+
+execute_process(
+    COMMAND git -C "${CMAKE_SOURCE_DIR}" config --get core.hooksPath
+    OUTPUT_VARIABLE _mb_uiwrap_core_hooks_path
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    RESULT_VARIABLE _mb_uiwrap_core_hooks_path_rc
+    ERROR_QUIET
+)
+if(
+    _mb_uiwrap_core_hooks_path_rc EQUAL 0
+    AND NOT _mb_uiwrap_core_hooks_path STREQUAL ""
+)
+    message(
+        STATUS
+        "mb_pre_commit_setup skipped: git core.hooksPath='${_mb_uiwrap_core_hooks_path}'. "
+        "Unset with: git config --unset-all core.hooksPath (then reconfigure) to match cpp-lib-template hook install."
+    )
+elseif(PROJECT_IS_TOP_LEVEL)
+    if(COMMAND mb_pre_commit_setup)
+        mb_pre_commit_setup()
+    else()
+        message(
+            WARNING
+            "uiwrap: mb_pre_commit_setup not available (configure with fetchcontent lockfile or CMakePresets)."
+        )
+    endif()
+elseif(COMMAND mb_pre_commit_setup_subdirectory)
+    mb_pre_commit_setup_subdirectory(PRE_COMMIT_SWEEP_TARGET mb-pre-commit-sweep-uiwrap)
 else()
-    if(MB_UIWRAP_BUILD_TESTS)
-        if(DEFINED mb_ul_fetch_SOURCE_DIR)
-            set(_mb_uiwrap_ctest_root "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake/mb-devenv-ctest-root.cmake")
-            if(EXISTS "${_mb_uiwrap_ctest_root}")
-                list(PREPEND CMAKE_MODULE_PATH "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake")
-                include(mb-devenv-ctest-root)
-            endif()
+    message(
+        WARNING
+        "uiwrap: mb_pre_commit_setup_subdirectory not available; mb-pre-commit-sweep-uiwrap will not be created."
+    )
+endif()
+
+if(NOT PROJECT_IS_TOP_LEVEL AND MB_UIWRAP_BUILD_TESTS)
+    if(DEFINED mb_ul_fetch_SOURCE_DIR)
+        set(_mb_uiwrap_ctest_root
+            "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake/mb-devenv-ctest-root.cmake"
+        )
+        if(EXISTS "${_mb_uiwrap_ctest_root}")
+            list(
+                PREPEND CMAKE_MODULE_PATH
+                "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake"
+            )
+            include(mb-devenv-ctest-root)
         endif()
     endif()
 endif()
@@ -95,7 +152,11 @@ include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
 
 mb_ul_include(buildnr.cmake)
 set(target uiwrap)
-message(STATUS "${PROJECT_NAME} (library target: ${target}) version: " ${PROJECT_VERSION})
+message(
+    STATUS
+    "${PROJECT_NAME} (library target: ${target}) version: "
+    ${PROJECT_VERSION}
+)
 
 if(MSVC)
     # not good, I only intended to suppress this for Qt headers but didn't find a way
@@ -103,32 +164,52 @@ if(MSVC)
 endif()
 
 # Public cache: MB_UIWRAP_USE_IMPLEMENTATION (legacy -Duiwrap_USE_IMPLEMENTATION= is still honored on first configure).
-if(DEFINED uiwrap_USE_IMPLEMENTATION AND NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION)
-    set(MB_UIWRAP_USE_IMPLEMENTATION "${uiwrap_USE_IMPLEMENTATION}" CACHE STRING
-        "UI backend: qt, wx (stub), or own (CLI / no toolkit)." FORCE)
+if(
+    DEFINED uiwrap_USE_IMPLEMENTATION
+    AND NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION
+)
+    set(MB_UIWRAP_USE_IMPLEMENTATION
+        "${uiwrap_USE_IMPLEMENTATION}"
+        CACHE STRING
+        "UI backend: qt, wx (stub), or own (CLI / no toolkit)."
+        FORCE
+    )
 endif()
 if(NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION)
-    set(MB_UIWRAP_USE_IMPLEMENTATION "own" CACHE STRING "UI backend: qt, wx (stub), or own (CLI / no toolkit).")
+    set(MB_UIWRAP_USE_IMPLEMENTATION
+        "own"
+        CACHE STRING
+        "UI backend: qt, wx (stub), or own (CLI / no toolkit)."
+    )
 endif()
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
-    set(MB_UIWRAP_BOOST_MIN_VERSION "1.67" CACHE STRING "Minimum Boost for the \"own\" backend (header-only property_tree).")
+    set(MB_UIWRAP_BOOST_MIN_VERSION
+        "1.67"
+        CACHE STRING
+        "Minimum Boost for the \"own\" backend (header-only property_tree)."
+    )
     find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)
 endif()
 
 option(
     MB_UIWRAP_DISABLE_NAMESPACE_ALIAS
     "ON: base namespace is mb::uiw; OFF (default): ul:: is an alias for mb::uiw::"
-    OFF)
+    OFF
+)
 if(DEFINED UIW_DISABLE_NAMESPACE_ALIAS)
-    set(MB_UIWRAP_DISABLE_NAMESPACE_ALIAS "${UIW_DISABLE_NAMESPACE_ALIAS}" CACHE BOOL
+    set(MB_UIWRAP_DISABLE_NAMESPACE_ALIAS
+        "${UIW_DISABLE_NAMESPACE_ALIAS}"
+        CACHE BOOL
         "ON: base namespace is mb::uiw; OFF (default): ul:: is an alias for mb::uiw::"
-        FORCE)
+        FORCE
+    )
 endif()
 set(UIW_DISABLE_NAMESPACE_ALIAS "${MB_UIWRAP_DISABLE_NAMESPACE_ALIAS}")
 configure_file(
     ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h.in
-    ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h)
+    ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h
+)
 
 file(GLOB_RECURSE target_INCS "include/*.h")
 file(GLOB_RECURSE target_SRC_INCS "src/*.h")
@@ -142,7 +223,7 @@ set(target_COMMON_SOURCES
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     mb_ul_include(qt.cmake)
-    # Widgets contains (a.o.t.) Core and Gui; and is needed fo QMessageBox
+    # Widgets contains (a.o.t.) Core and Gui; and is needed for QMessageBox
     # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
     find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)
     qt_standard_project_setup(REQUIRES 6.8)
@@ -162,7 +243,6 @@ else()
         src/filesys/impl_/filesys_.cpp
         src/messagebox/impl_/messagebox_.cpp
     )
-
 endif()
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
@@ -173,7 +253,9 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
         ${target_SRC_INCS}
     )
 else()
-    add_library(${target} SHARED
+    add_library(
+        ${target}
+        SHARED
         ${target_COMMON_SOURCES}
         ${target_IMPL_SOURCES}
         ${target_INCS}
@@ -191,7 +273,10 @@ else()
     set(uiwrap_impl_choice_number 0)
 endif()
 
-configure_file(${target}_build_config.h.in ${CMAKE_BINARY_DIR}/${target}_build_config.h)
+configure_file(
+    ${target}_build_config.h.in
+    ${CMAKE_BINARY_DIR}/${target}_build_config.h
+)
 target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR})
 
 target_include_directories(${target} PUBLIC include)
@@ -200,13 +285,15 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
     if(TARGET Boost::headers)
         target_link_libraries(${target} PUBLIC Boost::headers)
     else()
-        target_include_directories(${target} SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
+        target_include_directories(
+            ${target}
+            SYSTEM
+            PUBLIC ${Boost_INCLUDE_DIRS}
+        )
     endif()
     target_compile_definitions(
         ${target}
-        PRIVATE
-            BOOST_ALL_NO_LIB
-            BOOST_FILESYSTEM_NO_DEPRECATED
+        PRIVATE BOOST_ALL_NO_LIB BOOST_FILESYSTEM_NO_DEPRECATED
     )
 endif()
 
@@ -222,8 +309,12 @@ endif()
 
 mb_devenv_set_target_defaults(${target})
 
-set(${target}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
-    CACHE INTERNAL "${target}: include directories" FORCE)
+set(${target}_INCLUDE_DIRS
+    ${PROJECT_SOURCE_DIR}/include
+    CACHE INTERNAL
+    "${target}: include directories"
+    FORCE
+)
 
 if(NOT MB_UIWRAP_BUILD_TESTS)
     return()
@@ -249,9 +340,7 @@ enable_testing()
 
 set(targetTest uiwrapTest)
 
-set(targetTest_SOURCES
-    src/filesys/filesys.test.cpp
-)
+set(targetTest_SOURCES src/filesys/filesys.test.cpp)
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     set(targetTest_IMPL_SOURCES
@@ -263,12 +352,11 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
 elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "wx")
     set(targetTest_IMPL_SOURCES "")
 else()
-    set(targetTest_IMPL_SOURCES
-        src/messagebox/impl_/messagebox_.test.cpp
-    )
+    set(targetTest_IMPL_SOURCES src/messagebox/impl_/messagebox_.test.cpp)
 endif()
 
-add_executable(${targetTest}
+add_executable(
+    ${targetTest}
     ${targetTest_SOURCES}
     ${targetTest_IMPL_SOURCES}
     ${target_INCS}
@@ -281,7 +369,10 @@ if(TARGET GTest::gtest_main)
 elseif(TARGET gtest_main)
     set(_mb_uiwrap_gtest_main gtest_main)
 else()
-    message(FATAL_ERROR "uiwrap tests: expected GTest::gtest_main or gtest_main target after GTest setup.")
+    message(
+        FATAL_ERROR
+        "uiwrap tests: expected GTest::gtest_main or gtest_main target after GTest setup."
+    )
 endif()
 
 target_link_libraries(${targetTest} PRIVATE ${_mb_uiwrap_gtest_main} ${target})

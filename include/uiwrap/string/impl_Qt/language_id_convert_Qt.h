@@ -49,7 +49,7 @@ inline QLocale::Language fromLanguageID(const ul::str::LangIdIso6391& id) {
     else if (id == "zh")
         return QLocale::Chinese;
     else
-        throw ul::NotImplemented{"unsupported or unknonwn ISO 639-1 language code"};
+        throw ul::NotImplemented{"unsupported or unknown ISO 639-1 language code"};
 }
 } // namespace mb::uiw::implQt
 

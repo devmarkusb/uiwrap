@@ -5,8 +5,8 @@
 #ifndef PROGSETTINGS_H_ieuhrngt783znt7238t87t3
 #define PROGSETTINGS_H_ieuhrngt783znt7238t87t3
 
-#include "uiwrap/programsettings/programsettings.h"
 #include "mb/ul/ul.hpp"
+#include "uiwrap/programsettings/programsettings.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include "boost/property_tree/info_parser.hpp"
@@ -23,7 +23,8 @@ namespace boost_pt = boost::property_tree;
 class CProgSettings : public uiw::IProgSettings {
 public:
     CProgSettings(
-        const std::string& fileNamePath, const std::string& fileExt,
+        const std::string& fileNamePath,
+        const std::string& fileExt,
         StorageFileFormat preferredStorageFileFormat = StorageFileFormat::JSON);
     ~CProgSettings() override;
 

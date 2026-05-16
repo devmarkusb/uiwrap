@@ -40,7 +40,7 @@ public:
 
 private:
     UL_PRAGMA_WARNINGS_PUSH
-    UL_WARNING_DISABLE_MSVC(4251)
+    UL_WARNING_DISABLE_MSVC(4'251)
     mutable std::string latestError;
     UL_PRAGMA_WARNINGS_POP
 };
