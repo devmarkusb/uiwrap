@@ -28,7 +28,7 @@ std::unique_ptr<ILibrary> ILibrary::make(
     std::unique_ptr<ILibrary> p;
 #if UL_OS_WINDOWS
     p = ul::make_unique<CLibrary_win>(filePathNameWithoutExtension, version);
-#elif UL_OS_LINUX
+#elif UL_OS_LINUX || UL_OS_MAC
     p = ul::make_unique<CLibrary_linux>(filePathNameWithoutExtension, version);
 #endif
     if (!filePathNameWithoutExtension.empty())

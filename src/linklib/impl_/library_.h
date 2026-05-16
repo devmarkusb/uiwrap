@@ -12,7 +12,7 @@
 #if UL_OS_WINDOWS == 1
 #include <sstream>
 #include <windows.h>
-#elif UL_OS_LINUX == 1
+#elif UL_OS_LINUX == 1 || UL_OS_MAC == 1
 #include <dlfcn.h>
 #endif
 
@@ -70,7 +70,7 @@ public:
 private:
     HMODULE m_DllHandle{nullptr};
 };
-#elif UL_OS_LINUX == 1
+#elif UL_OS_LINUX == 1 || UL_OS_MAC == 1
 class CLibrary_linux : public CLibrary {
 public:
     explicit CLibrary_linux(
@@ -88,7 +88,11 @@ public:
 
     bool Load() override {
         std::string dll(GetFileName());
+#if UL_OS_MAC
+        dll += ".dylib";
+#else
         dll += ".so";
+#endif
         m_DllHandle = dlopen(dll.c_str(), OPEN_MODE);
         return m_DllHandle;
     }
