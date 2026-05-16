@@ -41,7 +41,7 @@ CI (`.github/workflows/ci.yml`) installs **Qt 6.9.3** via `jurplel/install-qt-ac
 
 ### Console / “own” (`MB_UIWRAP_USE_IMPLEMENTATION=own`, default)
 
-Uses the non-Qt implementations and **Boost** (`find_package(Boost ... CONFIG)`), discovered via `CMAKE_PREFIX_PATH` or a normal Boost install layout. CI installs Boost with **vcpkg** (Beman Linux containers and Windows hosted image) or **Homebrew** (macOS).
+Uses the non-Qt implementations and **Boost** (`find_package(Boost ... CONFIG)`), discovered via `CMAKE_PREFIX_PATH` or a normal Boost install layout. CI runs **`devenv/install-boost.sh`** (vcpkg on Beman containers / Windows, Homebrew on macOS, apt on plain Linux); locally: `python3 devenv/install-boost.py --ensure --print-prefix-path`.
 
 Public tuning:
 

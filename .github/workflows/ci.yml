@@ -9,8 +9,9 @@ on:
 
 jobs:
   preset-test:
-    uses: ./.github/workflows/preset-test-with-boost.yml
+    uses: ./devenv/.github/workflows/preset-test.yml
     with:
+      default_setup_script: devenv/install-boost.sh
       matrix_config: >
         [
           {"preset": "gcc-debug", "image": "ghcr.io/bemanproject/infra-containers-gcc:latest"},
@@ -27,8 +28,9 @@ jobs:
         ]
 
   build-and-test:
-    uses: ./.github/workflows/build-and-test-with-boost.yml
+    uses: ./devenv/.github/workflows/build-and-test.yml
     with:
+      default_setup_script: devenv/install-boost.sh
       matrix_config: >
         {
           "gcc": [
