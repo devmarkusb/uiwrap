@@ -35,8 +35,8 @@ project(
     VERSION 0.1.${MB_UIWRAP_BUILD_NR}.0
 )
 
-# mb.util headers on main require C++20 (e.g. std::integral, concepts).
-set(CMAKE_CXX_STANDARD 20)
+# mb.util on main requires at least C++20; uiwrap standardizes on C++23 (MSVC <stacktrace>, presets).
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
