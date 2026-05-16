@@ -64,11 +64,6 @@ option(
 )
 
 if(PROJECT_IS_TOP_LEVEL)
-    # cpp-lib-template uses add_subdirectory(devenv), which configures the devenv submodule and runs
-    # mb_pre_commit_setup there first. That nested configure uses CUSTOM hook install and fails when
-    # this repo sets core.hooksPath (common with a checked-in .githooks directory). We only need
-    # devenv/cmake on the module path for toolchains and mb-devenv-* includes; the outer
-    # mb_pre_commit_setup() below matches the template's project()-level call.
     list(PREPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/devenv/cmake")
     if(MB_UIWRAP_BUILD_TESTS)
         include(mb-devenv-ctest-root)
@@ -77,61 +72,8 @@ if(PROJECT_IS_TOP_LEVEL)
     include(mb-devenv-install-library-config)
 endif()
 
-# mb-pre-commit: top-level via lockfile before project(); embedded via FetchContent (lockfile script needs TOP_LEVEL_INCLUDES).
-if(NOT PROJECT_IS_TOP_LEVEL AND NOT COMMAND mb_pre_commit_setup_subdirectory)
-    include(FetchContent)
-    FetchContent_Declare(
-        mb_pre_commit
-        GIT_REPOSITORY https://github.com/devmarkusb/pre-commit
-        GIT_TAG v3.0.0
-        GIT_SHALLOW ON
-        EXCLUDE_FROM_ALL
-        SYSTEM
-    )
-    if(POLICY CMP0169)
-        cmake_policy(PUSH)
-        cmake_policy(SET CMP0169 OLD)
-    endif()
-    FetchContent_Populate(mb_pre_commit)
-    if(POLICY CMP0169)
-        cmake_policy(POP)
-    endif()
-    include("${mb_pre_commit_SOURCE_DIR}/cmake/mb-pre-commit.cmake")
-endif()
-
-execute_process(
-    COMMAND git -C "${CMAKE_SOURCE_DIR}" config --get core.hooksPath
-    OUTPUT_VARIABLE _mb_uiwrap_core_hooks_path
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    RESULT_VARIABLE _mb_uiwrap_core_hooks_path_rc
-    ERROR_QUIET
-)
-if(
-    _mb_uiwrap_core_hooks_path_rc EQUAL 0
-    AND NOT _mb_uiwrap_core_hooks_path STREQUAL ""
-)
-    message(
-        STATUS
-        "mb_pre_commit_setup skipped: git core.hooksPath='${_mb_uiwrap_core_hooks_path}'. "
-        "Unset with: git config --unset-all core.hooksPath (then reconfigure) to match cpp-lib-template hook install."
-    )
-elseif(PROJECT_IS_TOP_LEVEL)
-    if(COMMAND mb_pre_commit_setup)
-        mb_pre_commit_setup()
-    else()
-        message(
-            WARNING
-            "uiwrap: mb_pre_commit_setup not available (configure with fetchcontent lockfile or CMakePresets)."
-        )
-    endif()
-elseif(COMMAND mb_pre_commit_setup_subdirectory)
-    mb_pre_commit_setup_subdirectory(PRE_COMMIT_SWEEP_TARGET mb-pre-commit-sweep-uiwrap)
-else()
-    message(
-        WARNING
-        "uiwrap: mb_pre_commit_setup_subdirectory not available; mb-pre-commit-sweep-uiwrap will not be created."
-    )
-endif()
+# From fetched https://github.com/devmarkusb/pre-commit (see fetchcontent-lockfile.json).
+mb_pre_commit_setup_project()
 
 if(NOT PROJECT_IS_TOP_LEVEL AND MB_UIWRAP_BUILD_TESTS)
     if(DEFINED mb_ul_fetch_SOURCE_DIR)
