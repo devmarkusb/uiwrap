@@ -7,6 +7,9 @@ endif()
 
 include(FetchContent)
 
+# Parent apps (e.g. WealthPlanner) fetch mb.util for headers/targets only, not install.
+set(MB_UTIL_INSTALL_CONFIG_FILE_PACKAGE OFF CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
     mb_ul_fetch
     GIT_REPOSITORY https://github.com/devmarkusb/util
