@@ -19,3 +19,4 @@ jobs:
     uses: devmarkusb/devenv/.github/workflows/clang-tidy-review.yml@main
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
+      default_setup_script: devenv/install-boost.sh
