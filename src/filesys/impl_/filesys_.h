@@ -20,8 +20,8 @@
 namespace mb::uiw::impl {
 class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys {
 public:
-    bool saveToTextFile(const std::string& filePathNameExt, const std::string& Content) override;
-    bool loadFromTextFile(const std::string& filePathNameExt, std::string& Content) const override;
+    bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
+    bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const override;
     bool copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;
     bool deleteFile(const std::string& filePathNameExt) override;
     bool renameFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) override;

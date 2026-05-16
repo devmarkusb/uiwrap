@@ -19,3 +19,5 @@ concurrency:
 jobs:
   cppcheck:
     uses: devmarkusb/devenv/.github/workflows/cppcheck.yml@main
+    with:
+      default_setup_script: devenv/install-boost.sh
