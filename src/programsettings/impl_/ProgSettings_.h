@@ -8,7 +8,7 @@
 #include "uiwrap/programsettings/programsettings.h"
 #include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
-UL_WARNING_DISABLE_GCC(unused - local - typedefs)
+UL_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include "boost/property_tree/info_parser.hpp"
 #include "boost/property_tree/ini_parser.hpp"
 #include "boost/property_tree/json_parser.hpp"
