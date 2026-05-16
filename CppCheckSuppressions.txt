@@ -1,0 +1,4 @@
+# FetchContent dependencies are excluded as translation units (-i _deps) but their
+# headers are still parsed when included from uiwrap sources. Suppress those findings here;
+# fix upstream in mb_ul / googletest rather than in this repo.
+*:*/_deps/*

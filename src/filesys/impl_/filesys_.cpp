@@ -14,7 +14,7 @@ bool CFileSys_::saveToTextFile(const std::string& filePathNameExt, const std::st
     return true;
 }
 
-bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string& content) const {
+bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string& Content) const {
     this->latestError.clear();
     std::ifstream file(filePathNameExt);
     if (ul::file::fstream_failed(this->latestError, file))
@@ -29,11 +29,11 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
         this->latestError = "size == -1";
         return false;
     }
-    content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
+    Content.resize(static_cast<size_t>(size)); // need the precise size for the string, I guess
     file.seekg(0);
     if (ul::file::fstream_failed(this->latestError, file))
         return false;
-    file.read(&content[0], size);
+    file.read(&Content[0], size);
     return true;
 }
 

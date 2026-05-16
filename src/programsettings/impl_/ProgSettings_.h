@@ -15,6 +15,8 @@ UL_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include "boost/property_tree/ptree.hpp"
 #include "boost/property_tree/xml_parser.hpp"
 UL_PRAGMA_WARNINGS_POP
+#include <algorithm>
+#include <iterator>
 #include <memory>
 
 namespace mb::uiw::impl {
@@ -40,6 +42,8 @@ public:
     bool contains(const std::string& sectionName, const std::string& keyName) const override;
     void remove(const std::string& sectionName, const std::string& keyName) override;
     void sync() override;
+
+    void persistToFile();
 
     EError getError() const override;
     void resetError() override;
@@ -69,7 +73,7 @@ CProgSettings::CProgSettings(
 
 CProgSettings::~CProgSettings() {
     try {
-        sync();
+        persistToFile();
     } catch (...) {
     }
 }
@@ -116,8 +120,11 @@ void CProgSettings::setValueStr(const std::string&, const std::string&, const st
 
 std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
     std::vector<IProgSettings::TSectionKeyPair> ret;
-    for (const auto& path : m_PropTree)
-        ret.emplace_back(std::string(), path.first);
+    ret.reserve(m_PropTree.size());
+    std::transform(
+        m_PropTree.begin(), m_PropTree.end(), std::back_inserter(ret), [](const boost_pt::ptree::value_type& path) {
+            return IProgSettings::TSectionKeyPair{std::string(), path.first};
+        });
     return ret;
 }
 
@@ -140,6 +147,10 @@ void CProgSettings::remove(const std::string& sectionName, const std::string& ke
 }
 
 void CProgSettings::sync() {
+    persistToFile();
+}
+
+void CProgSettings::persistToFile() {
     try {
         switch (m_StorageFileFormat) {
             case StorageFileFormat::INI:

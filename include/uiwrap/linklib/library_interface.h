@@ -61,7 +61,7 @@ protected:
         m_Error = std::move(error);
     }
 
-    [[nodiscard]] std::string GetVersion() const {
+    [[nodiscard]] const std::string& GetVersion() const {
         return m_Version;
     }
 
