@@ -40,8 +40,9 @@ Optional environment layout (if your toolchain expects it):
 * `export dev_qt_base=$dev_sdk_path/qt_linux` (or similar) with **versioned** Qt 6 directories under
   it (e.g. `6.9.3/gcc_64`), then set `CMAKE_PREFIX_PATH` to that kit’s root.
 
-CI (`.github/workflows/ci.yml`) installs **Qt 6.9.3** via `jurplel/install-qt-action@v4` (desktop,
-`qt5compat` module) when applicable and configures with `-DMB_UIWRAP_USE_IMPLEMENTATION=qt`.
+CI installs **Boost** via `setup_boost: true` (cached vcpkg/Homebrew; apt in Beman Linux containers).
+The **Qt** clang-tidy job uses **`qt_version: '6.9.3'`** (`jurplel/install-qt-action`, cached) with
+`-DMB_UIWRAP_USE_IMPLEMENTATION=qt`.
 
 ### Console / “own” (`MB_UIWRAP_USE_IMPLEMENTATION=own`, default)
 

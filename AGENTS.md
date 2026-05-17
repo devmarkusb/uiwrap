@@ -33,7 +33,7 @@ cmake --build .
 
 **Unverified per machine:** exact `CMAKE_PREFIX_PATH` / kit layout; see **`README.md`** for Qt **6** discovery and optional `dev_sdk_path` layout.
 
-For the non-Qt default (`own`), ensure **Boost** is installed and visible to CMake (`CMAKE_PREFIX_PATH` or a default search path). CI uses **`devenv/install-boost.sh`** via `default_setup_script` on the reusable devenv workflows (vcpkg on Beman containers / Windows, Homebrew on macOS, apt on plain Linux).
+For the non-Qt default (`own`), ensure **Boost** is installed and visible to CMake (`CMAKE_PREFIX_PATH` or a default search path). CI passes **`setup_boost: true`** to reusable devenv workflows (emerge on Beman Gentoo containers, apt on Ubuntu, cached vcpkg on Windows, Homebrew on macOS).
 
 ## 3. Test commands
 
@@ -44,7 +44,7 @@ cd build
 ctest --output-on-failure
 ```
 
-CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`devenv/.github/workflows/*.yml`** with **`default_setup_script: devenv/install-boost.sh`** for the default `own` backend.
+CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`./devenv/.github/workflows/*.yml`** with **`setup_boost: true`**. Qt clang-tidy uses **`qt_version: '6.9.3'`** (`qt_install_deps: false` in Beman containers).
 
 ## 4. Formatting and linting
 
