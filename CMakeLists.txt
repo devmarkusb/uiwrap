@@ -184,6 +184,7 @@ else()
     set(target_IMPL_SOURCES
         src/filesys/impl_/filesys_.cpp
         src/messagebox/impl_/messagebox_.cpp
+        src/programsettings/impl_/ProgSettings_.cpp
     )
 endif()
 
