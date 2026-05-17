@@ -25,7 +25,8 @@
         "CMAKE_COLOR_DIAGNOSTICS": "ON",
         "CMAKE_WARN_DEPRECATED": "ON",
         "CMAKE_LINK_WHAT_YOU_USE": "ON",
-        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "./devenv/cmake/fetch-content-from-lockfile.cmake"
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "./devenv/cmake/fetch-content-from-lockfile.cmake",
+        "MB_UIWRAP_USE_IMPLEMENTATION": "qt"
       }
     },
     {
