@@ -166,7 +166,10 @@
         "release",
         "EveryWarnClang",
         "base"
-      ]
+      ],
+      "cacheVariables": {
+        "QT_DEBUG_FIND_PACKAGE": "ON"
+      }
     },
     {
       "name": "clang-libc++-debug",
