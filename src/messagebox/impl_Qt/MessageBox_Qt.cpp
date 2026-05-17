@@ -63,7 +63,7 @@ QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b) {
     return qb;
 }
 
-CMessageBox_Qt::EButton CMessageBox_Qt::StandardButton2EButton(QMessageBox::StandardButton qb) {
+auto CMessageBox_Qt::StandardButton2EButton(QMessageBox::StandardButton qb) -> EButton {
     EButton b = EButton::ok;
     switch (qb) {
         case QMessageBox::Cancel:
