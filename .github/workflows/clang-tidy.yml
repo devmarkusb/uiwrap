@@ -10,13 +10,26 @@ on:
     - cron: "17 4 * * 0"
   workflow_dispatch:
 
-concurrency:
-  group: clang-tidy-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  clang-tidy:
-    uses: devmarkusb/devenv/.github/workflows/clang-tidy-review.yml@main
+  clang-tidy-own:
+    name: own backend
+    concurrency:
+      group: clang-tidy-own-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    uses: ./devenv/.github/workflows/clang-tidy-review.yml
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
       default_setup_script: devenv/install-boost.sh
+      report_artifact_name: clang-tidy-full-project-report-own
+
+  clang-tidy-qt:
+    name: qt backend
+    concurrency:
+      group: clang-tidy-qt-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    uses: ./devenv/.github/workflows/clang-tidy-review.yml
+    with:
+      clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
+      default_setup_script: devenv/install-qt.sh
+      extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=qt
+      report_artifact_name: clang-tidy-full-project-report-qt
