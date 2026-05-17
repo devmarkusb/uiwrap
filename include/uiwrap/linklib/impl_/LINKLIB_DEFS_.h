@@ -28,7 +28,7 @@
 
 
 //! Declare the general dll calling convention.
-#if defined(_STDCALL_SUPPORTED)
+#ifdef _STDCALL_SUPPORTED
 #define UIW_CALLINGCONVENTION __stdcall
 #else
 #define UIW_CALLINGCONVENTION __cdecl

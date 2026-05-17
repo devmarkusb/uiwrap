@@ -1,5 +1,6 @@
 #include "filesys_.h"
 #include "mb/ul/ul.hpp"
+#include "uiwrap/filesys/filesys.h"
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
@@ -33,13 +34,13 @@ bool CFileSys_::loadFromTextFile(const std::string& filePathNameExt, std::string
     file.seekg(0);
     if (ul::file::fstream_failed(this->latestError, file))
         return false;
-    file.read(&content[0], size);
+    file.read(content.data(), size);
     return true;
 }
 
 bool CFileSys_::copyFile(const std::string& filePathNameExt_From, const std::string& filePathNameExt_To) {
     this->latestError.clear();
-    std::ifstream src(filePathNameExt_From, std::ios::binary);
+    const std::ifstream src(filePathNameExt_From, std::ios::binary);
     if (ul::file::fstream_failed(this->latestError, src))
         return false;
     std::ofstream dst(filePathNameExt_To, std::ios::binary);
@@ -98,8 +99,8 @@ bool CFileSys_::folderExists(const std::string& folderPath) const {
 
 bool CFileSys_::fileExists(const std::string& filePathNameExt) const {
     this->latestError.clear();
-    std::ifstream file(filePathNameExt, std::ios_base::binary);
-    return file ? true : false;
+    const std::ifstream file(filePathNameExt, std::ios_base::binary);
+    return static_cast<bool>(file);
 }
 
 bool CFileSys_::isFile(const std::string&) const {
@@ -117,16 +118,6 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
     this->latestError.clear();
     std::string ret;
     switch (type) {
-        case ESysPathType::PROGDATA:
-            break;
-        case ESysPathType::ROOT:
-            break;
-        case ESysPathType::TEMP:
-            break;
-        case ESysPathType::USER:
-            break;
-        case ESysPathType::CURRENT:
-            break;
         case ESysPathType::APPDATA_writable:
             ret = std::filesystem::temp_directory_path().string();
             break;
@@ -134,10 +125,10 @@ std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, boo
             break;
     }
     this->latestError = "not implemented";
-    if (withTrailingSeparator)
+    if (withTrailingSeparator) {
         return ret + FOLDER_SEPARATOR_TO_USE_HERE;
-    else
-        return {};
+    }
+    return {};
 }
 
 std::string CFileSys_::getErrorOfLatestCall() const {

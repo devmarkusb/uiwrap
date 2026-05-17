@@ -7,7 +7,7 @@
 #include "uiwrap/linklib/LINKLIB_DEFS.h"
 
 
-#if defined(UIWRAP_LIBRARY)
+#ifdef UIWRAP_LIBRARY
 #define UIWRAPSHARED_EXPORT UIW_DECL_EXPORT
 #else
 #define UIWRAPSHARED_EXPORT UIW_DECL_IMPORT

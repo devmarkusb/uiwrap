@@ -7,13 +7,15 @@
 
 namespace mb::uiw {
 class UIWRAPSHARED_EXPORT ExportNonCopyable {
-protected:
-    ExportNonCopyable() = default;
-    ~ExportNonCopyable() = default;
+public:
     ExportNonCopyable(const ExportNonCopyable&) = delete;
     ExportNonCopyable& operator=(const ExportNonCopyable&) = delete;
     ExportNonCopyable(ExportNonCopyable&&) = delete;
     ExportNonCopyable& operator=(ExportNonCopyable&&) = delete;
+
+protected:
+    ExportNonCopyable() = default;
+    ~ExportNonCopyable() = default;
 };
 } // namespace mb::uiw
 
