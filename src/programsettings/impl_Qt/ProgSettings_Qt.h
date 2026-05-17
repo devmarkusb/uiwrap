@@ -21,15 +21,14 @@ UL_PRAGMA_WARNINGS_POP
 
 namespace mb::uiw::implQt {
 // do not put in a library, see comment at file start
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance) -- QObject + IProgSettings required for QML-exposed settings object
 class CProgSettings
     : public QObject
     , public uiw::IProgSettings {
     Q_OBJECT
 
 public:
-    CProgSettings()
-        : QObject() {
-    }
+    CProgSettings() = default;
 
     ~CProgSettings() override = default;
 
@@ -69,7 +68,6 @@ private:
 
     static QString CreateQtKeyName(const std::string& sectionName, const std::string& keyName);
 
-private:
     std::unique_ptr<QSettings> m_settings_impl_doNotUseItDirectlyExceptOnInit{nullptr};
     bool enabled{true};
 };

@@ -27,7 +27,7 @@ const QSettings* CProgSettings::m_settings() const {
 void CProgSettings::init(const std::string& organizationName, const std::string& applicationName) {
     m_settings_impl_doNotUseItDirectlyExceptOnInit = ul::make_unique<QSettings>(
         QSettings::IniFormat, QSettings::UserScope, s2qs(organizationName), s2qs(applicationName));
-    auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
+    const auto ok = m_settings_impl_doNotUseItDirectlyExceptOnInit->status();
     UL_ASSERT(ok == QSettings::NoError);
     ul::ignore_unused(ok);
     m_FirstOccurredError = EError::E_NO_ERROR;
@@ -95,7 +95,7 @@ void CProgSettings::remove(const std::string& sectionName, const std::string& ke
 bool CProgSettings::contains(const std::string& sectionName, const std::string& keyName) const {
     if (!m_settings())
         return false;
-    bool ret = m_settings()->contains(CreateQtKeyName(sectionName, keyName));
+    const bool ret = m_settings()->contains(CreateQtKeyName(sectionName, keyName));
     getError();
     return ret;
 }
@@ -123,11 +123,11 @@ std::vector<CProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
         // only support one level of sections, so take the last two entries
         if (keypath.empty())
             continue;
-        TSectionKeyPair SecKey;
-        SecKey.second = keypath.back();
+        TSectionKeyPair secKey;
+        secKey.second = keypath.back();
         if (keypath.size() >= 2)
-            SecKey.first = keypath[keypath.size() - 2];
-        retkeys.push_back(SecKey);
+            secKey.first = keypath[keypath.size() - 2];
+        retkeys.push_back(secKey);
     }
     return retkeys;
 }
@@ -136,7 +136,7 @@ std::string CProgSettings::valueStr(
     const std::string& sectionName, const std::string& keyName, const std::string& def) const {
     if (!m_settings())
         return {};
-    QString val{m_settings()->value(CreateQtKeyName(sectionName, keyName), QVariant{s2qs(def)}).toString()};
+    const QString val{m_settings()->value(CreateQtKeyName(sectionName, keyName), QVariant{s2qs(def)}).toString()};
     getError();
     return qs2s(val);
 }
