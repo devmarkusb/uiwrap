@@ -19,7 +19,7 @@ jobs:
     uses: ./devenv/.github/workflows/clang-tidy-review.yml@main
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
-      default_setup_script: devenv/install-boost.sh
+      setup_boost: true
       report_artifact_name: clang-tidy-full-project-report-own
 
   clang-tidy-qt:
@@ -30,6 +30,7 @@ jobs:
     uses: ./devenv/.github/workflows/clang-tidy-review.yml@main
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
-      default_setup_script: devenv/install-qt.sh
+      qt_version: '6.9.3'
+      qt_install_deps: false
       extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=qt
       report_artifact_name: clang-tidy-full-project-report-qt
