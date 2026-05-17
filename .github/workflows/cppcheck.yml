@@ -20,4 +20,4 @@ jobs:
   cppcheck:
     uses: devmarkusb/devenv/.github/workflows/cppcheck.yml@main
     with:
-      setup_boost: true
+      setup_boost: false
