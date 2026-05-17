@@ -63,32 +63,16 @@ option(
     ${PROJECT_IS_TOP_LEVEL}
 )
 
-if(PROJECT_IS_TOP_LEVEL)
-    list(PREPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/devenv/cmake")
-    if(MB_UIWRAP_BUILD_TESTS)
-        include(mb-devenv-ctest-root)
-    endif()
-    include(mb-devenv-defaults)
-    include(mb-devenv-install-library-config)
+add_subdirectory(devenv)
+list(PREPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/devenv/cmake")
+if(MB_UIWRAP_BUILD_TESTS)
+    include(mb-devenv-ctest-root)
 endif()
+include(mb-devenv-defaults)
+include(mb-devenv-install-library-config)
 
 # From fetched https://github.com/devmarkusb/pre-commit (see fetchcontent-lockfile.json).
 mb_pre_commit_setup_project()
-
-if(NOT PROJECT_IS_TOP_LEVEL AND MB_UIWRAP_BUILD_TESTS)
-    if(DEFINED mb_ul_fetch_SOURCE_DIR)
-        set(_mb_uiwrap_ctest_root
-            "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake/mb-devenv-ctest-root.cmake"
-        )
-        if(EXISTS "${_mb_uiwrap_ctest_root}")
-            list(
-                PREPEND CMAKE_MODULE_PATH
-                "${mb_ul_fetch_SOURCE_DIR}/devenv/cmake"
-            )
-            include(mb-devenv-ctest-root)
-        endif()
-    endif()
-endif()
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
 
