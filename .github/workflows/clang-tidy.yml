@@ -30,9 +30,7 @@ jobs:
       cancel-in-progress: true
     uses: devmarkusb/devenv/.github/workflows/clang-tidy-review.yml@main
     with:
-      clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
       qt_version: '6.9.3'
-      qt_install_deps: false
-      default_setup_script: devenv/install-qt-sys-deps.sh
-      extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=qt -DCMAKE_FIND_PACKAGE_REDIRECTS_DIR=/tmp/qt-redirects
+      qt_install_deps: true
+      extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=qt
       report_artifact_name: clang-tidy-full-project-report-qt
