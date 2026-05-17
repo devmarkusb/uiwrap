@@ -32,11 +32,11 @@ public:
     EButton getRunResult() override;
 
 private:
-    QMessageBox m_MsgBox{};
+    QMessageBox m_MsgBox;
     QMessageBox::StandardButton m_RetVal{QMessageBox::NoButton};
 
     static QMessageBox::StandardButton EButton2StandardButton(EButton b);
-    EButton StandardButton2EButton(QMessageBox::StandardButton qb);
+    static EButton StandardButton2EButton(QMessageBox::StandardButton qb);
 };
 } // namespace mb::uiw::implQt
 
