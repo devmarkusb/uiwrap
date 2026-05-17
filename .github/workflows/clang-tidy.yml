@@ -20,6 +20,7 @@ jobs:
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
       setup_boost: true
+      extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=own
       report_artifact_name: clang-tidy-full-project-report-own
 
   clang-tidy-qt:
@@ -31,6 +32,8 @@ jobs:
     with:
       clang_image: ghcr.io/bemanproject/infra-containers-clang:latest
       qt_version: '6.9.3'
+      qt_modules: qtdeclarative
       qt_install_deps: false
+      default_setup_script: devenv/install-qt-sys-deps.sh
       extra_cmake_args: -DMB_UIWRAP_USE_IMPLEMENTATION=qt
       report_artifact_name: clang-tidy-full-project-report-qt
