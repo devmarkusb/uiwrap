@@ -168,7 +168,8 @@
         "base"
       ],
       "cacheVariables": {
-        "QT_DEBUG_FIND_PACKAGE": "ON"
+        "QT_DEBUG_FIND_PACKAGE": "ON",
+        "CMAKE_FIND_DEBUG_MODE": "ON"
       }
     },
     {
