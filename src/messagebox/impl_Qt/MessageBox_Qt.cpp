@@ -1,5 +1,4 @@
 #include "MessageBox_Qt.h"
-#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 
 namespace mb::uiw::implQt {
 QMessageBox::StandardButton CMessageBox_Qt::EButton2StandardButton(EButton b) {

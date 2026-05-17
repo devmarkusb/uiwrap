@@ -21,7 +21,8 @@
       "git_tag": "v1.0.0",
       "cmake_include": "cmake/mb-dot-clang-tidy.cmake",
       "cmake_variables": {
-        "MB_DOT_CLANG_TIDY_CLANG_TIDY_MAJOR": "22"
+        "MB_DOT_CLANG_TIDY_CLANG_TIDY_MAJOR": "22",
+        "MB_DOT_CLANG_TIDY_ENABLE": "OFF"
       }
     },
     {

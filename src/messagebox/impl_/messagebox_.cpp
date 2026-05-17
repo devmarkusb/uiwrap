@@ -1,7 +1,6 @@
 #include "messagebox_.h"
 
-namespace mb::uiw {
-namespace impl {
+namespace mb::uiw::impl {
 void MessageBox::addButton(EButton) {
 }
 
@@ -34,5 +33,4 @@ auto MessageBox::getRunResult() -> EButton {
         return EButton::ignore;
     return *this->retVal;
 }
-} // namespace impl
-} // namespace mb::uiw
+} // namespace mb::uiw::impl

@@ -7,6 +7,7 @@
 #include "../config.h"
 #include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
+#include <cstdint>
 #include <stdexcept>
 #include <string>
 
@@ -41,7 +42,7 @@ public:
     /** PROGDATA and USER are the same and yield for Windows something like c:/users/xy,
         which is not the most recommended place in general.
         APPDATA_writable and Co. are much more preferable locations.*/
-    enum class ESysPathType {
+    enum class ESysPathType : std::uint8_t {
         // PROGRAM,  //! if you miss that - at least Qt config didn't work properly; solution is to parse argv yourself
         USER, //! consider to use it only rarely
         PROGDATA, //! consider to use it only rarely

@@ -9,17 +9,19 @@
 #include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
 
+#include <cstdint>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace mb::uiw {
-#if !defined(UIW_LINKLIB_IMPL_CHOICE_QT)
-static const std::string& HIERARCHY_SEPARATOR = ".";
+#ifndef UIW_LINKLIB_IMPL_CHOICE_QT
+inline constexpr std::string_view HIERARCHY_SEPARATOR = ".";
 #endif
 
 class UIWRAPSHARED_EXPORT IProgSettings : private ExportNonCopyable {
 public:
-    enum class StorageFileFormat {
+    enum class StorageFileFormat : std::uint8_t {
         INI,
         XML,
         JSON,
@@ -63,7 +65,7 @@ public:
         Perhaps most useful when writing a bunch of program data immediately before program exit.*/
     virtual void sync() = 0;
 
-    enum class EError {
+    enum class EError : std::uint8_t {
         E_NO_ERROR = 0, // scary: NO_ERROR seems to be defined somewhere in system headers!?
         INIT_NOT_CALLED_OR_FAILED,
         ERROR_WRITING_SETTINGS,

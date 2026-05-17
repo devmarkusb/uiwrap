@@ -1,17 +1,19 @@
-#include "uiwrap_build_config.h"
-#if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
+#include "uiwrap/programsettings/programsettings.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/ProgSettings_Qt.h"
-#elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
+#elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
 #include "impl_/ProgSettings_.h"
 #endif
+
 #include "mb/ul/ul.hpp"
 
 namespace mb::uiw {
 IProgSettings* IProgSettings::getInstance(
     const std::string& fileNamePath, const std::string& fileExt, StorageFileFormat preferredStorageFileFormat) {
-#if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
     ul::ignore_unused(fileNamePath);
     ul::ignore_unused(fileExt);
@@ -19,7 +21,7 @@ IProgSettings* IProgSettings::getInstance(
     static implQt::CProgSettings instance;
     return &instance;
 
-#elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
+#elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 
     throw ul::NotImplemented{"IProgSettings::getInstance"};
 

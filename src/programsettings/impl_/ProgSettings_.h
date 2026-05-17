@@ -18,6 +18,7 @@ UL_PRAGMA_WARNINGS_POP
 #include <algorithm>
 #include <iterator>
 #include <memory>
+#include <utility>
 
 namespace mb::uiw::impl {
 namespace boost_pt = boost::property_tree;
@@ -61,6 +62,16 @@ private:
 
     //! first and second mustn't start or end with HIERARCHY_SEPARATOR
     static std::string concatenateWithHierarchySep(const std::string& first, const std::string& second);
+
+    template <typename ReadFn>
+    void readStorageFile(ReadFn&& readFn) {
+        std::forward<ReadFn>(readFn)(m_FileName, m_PropTree);
+    }
+
+    template <typename WriteFn>
+    void writeStorageFile(WriteFn&& writeFn) {
+        std::forward<WriteFn>(writeFn)(m_FileName, m_PropTree);
+    }
 };
 
 //####################################################################################################################
@@ -80,7 +91,7 @@ CProgSettings::~CProgSettings() {
 
 std::string CProgSettings::concatenateWithHierarchySep(const std::string& first, const std::string& second) {
     std::string ret{first};
-    ret += HIERARCHY_SEPARATOR;
+    ret.append(HIERARCHY_SEPARATOR);
     ret += second;
     return ret;
 }
@@ -89,16 +100,16 @@ void CProgSettings::init(const std::string&, const std::string&) {
     try {
         switch (m_StorageFileFormat) {
             case StorageFileFormat::INI:
-                boost::property_tree::read_ini(m_FileName, m_PropTree);
+                readStorageFile(boost::property_tree::read_ini);
                 break;
             case StorageFileFormat::XML:
-                boost::property_tree::read_xml(m_FileName, m_PropTree);
+                readStorageFile(boost::property_tree::read_xml);
                 break;
             case StorageFileFormat::JSON:
-                boost::property_tree::read_json(m_FileName, m_PropTree);
+                readStorageFile(boost::property_tree::read_json);
                 break;
             case StorageFileFormat::BOOST_INFO:
-                boost::property_tree::read_info(m_FileName, m_PropTree);
+                readStorageFile(boost::property_tree::read_info);
                 break;
             default:
                 return;
@@ -118,6 +129,7 @@ void CProgSettings::setValueStr(const std::string&, const std::string&, const st
     throw ul::NotImplemented("setValueStr");
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) -- uses m_PropTree
 std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
     std::vector<IProgSettings::TSectionKeyPair> ret;
     ret.reserve(m_PropTree.size());
@@ -154,16 +166,16 @@ void CProgSettings::persistToFile() {
     try {
         switch (m_StorageFileFormat) {
             case StorageFileFormat::INI:
-                boost::property_tree::write_ini(m_FileName, m_PropTree);
+                writeStorageFile(boost::property_tree::write_ini);
                 break;
             case StorageFileFormat::XML:
-                boost::property_tree::write_xml(m_FileName, m_PropTree);
+                writeStorageFile(boost::property_tree::write_xml);
                 break;
             case StorageFileFormat::JSON:
-                boost::property_tree::write_json(m_FileName, m_PropTree);
+                writeStorageFile(boost::property_tree::write_json);
                 break;
             case StorageFileFormat::BOOST_INFO:
-                boost::property_tree::write_info(m_FileName, m_PropTree);
+                writeStorageFile(boost::property_tree::write_info);
                 break;
             default:
                 return;

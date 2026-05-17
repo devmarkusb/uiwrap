@@ -69,9 +69,9 @@ UIW_LINKLIB_IMPL_CHOICE_OWN or UIW_LINKLIB_IMPL_CHOICE_DEFAULT or nothing,
 UIW_LINKLIB_IMPL_CHOICE_QT,
 UIW_LINKLIB_IMPL_CHOICE_WX,
 */
-#if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/LINKLIB_DEFS_Qt.h"
-#elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
+#elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
 #include "impl_/LINKLIB_DEFS_.h"

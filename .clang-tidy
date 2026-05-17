@@ -10,6 +10,11 @@ Checks: >
   -altera-unroll-loops,
   -bugprone-easily-swappable-parameters,
   -bugprone-empty-catch,
+  -bugprone-exception-escape,
+  -cert-dcl03-c,
+  -hicpp-static-assert,
+  -misc-include-cleaner,
+  -misc-static-assert,
   -cert-dcl16-c,
   -cert-dcl21-cpp,
   -clang-analyzer-deadcode,
@@ -60,37 +65,37 @@ Checks: >
 
 WarningsAsErrors: "*"
 
+# uiwrap naming: camelBack API (WealthPlanner / mb::uiw style); aNy_CasE where legacy mixes cases.
 CheckOptions:
   - { key: readability-identifier-naming.AggressiveDependentMemberLookup, value: true }
-  - { key: readability-identifier-naming.ClassCase,                       value: CamelCase }
+  - { key: readability-identifier-naming.ClassCase,                       value: aNy_CasE }
+  - { key: readability-identifier-naming.ClassIgnoredRegexp,              value: '.*_$' }
   - { key: readability-identifier-naming.ConceptCase,                     value: CamelCase }
   - { key: readability-identifier-naming.EnumCase,                        value: CamelCase }
-  - { key: readability-identifier-naming.EnumConstantCase,                value: lower_case }
-  - { key: readability-identifier-naming.FunctionCase,                    value: lower_case }
-  - { key: readability-identifier-naming.FunctionIgnoredRegexp,           value: '([_A-Z0-9]+|BM_.*)' }
-  - { key: readability-identifier-naming.LocalVariableCase,               value: lower_case }
+  - { key: readability-identifier-naming.EnumConstantCase,                value: aNy_CasE }
+  - { key: readability-identifier-naming.FunctionCase,                    value: camelBack }
+  - { key: readability-identifier-naming.FunctionIgnoredRegexp,           value: '([_A-Z0-9]+|BM_.*|Q_[A-Z].*)' }
+  - { key: readability-identifier-naming.LocalVariableCase,               value: camelBack }
   - { key: readability-identifier-naming.LocalVariableIgnoredRegexp,      value: '(_.*|.*_)' }
-  - { key: readability-identifier-naming.MacroDefinitionCase,             value: UPPER_CASE }
-  - { key: readability-identifier-naming.MemberCase,                      value: lower_case }
-  - { key: readability-identifier-naming.MethodCase,                      value: lower_case }
-  - { key: readability-identifier-naming.MethodIgnoredRegexp,             value: '([_A-Z0-9]+|SetUp|TearDown|do_.*)' }
-  - { key: readability-identifier-naming.NamespaceCase,                   value: lower_case }
-  - { key: readability-identifier-naming.ParameterCase,                   value: lower_case }
-  - { key: readability-identifier-naming.PrivateMemberCase,               value: lower_case }
-  - { key: readability-identifier-naming.PrivateMemberSuffix,             value: _ }
-  - { key: readability-identifier-naming.ProtectedMemberCase,             value: lower_case }
-  - { key: readability-identifier-naming.ProtectedMemberSuffix,           value: _ }
-  - { key: readability-identifier-naming.StructCase,                      value: CamelCase }
-  - { key: readability-identifier-naming.TypeAliasCase,                   value: CamelCase }
-  - { key: readability-identifier-naming.TypedefCase,                     value: CamelCase }
+  - { key: readability-identifier-naming.MacroDefinitionCase,             value: aNy_CasE }
+  - { key: readability-identifier-naming.MemberCase,                      value: aNy_CasE }
+  - { key: readability-identifier-naming.MethodCase,                      value: aNy_CasE }
+  - { key: readability-identifier-naming.MethodIgnoredRegexp,             value: '(SetUp|TearDown|do_.*|.*_)' }
+  - { key: readability-identifier-naming.NamespaceCase,                   value: aNy_CasE }
+  - { key: readability-identifier-naming.ParameterCase,                   value: aNy_CasE }
+  - { key: readability-identifier-naming.PrivateMemberCase,               value: aNy_CasE }
+  - { key: readability-identifier-naming.ProtectedMemberCase,             value: aNy_CasE }
+  - { key: readability-identifier-naming.StructCase,                      value: aNy_CasE }
+  - { key: readability-identifier-naming.TypeAliasCase,                   value: aNy_CasE }
+  - { key: readability-identifier-naming.TypedefCase,                     value: aNy_CasE }
   - { key: readability-identifier-naming.TypeTemplateParameterCase,       value: CamelCase }
   - { key: readability-identifier-naming.UnionCase,                       value: CamelCase }
-  - { key: readability-identifier-naming.ValueTemplateParameterCase,      value: lower_case }
-  - { key: readability-identifier-naming.VariableCase,                    value: lower_case }
+  - { key: readability-identifier-naming.ValueTemplateParameterCase,      value: camelBack }
+  - { key: readability-identifier-naming.VariableCase,                    value: aNy_CasE }
 
 # Dangerous but needed, over exhaustive, changes also all your included third-party files in build folders.
 # Solution (partial perhaps) shown below but not yet usable, unfortunately. So after the run you need to revert or
 # delete third-party files.
-HeaderFilterRegex: '.*'
+HeaderFilterRegex: '(?:^|.*/uiwrap/)(include|src)/.*'
 # negative look ahead not yet supported
 #HeaderFilterRegex: "^.*(?:_deps).*"

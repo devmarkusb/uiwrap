@@ -1,24 +1,27 @@
 #include "uiwrap_build_config.h"
-#if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
+#include "uiwrap/linklib/library_interface.h"
+
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/library_Qt.h"
-#elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
+#elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
 #include "impl_/library_.h"
 #endif
+
 #include "mb/ul/ul.hpp"
 
 namespace mb::uiw {
 std::unique_ptr<ILibrary> ILibrary::make(
     const std::string& filePathNameWithoutExtension, [[maybe_unused]] const std::string& version) {
-#if defined(UIW_LINKLIB_IMPL_CHOICE_QT)
+#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
     std::unique_ptr<ILibrary> p(ul::make_unique<implQt::CLibrary_Qt>(filePathNameWithoutExtension, version));
     if (!filePathNameWithoutExtension.empty())
         p->Load();
     return p;
 
-#elif defined(UIW_LINKLIB_IMPL_CHOICE_WX)
+#elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 
     ul::ignore_unused(filePathNameWithoutExtension);
     ul::ignore_unused(version);

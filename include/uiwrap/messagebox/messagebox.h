@@ -7,6 +7,7 @@
 #include "../config.h"
 #include "../export_non_copyable.h"
 #include "mb/ul/ul.hpp"
+#include <cstdint>
 #include <memory>
 #include <string>
 
@@ -15,30 +16,30 @@ class UIWRAPSHARED_EXPORT IMessageBox : private ExportNonCopyable {
 public:
     virtual ~IMessageBox() = default;
 
-    enum class EButton {
-        ok,
-        cancel,
-        yes,
-        yestoall,
-        no,
-        notoall,
-        close,
-        ignore,
-        retry,
-        open,
-        save,
-        saveall,
-        reset,
-        discard,
+    enum class EButton : std::uint8_t {
+        ok = 0,
+        cancel = 1,
+        yes = 2,
+        yestoall = 3,
+        no = 4,
+        notoall = 5,
+        close = 6,
+        ignore = 7,
+        retry = 8,
+        open = 9,
+        save = 10,
+        saveall = 11,
+        reset = 12,
+        discard = 13,
         undo = discard,
-        apply,
-        help,
-        restoredefaults,
-        abort,
+        apply = 14,
+        help = 15,
+        restoredefaults = 16,
+        abort = 17,
     };
 
-    enum class EIcon {
-        none,
+    enum class EIcon : std::uint8_t {
+        none = 0,
         information,
         question,
         warning,
