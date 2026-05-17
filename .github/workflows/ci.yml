@@ -12,6 +12,8 @@ jobs:
     uses: devmarkusb/devenv/.github/workflows/preset-test.yml@main
     with:
       setup_boost: true
+      qt_version: '6.9.3'
+      qt_install_deps: false
       matrix_config: >
         [
           {"preset": "gcc-debug", "image": "ghcr.io/bemanproject/infra-containers-gcc:latest"},
