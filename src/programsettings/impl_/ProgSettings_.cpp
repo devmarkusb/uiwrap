@@ -9,6 +9,9 @@ UL_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include "boost/property_tree/xml_parser.hpp"
 UL_PRAGMA_WARNINGS_POP
 
+#include <algorithm>
+#include <iterator>
+
 namespace mb::uiw::impl {
 CProgSettings::CProgSettings(
     const std::string& fileNamePath, const std::string& fileExt, StorageFileFormat preferredStorageFileFormat)
@@ -68,9 +71,9 @@ void CProgSettings::setValueStr(const std::string&, const std::string&, const st
 std::vector<IProgSettings::TSectionKeyPair> CProgSettings::getAllKeys() const {
     std::vector<IProgSettings::TSectionKeyPair> ret;
     ret.reserve(m_PropTree.size());
-    for (const auto& path : m_PropTree) {
-        ret.emplace_back(std::string(), path.first);
-    }
+    std::ranges::transform(m_PropTree, std::back_inserter(ret), [](const auto& path) {
+        return IProgSettings::TSectionKeyPair{std::string(), path.first};
+    });
     return ret;
 }
 
