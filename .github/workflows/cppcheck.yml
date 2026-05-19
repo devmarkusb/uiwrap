@@ -3,11 +3,13 @@ name: cppcheck
 on:
   pull_request:
     paths: ["**/*.cpp", "**/*.hpp", "**/*.h", "cmake/**", "devenv/cmake/**",
+            ".github/workflows/cppcheck.yml",
             "CppCheckSuppressions.txt", "devenv/.github/workflows/cppcheck.yml",
             "devenv/run-cppcheck.sh"]
   push:
     branches: [main]
     paths: ["**/*.cpp", "**/*.hpp", "**/*.h", "cmake/**", "devenv/cmake/**",
+            ".github/workflows/cppcheck.yml",
             "CppCheckSuppressions.txt", "devenv/.github/workflows/cppcheck.yml",
             "devenv/run-cppcheck.sh"]
   schedule:
@@ -22,5 +24,6 @@ jobs:
   cppcheck:
     uses: devmarkusb/devenv/.github/workflows/cppcheck.yml@main
     with:
+      preset: nix-conan-clang-release
       use_nix_conan: true
       nix_packages: cmake ninja pkg-config conan python3 clang cppcheck boost
