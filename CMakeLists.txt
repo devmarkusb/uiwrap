@@ -27,13 +27,13 @@ if(MB_UIWRAP_BUILD_TESTS)
 endif()
 include(mb-devenv-defaults)
 include(mb-devenv-install-library-config)
+include(GNUInstallDirs)
 
 # From fetched https://github.com/devmarkusb/pre-commit (see fetchcontent-lockfile.json).
 mb_pre_commit_setup_project()
 
-include(cmake/dependencies.cmake)
-
-set(target uiwrap)
+set(target mb.uiwrap)
+set(target_basename uiwrap)
 message(
     STATUS
     "${PROJECT_NAME} (library target: ${target}) version: "
@@ -65,14 +65,7 @@ if(NOT DEFINED MB_UIWRAP_USE_IMPLEMENTATION)
     )
 endif()
 
-if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
-    set(MB_UIWRAP_BOOST_MIN_VERSION
-        "1.67"
-        CACHE STRING
-        "Minimum Boost for the \"own\" backend (header-only property_tree)."
-    )
-    find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)
-endif()
+include(cmake/dependencies.cmake)
 
 option(
     MB_UIWRAP_DISABLE_NAMESPACE_ALIAS
@@ -104,10 +97,6 @@ set(target_COMMON_SOURCES
 )
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
-    mb_ul_include(qt.cmake)
-    # Widgets contains (a.o.t.) Core and Gui; and is needed for QMessageBox
-    # Qml is needed e.g. for QQmlApplicationEngine (Quick would do also - could not find detailed infos yet, which to choose)
-    find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)
     qt_standard_project_setup(REQUIRES 6.8)
 
     set(target_IMPL_SOURCES
@@ -132,7 +121,6 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     qt_add_library(${target} SHARED
         ${target_COMMON_SOURCES}
         ${target_IMPL_SOURCES}
-        ${target_INCS}
         ${target_SRC_INCS}
     )
 else()
@@ -141,10 +129,10 @@ else()
         SHARED
         ${target_COMMON_SOURCES}
         ${target_IMPL_SOURCES}
-        ${target_INCS}
         ${target_SRC_INCS}
     )
 endif()
+add_library(mb::uiwrap ALIAS ${target})
 
 mb_devenv_set_target_lib_export_def(${target} UIWRAP_LIBRARY)
 
@@ -157,12 +145,29 @@ else()
 endif()
 
 configure_file(
-    ${target}_build_config.h.in
-    ${CMAKE_BINARY_DIR}/${target}_build_config.h
+    ${target_basename}_build_config.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${target_basename}_build_config.h
 )
-target_include_directories(${target} PUBLIC ${CMAKE_BINARY_DIR})
 
-target_include_directories(${target} PUBLIC include)
+target_sources(
+    ${target}
+    PUBLIC
+        FILE_SET HEADERS
+            BASE_DIRS
+                "${PROJECT_SOURCE_DIR}/include"
+                "${CMAKE_CURRENT_BINARY_DIR}"
+            FILES
+                ${target_INCS}
+                "${CMAKE_CURRENT_BINARY_DIR}/${target_basename}_build_config.h"
+)
+
+target_include_directories(
+    ${target}
+    PUBLIC
+        "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
 target_include_directories(${target} PRIVATE src)
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
     if(TARGET Boost::headers)
@@ -180,7 +185,7 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
     )
 endif()
 
-target_link_libraries(${target} PUBLIC mb::util)
+target_link_libraries(${target} PUBLIC "$<BUILD_LOCAL_INTERFACE:mb::util>")
 
 if(MB_DEVENV_LINUX)
     target_link_libraries(${target} PUBLIC dl)
@@ -192,8 +197,15 @@ endif()
 
 mb_devenv_set_target_defaults(${target})
 
+if(NOT PROJECT_IS_TOP_LEVEL)
+    set(MB_UIWRAP_INSTALL_CONFIG_FILE_PACKAGE OFF CACHE BOOL "" FORCE)
+endif()
+
+mb_devenv_install_library(${target})
+
 set(${target}_INCLUDE_DIRS
     ${PROJECT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_BINARY_DIR}
     CACHE INTERNAL
     "${target}: include directories"
     FORCE
