@@ -17,29 +17,24 @@ if(NOT DEFINED MB_UIWRAP_BUILD_NR)
     )
 endif()
 
-# Standalone tree: apply FetchContent lockfile before project() when CMakePresets do not inject it via
-# CMAKE_PROJECT_TOP_LEVEL_INCLUDES (see devmarkusb/cpp-lib-template).
+# Standalone tree: apply FetchContent lockfile through CMAKE_PROJECT_TOP_LEVEL_INCLUDES before project()
+# when CMakePresets do not inject it (see devmarkusb/cpp-lib-template).
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    set(_mb_uiwrap_skip_lockfile 0)
-    if(
-        DEFINED CMAKE_PROJECT_TOP_LEVEL_INCLUDES
-        AND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
+    set(_mb_uiwrap_lockfile_provider
+        "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
     )
-        foreach(_mb_uiwrap_inc IN LISTS CMAKE_PROJECT_TOP_LEVEL_INCLUDES)
-            if(_mb_uiwrap_inc MATCHES "fetch-content-from-lockfile")
-                set(_mb_uiwrap_skip_lockfile 1)
-                break()
-            endif()
-        endforeach()
-    endif()
-    if(
-        NOT _mb_uiwrap_skip_lockfile
-        AND EXISTS
-            "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
-    )
-        include(
-            "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
+    if(EXISTS "${_mb_uiwrap_lockfile_provider}")
+        list(
+            FIND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
+            "${_mb_uiwrap_lockfile_provider}"
+            _mb_uiwrap_lockfile_provider_index
         )
+        if(_mb_uiwrap_lockfile_provider_index EQUAL -1)
+            list(
+                APPEND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
+                "${_mb_uiwrap_lockfile_provider}"
+            )
+        endif()
     endif()
 endif()
 
@@ -74,9 +69,8 @@ include(mb-devenv-install-library-config)
 # From fetched https://github.com/devmarkusb/pre-commit (see fetchcontent-lockfile.json).
 mb_pre_commit_setup_project()
 
-include(${CMAKE_CURRENT_LIST_DIR}/cmake_util/util.cmake)
+include(cmake_util/dependencies.cmake)
 
-mb_ul_include(buildnr.cmake)
 set(target uiwrap)
 message(
     STATUS
