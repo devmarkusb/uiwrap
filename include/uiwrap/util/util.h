@@ -13,7 +13,8 @@ inline const std::string& resources_base_path() {
     static const std::string ret{":/"};
     return ret;
 #else
-#error "not implemented"
+    static const std::string ret{};
+    return ret;
 #endif
 }
 } // namespace mb::uiw::util
