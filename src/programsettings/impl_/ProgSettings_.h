@@ -7,8 +7,10 @@
 
 #include "uiwrap/programsettings/programsettings.h"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
+UL_WARNING_DISABLE_CLANG_ALL
 UL_WARNING_DISABLE_GCC(unused-local-typedefs)
 #include "boost/property_tree/ptree.hpp"
+// cppcheck-suppress unknownMacro
 UL_PRAGMA_WARNINGS_POP
 #include <string>
 

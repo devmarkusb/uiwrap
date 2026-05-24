@@ -3,7 +3,9 @@ set(MB_UIWRAP_VERSION @PROJECT_VERSION@)
 @PACKAGE_INIT@
 
 include(CMakeFindDependencyMacro)
-find_dependency(mb.util CONFIG REQUIRED)
+if(NOT TARGET mb::util)
+    find_dependency(mb.util CONFIG REQUIRED)
+endif()
 @MB_UIWRAP_CONFIG_BACKEND_DEPENDENCIES@
 
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@-targets.cmake")
