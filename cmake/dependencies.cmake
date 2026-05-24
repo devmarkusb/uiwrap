@@ -14,7 +14,9 @@ if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "own")
     )
     find_package(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)
     set(MB_UIWRAP_CONFIG_BACKEND_DEPENDENCIES
-        "find_dependency(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)"
+        "if(NOT TARGET Boost::headers)
+    find_dependency(Boost ${MB_UIWRAP_BOOST_MIN_VERSION} CONFIG REQUIRED)
+endif()"
     )
 elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     mb_ul_include(qt.cmake)
@@ -22,6 +24,8 @@ elseif(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     # used by QQmlApplicationEngine and the public Qt helper headers.
     find_package(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)
     set(MB_UIWRAP_CONFIG_BACKEND_DEPENDENCIES
-        "find_dependency(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)"
+        "if(NOT TARGET Qt6::Core OR NOT TARGET Qt6::Gui OR NOT TARGET Qt6::Qml OR NOT TARGET Qt6::Widgets)
+    find_dependency(Qt6 REQUIRED COMPONENTS Core Gui Qml Widgets)
+endif()"
     )
 endif()

@@ -34,6 +34,9 @@ std::unique_ptr<ILibrary> ILibrary::make(
 #elif UL_OS_LINUX || UL_OS_MAC
     p = ul::make_unique<CLibrary_linux>(filePathNameWithoutExtension, version);
 #endif
+    // cppcheck-suppress knownConditionTrueFalse
+    if (!p)
+        throw ul::NotImplemented{"ILibrary::make"};
     if (!filePathNameWithoutExtension.empty())
         p->Load();
     return p;
