@@ -1,49 +1,11 @@
 cmake_minimum_required(VERSION 3.30...4.3)
 
-# Public cache: MB_UIWRAP_BUILD_NR (legacy -DBUILD_NR= is still honored when MB_UIWRAP_BUILD_NR is unset).
-if(DEFINED BUILD_NR AND NOT DEFINED MB_UIWRAP_BUILD_NR)
-    set(MB_UIWRAP_BUILD_NR
-        "${BUILD_NR}"
-        CACHE STRING
-        "Build number segment for mb.uiwrap version (0.1.<nr>.0)."
-        FORCE
-    )
-endif()
-if(NOT DEFINED MB_UIWRAP_BUILD_NR)
-    set(MB_UIWRAP_BUILD_NR
-        "0"
-        CACHE STRING
-        "Build number segment for mb.uiwrap version (0.1.<nr>.0)."
-    )
-endif()
-
-# Standalone tree: apply FetchContent lockfile through CMAKE_PROJECT_TOP_LEVEL_INCLUDES before project()
-# when CMakePresets do not inject it (see devmarkusb/cpp-lib-template).
-if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
-    set(_mb_uiwrap_lockfile_provider
-        "${CMAKE_CURRENT_SOURCE_DIR}/devenv/cmake/fetch-content-from-lockfile.cmake"
-    )
-    if(EXISTS "${_mb_uiwrap_lockfile_provider}")
-        list(
-            FIND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
-            "${_mb_uiwrap_lockfile_provider}"
-            _mb_uiwrap_lockfile_provider_index
-        )
-        if(_mb_uiwrap_lockfile_provider_index EQUAL -1)
-            list(
-                APPEND CMAKE_PROJECT_TOP_LEVEL_INCLUDES
-                "${_mb_uiwrap_lockfile_provider}"
-            )
-        endif()
-    endif()
-endif()
-
 project(
     mb.uiwrap
     DESCRIPTION
         "UI-adjacent abstraction (filesystem, message boxes, settings, Qt helpers)"
     LANGUAGES CXX
-    VERSION 0.1.${MB_UIWRAP_BUILD_NR}.0
+    VERSION 0.1.0
 )
 
 # mb.util on main requires at least C++20; uiwrap standardizes on C++23 (MSVC <stacktrace>, presets).
@@ -69,7 +31,7 @@ include(mb-devenv-install-library-config)
 # From fetched https://github.com/devmarkusb/pre-commit (see fetchcontent-lockfile.json).
 mb_pre_commit_setup_project()
 
-include(cmake_util/dependencies.cmake)
+include(cmake/dependencies.cmake)
 
 set(target uiwrap)
 message(
