@@ -3,8 +3,8 @@
 #ifndef LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
 #define LANGUAGE_ID_CONVERT_H_idurghfzexnn24789sgh45
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "mb/ul/ul.hpp"

@@ -1,12 +1,12 @@
-#include "mb/uiwrap/linklib/library_interface.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/linklib/library_interface.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "impl_Qt/library_Qt.h"
+#include "impl_Qt/library_Qt.hpp"
 #elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
-#include "impl_/library_.h"
+#include "impl_/library_.hpp"
 #endif
 
 #include "mb/ul/ul.hpp"

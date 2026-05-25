@@ -4,10 +4,10 @@
 
 #ifndef MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
 #define MESSAGEBOX_QT_H_sidxgezwgfw76rn3x16
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 
-#include "mb/uiwrap/messagebox/messagebox.h"
+#include "mb/uiwrap/messagebox/messagebox.hpp"
 #include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QMessageBox"

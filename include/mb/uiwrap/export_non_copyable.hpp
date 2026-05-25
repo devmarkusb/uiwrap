@@ -3,7 +3,7 @@
 #ifndef UIWRAP_EXPORT_NON_COPYABLE_H_8f3k2m9q
 #define UIWRAP_EXPORT_NON_COPYABLE_H_8f3k2m9q
 
-#include "mb/uiwrap/uiwrapDEF.h"
+#include "mb/uiwrap/uiwrapDEF.hpp"
 
 namespace mb::uiw {
 class UIWRAPSHARED_EXPORT ExportNonCopyable {
