@@ -5,12 +5,12 @@
 #ifndef LIBRARY_QT_H_slkhgncioue8zn87tc3t2n87t
 #define LIBRARY_QT_H_slkhgncioue8zn87tc3t2n87t
 
-#include "uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
+#include "mb/uiwrap/linklib/library_interface.h"
+#include "mb/uiwrap/string/impl_Qt/stringconvert_Qt.h"
 #include "mb/ul/ul.hpp"
-#include "uiwrap/linklib/library_interface.h"
-#include "uiwrap/string/impl_Qt/stringconvert_Qt.h"
 
 #include "QLibrary"
 #include <memory>

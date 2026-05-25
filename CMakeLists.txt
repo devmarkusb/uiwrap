@@ -76,9 +76,10 @@ if(DEFINED UIW_DISABLE_NAMESPACE_ALIAS)
     )
 endif()
 set(UIW_DISABLE_NAMESPACE_ALIAS "${MB_UIWRAP_DISABLE_NAMESPACE_ALIAS}")
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/mb/uiwrap")
 configure_file(
-    ${PROJECT_SOURCE_DIR}/include/uiwrap/config_gen.h.in
-    ${PROJECT_BINARY_DIR}/uiwrap/config_gen.h
+    ${PROJECT_SOURCE_DIR}/include/mb/uiwrap/config_gen.h.in
+    ${PROJECT_BINARY_DIR}/mb/uiwrap/config_gen.h
 )
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
@@ -104,7 +105,7 @@ endif()
 
 configure_file(
     ${target_basename}_build_config.h.in
-    ${PROJECT_BINARY_DIR}/${target_basename}_build_config.h
+    ${PROJECT_BINARY_DIR}/mb/uiwrap/${target_basename}_build_config.h
 )
 
 target_include_directories(
@@ -143,7 +144,7 @@ endif()
 
 mb_devenv_set_target_defaults(${target})
 
-add_subdirectory(include/uiwrap)
+add_subdirectory(include/mb/uiwrap)
 add_subdirectory(src)
 
 if(NOT PROJECT_IS_TOP_LEVEL)

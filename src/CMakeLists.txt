@@ -10,7 +10,7 @@ set(sources
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     list(
         APPEND sources
-        "${PROJECT_SOURCE_DIR}/include/uiwrap/GUI/impl_Qt/qmlextlib.cpp"
+        "${PROJECT_SOURCE_DIR}/include/mb/uiwrap/GUI/impl_Qt/qmlextlib.cpp"
         filesys/impl_Qt/filesys_Qt.cpp
         messagebox/impl_Qt/MessageBox_Qt.cpp
         programsettings/impl_Qt/ProgSettings_Qt.cpp
@@ -33,7 +33,7 @@ include(mb-devenv-compile-check)
 mb_devenv_add_compile_check(
     mb.uiwrap.compile-check
     PRIVATE mb::uiwrap
-    HEADER "uiwrap/filesys/filesys.h"
+    HEADER "mb/uiwrap/filesys/filesys.h"
 )
 
 if(NOT MB_UIWRAP_BUILD_TESTS)

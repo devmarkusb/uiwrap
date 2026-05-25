@@ -1,5 +1,5 @@
-#include "uiwrap/messagebox/messagebox.h"
-#include "uiwrap_build_config.h"
+#include "mb/uiwrap/messagebox/messagebox.h"
+#include "mb/uiwrap/uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/MessageBox_Qt.h"
