@@ -5,13 +5,13 @@ on:
     paths: ["**/*.cpp", "**/*.hpp", "**/*.h", "cmake/**", "devenv/cmake/**",
             ".github/workflows/cppcheck.yml",
             "CppCheckSuppressions.txt", "devenv/.github/workflows/cppcheck.yml",
-            "devenv/run-cppcheck.sh"]
+            "devenv/scripts/run-cppcheck.sh"]
   push:
     branches: [main]
     paths: ["**/*.cpp", "**/*.hpp", "**/*.h", "cmake/**", "devenv/cmake/**",
             ".github/workflows/cppcheck.yml",
             "CppCheckSuppressions.txt", "devenv/.github/workflows/cppcheck.yml",
-            "devenv/run-cppcheck.sh"]
+            "devenv/scripts/run-cppcheck.sh"]
   schedule:
     - cron: "31 4 * * 0"
   workflow_dispatch:
