@@ -3,8 +3,8 @@
 #ifndef UTIL_H_sjkdfg34nizfxn437gt7834
 #define UTIL_H_sjkdfg34nizfxn437gt7834
 
-#include "../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 #include <string>
 
 namespace mb::uiw::util {

@@ -5,7 +5,7 @@
 #ifndef PROGSETTINGS_H_ieuhrngt783znt7238t87t3
 #define PROGSETTINGS_H_ieuhrngt783znt7238t87t3
 
-#include "mb/uiwrap/programsettings/programsettings.h"
+#include "mb/uiwrap/programsettings/programsettings.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 UL_WARNING_DISABLE_CLANG_ALL
 UL_WARNING_DISABLE_GCC(unused-local-typedefs)

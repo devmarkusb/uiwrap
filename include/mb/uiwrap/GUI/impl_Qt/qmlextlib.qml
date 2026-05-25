@@ -14,10 +14,10 @@
     GUI mode, you need to watch out for a pendant function *with* bool parameter.
 
     *Important* implementation note.
-        This file needs to always be kept in sync with its pendant qmlextlib.h
+        This file needs to always be kept in sync with its pendant qmlextlib.hpp
         file. Don't change it without checking it back to its source, which is
         <sdks>\uiwrap\include\uiwrap\GUI\impl_Qt\
-        (where qmlextlib.h is located as well)*/
+        (where qmlextlib.hpp is located as well)*/
 //! \file
 
 import QtQuick
@@ -65,7 +65,7 @@ QtObject {
     //####################################################################################################################
     // translation helper
     //! Just add 'qmlextlib.dynTr + ' in front of all of your 'qsTr("...")' occurrences (in front, for easier find&replace).
-    //! Cf. .h file for remaining part of doc.
+    //! Cf. .hpp file for remaining part of doc.
     //! This is the workaround (at least for Qt <= 5.7) to achieve dynamic translations in GUI for language switch.
     property string dynTr: ""
 

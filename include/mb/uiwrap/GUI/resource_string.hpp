@@ -3,8 +3,8 @@
 #ifndef RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
 #define RESOURCE_STRING_H_sjzbxgf3uin4fg2n97ytgfvn32y
 
-#include "resources.h"
-#include "../config.h"
+#include "resources.hpp"
+#include "../config.hpp"
 #include <string>
 
 namespace mb::uiw::gui {

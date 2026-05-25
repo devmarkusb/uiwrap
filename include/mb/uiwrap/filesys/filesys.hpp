@@ -3,9 +3,9 @@
 #ifndef FILESYS_H_xcsabgzduzbvfget32
 #define FILESYS_H_xcsabgzduzbvfget32
 
-#include "../config.h"
-#include "../export_non_copyable.h"
-#include "mb/uiwrap/uiwrapDEF.h"
+#include "../config.hpp"
+#include "../export_non_copyable.hpp"
+#include "mb/uiwrap/uiwrapDEF.hpp"
 #include "mb/ul/ul.hpp"
 #include <cstdint>
 #include <stdexcept>

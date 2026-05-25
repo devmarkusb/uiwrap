@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-./devenv/install-boost.sh --components property-tree
+boost_prefix="$(python3 ./devenv/install-boost.py --ensure --components property-tree --print-prefix-path)"
 
 git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/devmarkusb/util.git /tmp/mb-util
 cmake \
@@ -16,4 +16,4 @@ cmake \
 cmake --build /tmp/mb-util-build --parallel
 cmake --install /tmp/mb-util-build
 
-echo "CMAKE_PREFIX_PATH=/tmp/mb-util-install:${CMAKE_PREFIX_PATH:-}" >> "${GITHUB_ENV}"
+echo "CMAKE_PREFIX_PATH=/tmp/mb-util-install:${boost_prefix}:${CMAKE_PREFIX_PATH:-}" >> "${GITHUB_ENV}"

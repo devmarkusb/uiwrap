@@ -1,7 +1,7 @@
 #ifndef CONFIG_H_kjfngx8o3bg85g
 #define CONFIG_H_kjfngx8o3bg85g
 
-#include "mb/uiwrap/config_gen.h"
+#include "mb/uiwrap/config_gen.hpp"
 
 #if !UIW_DISABLE_NAMESPACE_ALIAS
 #define UIW_HEADER_END namespace uiw = mb::uiw;
