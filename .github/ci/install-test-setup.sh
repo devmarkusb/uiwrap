@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-boost_prefix="$(python3 ./devenv/install-boost.py --ensure --components property-tree --print-prefix-path)"
+boost_prefix="$(python3 ./devenv/scripts/install-boost.py --ensure --components property-tree --print-prefix-path)"
 
 git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/devmarkusb/util.git /tmp/mb-util
 cmake \

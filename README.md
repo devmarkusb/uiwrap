@@ -54,7 +54,7 @@ The **Qt** clang-tidy job uses **`qt_version: '6.9.3'`** (`jurplel/install-qt-ac
 
 Uses the non-Qt implementations and **Boost** (`find_package(Boost ... CONFIG)`), discovered via
 `CMAKE_PREFIX_PATH` or a normal Boost install layout. Locally:
-`python3 devenv/install-boost.py --ensure --print-prefix-path`.
+`python3 devenv/scripts/install-boost.py --ensure --print-prefix-path`.
 
 Public tuning:
 
