@@ -1,6 +1,9 @@
 # uiwrap library
 
-[![build](https://github.com/devmarkusb/uiwrap/actions/workflows/ci.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/ci.yml)
+[![CI status](https://github.com/devmarkusb/uiwrap/actions/workflows/ci.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/ci.yml)
+[![clang-tidy review status](https://github.com/devmarkusb/uiwrap/actions/workflows/clang-tidy.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/clang-tidy.yml)
+[![cppcheck status](https://github.com/devmarkusb/uiwrap/actions/workflows/cppcheck.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/cppcheck.yml)
+[![pre-commit check status](https://github.com/devmarkusb/uiwrap/actions/workflows/pre-commit-check.yml/badge.svg)](https://github.com/devmarkusb/uiwrap/actions/workflows/pre-commit-check.yml)
 
 A library to wrap and select an underlying (G)UI implementation
 of your choice.
