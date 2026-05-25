@@ -4,7 +4,7 @@
 #ifndef UIWRAPDEF_H_aibuxsgfnz342975ty31
 #define UIWRAPDEF_H_aibuxsgfnz342975ty31
 
-#include "mb/uiwrap/linklib/LINKLIB_DEFS.h"
+#include "mb/uiwrap/linklib/LINKLIB_DEFS.hpp"
 
 
 #ifdef UIWRAP_LIBRARY

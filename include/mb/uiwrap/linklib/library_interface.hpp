@@ -3,9 +3,9 @@
 #ifndef LIBRARY_INTERFACE_H_siuhxg378tzn3263
 #define LIBRARY_INTERFACE_H_siuhxg378tzn3263
 
-#include "../config.h"
-#include "../export_non_copyable.h"
-#include "mb/uiwrap/uiwrapDEF.h"
+#include "../config.hpp"
+#include "../export_non_copyable.hpp"
+#include "mb/uiwrap/uiwrapDEF.hpp"
 #include "mb/ul/ul.hpp"
 #include <memory>
 #include <string>

@@ -1,12 +1,12 @@
-#include "mb/uiwrap/messagebox/messagebox.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/messagebox/messagebox.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "impl_Qt/MessageBox_Qt.h"
+#include "impl_Qt/MessageBox_Qt.hpp"
 #elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
-#include "impl_/messagebox_.h"
+#include "impl_/messagebox_.hpp"
 #endif
 
 #include "mb/ul/ul.hpp"

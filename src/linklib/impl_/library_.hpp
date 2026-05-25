@@ -5,7 +5,7 @@
 #ifndef LIBRARY_H_kdnlfglknhcguewhgureihxrexq74
 #define LIBRARY_H_kdnlfglknhcguewhgureihxrexq74
 
-#include "mb/uiwrap/linklib/library_interface.h"
+#include "mb/uiwrap/linklib/library_interface.hpp"
 #include "mb/ul/ul.hpp"
 #include <string>
 

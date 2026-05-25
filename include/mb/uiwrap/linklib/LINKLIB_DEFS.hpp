@@ -3,11 +3,11 @@
     (1) In the build configuration of your library define sth. like YOURLIB_LIBRARY. This is
     the indicator, that a library should be built from the code. Of course you don't do this in
     the application which later uses the library.
-    (2) Within your library code base create your own YourlibDEF.h among the shared include subdir
+    (2) Within your library code base create your own YourlibDEF.hpp among the shared include subdir
     which includes this file here and place your own library import/export define in there like
     \code
     // ...don't forget include guard...
-    #include "mb/uiwrap/linklib/LINKLIB_DEFS.h"
+    #include "mb/uiwrap/linklib/LINKLIB_DEFS.hpp"
     #if defined(YOURLIB_LIBRARY)
     #define YOURLIBSHARED_EXPORT    UIW_DECL_EXPORT
     #else
@@ -15,19 +15,19 @@
     #endif
     \endcode
     // ...
-    (3) Include your YourlibDEF.h into all your library headers that export things and ought to be used
-    from the outside, too. Of course, if you have only one header to share, you can put the code of YourlibDEF.h
+    (3) Include your YourlibDEF.hpp into all your library headers that export things and ought to be used
+    from the outside, too. Of course, if you have only one header to share, you can put the code of YourlibDEF.hpp
     right into there and spare that additional header.
     (4) Exporting things then goes like this:
     \code
-    #include "YourlibDEF.h"
+    #include "YourlibDEF.hpp"
     class YOURLIBSHARED_EXPORT CExample {...};
     YOURLIBSHARED_EXPORT inline void f(...) {...}
     YOURLIBSHARED_EXPORT void g(...);
     YOURLIBSHARED_EXPORT int i;
     \endcode
     (5) Remark: Do not use a DllMain function. This is Windows-only.
-    (6) Important additional configuration of this LINKLIB_DEFS.h:
+    (6) Important additional configuration of this LINKLIB_DEFS.hpp:
     compile define the following:
     UIW_LINKLIB_IMPL_CHOICE_<which?>
     where <which?> is one of
@@ -47,7 +47,7 @@
         2. Make sure the library header exports its symbols with UIW_EXTERN_C_DECLS.
         To some extend it seems to be even possible to export namespace content and STL stuff.
         If there is no UIW_EXTERN_C_DECLS, the symbol cannot be binded late.
-        3. From your application use ILibrary from library_interface.h by starting with a make() function call,
+        3. From your application use ILibrary from library_interface.hpp by starting with a make() function call,
         which already tries to load the library if a file name is provided.
         4. Note: use function pointers for symbol resolving. A redirection via std::function doesn't help much, since
         there is no equivalence std::function* <-> function pointer.
@@ -57,7 +57,7 @@
 #ifndef LINKLIB_DEFS_H_jkdhngicuheiwux5hgn84whn8w3gt3
 #define LINKLIB_DEFS_H_jkdhngicuheiwux5hgn84whn8w3gt3
 
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 #include "mb/ul/buildenv/macros.hpp"
 
 
@@ -70,11 +70,11 @@ UIW_LINKLIB_IMPL_CHOICE_QT,
 UIW_LINKLIB_IMPL_CHOICE_WX,
 */
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "impl_Qt/LINKLIB_DEFS_Qt.h"
+#include "impl_Qt/LINKLIB_DEFS_Qt.hpp"
 #elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
-#include "impl_/LINKLIB_DEFS_.h"
+#include "impl_/LINKLIB_DEFS_.hpp"
 #endif
 
 

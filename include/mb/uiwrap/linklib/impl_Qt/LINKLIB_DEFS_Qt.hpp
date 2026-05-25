@@ -3,7 +3,7 @@
 #ifndef LINKLIB_DEFS_QT_H_skdhoikmhcnvncynmxcof78s7
 #define LINKLIB_DEFS_QT_H_skdhoikmhcnvncynmxcof78s7
 
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "QtCore/QtGlobal"

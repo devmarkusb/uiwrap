@@ -1,11 +1,11 @@
-#include "mb/uiwrap/programsettings/programsettings.h"
+#include "mb/uiwrap/programsettings/programsettings.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "impl_Qt/ProgSettings_Qt.h"
+#include "impl_Qt/ProgSettings_Qt.hpp"
 #elifdef UIW_LINKLIB_IMPL_CHOICE_WX
 static_assert(false, "not implemented");
 #else
-#include "impl_/ProgSettings_.h"
+#include "impl_/ProgSettings_.hpp"
 #endif
 
 #include "mb/ul/ul.hpp"

@@ -13,8 +13,8 @@
 #ifndef CONVERT_QT_H_djkghuinx478gn4289gf32
 #define CONVERT_QT_H_djkghuinx478gn4289gf32
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "mb/ul/ul.hpp"

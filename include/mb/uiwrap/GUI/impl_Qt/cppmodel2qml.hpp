@@ -3,8 +3,8 @@
 #ifndef CPPMODEL2QML_H_dfljkghx4782tgh378g1
 #define CPPMODEL2QML_H_dfljkghx4782tgh378g1
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "mb/ul/ul.hpp"

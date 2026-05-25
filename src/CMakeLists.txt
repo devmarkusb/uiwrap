@@ -1,4 +1,4 @@
-file(GLOB_RECURSE private_headers CONFIGURE_DEPENDS "*.h")
+file(GLOB_RECURSE private_headers CONFIGURE_DEPENDS "*.hpp")
 
 set(sources
     filesys/filesys.cpp
@@ -33,7 +33,7 @@ include(mb-devenv-compile-check)
 mb_devenv_add_compile_check(
     mb.uiwrap.compile-check
     PRIVATE mb::uiwrap
-    HEADER "mb/uiwrap/filesys/filesys.h"
+    HEADER "mb/uiwrap/filesys/filesys.hpp"
 )
 
 if(NOT MB_UIWRAP_BUILD_TESTS)

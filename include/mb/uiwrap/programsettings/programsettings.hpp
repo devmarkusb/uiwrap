@@ -3,10 +3,10 @@
 #ifndef PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
 #define PROGRAMSETTINGS_H_skzhfisxfuxskydfnixusgfiwz
 
-#include "../config.h"
-#include "../export_non_copyable.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
-#include "mb/uiwrap/uiwrapDEF.h"
+#include "../config.hpp"
+#include "../export_non_copyable.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
+#include "mb/uiwrap/uiwrapDEF.hpp"
 #include "mb/ul/ul.hpp"
 
 #include <cstdint>

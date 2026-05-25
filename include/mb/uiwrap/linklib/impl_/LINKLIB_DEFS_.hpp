@@ -3,7 +3,7 @@
 #ifndef LINKLIB_DEFS_H_sjdnxfzuergf3ui7yt83gzf7r87wr
 #define LINKLIB_DEFS_H_sjdnxfzuergf3ui7yt83gzf7r87wr
 
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 #include "mb/ul/buildenv/macros.hpp"
 
 

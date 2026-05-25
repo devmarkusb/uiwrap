@@ -1,5 +1,5 @@
-#include "filesys_Qt.h"
-#include "mb/uiwrap/string/impl_Qt/stringconvert_Qt.h"
+#include "filesys_Qt.hpp"
+#include "mb/uiwrap/string/impl_Qt/stringconvert_Qt.hpp"
 #include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QCoreApplication"

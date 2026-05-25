@@ -2,19 +2,23 @@
 
 //! \file
 
-#ifndef FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
-#define FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
+#ifndef FILESYS_H_dklzuix3xh8734xr387x2xt35g269x5tgf
+#define FILESYS_H_dklzuix3xh8734xr387x2xt35g269x5tgf
 
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "mb/uiwrap/filesys/filesys.hpp"
+#include "mb/uiwrap/uiwrapDEF.hpp"
+#include "mb/ul/ul.hpp"
+#include <string>
 
-#ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "mb/uiwrap/filesys/filesys.h"
-#include "mb/uiwrap/uiwrapDEF.h"
 
-class QFile;
+#if UL_OS_WINDOWS == 1
+#undef CopyFile
+#undef DeleteFile
+#endif
 
-namespace mb::uiw::implQt {
-class UIWRAPSHARED_EXPORT CFileSys_Qt : public uiw::file::IFileSys {
+
+namespace mb::uiw::impl {
+class UIWRAPSHARED_EXPORT CFileSys_ : public uiw::IFileSys {
 public:
     bool saveToTextFile(const std::string& filePathNameExt, const std::string& content) override;
     bool loadFromTextFile(const std::string& filePathNameExt, std::string& content) const override;
@@ -28,18 +32,18 @@ public:
     bool fileExists(const std::string& filePathNameExt) const override;
     bool isFile(const std::string& filePathNameExt) const override;
 
-    std::string toNativeSeparators(const std::string& path) const override;
+    std::string toNativeSeparators(const std::string& Path) const override;
 
     std::string getSystemPath(ESysPathType type, bool withTrailingSeparator) const override;
 
     std::string getErrorOfLatestCall() const override;
 
 private:
+    UL_PRAGMA_WARNINGS_PUSH
+    UL_WARNING_DISABLE_MSVC(4'251)
     mutable std::string latestError;
-
-    void setFileOpErrorStr(const QFile& f, const std::string& op, const std::string& info = {}) const;
+    UL_PRAGMA_WARNINGS_POP
 };
-} // namespace mb::uiw::implQt
+} // namespace mb::uiw::impl
 
-#endif // UIW_LINKLIB_IMPL_CHOICE_QT
 #endif

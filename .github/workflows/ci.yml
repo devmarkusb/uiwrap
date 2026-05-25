@@ -104,5 +104,5 @@ jobs:
       image: ghcr.io/bemanproject/infra-containers-gcc:latest
       cxx_standard: 26
       namespace: mb
-      include_header: mb/uiwrap/filesys/filesys.h
+      include_header: mb/uiwrap/filesys/filesys.hpp
       setup_script: .github/ci/install-test-setup.sh

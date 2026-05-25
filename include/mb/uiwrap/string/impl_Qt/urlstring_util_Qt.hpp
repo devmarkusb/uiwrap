@@ -3,8 +3,8 @@
 #ifndef URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f
 #define URLSTRING_UTIL_QT_H_sduigfxn3r7ngf27823f
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "mb/ul/ul.hpp"

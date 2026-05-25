@@ -12,7 +12,7 @@
             file here,
         (3) the ugliest step: add this file to your projects compilation list, such that it's getting moc'ed.
             So for CMake you might add
-            sdks/uiwrap/include/mb/uiwrap/GUI/impl_Qt/qmlextlib.h
+            sdks/uiwrap/include/mb/uiwrap/GUI/impl_Qt/qmlextlib.hpp
             to the Qt specific sources that finally make up your target.
 
     Equally important impl. note: Of course qmlextlib.qml/h need to be kept in sync always.
@@ -24,13 +24,13 @@
 #ifndef QMLEXTLIB_H_eruigx4zgf783427g578sth378g
 #define QMLEXTLIB_H_eruigx4zgf783427g578sth378g
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "mb/uiwrap/filesys/filesys.h"
-#include "mb/uiwrap/string/impl_Qt/stringconvert_Qt.h"
-#include "mb/uiwrap/string/impl_Qt/urlstring_util_Qt.h"
+#include "mb/uiwrap/filesys/filesys.hpp"
+#include "mb/uiwrap/string/impl_Qt/stringconvert_Qt.hpp"
+#include "mb/uiwrap/string/impl_Qt/urlstring_util_Qt.hpp"
 #include "mb/ul/ul.hpp"
 UL_PRAGMA_WARNINGS_PUSH_AND_DISABLE_ALL_MSVC
 #include "QDir"

@@ -3,8 +3,8 @@
 #ifndef STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
 #define STRINGCONVERT_QT_H_isadfnyiwungsfuzwigqf3
 
-#include "../../config.h"
-#include "mb/uiwrap/uiwrap_build_config.h"
+#include "../../config.hpp"
+#include "mb/uiwrap/uiwrap_build_config.hpp"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "mb/ul/ul.hpp"

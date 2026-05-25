@@ -3,7 +3,7 @@
 #ifndef RESOURCES_H_sngfxzgunyfz73i6rg4yrgfn3f723gfv4f
 #define RESOURCES_H_sngfxzgunyfz73i6rg4yrgfn3f723gfv4f
 
-#include "../config.h"
+#include "../config.hpp"
 #include <string>
 
 namespace mb::uiw::gui {
