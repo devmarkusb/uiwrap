@@ -57,7 +57,7 @@ CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`./devenv/.github
 
 | Path | Role |
 |------|------|
-| `include/uiwrap/` | Public headers; `config_gen.h` is **generated** from `config_gen.h.in` — do not hand-edit the generated file. |
+| `include/mb/uiwrap/` | Public headers; `config_gen.h` is **generated** from `config_gen.h.in` — do not hand-edit the generated file. |
 | `src/` | Implementation; `impl_Qt/`, `impl_/`, etc. |
 | `cmake_util/util.cmake` | FetchContent for **mb.util** on **`main`**; skip when **`TARGET mb.util`** already exists. |
 | `CMakeLists.txt` | Library target `uiwrap`, optional `uiwrapTest`, implementation switch. |
@@ -67,7 +67,7 @@ CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`./devenv/.github
 - **C++:** **C++23** for this library (mb.util needs C++20+); Qt 6 as required by linked modules.
 - **Namespaces:** primary **`mb::uiw::`** (see `MB_UIWRAP_DISABLE_NAMESPACE_ALIAS` / `config_gen.h.in`).
 - **Headers:** include guards like `#ifndef FILESYS_H_...` (not `#pragma once`) in existing style.
-- **Implementation selection:** respect `UIW_LINKLIB_IMPL_CHOICE_*` / `uiwrap_build_config.h` patterns already used in `.cpp` dispatch files.
+- **Implementation selection:** respect `UIW_LINKLIB_IMPL_CHOICE_*` / `mb/uiwrap/uiwrap_build_config.h` patterns already used in `.cpp` dispatch files.
 - **Qt:** prefer existing patterns in `impl_Qt/`; keep GUI-agnostic contracts in public headers where possible.
 
 ## 7. Testing expectations
@@ -78,7 +78,7 @@ CI (`.github/workflows/ci.yml`): preset and matrix jobs call **`./devenv/.github
 ## 8. Files and directories agents must not edit without explicit approval
 
 - **`LICENSE`** — legal text.
-- **Generated / configured outputs:** `include/uiwrap/config_gen.h` (output of `configure_file`; edit `.in` instead).
+- **Generated / configured outputs:** `include/mb/uiwrap/config_gen.h` (output of `configure_file`; edit `.in` instead).
 - **Upstream-only or policy-sensitive:** changing **`cmake_util/util.cmake`** FetchContent URL/tag affects reproducibility and supply chain — discuss before pinning away from `main`.
 - **Do not** add secrets, signing material, or production credentials to this repo.
 

@@ -1,5 +1,5 @@
-#include "uiwrap_build_config.h"
-#include "uiwrap/linklib/library_interface.h"
+#include "mb/uiwrap/linklib/library_interface.h"
+#include "mb/uiwrap/uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/library_Qt.h"

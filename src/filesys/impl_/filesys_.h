@@ -5,8 +5,8 @@
 #ifndef FILESYS_H_dklzuix3xh8734xr387x2xt35g269x5tgf
 #define FILESYS_H_dklzuix3xh8734xr387x2xt35g269x5tgf
 
-#include "uiwrap/filesys/filesys.h"
-#include "uiwrapDEF.h"
+#include "mb/uiwrap/filesys/filesys.h"
+#include "mb/uiwrap/uiwrapDEF.h"
 #include "mb/ul/ul.hpp"
 #include <string>
 

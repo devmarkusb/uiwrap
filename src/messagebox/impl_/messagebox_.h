@@ -5,7 +5,7 @@
 #ifndef MESSAGEBOX_H_skdljfh7ex5n7xt3
 #define MESSAGEBOX_H_skdljfh7ex5n7xt3
 
-#include "uiwrap/messagebox/messagebox.h"
+#include "mb/uiwrap/messagebox/messagebox.h"
 #include "mb/ul/ul.hpp"
 #include <optional>
 
