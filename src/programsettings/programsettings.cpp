@@ -1,4 +1,4 @@
-#include "uiwrap/programsettings/programsettings.h"
+#include "mb/uiwrap/programsettings/programsettings.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
 #include "impl_Qt/ProgSettings_Qt.h"

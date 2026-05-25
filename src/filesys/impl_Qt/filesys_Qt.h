@@ -5,11 +5,11 @@
 #ifndef FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
 #define FILESYS_QT_H_sidnfgzgxfw746rn67gfqxw3gxfb7gwx
 
-#include "uiwrap_build_config.h"
+#include "mb/uiwrap/uiwrap_build_config.h"
 
 #ifdef UIW_LINKLIB_IMPL_CHOICE_QT
-#include "uiwrapDEF.h"
-#include "uiwrap/filesys/filesys.h"
+#include "mb/uiwrap/filesys/filesys.h"
+#include "mb/uiwrap/uiwrapDEF.h"
 
 class QFile;
 
