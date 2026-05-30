@@ -151,7 +151,9 @@ if(NOT PROJECT_IS_TOP_LEVEL)
     set(MB_UIWRAP_INSTALL_CONFIG_FILE_PACKAGE OFF CACHE BOOL "" FORCE)
 endif()
 
-mb_devenv_install_library(${target})
+if(PROJECT_IS_TOP_LEVEL)
+    mb_devenv_install_library(${target})
+endif()
 
 set(${target}_INCLUDE_DIRS
     ${PROJECT_SOURCE_DIR}/include
