@@ -7,6 +7,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   preset-test:
     uses: devmarkusb/devenv/.github/workflows/preset-test.yml@main
@@ -106,3 +109,17 @@ jobs:
       namespace: mb
       include_header: mb/uiwrap/filesys/filesys.hpp
       setup_script: .github/ci/install-test-setup.sh
+
+  dependabot-automerge:
+    needs:
+      - preset-test
+      - build-and-test
+      - install-test
+    permissions:
+      contents: write
+      pull-requests: write
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.user.login == 'dependabot[bot]' &&
+      !github.event.pull_request.draft
+    uses: devmarkusb/devenv/.github/workflows/dependabot-automerge.yml@main
