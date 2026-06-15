@@ -1,28 +1,36 @@
 #include "messagebox_.hpp"
 
 namespace mb::uiw::impl {
-void MessageBox::addButton(EButton) {
+void MessageBox::addButton(EButton b) {
+    ul::ignore_unused(b);
 }
 
-void MessageBox::setDefaultButton(EButton) {
+void MessageBox::setDefaultButton(EButton b) {
+    ul::ignore_unused(b);
 }
 
-void MessageBox::setEscapeButton(EButton) {
+void MessageBox::setEscapeButton(EButton b) {
+    ul::ignore_unused(b);
 }
 
-void MessageBox::setWindowTitle(const std::string&) {
+void MessageBox::setWindowTitle(const std::string& s) {
+    ul::ignore_unused(s);
 }
 
-void MessageBox::setCaption(const std::string&) {
+void MessageBox::setCaption(const std::string& s) {
+    ul::ignore_unused(s);
 }
 
-void MessageBox::setText(const std::string&) {
+void MessageBox::setText(const std::string& s) {
+    ul::ignore_unused(s);
 }
 
-void MessageBox::setDetailedText(const std::string&) {
+void MessageBox::setDetailedText(const std::string& s) {
+    ul::ignore_unused(s);
 }
 
-void MessageBox::setIcon(EIcon) {
+void MessageBox::setIcon(EIcon i) {
+    ul::ignore_unused(i);
 }
 
 void MessageBox::runModal() {

@@ -103,7 +103,8 @@ bool CFileSys_::fileExists(const std::string& filePathNameExt) const {
     return static_cast<bool>(file);
 }
 
-bool CFileSys_::isFile(const std::string&) const {
+bool CFileSys_::isFile(const std::string& filePathNameExt) const {
+    ul::ignore_unused(filePathNameExt);
     throw ul::NotImplemented{"isFile"};
 }
 
