@@ -63,7 +63,7 @@ target_sources(mb.uiwrap.test PRIVATE ${test_sources})
 target_include_directories(mb.uiwrap.test PRIVATE "${PROJECT_SOURCE_DIR}")
 target_link_libraries(mb.uiwrap.test PRIVATE GTest::gtest_main mb::uiwrap)
 mb_devenv_set_target_essentials(mb.uiwrap.test)
-gtest_discover_tests(mb.uiwrap.test)
+gtest_discover_tests(mb.uiwrap.test DISCOVERY_TIMEOUT 60)
 
 if(MB_UIWRAP_USE_IMPLEMENTATION STREQUAL "qt")
     mb_ul_include(qt-deploy.cmake)

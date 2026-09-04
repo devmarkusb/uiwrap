@@ -144,6 +144,22 @@ endif()
 
 mb_devenv_set_target_defaults(${target})
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND NOT ANDROID)
+    include(CheckCXXCompilerFlag)
+    foreach(
+        warning_flag
+        -Wno-unsafe-buffer-usage
+        -Wno-lifetime-safety-invalidation
+        -Wno-lifetime-safety-intra-tu-suggestions
+    )
+        string(MAKE_C_IDENTIFIER "HAS_${warning_flag}" var_name)
+        check_cxx_compiler_flag("${warning_flag}" ${var_name})
+        if(${var_name})
+            target_compile_options(${target} PUBLIC ${warning_flag})
+        endif()
+    endforeach()
+endif()
+
 add_subdirectory(include/mb/uiwrap)
 add_subdirectory(src)
 
