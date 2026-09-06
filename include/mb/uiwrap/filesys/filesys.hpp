@@ -98,8 +98,8 @@ public:
 };
 } // namespace file
 
-using IFileSys = file::IFileSys;
-using IFileData = file::IFileData;
+using file::IFileData;
+using file::IFileSys;
 } // namespace mb::uiw
 
 UIW_HEADER_END

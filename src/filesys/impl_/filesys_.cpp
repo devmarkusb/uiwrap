@@ -118,12 +118,8 @@ std::string CFileSys_::toNativeSeparators(const std::string& Path) const {
 std::string CFileSys_::getSystemPath(uiw::file::IFileSys::ESysPathType type, bool withTrailingSeparator) const {
     this->latestError.clear();
     std::string ret;
-    switch (type) {
-        case ESysPathType::APPDATA_writable:
-            ret = std::filesystem::temp_directory_path().string();
-            break;
-        default:
-            break;
+    if (type == ESysPathType::APPDATA_writable) {
+        ret = std::filesystem::temp_directory_path().string();
     }
     this->latestError = "not implemented";
     if (withTrailingSeparator) {
